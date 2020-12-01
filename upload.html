@@ -1,0 +1,60 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #drop_zone {
+        width: 350px;
+        height: 70px;
+        padding: 10px;
+        border: 1px solid #aaaaaa;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- The `multiple` attribute lets users select multiple files. -->
+    <div id="drop_zone" draggable="true">
+      <p>Drag one or more files to this Drop Zone ...</p>
+    </div>
+    <input type="file" id="file-selector" accept=".har" />
+    <script>
+      let fileHandle;
+      var fileSelector = document.getElementById("file-selector");
+      fileSelector.addEventListener("click", async () => {
+        event.preventDefault();
+        [fileHandle] = await window.showOpenFilePicker();
+        const file = await fileHandle.getFile();
+        const contents = await file.text();
+        var co = contents;
+        console.log(co);
+      });
+      var drop_zone = document.getElementById("drop_zone");
+      drop_zone.addEventListener("dragover", (e) => {
+        // Prevent navigation.
+        e.preventDefault();
+      });
+      drop_zone.addEventListener("drop", async (e) => {
+        // Prevent navigation.
+        e.preventDefault();
+        // Process all of the items.
+        for (const item of e.dataTransfer.items) {
+          if (item.kind === "file") {
+            const entry = await item.getAsFileSystemHandle();
+            if (entry.kind === "directory") {
+              handleDirectoryEntry(entry);
+              {
+                console.log("Directory");
+              }
+            } else {
+              handleFileEntry(entry);
+              {
+                console.log("File");
+              }
+            }
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,134 @@
+* {
+  margin: auto;
+  text-decoration: none;
+}
+
+a {
+  color: #cc0000;
+}
+a:visited {
+  color: inherit;
+}
+
+body {
+  background-color: #0d0e0e;
+  color: #b5b5b5;
+}
+
+h2 {
+  color: #cc0000;
+}
+#main-header {
+  color: #cc0000;
+  background-color: #0d0e0e;
+  text-align: center;
+  margin: auto;
+}
+
+.container {
+  width: 80%;
+  margin: auto;
+  overflow: hidden;
+}
+
+.img_pos {
+  text-align: center;
+}
+
+.buttons {
+  text-align: center;
+}
+
+.Register {
+  background-color: #444444;
+  border-radius: 28px;
+  border: 1px solid #cc0000;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Arial;
+  font-size: 17px;
+  padding: 16px 31px;
+}
+
+.Register:hover {
+  background-color: #000000;
+  color: #cc0000;
+}
+.Register:active {
+  position: relative;
+  top: 1px;
+}
+
+.Log-In {
+  background-color: #444444;
+  border-radius: 28px;
+  border: 1px solid #cc0000;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Arial;
+  font-size: 17px;
+  padding: 16px 31px;
+}
+
+.Log-In:hover {
+  background-color: #000000;
+  color: #cc0000;
+}
+.Log-In:active {
+  position: relative;
+  top: 1px;
+}
+
+.my-form {
+  text-align: center;
+  padding: 20px;
+}
+
+.form-group {
+  padding-bottom: 30px;
+  color: #cc0000;
+}
+
+.form-group active {
+  border-color: #cc0000;
+}
+
+.my-form {
+  display: block;
+}
+
+.my-form:focus {
+  display: block;
+  border-color: #cc0000;
+}
+
+.my-form input {
+  padding: 8px;
+  width: 100%;
+  color: #ffffff;
+  background-color: #444444;
+  border-color: #444444;
+}
+
+.my-form input:hover {
+  background-color: #000000;
+  color: #cc0000;
+  border-color: #cc0000;
+}
+
+.wrapper {
+  position: absolute;
+  top: 22%;
+  right: 0;
+  left: 0;
+  border-color: #cc0000;
+}
+
+.Sign-up:visited {
+  color: #cc0000;
+}
+input {
+  outline: none;
+}
