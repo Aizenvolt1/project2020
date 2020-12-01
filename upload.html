@@ -35,7 +35,6 @@
         e.preventDefault();
       });
       drop_zone.addEventListener("drop", async (e) => {
-        // Prevent navigation.
         e.preventDefault();
         for (const item of e.dataTransfer.items) {
           if (item.kind === "file") {
