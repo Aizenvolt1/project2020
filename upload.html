@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <style>
-      #drop_zone {
+      #drop_area {
         width: 350px;
         height: 70px;
         padding: 10px;
@@ -13,43 +13,57 @@
     </style>
   </head>
   <body>
-    <div id="drop_zone" draggable="true">
+    <div id="drop_area" draggable="true">
       <p>Drag one or more files to this Drop Zone ...</p>
     </div>
-    <input type="file" id="file-selector" accept=".har" />
+    <input
+      type="file"
+      multiple
+      id="input"
+      style="display: none"
+      accept=".har"
+    />
+    <button>Upload File</button>
     <script>
-      let fileHandle;
-      var fileSelector = document.getElementById("file-selector");
-      fileSelector.addEventListener("click", async () => {
+      "use strict";
+      const fileInput = document.getElementById("input");
+      const button = document.querySelector("button");
+      button.onclick = () => {
+        fileInput.click();
+      };
+      fileInput.onchange = () => {
+        const selectedFiles = [...fileInput.files];
+        var file = document.getElementById("input").files[0];
+        console.log(selectedFiles);
+        console.log(file);
+      };
+      const dropArea = document.getElementById("drop_area");
+      dropArea.addEventListener("dragover", (event) => {
+        event.stopPropagation();
         event.preventDefault();
-        [fileHandle] = await window.showOpenFilePicker();
-        const file = await fileHandle.getFile();
-        const contents = await file.text();
-        var co = contents;
-        console.log(co);
+        // Style the drag-and-drop as a "copy file" operation.
+        event.dataTransfer.dropEffect = "copy";
       });
-      var drop_zone = document.getElementById("drop_zone");
-      drop_zone.addEventListener("dragover", (e) => {
-        e.preventDefault();
-      });
-      drop_zone.addEventListener("drop", async (e) => {
-        e.preventDefault();
-        for (const item of e.dataTransfer.items) {
-          if (item.kind === "file") {
-            const entry = await item.getAsFileSystemHandle();
-            if (entry.kind === "directory") {
-              handleDirectoryEntry(entry);
-              {
-                console.log("Directory");
-              }
-            } else {
-              handleFileEntry(entry);
-              {
-                console.log("File");
-              }
-            }
+
+      dropArea.addEventListener("drop", (event) => {
+        event.stopPropagation();
+        event.preventDefault();
+        const fileList = event.dataTransfer.files;
+        console.log(fileList[0]);
+        let fileInputControl = event.target;
+
+        let fileReader = new FileReader();
+        fileReader.onload = function (event) {
+          let fileContents = event.target.result;
+          console.log(fileContents);
+        };
+        var a = fileReader.readAsText(fileList[0]);
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+          if (this.readyState == 4 && this.status == 200) {
+            console.log(JSON.string(a));
           }
-        }
+        };
       });
     </script>
   </body>
