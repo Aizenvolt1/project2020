@@ -1,9 +1,10 @@
 <?php
 $url=null;
-$test=json_decode(file_get_contents("./extracted_zip_files/gamerwelfare.com.har"));
+$test=json_decode(file_get_contents("./extracted_zip_files/uploads_gamerwelfarecom_Archive [20-11-27 19-03-56].har"));
 
 $startedDateTimes = array();
-
+$serverIPAddress = array();
+/*
 foreach($test->log->entries as $row)
 {
   array_push($startedDateTimes,$row->startedDateTime);
@@ -12,7 +13,28 @@ foreach($test->log->entries as $row)
 foreach($startedDateTimes as $row)
 {
   echo $row . "<br>";
+}*/
+
+foreach($test->log->entries as $row)
+{
+  if(isset($row->serverIPAddress))
+  {
+    array_push($serverIPAddress,$row->serverIPAddress);
+    echo $row->serverIPAddress;
+  }
+  else
+  {
+    array_push($serverIPAddress,null);
+  }
 }
+/*
+foreach($serverIPAddress as $row)
+{
+  echo $row;
+}
+*/
+
+
 
 /*
 foreach($test->log->entries as $row)
@@ -20,10 +42,7 @@ foreach($test->log->entries as $row)
 echo $row->timings->wait . "<br>";
 }
 
-foreach($test->log->entries as $row)
-{
-echo $row->serverIPAddress . "<br>";
-}
+
 
 foreach($test->log->entries as $row)
 {
