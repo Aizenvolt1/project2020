@@ -4,7 +4,7 @@ session_start();
 
 require_once "config.php";
 // Directory to upload
-$target_dir = "uploads.json/";
+$target_dir = './uploads_';
 // File Path
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 // Extension
@@ -34,7 +34,7 @@ if ($uploadOk === 0) {
     echo "Sorry, your file was not uploaded.";
 // If everything is ok, try to upload files
 } else {
-    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_dir)) {
+    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
         echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded." . "<br>";
         $sql = "INSERT INTO user_files (user_id, file_name) VALUES (?, ?)";
         if ($stmt = mysqli_prepare($conn, $sql)){
@@ -69,7 +69,7 @@ if ($uploadOk === 0) {
 </head>
 <body>
     <p>
-        <a href="login.php" class="btn btn-primary">Go Back</a>
+        <a href="har-reader.php" class="btn btn-primary">Go Back</a>
     </p>
 </body>
 </html>
