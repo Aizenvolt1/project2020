@@ -36,9 +36,8 @@ if ($uploadOk === 0) {
 } else {
     if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_dir)) {
         echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded." . "<br>";
-        echo $_SESSION["id"];
-        $sql = "INSERT INTO user_files (file_number, user_id, file_name) VALUES (100, 1, 'hello')";
-        /*if ($stmt = mysqli_prepare($conn, $sql)){
+        $sql = "INSERT INTO user_files (user_id, file_name) VALUES (?, ?)";
+        if ($stmt = mysqli_prepare($conn, $sql)){
             // Bind variables to the prepared statement as parameters
             mysqli_stmt_bind_param($stmt, "is", $param_userID, $param_fileName);
             $param_userID = $_SESSION["id"];
@@ -49,10 +48,9 @@ if ($uploadOk === 0) {
             } else {
                 echo "Something went wrong. Please try again later.";
             }
-
             // Close statement
             mysqli_stmt_close($stmt);
-        }*/
+        }
     } else {
         echo "Sorry, there was an error uploading your file.";
     }
