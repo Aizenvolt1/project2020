@@ -1,7 +1,7 @@
 
 <?php
 session_start();
-//sxolio
+
 require_once "config.php";
 // Directory to upload
 $target_dir = "uploads.json/";
