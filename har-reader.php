@@ -1,4 +1,3 @@
-  
 <?php
 session_start();
 require_once "config.php";
@@ -72,7 +71,7 @@ if (mysqli_num_rows($result) > 0) {
       foreach($timings as $i)
       {
         //echo $row["file_name"] . " " . $i . "<br>";
-    
+      }
 
       //Request: methods
       unset($requestMethods);
@@ -183,17 +182,17 @@ if (mysqli_num_rows($result) > 0) {
 } else {
   echo "0 results";
 }
-
 /*
 foreach($test->log->entries as $row)
 {
 echo $row->response->status . "<br>";
 }
+
 foreach($test->log->entries as $row)
 {
 echo $row->response->statusText . "<br>";
 }
-master
+
 foreach($test->log->entries as $row)
 {
   foreach($row->response->headers as $srow)
@@ -204,6 +203,7 @@ foreach($test->log->entries as $row)
     }
   }
 }
+
 foreach($test->log->entries as $row)
 {
   foreach($row->response->headers as $srow)
@@ -214,6 +214,7 @@ foreach($test->log->entries as $row)
     }
   }
 }
+
 foreach($test->log->entries as $row)
 {
   foreach($row->response->headers as $srow)
@@ -224,6 +225,7 @@ foreach($test->log->entries as $row)
     }
   }
 }
+
 foreach($test->log->entries as $row)
 {
   foreach($row->response->headers as $srow)
@@ -234,6 +236,7 @@ foreach($test->log->entries as $row)
     }
   }
 }
+
 foreach($test->log->entries as $row)
 {
   foreach($row->response->headers as $srow)
