@@ -5,7 +5,9 @@ require_once "config.php";
 $url=null;
 $data = array();
 $b = "uploads_";
-$sql = "SELECT * FROM user_files WHERE user_id=1";
+$d="";
+$counter = 0;
+$sql = "SELECT * FROM user_files WHERE user_id=$_SESSION[id]";
 $result = mysqli_query($conn, $sql);
 if (mysqli_num_rows($result) > 0) {
   while($row = mysqli_fetch_assoc($result)) {
@@ -13,24 +15,51 @@ if (mysqli_num_rows($result) > 0) {
       $a = "";
       $a = $b . $row["file_name"];
       $c = "";
+      $counter = 0;
       $test=json_decode(file_get_contents($a));
-
+      $sql = "INSERT INTO file_number_data (file_number) VALUES ('$row[file_number]')";
+      if ($conn->query($sql) === TRUE) {
+        echo "";
+      } else {
+        echo "Error updating record: " . $conn->error;
+      }
       unset($data);
       $data = array();
       //Entries: StartedDateTimes
+      $d="";
       foreach($test->log->entries as $i)
       {
-        if (isset($i->data)){
+        if (isset($i->startedDateTime)){
           array_push($data,$i->startedDateTime);
+          $counter++;
         }
         else{
           array_push($data,null);
+          $counter++;
         }
       }
+      $sql = "UPDATE file_number_data SET startedDateTime_num='$counter' WHERE file_number='$row[file_number]'";
+      if ($conn->query($sql) === TRUE) {
+        echo "";
+      } else {
+        echo "Error updating record: " . $conn->error;
+      }
+      $counter = 0;
       foreach($data as $i)
       {
-        //echo $row["file_name"] . " " . $i . "<br>";
+        $counter++;
+        preg_match('/(\d*)-(\d*)-(\d*)T(\d*):(\d*):(\d*)/',$i, $matches);
+        $d=$matches[1] . "-" . $matches[2] . "-" . $matches[3] . " " . $matches[4] . ":" . $matches[5] . ":" . $matches[6];
+        $d = date('Y-m-d H:i:s', strtotime($d));
+        $sql = "INSERT INTO started_date_times (NumberOfEntry, entr, file_number) VALUES ('$counter','$d', '$row[file_number]')"; 
+        if ($conn->query($sql) === TRUE) {
+          echo "";
+        } else {
+          echo "Error updating record: " . $conn->error;
+        }
       }
+
+      echo "<br><br><br><br><br>";
 
       //Entries: serverIPAddress
       unset($data);
@@ -48,6 +77,8 @@ if (mysqli_num_rows($result) > 0) {
       {
         //echo $row["file_name"] . " " . $i . "<br>";
       }
+
+      echo "<br><br><br><br><br>";
 
       //Entries: timing
       unset($data);
@@ -294,7 +325,7 @@ if (mysqli_num_rows($result) > 0) {
       }
       foreach($data as $i)
       {
-        echo $row["file_name"] . " " . $i . "<br>";
+        //echo $row["file_name"] . " " . $i . "<br>";
       }
 
       //response: headers: content_type
@@ -462,68 +493,3 @@ if (mysqli_num_rows($result) > 0) {
 } else {
   echo "0 results";
 }
-/*
-foreach($test->log->entries as $row)
-{
-echo $row->response->status . "<br>";
-}
-
-foreach($test->log->entries as $row)
-{
-echo $row->response->statusText . "<br>";
-}
-
-foreach($test->log->entries as $row)
-{
-  foreach($row->response->headers as $srow)
-  {
-    if($srow->name==="pragma")
-    {
-      echo $srow->value . "<br>";
-    }
-  }
-}
-
-foreach($test->log->entries as $row)
-{
-  foreach($row->response->headers as $srow)
-  {
-    if($srow->name==="expires")
-    {
-      echo $srow->value . "<br>";
-    }
-  }
-}
-
-foreach($test->log->entries as $row)
-{
-  foreach($row->response->headers as $srow)
-  {
-    if($srow->name==="age")
-    {
-      echo $srow->value . "<br>";
-    }
-  }
-}
-
-foreach($test->log->entries as $row)
-{
-  foreach($row->response->headers as $srow)
-  {
-    if($srow->name==="last-modified")
-    {
-      echo $srow->value . "<br>";
-    }
-  }
-}
-
-foreach($test->log->entries as $row)
-{
-  foreach($row->response->headers as $srow)
-  {
-    if($srow->name==="host")
-    {
-      echo $srow->value . "<br>";
-    }
-  }
-}*/
