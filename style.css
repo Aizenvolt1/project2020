@@ -132,3 +132,10 @@ h2 {
 input {
   outline: none;
 }
+
+#drop_area {
+  width: 350px;
+  height: 70px;
+  padding: 10px;
+  border: 1px solid #aaaaaa;
+}

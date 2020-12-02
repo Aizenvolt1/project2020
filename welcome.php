@@ -14,26 +14,29 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 <head>
     <meta charset="UTF-8">
     <title>Welcome</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="./style.css">
     <style type="text/css">
         body{ font: 14px sans-serif; text-align: center; }
     </style>
+        
 </head>
 <body>
     <div class="page-header">
         <h1>Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to our site.</h1>
     </div>
-    <p>
-        <a href="reset-password.php" class="btn btn-warning">Reset Your Password</a>
-        <a href="logout.php" class="btn btn-danger">Sign Out of Your Account</a>
-        <form action="upload.php" method="POST" enctype="multipart/form-data"> Select har file to upload:
-            <input type="file" name="fileToUpload" id="fileToUpload">
-            <input type="submit" value="Upload HAR file" name="submit">
-        </form>
-        <form action="zip-upload.php" method="POST" enctype="multipart/form-data"> Select .zip File to upload:
-            <input type="file" name="fileToUpload" id="fileToUpload">
-            <input type="submit" value="Upload .zip file" name="submit">
-        </form>
-    </p>
+    <a href="reset-password.php" class="btn btn-warning">Reset Your Password</a>
+    <a href="logout.php" class="btn btn-danger">Sign Out of Your Account</a>
+    <div id="drop_area" draggable="true">
+    <p>Drag one or more files to this Drop Zone ...</p>
+    </div>
+    <input
+      type="file"
+      multiple
+      id="input"
+      style="display: none"
+      accept=".har"
+    />
+    <button>Upload File</button>
+    <script src="uploads.js"></script></script>
 </body>
 </html>
