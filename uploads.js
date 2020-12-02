@@ -14,13 +14,13 @@ let request_last_modified = [];
 let request_host = [];
 let response_status = [];
 let response_statusText = [];
-let respone_content_type = [];
-let respone_cache_control = [];
-let respone_pragma = [];
-let respone_expires = [];
-let respone_age = [];
-let respone_last_modified = [];
-let respone_host = [];
+let response_content_type = [];
+let response_cache_control = [];
+let response_pragma = [];
+let response_expires = [];
+let response_age = [];
+let response_last_modified = [];
+let response_host = [];
 
 //This is for when the user clicks Upload File
 const fileInput = document.getElementById("input");
@@ -36,6 +36,7 @@ fileInput.onchange = () => {
     file[i] = document.getElementById("input").files[i];
   }
   console.log(selectedFiles);
+  /*
   passtoArray(file, "startedDateTime", startedDateTimes);
   passtoArray(file, "serverIPAddress", serverIPAddresses);
   passtoArray(file, "wait", timings_wait);
@@ -45,6 +46,19 @@ fileInput.onchange = () => {
   passtoArray(file, "request_cache_control", request_cache_control);
   passtoArray(file, "request_pragma", request_pragma);
   passtoArray(file, "request_expires", request_expires);
+  passtoArray(file, "request_age", request_age);
+  passtoArray(file, "request_last_modified", request_last_modified);
+  passtoArray(file, "request_host", request_host);
+  */
+  //passtoArray(file, "response_content_type", response_content_type);
+  //passtoArray(file, "response_cache_control", response_cache_control);
+  //passtoArray(file, "response_pragma", response_pragma);
+  //passtoArray(file, "response_expires", response_expires);
+  //passtoArray(file, "response_age", response_age);
+  //passtoArray(file, "response_last_modified", response_last_modified);
+  //passtoArray(file, "response_host", response_host);
+  passtoArray(file, "response_status", response_status);
+  passtoArray(file, "response_statusText", response_statusText);
 };
 
 //This is for drag and drop area
@@ -331,7 +345,7 @@ function passtoArray(files, name_of_element, array_of_element) {
               );
             }
             break;
-          case "request_pragma":
+          case "request_expires":
             for (
               let k = 0;
               k < fileContents.log.entries[j].request.headers.length;
@@ -354,8 +368,9 @@ function passtoArray(files, name_of_element, array_of_element) {
                 array_of_element.push(null);
               } else if (
                 fileContents.log.entries[j].request.headers[k].name ===
-                  "pragma" ||
-                fileContents.log.entries[j].request.headers[k].name === "Pragma"
+                  "expires" ||
+                fileContents.log.entries[j].request.headers[k].name ===
+                  "Expires"
               ) {
                 console.log(
                   fileContents.log.entries[j].request.headers[k].value
@@ -364,6 +379,453 @@ function passtoArray(files, name_of_element, array_of_element) {
                   fileContents.log.entries[j].request.headers[k].value
                 );
               }
+            }
+            if (j === fileContents.log.entries.length - 1) {
+              console.log(
+                "STOPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP PRIN ITAN ARXEIO 1"
+              );
+            }
+            break;
+          case "request_age":
+            for (
+              let k = 0;
+              k < fileContents.log.entries[j].request.headers.length;
+              k++
+            ) {
+              if (
+                typeof fileContents.log.entries[j].request.headers[k].name ==
+                  "undefined" ||
+                fileContents.log.entries[j].request.headers[k].name == null ||
+                fileContents.log.entries[j].request.headers[k].name == ""
+              ) {
+                console.log(++count);
+                array_of_element.push(null);
+              } else if (
+                typeof fileContents.log.entries[j].request.headers[k].value ==
+                  "undefined" ||
+                fileContents.log.entries[j].request.headers[k].value == null ||
+                fileContents.log.entries[j].request.headers[k].value == ""
+              ) {
+                array_of_element.push(null);
+              } else if (
+                fileContents.log.entries[j].request.headers[k].name === "age" ||
+                fileContents.log.entries[j].request.headers[k].name === "Age"
+              ) {
+                console.log(
+                  fileContents.log.entries[j].request.headers[k].value
+                );
+                array_of_element.push(
+                  fileContents.log.entries[j].request.headers[k].value
+                );
+              }
+            }
+            if (j === fileContents.log.entries.length - 1) {
+              console.log(
+                "STOPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP PRIN ITAN ARXEIO 1"
+              );
+            }
+            break;
+          case "request_last_modified":
+            for (
+              let k = 0;
+              k < fileContents.log.entries[j].request.headers.length;
+              k++
+            ) {
+              if (
+                typeof fileContents.log.entries[j].request.headers[k].name ==
+                  "undefined" ||
+                fileContents.log.entries[j].request.headers[k].name == null ||
+                fileContents.log.entries[j].request.headers[k].name == ""
+              ) {
+                console.log(++count);
+                array_of_element.push(null);
+              } else if (
+                typeof fileContents.log.entries[j].request.headers[k].value ==
+                  "undefined" ||
+                fileContents.log.entries[j].request.headers[k].value == null ||
+                fileContents.log.entries[j].request.headers[k].value == ""
+              ) {
+                array_of_element.push(null);
+              } else if (
+                fileContents.log.entries[j].request.headers[k].name ===
+                  "last-modified" ||
+                fileContents.log.entries[j].request.headers[k].name ===
+                  "Last-Modified"
+              ) {
+                console.log(
+                  fileContents.log.entries[j].request.headers[k].value
+                );
+                array_of_element.push(
+                  fileContents.log.entries[j].request.headers[k].value
+                );
+              }
+            }
+            if (j === fileContents.log.entries.length - 1) {
+              console.log(
+                "STOPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP PRIN ITAN ARXEIO 1"
+              );
+            }
+            break;
+          case "request_host":
+            for (
+              let k = 0;
+              k < fileContents.log.entries[j].request.headers.length;
+              k++
+            ) {
+              if (
+                typeof fileContents.log.entries[j].request.headers[k].name ==
+                  "undefined" ||
+                fileContents.log.entries[j].request.headers[k].name == null ||
+                fileContents.log.entries[j].request.headers[k].name == ""
+              ) {
+                console.log(++count);
+                array_of_element.push(null);
+              } else if (
+                typeof fileContents.log.entries[j].request.headers[k].value ==
+                  "undefined" ||
+                fileContents.log.entries[j].request.headers[k].value == null ||
+                fileContents.log.entries[j].request.headers[k].value == ""
+              ) {
+                array_of_element.push(null);
+              } else if (
+                fileContents.log.entries[j].request.headers[k].name ===
+                  "host" ||
+                fileContents.log.entries[j].request.headers[k].name === "Host"
+              ) {
+                console.log(
+                  fileContents.log.entries[j].request.headers[k].value
+                );
+                array_of_element.push(
+                  fileContents.log.entries[j].request.headers[k].value
+                );
+              }
+            }
+            if (j === fileContents.log.entries.length - 1) {
+              console.log(
+                "STOPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP PRIN ITAN ARXEIO 1"
+              );
+            }
+            break;
+          case "response_content_type":
+            for (
+              let k = 0;
+              k < fileContents.log.entries[j].response.headers.length;
+              k++
+            ) {
+              if (
+                typeof fileContents.log.entries[j].response.headers[k].name ==
+                  "undefined" ||
+                fileContents.log.entries[j].response.headers[k].name == null ||
+                fileContents.log.entries[j].response.headers[k].name == ""
+              ) {
+                console.log(++count);
+                array_of_element.push(null);
+              } else if (
+                typeof fileContents.log.entries[j].response.headers[k].value ==
+                  "undefined" ||
+                fileContents.log.entries[j].response.headers[k].value == null ||
+                fileContents.log.entries[j].response.headers[k].value == ""
+              ) {
+                array_of_element.push(null);
+              } else if (
+                fileContents.log.entries[j].response.headers[k].name ===
+                  "Content-Type" ||
+                fileContents.log.entries[j].response.headers[k].name ===
+                  "content-type"
+              ) {
+                console.log(
+                  fileContents.log.entries[j].response.headers[k].value
+                );
+                array_of_element.push(
+                  fileContents.log.entries[j].response.headers[k].value
+                );
+              }
+            }
+            if (j === fileContents.log.entries.length - 1) {
+              console.log(
+                "STOPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP PRIN ITAN ARXEIO 1"
+              );
+            }
+            break;
+          case "response_cache_control":
+            for (
+              let k = 0;
+              k < fileContents.log.entries[j].response.headers.length;
+              k++
+            ) {
+              if (
+                typeof fileContents.log.entries[j].response.headers[k].name ==
+                  "undefined" ||
+                fileContents.log.entries[j].response.headers[k].name == null ||
+                fileContents.log.entries[j].response.headers[k].name == ""
+              ) {
+                console.log(++count);
+                array_of_element.push(null);
+              } else if (
+                typeof fileContents.log.entries[j].response.headers[k].value ==
+                  "undefined" ||
+                fileContents.log.entries[j].response.headers[k].value == null ||
+                fileContents.log.entries[j].response.headers[k].value == ""
+              ) {
+                array_of_element.push(null);
+              } else if (
+                fileContents.log.entries[j].response.headers[k].name ===
+                  "Cache-Control" ||
+                fileContents.log.entries[j].response.headers[k].name ===
+                  "cache-control"
+              ) {
+                console.log(
+                  fileContents.log.entries[j].response.headers[k].value
+                );
+                array_of_element.push(
+                  fileContents.log.entries[j].response.headers[k].value
+                );
+              }
+            }
+            if (j === fileContents.log.entries.length - 1) {
+              console.log(
+                "STOPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP PRIN ITAN ARXEIO 1"
+              );
+            }
+            break;
+          case "response_pragma":
+            for (
+              let k = 0;
+              k < fileContents.log.entries[j].response.headers.length;
+              k++
+            ) {
+              if (
+                typeof fileContents.log.entries[j].response.headers[k].name ==
+                  "undefined" ||
+                fileContents.log.entries[j].response.headers[k].name == null ||
+                fileContents.log.entries[j].response.headers[k].name == ""
+              ) {
+                console.log(++count);
+                array_of_element.push(null);
+              } else if (
+                typeof fileContents.log.entries[j].response.headers[k].value ==
+                  "undefined" ||
+                fileContents.log.entries[j].response.headers[k].value == null ||
+                fileContents.log.entries[j].response.headers[k].value == ""
+              ) {
+                array_of_element.push(null);
+              } else if (
+                fileContents.log.entries[j].response.headers[k].name ===
+                  "pragma" ||
+                fileContents.log.entries[j].response.headers[k].name ===
+                  "Pragma"
+              ) {
+                console.log(
+                  fileContents.log.entries[j].response.headers[k].value
+                );
+                array_of_element.push(
+                  fileContents.log.entries[j].response.headers[k].value
+                );
+              }
+            }
+            if (j === fileContents.log.entries.length - 1) {
+              console.log(
+                "STOPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP PRIN ITAN ARXEIO 1"
+              );
+            }
+            break;
+          case "response_expires":
+            for (
+              let k = 0;
+              k < fileContents.log.entries[j].response.headers.length;
+              k++
+            ) {
+              if (
+                typeof fileContents.log.entries[j].response.headers[k].name ==
+                  "undefined" ||
+                fileContents.log.entries[j].response.headers[k].name == null ||
+                fileContents.log.entries[j].response.headers[k].name == ""
+              ) {
+                console.log(++count);
+                array_of_element.push(null);
+              } else if (
+                typeof fileContents.log.entries[j].response.headers[k].value ==
+                  "undefined" ||
+                fileContents.log.entries[j].response.headers[k].value == null ||
+                fileContents.log.entries[j].response.headers[k].value == ""
+              ) {
+                array_of_element.push(null);
+              } else if (
+                fileContents.log.entries[j].response.headers[k].name ===
+                  "expires" ||
+                fileContents.log.entries[j].response.headers[k].name ===
+                  "Expires"
+              ) {
+                console.log(
+                  fileContents.log.entries[j].response.headers[k].value
+                );
+                array_of_element.push(
+                  fileContents.log.entries[j].response.headers[k].value
+                );
+              }
+            }
+            if (j === fileContents.log.entries.length - 1) {
+              console.log(
+                "STOPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP PRIN ITAN ARXEIO 1"
+              );
+            }
+            break;
+          case "response_age":
+            for (
+              let k = 0;
+              k < fileContents.log.entries[j].response.headers.length;
+              k++
+            ) {
+              if (
+                typeof fileContents.log.entries[j].response.headers[k].name ==
+                  "undefined" ||
+                fileContents.log.entries[j].response.headers[k].name == null ||
+                fileContents.log.entries[j].response.headers[k].name == ""
+              ) {
+                console.log(++count);
+                array_of_element.push(null);
+              } else if (
+                typeof fileContents.log.entries[j].response.headers[k].value ==
+                  "undefined" ||
+                fileContents.log.entries[j].response.headers[k].value == null ||
+                fileContents.log.entries[j].response.headers[k].value == ""
+              ) {
+                array_of_element.push(null);
+              } else if (
+                fileContents.log.entries[j].response.headers[k].name ===
+                  "age" ||
+                fileContents.log.entries[j].response.headers[k].name === "Age"
+              ) {
+                console.log(
+                  fileContents.log.entries[j].response.headers[k].value
+                );
+                array_of_element.push(
+                  fileContents.log.entries[j].response.headers[k].value
+                );
+              }
+            }
+            if (j === fileContents.log.entries.length - 1) {
+              console.log(
+                "STOPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP PRIN ITAN ARXEIO 1"
+              );
+            }
+            break;
+          case "response_last_modified":
+            for (
+              let k = 0;
+              k < fileContents.log.entries[j].response.headers.length;
+              k++
+            ) {
+              if (
+                typeof fileContents.log.entries[j].response.headers[k].name ==
+                  "undefined" ||
+                fileContents.log.entries[j].response.headers[k].name == null ||
+                fileContents.log.entries[j].response.headers[k].name == ""
+              ) {
+                console.log(++count);
+                array_of_element.push(null);
+              } else if (
+                typeof fileContents.log.entries[j].response.headers[k].value ==
+                  "undefined" ||
+                fileContents.log.entries[j].response.headers[k].value == null ||
+                fileContents.log.entries[j].response.headers[k].value == ""
+              ) {
+                array_of_element.push(null);
+              } else if (
+                fileContents.log.entries[j].response.headers[k].name ===
+                  "last-modified" ||
+                fileContents.log.entries[j].response.headers[k].name ===
+                  "Last-Modified"
+              ) {
+                console.log(
+                  fileContents.log.entries[j].response.headers[k].value
+                );
+                array_of_element.push(
+                  fileContents.log.entries[j].response.headers[k].value
+                );
+              }
+            }
+            if (j === fileContents.log.entries.length - 1) {
+              console.log(
+                "STOPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP PRIN ITAN ARXEIO 1"
+              );
+            }
+            break;
+          case "response_host":
+            for (
+              let k = 0;
+              k < fileContents.log.entries[j].response.headers.length;
+              k++
+            ) {
+              if (
+                typeof fileContents.log.entries[j].response.headers[k].name ==
+                  "undefined" ||
+                fileContents.log.entries[j].response.headers[k].name == null ||
+                fileContents.log.entries[j].response.headers[k].name == ""
+              ) {
+                console.log(++count);
+                array_of_element.push(null);
+              } else if (
+                typeof fileContents.log.entries[j].response.headers[k].value ==
+                  "undefined" ||
+                fileContents.log.entries[j].response.headers[k].value == null ||
+                fileContents.log.entries[j].response.headers[k].value == ""
+              ) {
+                array_of_element.push(null);
+              } else if (
+                fileContents.log.entries[j].response.headers[k].name ===
+                  "host" ||
+                fileContents.log.entries[j].response.headers[k].name === "Host"
+              ) {
+                console.log(
+                  fileContents.log.entries[j].response.headers[k].value
+                );
+                array_of_element.push(
+                  fileContents.log.entries[j].response.headers[k].value
+                );
+              }
+            }
+            if (j === fileContents.log.entries.length - 1) {
+              console.log(
+                "STOPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP PRIN ITAN ARXEIO 1"
+              );
+            }
+            break;
+          case "response_status":
+            if (
+              typeof fileContents.log.entries[j].response.status ==
+                "undefined" ||
+              fileContents.log.entries[j].response.status == null ||
+              fileContents.log.entries[j].response.status == ""
+            ) {
+              console.log(++count);
+              array_of_element.push(null);
+            } else {
+              console.log(fileContents.log.entries[j].response.status);
+              array_of_element.push(
+                fileContents.log.entries[j].response.status
+              );
+            }
+            if (j === fileContents.log.entries.length - 1) {
+              console.log(
+                "STOPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP PRIN ITAN ARXEIO 1"
+              );
+            }
+            break;
+          case "response_statusText":
+            if (
+              typeof fileContents.log.entries[j].response.statusText ==
+                "undefined" ||
+              fileContents.log.entries[j].response.statusText == null ||
+              fileContents.log.entries[j].response.statusText == ""
+            ) {
+              console.log(++count);
+              array_of_element.push(null);
+            } else {
+              console.log(fileContents.log.entries[j].response.statusText);
+              array_of_element.push(
+                fileContents.log.entries[j].response.statusText
+              );
             }
             if (j === fileContents.log.entries.length - 1) {
               console.log(
