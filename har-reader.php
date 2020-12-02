@@ -3,14 +3,7 @@ session_start();
 require_once "config.php";
 
 $url=null;
-$startedDateTimes = array();
-$serverIPAddresses = array();
-$timings = array();
-$requestMethods = array();
-$urls = array();
-$requestHeaders_contentType = array();
-$requestHeaders_cacheControl = array();
-$requestHeaders_pragma = array();
+$data = array();
 $b = "uploads_";
 $sql = "SELECT * FROM user_files WHERE user_id=1";
 $result = mysqli_query($conn, $sql);
@@ -22,96 +15,96 @@ if (mysqli_num_rows($result) > 0) {
       $c = "";
       $test=json_decode(file_get_contents($a));
 
-      unset($startedDateTimes);
-      $startedDateTimes = array();
+      unset($data);
+      $data = array();
       //Entries: StartedDateTimes
       foreach($test->log->entries as $i)
       {
-        if (isset($i->startedDateTimes)){
-          array_push($startedDateTimes,$i->startedDateTime);
+        if (isset($i->data)){
+          array_push($data,$i->startedDateTime);
         }
         else{
-          array_push($startedDateTimes,null);
+          array_push($data,null);
         }
       }
-      foreach($startedDateTimes as $i)
+      foreach($data as $i)
       {
         //echo $row["file_name"] . " " . $i . "<br>";
       }
 
       //Entries: serverIPAddress
-      unset($serverIPAddresses);
-      $serverIPAddresses = array();
+      unset($data);
+      $data = array();
       foreach($test->log->entries as $i)
       {
         if (isset($i->serverIPAddress)){
-          array_push($serverIPAddresses,$i->serverIPAddress);
+          array_push($data,$i->serverIPAddress);
         }
         else{
-          array_push($serverIPAddresses,null);
+          array_push($data,null);
         }
       }
-      foreach($serverIPAddresses as $i)
+      foreach($data as $i)
       {
         //echo $row["file_name"] . " " . $i . "<br>";
       }
 
-      //Entries: timings
-      unset($timings);
-      $timings = array();
+      //Entries: timing
+      unset($data);
+      $data = array();
       foreach($test->log->entries as $i)
       {
-        if (isset($i->timings->wait)){
-          array_push($timings,$i->timings->wait);
+        if (isset($i->data->wait)){
+          array_push($data,$i->data->wait);
         }
         else{
-          array_push($timings,null);
+          array_push($data,null);
         }
       }
-      foreach($timings as $i)
+      foreach($data as $i)
       {
         //echo $row["file_name"] . " " . $i . "<br>";
       }
 
       //Request: methods
-      unset($requestMethods);
-      $requestMethods = array();
+      unset($data);
+      $data = array();
       foreach($test->log->entries as $i)
       {
         if (isset($i->request->method)){
-          array_push($requestMethods,$i->request->method);
+          array_push($data,$i->request->method);
         }
         else{
-          array_push($requestMethods,null);
+          array_push($data,null);
         }
       }
-      foreach($requestMethods as $i)
+      foreach($data as $i)
       {
         //echo $row["file_name"] . " " . $i . "<br>";
       }
 
-      //Request: urls
-      unset($urls);
-      $urls = array();
+      //Request: url
+      unset($data);
+      $data = array();
       foreach($test->log->entries as $i)
       {
         if (isset($i->request->url)){
           preg_match('@^(?:http://|https://)?([^/]+)@i',$i->request->url, $matches);
           $c = $matches[0];
-          array_push($urls,$c);
+          array_push($data,$c);
         }
         else{
-          array_push($urls,null);
+          array_push($data,null);
         }
       }
-      foreach($urls as $i)
+      foreach($data as $i)
       {
         //echo $row["file_name"] . " " . $i . "<br>";
       }
 
       //Request: headers: content_type
-      unset($requestHeaders_contentType);
-      $requestHeaders_contentType = array();
+      unset($data);
+      $data = array();
       foreach($test->log->entries as $i)
       {
         foreach($i->request->headers as $k)
@@ -119,22 +112,22 @@ if (mysqli_num_rows($result) > 0) {
           if($k->name==="Content-Type")
           {
             if (isset($k->value)){
-              array_push($requestHeaders_contentType,$k->value);
+              array_push($data,$k->value);
             }
             else{
-              array_push($requestHeaders_contentType,null);
+              array_push($data,null);
             }
           }
         }
       }
-      foreach($requestHeaders_contentType as $i)
+      foreach($data as $i)
       {
         //echo $row["file_name"] . " " . $i . "<br>";
       }
 
       //Request: headers: cache-control
-      unset($requestHeaders_cacheControl);
-      $requestHeaders_cacheControl = array();
+      unset($data);
+      $data = array();
       foreach($test->log->entries as $i)
       {
         foreach($i->request->headers as $k)
@@ -142,22 +135,22 @@ if (mysqli_num_rows($result) > 0) {
           if($k->name==="Cache-Control")
           {
             if (isset($k->value)){
-              array_push($requestHeaders_cacheControl,$k->value);
+              array_push($data,$k->value);
             }
             else{
-              array_push($requestHeaders_cacheControl,null);
+              array_push($data,null);
             }
           }
         }
       }
-      foreach($requestHeaders_cacheControl as $i)
+      foreach($data as $i)
       {
         //echo $row["file_name"] . " " . $i . "<br>";
       }
 
       //Request: headers: pragma
-      unset($requestHeaders_pragma);
-      $requestHeaders_pragma = array();
+      unset($data);
+      $data = array();
       foreach($test->log->entries as $i)
       {
         foreach($i->request->headers as $k)
@@ -165,17 +158,304 @@ if (mysqli_num_rows($result) > 0) {
           if($k->name==="pragma" || $k->name==="Pragma")
           {
             if (isset($k->value)){
-              array_push($requestHeaders_pragma,$k->value);
+              array_push($data,$k->value);
             }
             else{
-              array_push($requestHeaders_pragma,null);
+              array_push($data,null);
             }
           }
         }
       }
-      foreach($requestHeaders_pragma as $i)
+      foreach($data as $i)
+      {
+        //echo $row["file_name"] . " " . $i . "<br>";
+      }
+
+      //Request: headers: expires
+      unset($data);
+      $data = array();
+      foreach($test->log->entries as $i)
+      {
+        foreach($i->request->headers as $k)
+        {
+          if($k->name==="expires" || $k->name==="Expires")
+          {
+            if (isset($k->value)){
+              array_push($data,$k->value);
+            }
+            else{
+              array_push($data,null);
+            }
+          }
+        }
+      }
+      foreach($data as $i)
+      {
+        //echo $row["file_name"] . " " . $i . "<br>";
+      }
+
+      //Request: headers: age
+      unset($data);
+      $data = array();
+      foreach($test->log->entries as $i)
+      {
+        foreach($i->request->headers as $k)
+        {
+          if($k->name==="age" || $k->name==="Age")
+          {
+            if (isset($k->value)){
+              array_push($data,$k->value);
+            }
+            else{
+              array_push($data,null);
+            }
+          }
+        }
+      }
+      foreach($data as $i)
+      {
+        //echo $row["file_name"] . " " . $i . "<br>";
+      }
+
+      //Request: headers: last-modified
+      unset($data);
+      $data = array();
+      foreach($test->log->entries as $i)
+      {
+        foreach($i->request->headers as $k)
+        {
+          if($k->name==="last-modified" || $k->name==="Last-modified")
+          {
+            if (isset($k->value)){
+              array_push($data,$k->value);
+            }
+            else{
+              array_push($data,null);
+            }
+          }
+        }
+      }
+      foreach($data as $i)
+      {
+        //echo $row["file_name"] . " " . $i . "<br>";
+      }
+
+      //Request: headers: host
+      unset($data);
+      $data = array();
+      foreach($test->log->entries as $i)
+      {
+        foreach($i->request->headers as $k)
+        {
+          if($k->name==="host" || $k->name==="Host")
+          {
+            if (isset($k->value)){
+              array_push($data,$k->value);
+            }
+            else{
+              array_push($data,null);
+            }
+          }
+        }
+      }
+      foreach($data as $i)
+      {
+        //echo $row["file_name"] . " " . $i . "<br>";
+      }
+
+      //Response: status
+      unset($data);
+      $data = array();
+      foreach($test->log->entries as $i)
+      {
+        if (isset($i->response->status)){
+          array_push($data,$i->response->status);
+        }
+        else{
+          array_push($data,null);
+        }
+      }
+      foreach($data as $i)
+      {
+        //echo $row["file_name"] . " " . $i . "<br>";
+      }
+
+      //Response: statusText
+      unset($data);
+      $data = array();
+      foreach($test->log->entries as $i)
+      {
+        if (isset($i->response->statusText)){
+          array_push($data,$i->response->statusText);
+        }
+        else{
+          array_push($data,null);
+        }
+      }
+      foreach($data as $i)
       {
         echo $row["file_name"] . " " . $i . "<br>";
+      }
+
+      //response: headers: content_type
+      unset($data);
+      $data = array();
+      foreach($test->log->entries as $i)
+      {
+        foreach($i->response->headers as $k)
+        {
+          if($k->name==="Content-Type")
+          {
+            if (isset($k->value)){
+              array_push($data,$k->value);
+            }
+            else{
+              array_push($data,null);
+            }
+          }
+        }
+      }
+      foreach($data as $i)
+      {
+        //echo $row["file_name"] . " " . $i . "<br>";
+      }
+
+      //response: headers: cache-control
+      unset($data);
+      $data = array();
+      foreach($test->log->entries as $i)
+      {
+        foreach($i->response->headers as $k)
+        {
+          if($k->name==="Cache-Control")
+          {
+            if (isset($k->value)){
+              array_push($data,$k->value);
+            }
+            else{
+              array_push($data,null);
+            }
+          }
+        }
+      }
+      foreach($data as $i)
+      {
+        //echo $row["file_name"] . " " . $i . "<br>";
+      }
+
+      //response: headers: pragma
+      unset($data);
+      $data = array();
+      foreach($test->log->entries as $i)
+      {
+        foreach($i->response->headers as $k)
+        {
+          if($k->name==="pragma" || $k->name==="Pragma")
+          {
+            if (isset($k->value)){
+              array_push($data,$k->value);
+            }
+            else{
+              array_push($data,null);
+            }
+          }
+        }
+      }
+      foreach($data as $i)
+      {
+        //echo $row["file_name"] . " " . $i . "<br>";
+      }
+
+      //response: headers: expires
+      unset($data);
+      $data = array();
+      foreach($test->log->entries as $i)
+      {
+        foreach($i->response->headers as $k)
+        {
+          if($k->name==="expires" || $k->name==="Expires")
+          {
+            if (isset($k->value)){
+              array_push($data,$k->value);
+            }
+            else{
+              array_push($data,null);
+            }
+          }
+        }
+      }
+      foreach($data as $i)
+      {
+        //echo $row["file_name"] . " " . $i . "<br>";
+      }
+
+      //response: headers: age
+      unset($data);
+      $data = array();
+      foreach($test->log->entries as $i)
+      {
+        foreach($i->response->headers as $k)
+        {
+          if($k->name==="age" || $k->name==="Age")
+          {
+            if (isset($k->value)){
+              array_push($data,$k->value);
+            }
+            else{
+              array_push($data,null);
+            }
+          }
+        }
+      }
+      foreach($data as $i)
+      {
+        //echo $row["file_name"] . " " . $i . "<br>";
+      }
+
+      //response: headers: last-modified
+      unset($data);
+      $data = array();
+      foreach($test->log->entries as $i)
+      {
+        foreach($i->response->headers as $k)
+        {
+          if($k->name==="last-modified" || $k->name==="Last-modified")
+          {
+            if (isset($k->value)){
+              array_push($data,$k->value);
+            }
+            else{
+              array_push($data,null);
+            }
+          }
+        }
+      }
+      foreach($data as $i)
+      {
+        //echo $row["file_name"] . " " . $i . "<br>";
+      }
+
+      //response: headers: host
+      unset($data);
+      $data = array();
+      foreach($test->log->entries as $i)
+      {
+        foreach($i->response->headers as $k)
+        {
+          if($k->name==="host" || $k->name==="Host")
+          {
+            if (isset($k->value)){
+              array_push($data,$k->value);
+            }
+            else{
+              array_push($data,null);
+            }
+          }
+        }
+      }
+      foreach($data as $i)
+      {
+        //echo $row["file_name"] . " " . $i . "<br>";
       }
     } 
   }
