@@ -36,7 +36,6 @@ fileInput.onchange = () => {
     file[i] = document.getElementById("input").files[i];
   }
   console.log(selectedFiles);
-  /*
   passtoArray(file, "startedDateTime", startedDateTimes);
   passtoArray(file, "serverIPAddress", serverIPAddresses);
   passtoArray(file, "wait", timings_wait);
@@ -49,14 +48,13 @@ fileInput.onchange = () => {
   passtoArray(file, "request_age", request_age);
   passtoArray(file, "request_last_modified", request_last_modified);
   passtoArray(file, "request_host", request_host);
-  */
-  //passtoArray(file, "response_content_type", response_content_type);
-  //passtoArray(file, "response_cache_control", response_cache_control);
-  //passtoArray(file, "response_pragma", response_pragma);
-  //passtoArray(file, "response_expires", response_expires);
-  //passtoArray(file, "response_age", response_age);
-  //passtoArray(file, "response_last_modified", response_last_modified);
-  //passtoArray(file, "response_host", response_host);
+  passtoArray(file, "response_content_type", response_content_type);
+  passtoArray(file, "response_cache_control", response_cache_control);
+  passtoArray(file, "response_pragma", response_pragma);
+  passtoArray(file, "response_expires", response_expires);
+  passtoArray(file, "response_age", response_age);
+  passtoArray(file, "response_last_modified", response_last_modified);
+  passtoArray(file, "response_host", response_host);
   passtoArray(file, "response_status", response_status);
   passtoArray(file, "response_statusText", response_statusText);
 };
@@ -74,30 +72,27 @@ dropArea.addEventListener("drop", (event) => {
   event.stopPropagation();
   event.preventDefault();
   const fileList = event.dataTransfer.files;
-  let count = 0;
-  for (let i = 0; i < fileList.length; i++) {
-    let fileReader = new FileReader();
-    fileReader.onload = function () {
-      let fileContents = JSON.parse(fileReader.result);
-      for (let j = 0; j < fileContents.log.entries.length; j++) {
-        if (
-          typeof fileContents.log.entries[j].serverIPAddress == "undefined" ||
-          fileContents.log.entries[j].serverIPAddress == null ||
-          fileContents.log.entries[j].serverIPAddress == ""
-        ) {
-          console.log(++count);
-        } else {
-          console.log(fileContents.log.entries[j].serverIPAddress);
-        }
-        if (j === fileContents.log.entries.length - 1) {
-          console.log(
-            "STOPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP PRIN ITAN ARXEIO 1"
-          );
-        }
-      }
-    };
-    let currentfiledropreader = fileReader.readAsText(fileList[i]);
-  }
+  passtoArray(fileList, "startedDateTime", startedDateTimes);
+  passtoArray(fileList, "serverIPAddress", serverIPAddresses);
+  passtoArray(fileList, "wait", timings_wait);
+  passtoArray(fileList, "request_method", request_method);
+  passtoArray(fileList, "request_url", request_url);
+  passtoArray(fileList, "request_content_type", request_content_type);
+  passtoArray(fileList, "request_cache_control", request_cache_control);
+  passtoArray(fileList, "request_pragma", request_pragma);
+  passtoArray(fileList, "request_expires", request_expires);
+  passtoArray(fileList, "request_age", request_age);
+  passtoArray(fileList, "request_last_modified", request_last_modified);
+  passtoArray(fileList, "request_host", request_host);
+  passtoArray(fileList, "response_content_type", response_content_type);
+  passtoArray(fileList, "response_cache_control", response_cache_control);
+  passtoArray(fileList, "response_pragma", response_pragma);
+  passtoArray(fileList, "response_expires", response_expires);
+  passtoArray(fileList, "response_age", response_age);
+  passtoArray(fileList, "response_last_modified", response_last_modified);
+  passtoArray(fileList, "response_host", response_host);
+  passtoArray(fileList, "response_status", response_status);
+  passtoArray(fileList, "response_statusText", response_statusText);
 });
 
 function passtoArray(files, name_of_element, array_of_element) {
