@@ -36,10 +36,12 @@ fileInput.onchange = () => {
     file[i] = document.getElementById("input").files[i];
   }
   console.log(selectedFiles);
+  /*
   passtoArray(file, "startedDateTime", startedDateTimes);
   passtoArray(file, "serverIPAddress", serverIPAddresses);
   passtoArray(file, "wait", timings_wait);
   passtoArray(file, "request_method", request_method);
+
   passtoArray(file, "request_url", request_url);
   passtoArray(file, "request_content_type", request_content_type);
   passtoArray(file, "request_cache_control", request_cache_control);
@@ -51,12 +53,15 @@ fileInput.onchange = () => {
   passtoArray(file, "response_content_type", response_content_type);
   passtoArray(file, "response_cache_control", response_cache_control);
   passtoArray(file, "response_pragma", response_pragma);
+  */
   passtoArray(file, "response_expires", response_expires);
+  /*
   passtoArray(file, "response_age", response_age);
   passtoArray(file, "response_last_modified", response_last_modified);
   passtoArray(file, "response_host", response_host);
   passtoArray(file, "response_status", response_status);
   passtoArray(file, "response_statusText", response_statusText);
+  */
 };
 
 //This is for drag and drop area
@@ -113,9 +118,14 @@ function passtoArray(files, name_of_element, array_of_element) {
               console.log(++count);
               array_of_element.push(null);
             } else {
-              console.log(fileContents.log.entries[j].startedDateTime);
               array_of_element.push(
-                fileContents.log.entries[j].startedDateTime
+                fileContents.log.entries[j].startedDateTime.match(
+                  /\d\d\d\d-\d\d-\d\d/g
+                ) +
+                  " " +
+                  fileContents.log.entries[j].startedDateTime.match(
+                    /\d\d:\d\d:\d\d/g
+                  )
               );
             }
             if (j === fileContents.log.entries.length - 1) {
@@ -134,7 +144,6 @@ function passtoArray(files, name_of_element, array_of_element) {
               console.log(++count);
               array_of_element.push(null);
             } else {
-              console.log(fileContents.log.entries[j].serverIPAddress);
               array_of_element.push(
                 fileContents.log.entries[j].serverIPAddress
               );
@@ -154,7 +163,6 @@ function passtoArray(files, name_of_element, array_of_element) {
               console.log(++count);
               array_of_element.push(null);
             } else {
-              console.log(fileContents.log.entries[j].timings.wait);
               array_of_element.push(fileContents.log.entries[j].timings.wait);
             }
             if (j === fileContents.log.entries.length - 1) {
@@ -173,7 +181,6 @@ function passtoArray(files, name_of_element, array_of_element) {
               console.log(++count);
               array_of_element.push(null);
             } else {
-              console.log(fileContents.log.entries[j].request.method);
               array_of_element.push(fileContents.log.entries[j].request.method);
             }
             if (j === fileContents.log.entries.length - 1) {
@@ -191,26 +198,11 @@ function passtoArray(files, name_of_element, array_of_element) {
               console.log(++count);
               array_of_element.push(null);
             } else {
-              console.log(fileContents.log.entries[j].request.url);
-              array_of_element.push(fileContents.log.entries[j].request.url);
-            }
-            if (j === fileContents.log.entries.length - 1) {
-              console.log(
-                "STOPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP PRIN ITAN ARXEIO 1"
+              array_of_element.push(
+                fileContents.log.entries[j].request.url.match(
+                  /(https:\/\/|http:\/\/)(\S*?\/)/g
+                )
               );
-            }
-            break;
-          case "request_url":
-            if (
-              typeof fileContents.log.entries[j].request.url == "undefined" ||
-              fileContents.log.entries[j].request.url == null ||
-              fileContents.log.entries[j].request.url == ""
-            ) {
-              console.log(++count);
-              array_of_element.push(null);
-            } else {
-              console.log(fileContents.log.entries[j].request.url);
-              array_of_element.push(fileContents.log.entries[j].request.url);
             }
             if (j === fileContents.log.entries.length - 1) {
               console.log(
@@ -245,9 +237,6 @@ function passtoArray(files, name_of_element, array_of_element) {
                 fileContents.log.entries[j].request.headers[k].name ===
                   "content-type"
               ) {
-                console.log(
-                  fileContents.log.entries[j].request.headers[k].value
-                );
                 array_of_element.push(
                   fileContents.log.entries[j].request.headers[k].value
                 );
@@ -286,9 +275,6 @@ function passtoArray(files, name_of_element, array_of_element) {
                 fileContents.log.entries[j].request.headers[k].name ===
                   "cache-control"
               ) {
-                console.log(
-                  fileContents.log.entries[j].request.headers[k].value
-                );
                 array_of_element.push(
                   fileContents.log.entries[j].request.headers[k].value
                 );
@@ -326,9 +312,6 @@ function passtoArray(files, name_of_element, array_of_element) {
                   "pragma" ||
                 fileContents.log.entries[j].request.headers[k].name === "Pragma"
               ) {
-                console.log(
-                  fileContents.log.entries[j].request.headers[k].value
-                );
                 array_of_element.push(
                   fileContents.log.entries[j].request.headers[k].value
                 );
@@ -367,9 +350,12 @@ function passtoArray(files, name_of_element, array_of_element) {
                 fileContents.log.entries[j].request.headers[k].name ===
                   "Expires"
               ) {
-                console.log(
-                  fileContents.log.entries[j].request.headers[k].value
-                );
+                let expire = fileContents.log.entries[j].request.headers[
+                  k
+                ].value
+                  .match(/\d.+[^\D]/g)
+                  .split(/(?<=\d)\s(?=\d)/g);
+                console.log(expire[0]);
                 array_of_element.push(
                   fileContents.log.entries[j].request.headers[k].value
                 );
@@ -406,9 +392,6 @@ function passtoArray(files, name_of_element, array_of_element) {
                 fileContents.log.entries[j].request.headers[k].name === "age" ||
                 fileContents.log.entries[j].request.headers[k].name === "Age"
               ) {
-                console.log(
-                  fileContents.log.entries[j].request.headers[k].value
-                );
                 array_of_element.push(
                   fileContents.log.entries[j].request.headers[k].value
                 );
@@ -447,9 +430,6 @@ function passtoArray(files, name_of_element, array_of_element) {
                 fileContents.log.entries[j].request.headers[k].name ===
                   "Last-Modified"
               ) {
-                console.log(
-                  fileContents.log.entries[j].request.headers[k].value
-                );
                 array_of_element.push(
                   fileContents.log.entries[j].request.headers[k].value
                 );
@@ -487,9 +467,6 @@ function passtoArray(files, name_of_element, array_of_element) {
                   "host" ||
                 fileContents.log.entries[j].request.headers[k].name === "Host"
               ) {
-                console.log(
-                  fileContents.log.entries[j].request.headers[k].value
-                );
                 array_of_element.push(
                   fileContents.log.entries[j].request.headers[k].value
                 );
@@ -528,9 +505,6 @@ function passtoArray(files, name_of_element, array_of_element) {
                 fileContents.log.entries[j].response.headers[k].name ===
                   "content-type"
               ) {
-                console.log(
-                  fileContents.log.entries[j].response.headers[k].value
-                );
                 array_of_element.push(
                   fileContents.log.entries[j].response.headers[k].value
                 );
@@ -569,9 +543,6 @@ function passtoArray(files, name_of_element, array_of_element) {
                 fileContents.log.entries[j].response.headers[k].name ===
                   "cache-control"
               ) {
-                console.log(
-                  fileContents.log.entries[j].response.headers[k].value
-                );
                 array_of_element.push(
                   fileContents.log.entries[j].response.headers[k].value
                 );
@@ -610,9 +581,6 @@ function passtoArray(files, name_of_element, array_of_element) {
                 fileContents.log.entries[j].response.headers[k].name ===
                   "Pragma"
               ) {
-                console.log(
-                  fileContents.log.entries[j].response.headers[k].value
-                );
                 array_of_element.push(
                   fileContents.log.entries[j].response.headers[k].value
                 );
@@ -651,12 +619,48 @@ function passtoArray(files, name_of_element, array_of_element) {
                 fileContents.log.entries[j].response.headers[k].name ===
                   "Expires"
               ) {
+                let month = new Date(
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/\d.+[^\D]/g)[0]
+                    .split(/(?<=\d)\s(?=\d)/g)[0]
+                    .match(/\d\d \w{3}/g)
+                );
+                month = month.getMonth() + 1;
                 console.log(
                   fileContents.log.entries[j].response.headers[k].value
+                    .match(/\d.+[^\D]/g)[0]
+                    .split(/(?<=\d)\s(?=\d)/g)[0]
+                    .match(/\d{4}/g)[0] +
+                    " " +
+                    month +
+                    " " +
+                    fileContents.log.entries[j].response.headers[k].value
+                      .match(/\d.+[^\D]/g)[0]
+                      .split(/(?<=\d)\s(?=\d)/g)[0]
+                      .match(/^\d\d/g) +
+                    " " +
+                    fileContents.log.entries[j].response.headers[k].value
+                      .match(/\d.+[^\D]/g)[0]
+                      .split(/(?<=\d)\s(?=\d)/g)[1]
                 );
                 array_of_element.push(
                   fileContents.log.entries[j].response.headers[k].value
+                    .match(/\d.+[^\D]/g)[0]
+                    .split(/(?<=\d)\s(?=\d)/g)[0]
+                    .match(/\d{4}/g)[0] +
+                    " " +
+                    month +
+                    " " +
+                    fileContents.log.entries[j].response.headers[k].value
+                      .match(/\d.+[^\D]/g)[0]
+                      .split(/(?<=\d)\s(?=\d)/g)[0]
+                      .match(/^\d\d/g) +
+                    " " +
+                    fileContents.log.entries[j].response.headers[k].value
+                      .match(/\d.+[^\D]/g)[0]
+                      .split(/(?<=\d)\s(?=\d)/g)[1]
                 );
+                console.log(array_of_element[j]);
               }
             }
             if (j === fileContents.log.entries.length - 1) {
@@ -691,9 +695,6 @@ function passtoArray(files, name_of_element, array_of_element) {
                   "age" ||
                 fileContents.log.entries[j].response.headers[k].name === "Age"
               ) {
-                console.log(
-                  fileContents.log.entries[j].response.headers[k].value
-                );
                 array_of_element.push(
                   fileContents.log.entries[j].response.headers[k].value
                 );
@@ -732,9 +733,6 @@ function passtoArray(files, name_of_element, array_of_element) {
                 fileContents.log.entries[j].response.headers[k].name ===
                   "Last-Modified"
               ) {
-                console.log(
-                  fileContents.log.entries[j].response.headers[k].value
-                );
                 array_of_element.push(
                   fileContents.log.entries[j].response.headers[k].value
                 );
@@ -772,9 +770,6 @@ function passtoArray(files, name_of_element, array_of_element) {
                   "host" ||
                 fileContents.log.entries[j].response.headers[k].name === "Host"
               ) {
-                console.log(
-                  fileContents.log.entries[j].response.headers[k].value
-                );
                 array_of_element.push(
                   fileContents.log.entries[j].response.headers[k].value
                 );
@@ -796,7 +791,6 @@ function passtoArray(files, name_of_element, array_of_element) {
               console.log(++count);
               array_of_element.push(null);
             } else {
-              console.log(fileContents.log.entries[j].response.status);
               array_of_element.push(
                 fileContents.log.entries[j].response.status
               );
@@ -817,7 +811,6 @@ function passtoArray(files, name_of_element, array_of_element) {
               console.log(++count);
               array_of_element.push(null);
             } else {
-              console.log(fileContents.log.entries[j].response.statusText);
               array_of_element.push(
                 fileContents.log.entries[j].response.statusText
               );
