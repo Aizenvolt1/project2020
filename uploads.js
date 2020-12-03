@@ -36,12 +36,15 @@ fileInput.onchange = () => {
     file[i] = document.getElementById("input").files[i];
   }
   console.log(selectedFiles);
-  passtoArray(file, "startedDateTime", startedDateTimes);
   /*
+  passtoArray(file, "startedDateTime", startedDateTimes);
   passtoArray(file, "serverIPAddress", serverIPAddresses);
   passtoArray(file, "wait", timings_wait);
   passtoArray(file, "request_method", request_method);
+  */
+
   passtoArray(file, "request_url", request_url);
+  /*
   passtoArray(file, "request_content_type", request_content_type);
   passtoArray(file, "request_cache_control", request_cache_control);
   passtoArray(file, "request_pragma", request_pragma);
@@ -115,20 +118,14 @@ function passtoArray(files, name_of_element, array_of_element) {
               console.log(++count);
               array_of_element.push(null);
             } else {
-              console.log(fileContents.log.entries[j].startedDateTime);
               array_of_element.push(
                 fileContents.log.entries[j].startedDateTime.match(
-                  "/dddd-dd-dd/g"
+                  /\d\d\d\d-\d\d-\d\d/g
                 ) +
                   " " +
                   fileContents.log.entries[j].startedDateTime.match(
-                    "dd:dd:dd/g"
+                    /\d\d:\d\d:\d\d/g
                   )
-              );
-              console.log(
-                fileContents.log.entries[j].startedDateTime.match(
-                  "/dddd-dd-dd/g"
-                )
               );
             }
             if (j === fileContents.log.entries.length - 1) {
@@ -147,7 +144,6 @@ function passtoArray(files, name_of_element, array_of_element) {
               console.log(++count);
               array_of_element.push(null);
             } else {
-              console.log(fileContents.log.entries[j].serverIPAddress);
               array_of_element.push(
                 fileContents.log.entries[j].serverIPAddress
               );
@@ -186,7 +182,6 @@ function passtoArray(files, name_of_element, array_of_element) {
               console.log(++count);
               array_of_element.push(null);
             } else {
-              console.log(fileContents.log.entries[j].request.method);
               array_of_element.push(fileContents.log.entries[j].request.method);
             }
             if (j === fileContents.log.entries.length - 1) {
@@ -204,26 +199,11 @@ function passtoArray(files, name_of_element, array_of_element) {
               console.log(++count);
               array_of_element.push(null);
             } else {
-              console.log(fileContents.log.entries[j].request.url);
-              array_of_element.push(fileContents.log.entries[j].request.url);
-            }
-            if (j === fileContents.log.entries.length - 1) {
-              console.log(
-                "STOPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP PRIN ITAN ARXEIO 1"
+              array_of_element.push(
+                fileContents.log.entries[j].request.url.match(
+                  /(https:\/\/|http:\/\/)(\S*?\/)/g
+                )
               );
-            }
-            break;
-          case "request_url":
-            if (
-              typeof fileContents.log.entries[j].request.url == "undefined" ||
-              fileContents.log.entries[j].request.url == null ||
-              fileContents.log.entries[j].request.url == ""
-            ) {
-              console.log(++count);
-              array_of_element.push(null);
-            } else {
-              console.log(fileContents.log.entries[j].request.url);
-              array_of_element.push(fileContents.log.entries[j].request.url);
             }
             if (j === fileContents.log.entries.length - 1) {
               console.log(
