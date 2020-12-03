@@ -41,10 +41,8 @@ fileInput.onchange = () => {
   passtoArray(file, "serverIPAddress", serverIPAddresses);
   passtoArray(file, "wait", timings_wait);
   passtoArray(file, "request_method", request_method);
-  */
 
   passtoArray(file, "request_url", request_url);
-  /*
   passtoArray(file, "request_content_type", request_content_type);
   passtoArray(file, "request_cache_control", request_cache_control);
   passtoArray(file, "request_pragma", request_pragma);
@@ -55,7 +53,9 @@ fileInput.onchange = () => {
   passtoArray(file, "response_content_type", response_content_type);
   passtoArray(file, "response_cache_control", response_cache_control);
   passtoArray(file, "response_pragma", response_pragma);
+  */
   passtoArray(file, "response_expires", response_expires);
+  /*
   passtoArray(file, "response_age", response_age);
   passtoArray(file, "response_last_modified", response_last_modified);
   passtoArray(file, "response_host", response_host);
@@ -350,6 +350,12 @@ function passtoArray(files, name_of_element, array_of_element) {
                 fileContents.log.entries[j].request.headers[k].name ===
                   "Expires"
               ) {
+                let expire = fileContents.log.entries[j].request.headers[
+                  k
+                ].value
+                  .match(/\d.+[^\D]/g)
+                  .split(/(?<=\d)\s(?=\d)/g);
+                console.log(expire[0]);
                 array_of_element.push(
                   fileContents.log.entries[j].request.headers[k].value
                 );
@@ -613,9 +619,48 @@ function passtoArray(files, name_of_element, array_of_element) {
                 fileContents.log.entries[j].response.headers[k].name ===
                   "Expires"
               ) {
+                let month = new Date(
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/\d.+[^\D]/g)[0]
+                    .split(/(?<=\d)\s(?=\d)/g)[0]
+                    .match(/\d\d \w{3}/g)
+                );
+                month = month.getMonth() + 1;
+                console.log(
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/\d.+[^\D]/g)[0]
+                    .split(/(?<=\d)\s(?=\d)/g)[0]
+                    .match(/\d{4}/g)[0] +
+                    " " +
+                    month +
+                    " " +
+                    fileContents.log.entries[j].response.headers[k].value
+                      .match(/\d.+[^\D]/g)[0]
+                      .split(/(?<=\d)\s(?=\d)/g)[0]
+                      .match(/^\d\d/g) +
+                    " " +
+                    fileContents.log.entries[j].response.headers[k].value
+                      .match(/\d.+[^\D]/g)[0]
+                      .split(/(?<=\d)\s(?=\d)/g)[1]
+                );
                 array_of_element.push(
                   fileContents.log.entries[j].response.headers[k].value
+                    .match(/\d.+[^\D]/g)[0]
+                    .split(/(?<=\d)\s(?=\d)/g)[0]
+                    .match(/\d{4}/g)[0] +
+                    " " +
+                    month +
+                    " " +
+                    fileContents.log.entries[j].response.headers[k].value
+                      .match(/\d.+[^\D]/g)[0]
+                      .split(/(?<=\d)\s(?=\d)/g)[0]
+                      .match(/^\d\d/g) +
+                    " " +
+                    fileContents.log.entries[j].response.headers[k].value
+                      .match(/\d.+[^\D]/g)[0]
+                      .split(/(?<=\d)\s(?=\d)/g)[1]
                 );
+                console.log(array_of_element[j]);
               }
             }
             if (j === fileContents.log.entries.length - 1) {
