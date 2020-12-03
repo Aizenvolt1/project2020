@@ -36,6 +36,7 @@ fileInput.onchange = () => {
     file[i] = document.getElementById("input").files[i];
   }
   console.log(selectedFiles);
+  /*
   passtoArray(file, "startedDateTime", startedDateTimes);
   passtoArray(file, "serverIPAddress", serverIPAddresses);
   passtoArray(file, "wait", timings_wait);
@@ -57,6 +58,7 @@ fileInput.onchange = () => {
   passtoArray(file, "response_host", response_host);
   passtoArray(file, "response_status", response_status);
   passtoArray(file, "response_statusText", response_statusText);
+  */
 };
 
 //This is for drag and drop area
