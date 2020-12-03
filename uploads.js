@@ -36,8 +36,8 @@ fileInput.onchange = () => {
     file[i] = document.getElementById("input").files[i];
   }
   console.log(selectedFiles);
-  /*
   passtoArray(file, "startedDateTime", startedDateTimes);
+  /*
   passtoArray(file, "serverIPAddress", serverIPAddresses);
   passtoArray(file, "wait", timings_wait);
   passtoArray(file, "request_method", request_method);
@@ -117,7 +117,18 @@ function passtoArray(files, name_of_element, array_of_element) {
             } else {
               console.log(fileContents.log.entries[j].startedDateTime);
               array_of_element.push(
-                fileContents.log.entries[j].startedDateTime
+                fileContents.log.entries[j].startedDateTime.match(
+                  "/dddd-dd-dd/g"
+                ) +
+                  " " +
+                  fileContents.log.entries[j].startedDateTime.match(
+                    "dd:dd:dd/g"
+                  )
+              );
+              console.log(
+                fileContents.log.entries[j].startedDateTime.match(
+                  "/dddd-dd-dd/g"
+                )
               );
             }
             if (j === fileContents.log.entries.length - 1) {
