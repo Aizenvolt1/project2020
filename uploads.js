@@ -660,7 +660,7 @@ function passtoArray(files, name_of_element, array_of_element) {
                       .match(/\d.+[^\D]/g)[0]
                       .split(/(?<=\d)\s(?=\d)/g)[1]
                 );
-                console.log(array_of_element[j]);
+                //console.log(array_of_element);
               }
             }
             if (j === fileContents.log.entries.length - 1) {
