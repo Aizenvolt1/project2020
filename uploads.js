@@ -660,6 +660,14 @@ function passtoArray(files, name_of_element, array_of_element) {
               ) {
                 console.log(++count);
                 array_of_element.push(null);
+                if (
+                  k ===
+                  fileContents.log.entries[j].response.headers.length - 1
+                ) {
+                  for (let n = 0; n < array_of_element.length; n++) {
+                    console.log(array_of_element[n]);
+                  }
+                }
               } else if (
                 typeof fileContents.log.entries[j].response.headers[k].value ==
                   "undefined" ||
@@ -667,6 +675,14 @@ function passtoArray(files, name_of_element, array_of_element) {
                 fileContents.log.entries[j].response.headers[k].value == ""
               ) {
                 array_of_element.push(null);
+                if (
+                  k ===
+                  fileContents.log.entries[j].response.headers.length - 1
+                ) {
+                  for (let n = 0; n < array_of_element.length; n++) {
+                    console.log(array_of_element[n]);
+                  }
+                }
               } else if (
                 fileContents.log.entries[j].response.headers[k].name ===
                   "expires" ||
@@ -764,6 +780,14 @@ function passtoArray(files, name_of_element, array_of_element) {
               ) {
                 console.log(++count);
                 array_of_element.push(null);
+                if (
+                  k ===
+                  fileContents.log.entries[j].response.headers.length - 1
+                ) {
+                  for (let n = 0; n < array_of_element.length; n++) {
+                    console.log(array_of_element[n]);
+                  }
+                }
               } else if (
                 typeof fileContents.log.entries[j].response.headers[k].value ==
                   "undefined" ||
@@ -771,6 +795,14 @@ function passtoArray(files, name_of_element, array_of_element) {
                 fileContents.log.entries[j].response.headers[k].value == ""
               ) {
                 array_of_element.push(null);
+                if (
+                  k ===
+                  fileContents.log.entries[j].response.headers.length - 1
+                ) {
+                  for (let n = 0; n < array_of_element.length; n++) {
+                    console.log(array_of_element[n]);
+                  }
+                }
               } else if (
                 fileContents.log.entries[j].response.headers[k].name ===
                   "last-modified" ||
@@ -805,6 +837,15 @@ function passtoArray(files, name_of_element, array_of_element) {
                   k ===
                   fileContents.log.entries[j].response.headers.length - 1
                 ) {
+                  for (let n = 0; n < array_of_element.length; n++) {
+                    console.log(array_of_element[n]);
+                  }
+                }
+              } else if (
+                k ===
+                fileContents.log.entries[j].response.headers.length - 1
+              ) {
+                {
                   for (let n = 0; n < array_of_element.length; n++) {
                     console.log(array_of_element[n]);
                   }
