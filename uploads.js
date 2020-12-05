@@ -1,5 +1,6 @@
 "use strict";
 
+//Dilono tous pinakes pou that balo ta dedomena ton har sti sunexeia
 let startedDateTimes = [];
 let timings_wait = [];
 let serverIPAddresses = [];
@@ -29,6 +30,7 @@ button.onclick = () => {
   fileInput.click();
 };
 
+//Fires when the contents of the object or selection have changed.
 fileInput.onchange = () => {
   const selectedFiles = [...fileInput.files];
   let file = [];
@@ -36,6 +38,8 @@ fileInput.onchange = () => {
     file[i] = document.getElementById("input").files[i];
   }
   console.log(selectedFiles);
+  //Kalo ti sunartisi pou dimiourgisa h opoia pairnei san eisodo to pinaka me ola ta files, to onoma ton dedomenon pou
+  //theloume na parei apo to har file kai telos ton pinaka pou tha balei auta ta dedomena
   /*
   passtoArray(file, "startedDateTime", startedDateTimes);
   passtoArray(file, "serverIPAddress", serverIPAddresses);
@@ -75,6 +79,7 @@ dropArea.addEventListener("dragover", (event) => {
   event.dataTransfer.dropEffect = "copy";
 });
 
+//I idia diadikasia pou ekana sto fileInput.onchange
 dropArea.addEventListener("drop", (event) => {
   event.stopPropagation();
   event.preventDefault();
