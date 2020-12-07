@@ -38,38 +38,33 @@ fileInput.onchange = () => {
     file[i] = document.getElementById("input").files[i];
   }
   console.log(selectedFiles);
-  //Kalo ti sunartisi pou dimiourgisa h opoia pairnei san eisodo to pinaka me ola ta files, to onoma ton dedomenon pou
-  //theloume na parei apo to har file kai telos ton pinaka pou tha balei auta ta dedomena
-  /*
-  passtoArray(file, "startedDateTime", startedDateTimes);
-  passtoArray(file, "serverIPAddress", serverIPAddresses);
-  passtoArray(file, "wait", timings_wait);
-  passtoArray(file, "request_method", request_method);
-  passtoArray(file, "request_url", request_url);
-  passtoArray(file, "request_content_type", request_content_type);
-  passtoArray(file, "request_cache_control", request_cache_control);
-  passtoArray(file, "request_pragma", request_pragma);
-  passtoArray(file, "request_expires", request_expires);
-  */
-  /*
-  passtoArray(file, "request_age", request_age);
-  passtoArray(file, "request_last_modified", request_last_modified);
-  passtoArray(file, "request_host", request_host);
-  passtoArray(file, "response_content_type", response_content_type);
-  passtoArray(file, "response_cache_control", response_cache_control);
-  passtoArray(file, "response_pragma", response_pragma);
-  */
-  //passtoArray(file, "response_expires", response_expires);
-  passtoArray(file, "response_expires", response_expires).then(
-    console.log(response_expires[0])
-  );
-  //passtoArray(file, "response_age", response_age);
-  //passtoArray(file, "response_last_modified", response_last_modified);
-  /*
-  passtoArray(file, "response_host", response_host);
-  passtoArray(file, "response_status", response_status);
-  passtoArray(file, "response_statusText", response_statusText);
-  */
+  async function proccessing_data() {
+    //Kalo ti sunartisi pou dimiourgisa h opoia pairnei san eisodo to pinaka me ola ta files, to onoma ton dedomenon pou
+    //theloume na parei apo to har file kai telos ton pinaka pou tha balei auta ta dedomena
+    await passtoArray(file, "startedDateTime", startedDateTimes);
+    await passtoArray(file, "serverIPAddress", serverIPAddresses);
+    await passtoArray(file, "wait", timings_wait);
+    await passtoArray(file, "request_method", request_method);
+    await passtoArray(file, "request_url", request_url);
+    await passtoArray(file, "request_content_type", request_content_type);
+    await passtoArray(file, "request_cache_control", request_cache_control);
+    await passtoArray(file, "request_pragma", request_pragma);
+    await passtoArray(file, "request_expires", request_expires);
+    await passtoArray(file, "request_age", request_age);
+    await passtoArray(file, "request_last_modified", request_last_modified);
+    await passtoArray(file, "request_host", request_host);
+    await passtoArray(file, "response_content_type", response_content_type);
+    await passtoArray(file, "response_cache_control", response_cache_control);
+    await passtoArray(file, "response_pragma", response_pragma);
+    await passtoArray(file, "response_expires", response_expires);
+    await passtoArray(file, "response_age", response_age);
+    await passtoArray(file, "response_last_modified", response_last_modified);
+    await passtoArray(file, "response_host", response_host);
+    await passtoArray(file, "response_status", response_status);
+    await passtoArray(file, "response_statusText", response_statusText);
+    console.log(response_expires[8]);
+  }
+  proccessing_data();
 };
 
 //This is for drag and drop area
@@ -86,31 +81,42 @@ dropArea.addEventListener("drop", (event) => {
   event.stopPropagation();
   event.preventDefault();
   const fileList = event.dataTransfer.files;
-  passtoArray(fileList, "startedDateTime", startedDateTimes);
-  passtoArray(fileList, "serverIPAddress", serverIPAddresses);
-  passtoArray(fileList, "wait", timings_wait);
-  passtoArray(fileList, "request_method", request_method);
-  passtoArray(fileList, "request_url", request_url);
-  passtoArray(fileList, "request_content_type", request_content_type);
-  passtoArray(fileList, "request_cache_control", request_cache_control);
-  passtoArray(fileList, "request_pragma", request_pragma);
-  passtoArray(fileList, "request_expires", request_expires);
-  passtoArray(fileList, "request_age", request_age);
-  passtoArray(fileList, "request_last_modified", request_last_modified);
-  passtoArray(fileList, "request_host", request_host);
-  passtoArray(fileList, "response_content_type", response_content_type);
-  passtoArray(fileList, "response_cache_control", response_cache_control);
-  passtoArray(fileList, "response_pragma", response_pragma);
-  passtoArray(fileList, "response_expires", response_expires);
-  passtoArray(fileList, "response_age", response_age);
-  passtoArray(fileList, "response_last_modified", response_last_modified);
-  passtoArray(fileList, "response_host", response_host);
-  passtoArray(fileList, "response_status", response_status);
-  passtoArray(fileList, "response_statusText", response_statusText);
+  async function proccessing_drop_data() {
+    await passtoArray(fileList, "startedDateTime", startedDateTimes);
+    await passtoArray(fileList, "serverIPAddress", serverIPAddresses);
+    await passtoArray(fileList, "wait", timings_wait);
+    await passtoArray(fileList, "request_method", request_method);
+    await passtoArray(fileList, "request_url", request_url);
+    await passtoArray(fileList, "request_content_type", request_content_type);
+    await passtoArray(fileList, "request_cache_control", request_cache_control);
+    await passtoArray(fileList, "request_pragma", request_pragma);
+    await passtoArray(fileList, "request_expires", request_expires);
+    await passtoArray(fileList, "request_age", request_age);
+    await passtoArray(fileList, "request_last_modified", request_last_modified);
+    await passtoArray(fileList, "request_host", request_host);
+    await passtoArray(fileList, "response_content_type", response_content_type);
+    await passtoArray(
+      fileList,
+      "response_cache_control",
+      response_cache_control
+    );
+    await passtoArray(fileList, "response_pragma", response_pragma);
+    await passtoArray(fileList, "response_expires", response_expires);
+    await passtoArray(fileList, "response_age", response_age);
+    await passtoArray(
+      fileList,
+      "response_last_modified",
+      response_last_modified
+    );
+    await passtoArray(fileList, "response_host", response_host);
+    await passtoArray(fileList, "response_status", response_status);
+    await passtoArray(fileList, "response_statusText", response_statusText);
+    console.log(response_expires[8]);
+  }
+  proccessing_drop_data();
 });
 
 function passtoArray(files, name_of_element, array_of_element) {
-  let count = 0;
   for (let i = 0; i < files.length; i++) {
     return new Promise((resolve, reject) => {
       let fileReader = new FileReader();
@@ -126,7 +132,6 @@ function passtoArray(files, name_of_element, array_of_element) {
                 fileContents.log.entries[j].startedDateTime == null ||
                 fileContents.log.entries[j].startedDateTime == ""
               ) {
-                console.log(++count);
                 array_of_element.push(null);
               } else {
                 array_of_element.push(
@@ -139,6 +144,7 @@ function passtoArray(files, name_of_element, array_of_element) {
                     )
                 );
               }
+              resolve();
               if (j === fileContents.log.entries.length - 1) {
                 console.log(
                   "STOPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP PRIN ITAN ARXEIO 1"
@@ -152,13 +158,13 @@ function passtoArray(files, name_of_element, array_of_element) {
                 fileContents.log.entries[j].serverIPAddress == null ||
                 fileContents.log.entries[j].serverIPAddress == ""
               ) {
-                console.log(++count);
                 array_of_element.push(null);
               } else {
                 array_of_element.push(
                   fileContents.log.entries[j].serverIPAddress
                 );
               }
+              resolve();
               if (j === fileContents.log.entries.length - 1) {
                 console.log(
                   "STOPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP PRIN ITAN ARXEIO 1"
@@ -172,11 +178,11 @@ function passtoArray(files, name_of_element, array_of_element) {
                 fileContents.log.entries[j].timings.wait == null ||
                 fileContents.log.entries[j].timings.wait == ""
               ) {
-                console.log(++count);
                 array_of_element.push(null);
               } else {
                 array_of_element.push(fileContents.log.entries[j].timings.wait);
               }
+              resolve();
               if (j === fileContents.log.entries.length - 1) {
                 console.log(
                   "STOPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP PRIN ITAN ARXEIO 1"
@@ -190,13 +196,13 @@ function passtoArray(files, name_of_element, array_of_element) {
                 fileContents.log.entries[j].request.method == null ||
                 fileContents.log.entries[j].request.method == ""
               ) {
-                console.log(++count);
                 array_of_element.push(null);
               } else {
                 array_of_element.push(
                   fileContents.log.entries[j].request.method
                 );
               }
+              resolve();
               if (j === fileContents.log.entries.length - 1) {
                 console.log(
                   "STOPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP PRIN ITAN ARXEIO 1"
@@ -209,7 +215,6 @@ function passtoArray(files, name_of_element, array_of_element) {
                 fileContents.log.entries[j].request.url == null ||
                 fileContents.log.entries[j].request.url == ""
               ) {
-                console.log(++count);
                 array_of_element.push(null);
               } else {
                 array_of_element.push(
@@ -218,6 +223,7 @@ function passtoArray(files, name_of_element, array_of_element) {
                   )
                 );
               }
+              resolve();
               if (j === fileContents.log.entries.length - 1) {
                 console.log(
                   "STOPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP PRIN ITAN ARXEIO 1"
@@ -236,7 +242,6 @@ function passtoArray(files, name_of_element, array_of_element) {
                   fileContents.log.entries[j].request.headers[k].name == null ||
                   fileContents.log.entries[j].request.headers[k].name == ""
                 ) {
-                  console.log(++count);
                   array_of_element.push(null);
                 } else if (
                   typeof fileContents.log.entries[j].request.headers[k].value ==
@@ -257,6 +262,7 @@ function passtoArray(files, name_of_element, array_of_element) {
                   );
                 }
               }
+              resolve();
               if (j === fileContents.log.entries.length - 1) {
                 console.log(
                   "STOPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP PRIN ITAN ARXEIO 1"
@@ -275,7 +281,6 @@ function passtoArray(files, name_of_element, array_of_element) {
                   fileContents.log.entries[j].request.headers[k].name == null ||
                   fileContents.log.entries[j].request.headers[k].name == ""
                 ) {
-                  console.log(++count);
                   array_of_element.push(null);
                 } else if (
                   typeof fileContents.log.entries[j].request.headers[k].value ==
@@ -296,6 +301,7 @@ function passtoArray(files, name_of_element, array_of_element) {
                   );
                 }
               }
+              resolve();
               if (j === fileContents.log.entries.length - 1) {
                 console.log(
                   "STOPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP PRIN ITAN ARXEIO 1"
@@ -314,7 +320,6 @@ function passtoArray(files, name_of_element, array_of_element) {
                   fileContents.log.entries[j].request.headers[k].name == null ||
                   fileContents.log.entries[j].request.headers[k].name == ""
                 ) {
-                  console.log(++count);
                   array_of_element.push(null);
                 } else if (
                   typeof fileContents.log.entries[j].request.headers[k].value ==
@@ -335,6 +340,7 @@ function passtoArray(files, name_of_element, array_of_element) {
                   );
                 }
               }
+              resolve();
               if (j === fileContents.log.entries.length - 1) {
                 console.log(
                   "STOPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP PRIN ITAN ARXEIO 1"
@@ -353,7 +359,6 @@ function passtoArray(files, name_of_element, array_of_element) {
                   fileContents.log.entries[j].request.headers[k].name == null ||
                   fileContents.log.entries[j].request.headers[k].name == ""
                 ) {
-                  console.log(++count);
                   array_of_element.push(null);
                 } else if (
                   typeof fileContents.log.entries[j].request.headers[k].value ==
@@ -395,6 +400,7 @@ function passtoArray(files, name_of_element, array_of_element) {
                   );
                 }
               }
+              resolve();
               if (j === fileContents.log.entries.length - 1) {
                 console.log(
                   "STOPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP PRIN ITAN ARXEIO 1"
@@ -413,7 +419,6 @@ function passtoArray(files, name_of_element, array_of_element) {
                   fileContents.log.entries[j].request.headers[k].name == null ||
                   fileContents.log.entries[j].request.headers[k].name == ""
                 ) {
-                  console.log(++count);
                   array_of_element.push(null);
                 } else if (
                   typeof fileContents.log.entries[j].request.headers[k].value ==
@@ -433,6 +438,7 @@ function passtoArray(files, name_of_element, array_of_element) {
                   );
                 }
               }
+              resolve();
               if (j === fileContents.log.entries.length - 1) {
                 console.log(
                   "STOPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP PRIN ITAN ARXEIO 1"
@@ -451,7 +457,6 @@ function passtoArray(files, name_of_element, array_of_element) {
                   fileContents.log.entries[j].request.headers[k].name == null ||
                   fileContents.log.entries[j].request.headers[k].name == ""
                 ) {
-                  console.log(++count);
                   array_of_element.push(null);
                 } else if (
                   typeof fileContents.log.entries[j].request.headers[k].value ==
@@ -501,6 +506,7 @@ function passtoArray(files, name_of_element, array_of_element) {
                   }
                 }
               }
+              resolve();
               if (j === fileContents.log.entries.length - 1) {
                 console.log(
                   "STOPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP PRIN ITAN ARXEIO 1"
@@ -519,7 +525,6 @@ function passtoArray(files, name_of_element, array_of_element) {
                   fileContents.log.entries[j].request.headers[k].name == null ||
                   fileContents.log.entries[j].request.headers[k].name == ""
                 ) {
-                  console.log(++count);
                   array_of_element.push(null);
                 } else if (
                   typeof fileContents.log.entries[j].request.headers[k].value ==
@@ -539,6 +544,7 @@ function passtoArray(files, name_of_element, array_of_element) {
                   );
                 }
               }
+              resolve();
               if (j === fileContents.log.entries.length - 1) {
                 console.log(
                   "STOPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP PRIN ITAN ARXEIO 1"
@@ -558,7 +564,6 @@ function passtoArray(files, name_of_element, array_of_element) {
                     null ||
                   fileContents.log.entries[j].response.headers[k].name == ""
                 ) {
-                  console.log(++count);
                   array_of_element.push(null);
                 } else if (
                   typeof fileContents.log.entries[j].response.headers[k]
@@ -579,6 +584,7 @@ function passtoArray(files, name_of_element, array_of_element) {
                   );
                 }
               }
+              resolve();
               if (j === fileContents.log.entries.length - 1) {
                 console.log(
                   "STOPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP PRIN ITAN ARXEIO 1"
@@ -598,7 +604,6 @@ function passtoArray(files, name_of_element, array_of_element) {
                     null ||
                   fileContents.log.entries[j].response.headers[k].name == ""
                 ) {
-                  console.log(++count);
                   array_of_element.push(null);
                 } else if (
                   typeof fileContents.log.entries[j].response.headers[k]
@@ -619,6 +624,7 @@ function passtoArray(files, name_of_element, array_of_element) {
                   );
                 }
               }
+              resolve();
               if (j === fileContents.log.entries.length - 1) {
                 console.log(
                   "STOPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP PRIN ITAN ARXEIO 1"
@@ -638,7 +644,6 @@ function passtoArray(files, name_of_element, array_of_element) {
                     null ||
                   fileContents.log.entries[j].response.headers[k].name == ""
                 ) {
-                  console.log(++count);
                   array_of_element.push(null);
                 } else if (
                   typeof fileContents.log.entries[j].response.headers[k]
@@ -659,6 +664,7 @@ function passtoArray(files, name_of_element, array_of_element) {
                   );
                 }
               }
+              resolve();
               if (j === fileContents.log.entries.length - 1) {
                 console.log(
                   "STOPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP PRIN ITAN ARXEIO 1"
@@ -719,8 +725,7 @@ function passtoArray(files, name_of_element, array_of_element) {
                   );
                 }
               }
-              count = 1;
-              resolve(console.log(array_of_element[0]));
+              resolve();
               if (j === fileContents.log.entries.length - 1) {
                 console.log(
                   "STOPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP PRIN ITAN ARXEIO 1"
@@ -740,7 +745,6 @@ function passtoArray(files, name_of_element, array_of_element) {
                     null ||
                   fileContents.log.entries[j].response.headers[k].name == ""
                 ) {
-                  console.log(++count);
                   array_of_element.push(null);
                 } else if (
                   typeof fileContents.log.entries[j].response.headers[k]
@@ -760,6 +764,7 @@ function passtoArray(files, name_of_element, array_of_element) {
                   );
                 }
               }
+              resolve();
               if (j === fileContents.log.entries.length - 1) {
                 console.log(
                   "STOPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP PRIN ITAN ARXEIO 1"
@@ -779,7 +784,6 @@ function passtoArray(files, name_of_element, array_of_element) {
                     null ||
                   fileContents.log.entries[j].response.headers[k].name == ""
                 ) {
-                  console.log(++count);
                   array_of_element.push(null);
                 } else if (
                   typeof fileContents.log.entries[j].response.headers[k]
@@ -821,6 +825,7 @@ function passtoArray(files, name_of_element, array_of_element) {
                   );
                 }
               }
+              resolve();
               if (j === fileContents.log.entries.length - 1) {
                 console.log(
                   "STOPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP PRIN ITAN ARXEIO 1"
@@ -840,7 +845,6 @@ function passtoArray(files, name_of_element, array_of_element) {
                     null ||
                   fileContents.log.entries[j].response.headers[k].name == ""
                 ) {
-                  console.log(++count);
                   array_of_element.push(null);
                 } else if (
                   typeof fileContents.log.entries[j].response.headers[k]
@@ -861,6 +865,7 @@ function passtoArray(files, name_of_element, array_of_element) {
                   );
                 }
               }
+              resolve();
               if (j === fileContents.log.entries.length - 1) {
                 console.log(
                   "STOPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP PRIN ITAN ARXEIO 1"
@@ -874,13 +879,13 @@ function passtoArray(files, name_of_element, array_of_element) {
                 fileContents.log.entries[j].response.status == null ||
                 fileContents.log.entries[j].response.status == ""
               ) {
-                console.log(++count);
                 array_of_element.push(null);
               } else {
                 array_of_element.push(
                   fileContents.log.entries[j].response.status
                 );
               }
+              resolve();
               if (j === fileContents.log.entries.length - 1) {
                 console.log(
                   "STOPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP PRIN ITAN ARXEIO 1"
@@ -894,13 +899,13 @@ function passtoArray(files, name_of_element, array_of_element) {
                 fileContents.log.entries[j].response.statusText == null ||
                 fileContents.log.entries[j].response.statusText == ""
               ) {
-                console.log(++count);
                 array_of_element.push(null);
               } else {
                 array_of_element.push(
                   fileContents.log.entries[j].response.statusText
                 );
               }
+              resolve();
               if (j === fileContents.log.entries.length - 1) {
                 console.log(
                   "STOPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP PRIN ITAN ARXEIO 1"
