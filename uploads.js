@@ -83,16 +83,27 @@ fileInput.onchange = () => {
       await passtoArray(file[i], "response_host", response_host);
       await passtoArray(file[i], "response_status", response_status);
       await passtoArray(file[i], "response_statusText", response_statusText);
-      for (let k = 0; k < startedDateTimes.length; k++) {
-        console.log(
-          startedDateTimes[k] +
-            "This is the number: " +
-            k +
-            " File number: " +
-            i
-        );
-      }
       startedDateTimes = [];
+      timings_wait = [];
+      serverIPAddresses = [];
+      request_method = [];
+      request_url = [];
+      request_content_type = [];
+      request_cache_control = [];
+      request_pragma = [];
+      request_expires = [];
+      request_age = [];
+      request_last_modified = [];
+      request_host = [];
+      response_status = [];
+      response_statusText = [];
+      response_content_type = [];
+      response_cache_control = [];
+      response_pragma = [];
+      response_expires = [];
+      response_age = [];
+      response_last_modified = [];
+      response_host = [];
     }
   }
   proccessing_data();
@@ -163,16 +174,27 @@ dropArea.addEventListener("drop", (event) => {
         "response_statusText",
         response_statusText
       );
-      for (let k = 0; k < startedDateTimes.length; k++) {
-        console.log(
-          startedDateTimes[k] +
-            "This is the number: " +
-            k +
-            " File number: " +
-            i
-        );
-      }
       startedDateTimes = [];
+      timings_wait = [];
+      serverIPAddresses = [];
+      request_method = [];
+      request_url = [];
+      request_content_type = [];
+      request_cache_control = [];
+      request_pragma = [];
+      request_expires = [];
+      request_age = [];
+      request_last_modified = [];
+      request_host = [];
+      response_status = [];
+      response_statusText = [];
+      response_content_type = [];
+      response_cache_control = [];
+      response_pragma = [];
+      response_expires = [];
+      response_age = [];
+      response_last_modified = [];
+      response_host = [];
     }
   }
   proccessing_drop_data();
