@@ -45,7 +45,6 @@ fileInput.onchange = () => {
   passtoArray(file, "serverIPAddress", serverIPAddresses);
   passtoArray(file, "wait", timings_wait);
   passtoArray(file, "request_method", request_method);
-
   passtoArray(file, "request_url", request_url);
   passtoArray(file, "request_content_type", request_content_type);
   passtoArray(file, "request_cache_control", request_cache_control);
@@ -60,7 +59,9 @@ fileInput.onchange = () => {
   passtoArray(file, "response_cache_control", response_cache_control);
   passtoArray(file, "response_pragma", response_pragma);
   */
+  //passtoArray(file, "response_expires", response_expires);
   passtoArray(file, "response_expires", response_expires);
+  console.log(response_expires[0]);
   //passtoArray(file, "response_age", response_age);
   //passtoArray(file, "response_last_modified", response_last_modified);
   /*
@@ -880,6 +881,5 @@ function passtoArray(files, name_of_element, array_of_element) {
       }
     };
     let currentfilepickreader = fileReader.readAsText(files[i]);
-    console.log(array_of_element);
   }
 }
