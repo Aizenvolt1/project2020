@@ -62,7 +62,12 @@ fileInput.onchange = () => {
     await passtoArray(file, "response_host", response_host);
     await passtoArray(file, "response_status", response_status);
     await passtoArray(file, "response_statusText", response_statusText);
-    console.log(response_expires[8]);
+    for (let i = 0; i < response_expires.length; i++) {
+      console.log(request_expires[i] + "This is the number: " + i);
+    }
+    //for (let i = 0; i < response_expires.length; i++) {
+    // console.log(response_expires[i]);
+    // }
   }
   proccessing_data();
 };
@@ -144,6 +149,9 @@ function passtoArray(files, name_of_element, array_of_element) {
                     )
                 );
               }
+              if (typeof array_of_element[j] === "undefined") {
+                array_of_element.push(null);
+              }
               resolve();
               if (j === fileContents.log.entries.length - 1) {
                 console.log(
@@ -164,6 +172,9 @@ function passtoArray(files, name_of_element, array_of_element) {
                   fileContents.log.entries[j].serverIPAddress
                 );
               }
+              if (typeof array_of_element[j] === "undefined") {
+                array_of_element.push(null);
+              }
               resolve();
               if (j === fileContents.log.entries.length - 1) {
                 console.log(
@@ -181,6 +192,9 @@ function passtoArray(files, name_of_element, array_of_element) {
                 array_of_element.push(null);
               } else {
                 array_of_element.push(fileContents.log.entries[j].timings.wait);
+              }
+              if (typeof array_of_element[j] === "undefined") {
+                array_of_element.push(null);
               }
               resolve();
               if (j === fileContents.log.entries.length - 1) {
@@ -202,6 +216,9 @@ function passtoArray(files, name_of_element, array_of_element) {
                   fileContents.log.entries[j].request.method
                 );
               }
+              if (typeof array_of_element[j] === "undefined") {
+                array_of_element.push(null);
+              }
               resolve();
               if (j === fileContents.log.entries.length - 1) {
                 console.log(
@@ -222,6 +239,9 @@ function passtoArray(files, name_of_element, array_of_element) {
                     /(https:\/\/|http:\/\/)(\S*?\/)/g
                   )
                 );
+              }
+              if (typeof array_of_element[j] === "undefined") {
+                array_of_element.push(null);
               }
               resolve();
               if (j === fileContents.log.entries.length - 1) {
@@ -260,6 +280,9 @@ function passtoArray(files, name_of_element, array_of_element) {
                   array_of_element.push(
                     fileContents.log.entries[j].request.headers[k].value
                   );
+                }
+                if (typeof array_of_element[j] === "undefined") {
+                  array_of_element.push(null);
                 }
               }
               resolve();
@@ -300,6 +323,9 @@ function passtoArray(files, name_of_element, array_of_element) {
                     fileContents.log.entries[j].request.headers[k].value
                   );
                 }
+                if (typeof array_of_element[j] === "undefined") {
+                  array_of_element.push(null);
+                }
               }
               resolve();
               if (j === fileContents.log.entries.length - 1) {
@@ -338,6 +364,9 @@ function passtoArray(files, name_of_element, array_of_element) {
                   array_of_element.push(
                     fileContents.log.entries[j].request.headers[k].value
                   );
+                }
+                if (typeof array_of_element[j] === "undefined") {
+                  array_of_element.push(null);
                 }
               }
               resolve();
@@ -399,6 +428,9 @@ function passtoArray(files, name_of_element, array_of_element) {
                         .split(/(?<=\d)\s(?=\d)/g)[1]
                   );
                 }
+                if (typeof array_of_element[j] === "undefined") {
+                  array_of_element.push(null);
+                }
               }
               resolve();
               if (j === fileContents.log.entries.length - 1) {
@@ -436,6 +468,9 @@ function passtoArray(files, name_of_element, array_of_element) {
                   array_of_element.push(
                     fileContents.log.entries[j].request.headers[k].value
                   );
+                }
+                if (typeof array_of_element[j] === "undefined") {
+                  array_of_element.push(null);
                 }
               }
               resolve();
@@ -496,14 +531,9 @@ function passtoArray(files, name_of_element, array_of_element) {
                         .match(/\d.+[^\D]/g)[0]
                         .split(/(?<=\d)\s(?=\d)/g)[1]
                   );
-                  if (
-                    k ===
-                    fileContents.log.entries[j].request.headers.length - 1
-                  ) {
-                    for (let n = 0; n < array_of_element.length; n++) {
-                      console.log(array_of_element[n]);
-                    }
-                  }
+                }
+                if (typeof array_of_element[j] === "undefined") {
+                  array_of_element.push(null);
                 }
               }
               resolve();
@@ -542,6 +572,9 @@ function passtoArray(files, name_of_element, array_of_element) {
                   array_of_element.push(
                     fileContents.log.entries[j].request.headers[k].value
                   );
+                }
+                if (typeof array_of_element[j] === "undefined") {
+                  array_of_element.push(null);
                 }
               }
               resolve();
@@ -583,6 +616,9 @@ function passtoArray(files, name_of_element, array_of_element) {
                     fileContents.log.entries[j].response.headers[k].value
                   );
                 }
+                if (typeof array_of_element[j] === "undefined") {
+                  array_of_element.push(null);
+                }
               }
               resolve();
               if (j === fileContents.log.entries.length - 1) {
@@ -623,6 +659,9 @@ function passtoArray(files, name_of_element, array_of_element) {
                     fileContents.log.entries[j].response.headers[k].value
                   );
                 }
+                if (typeof array_of_element[j] === "undefined") {
+                  array_of_element.push(null);
+                }
               }
               resolve();
               if (j === fileContents.log.entries.length - 1) {
@@ -662,6 +701,9 @@ function passtoArray(files, name_of_element, array_of_element) {
                   array_of_element.push(
                     fileContents.log.entries[j].response.headers[k].value
                   );
+                }
+                if (typeof array_of_element[j] === "undefined") {
+                  array_of_element.push(null);
                 }
               }
               resolve();
@@ -724,6 +766,9 @@ function passtoArray(files, name_of_element, array_of_element) {
                         .split(/(?<=\d)\s(?=\d)/g)[1]
                   );
                 }
+                if (typeof array_of_element[j] === "undefined") {
+                  array_of_element.push(null);
+                }
               }
               resolve();
               if (j === fileContents.log.entries.length - 1) {
@@ -762,6 +807,9 @@ function passtoArray(files, name_of_element, array_of_element) {
                   array_of_element.push(
                     fileContents.log.entries[j].response.headers[k].value
                   );
+                }
+                if (typeof array_of_element[j] === "undefined") {
+                  array_of_element.push(null);
                 }
               }
               resolve();
@@ -824,6 +872,9 @@ function passtoArray(files, name_of_element, array_of_element) {
                         .split(/(?<=\d)\s(?=\d)/g)[1]
                   );
                 }
+                if (typeof array_of_element[j] === "undefined") {
+                  array_of_element.push(null);
+                }
               }
               resolve();
               if (j === fileContents.log.entries.length - 1) {
@@ -864,6 +915,9 @@ function passtoArray(files, name_of_element, array_of_element) {
                     fileContents.log.entries[j].response.headers[k].value
                   );
                 }
+                if (typeof array_of_element[j] === "undefined") {
+                  array_of_element.push(null);
+                }
               }
               resolve();
               if (j === fileContents.log.entries.length - 1) {
@@ -885,6 +939,9 @@ function passtoArray(files, name_of_element, array_of_element) {
                   fileContents.log.entries[j].response.status
                 );
               }
+              if (typeof array_of_element[j] === "undefined") {
+                array_of_element.push(null);
+              }
               resolve();
               if (j === fileContents.log.entries.length - 1) {
                 console.log(
@@ -904,6 +961,9 @@ function passtoArray(files, name_of_element, array_of_element) {
                 array_of_element.push(
                   fileContents.log.entries[j].response.statusText
                 );
+              }
+              if (typeof array_of_element[j] === "undefined") {
+                array_of_element.push(null);
               }
               resolve();
               if (j === fileContents.log.entries.length - 1) {
