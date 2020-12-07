@@ -62,8 +62,8 @@ fileInput.onchange = () => {
     await passtoArray(file, "response_host", response_host);
     await passtoArray(file, "response_status", response_status);
     await passtoArray(file, "response_statusText", response_statusText);
-    for (let i = 0; i < response_expires.length; i++) {
-      console.log(request_expires[i] + "This is the number: " + i);
+    for (let i = 0; i < startedDateTimes.length; i++) {
+      console.log(startedDateTimes[i] + "This is the number: " + i);
     }
     //for (let i = 0; i < response_expires.length; i++) {
     // console.log(response_expires[i]);
@@ -153,11 +153,6 @@ function passtoArray(files, name_of_element, array_of_element) {
                 array_of_element.push(null);
               }
               resolve();
-              if (j === fileContents.log.entries.length - 1) {
-                console.log(
-                  "STOPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP PRIN ITAN ARXEIO 1"
-                );
-              }
               break;
             case "serverIPAddress":
               if (
@@ -176,11 +171,6 @@ function passtoArray(files, name_of_element, array_of_element) {
                 array_of_element.push(null);
               }
               resolve();
-              if (j === fileContents.log.entries.length - 1) {
-                console.log(
-                  "STOPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP PRIN ITAN ARXEIO 1"
-                );
-              }
               break;
             case "wait":
               if (
@@ -197,11 +187,6 @@ function passtoArray(files, name_of_element, array_of_element) {
                 array_of_element.push(null);
               }
               resolve();
-              if (j === fileContents.log.entries.length - 1) {
-                console.log(
-                  "STOPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP PRIN ITAN ARXEIO 1"
-                );
-              }
               break;
             case "request_method":
               if (
@@ -220,11 +205,6 @@ function passtoArray(files, name_of_element, array_of_element) {
                 array_of_element.push(null);
               }
               resolve();
-              if (j === fileContents.log.entries.length - 1) {
-                console.log(
-                  "STOPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP PRIN ITAN ARXEIO 1"
-                );
-              }
               break;
             case "request_url":
               if (
@@ -244,11 +224,6 @@ function passtoArray(files, name_of_element, array_of_element) {
                 array_of_element.push(null);
               }
               resolve();
-              if (j === fileContents.log.entries.length - 1) {
-                console.log(
-                  "STOPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP PRIN ITAN ARXEIO 1"
-                );
-              }
               break;
             case "request_content_type":
               for (
@@ -286,11 +261,6 @@ function passtoArray(files, name_of_element, array_of_element) {
                 }
               }
               resolve();
-              if (j === fileContents.log.entries.length - 1) {
-                console.log(
-                  "STOPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP PRIN ITAN ARXEIO 1"
-                );
-              }
               break;
             case "request_cache_control":
               for (
@@ -328,11 +298,6 @@ function passtoArray(files, name_of_element, array_of_element) {
                 }
               }
               resolve();
-              if (j === fileContents.log.entries.length - 1) {
-                console.log(
-                  "STOPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP PRIN ITAN ARXEIO 1"
-                );
-              }
               break;
             case "request_pragma":
               for (
@@ -370,11 +335,6 @@ function passtoArray(files, name_of_element, array_of_element) {
                 }
               }
               resolve();
-              if (j === fileContents.log.entries.length - 1) {
-                console.log(
-                  "STOPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP PRIN ITAN ARXEIO 1"
-                );
-              }
               break;
             case "request_expires":
               for (
@@ -415,9 +375,9 @@ function passtoArray(files, name_of_element, array_of_element) {
                       .match(/\d.+[^\D]/g)[0]
                       .split(/(?<=\d)\s(?=\d)/g)[0]
                       .match(/\d{4}/g)[0] +
-                      " " +
+                      "-" +
                       month +
-                      " " +
+                      "-" +
                       fileContents.log.entries[j].request.headers[k].value
                         .match(/\d.+[^\D]/g)[0]
                         .split(/(?<=\d)\s(?=\d)/g)[0]
@@ -433,11 +393,6 @@ function passtoArray(files, name_of_element, array_of_element) {
                 }
               }
               resolve();
-              if (j === fileContents.log.entries.length - 1) {
-                console.log(
-                  "STOPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP PRIN ITAN ARXEIO 1"
-                );
-              }
               break;
             case "request_age":
               for (
@@ -474,11 +429,6 @@ function passtoArray(files, name_of_element, array_of_element) {
                 }
               }
               resolve();
-              if (j === fileContents.log.entries.length - 1) {
-                console.log(
-                  "STOPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP PRIN ITAN ARXEIO 1"
-                );
-              }
               break;
             case "request_last_modified":
               for (
@@ -519,9 +469,9 @@ function passtoArray(files, name_of_element, array_of_element) {
                       .match(/\d.+[^\D]/g)[0]
                       .split(/(?<=\d)\s(?=\d)/g)[0]
                       .match(/\d{4}/g)[0] +
-                      " " +
+                      "-" +
                       month +
-                      " " +
+                      "-" +
                       fileContents.log.entries[j].request.headers[k].value
                         .match(/\d.+[^\D]/g)[0]
                         .split(/(?<=\d)\s(?=\d)/g)[0]
@@ -537,11 +487,6 @@ function passtoArray(files, name_of_element, array_of_element) {
                 }
               }
               resolve();
-              if (j === fileContents.log.entries.length - 1) {
-                console.log(
-                  "STOPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP PRIN ITAN ARXEIO 1"
-                );
-              }
               break;
             case "request_host":
               for (
@@ -578,11 +523,6 @@ function passtoArray(files, name_of_element, array_of_element) {
                 }
               }
               resolve();
-              if (j === fileContents.log.entries.length - 1) {
-                console.log(
-                  "STOPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP PRIN ITAN ARXEIO 1"
-                );
-              }
               break;
             case "response_content_type":
               for (
@@ -621,11 +561,6 @@ function passtoArray(files, name_of_element, array_of_element) {
                 }
               }
               resolve();
-              if (j === fileContents.log.entries.length - 1) {
-                console.log(
-                  "STOPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP PRIN ITAN ARXEIO 1"
-                );
-              }
               break;
             case "response_cache_control":
               for (
@@ -664,11 +599,6 @@ function passtoArray(files, name_of_element, array_of_element) {
                 }
               }
               resolve();
-              if (j === fileContents.log.entries.length - 1) {
-                console.log(
-                  "STOPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP PRIN ITAN ARXEIO 1"
-                );
-              }
               break;
             case "response_pragma":
               for (
@@ -707,11 +637,6 @@ function passtoArray(files, name_of_element, array_of_element) {
                 }
               }
               resolve();
-              if (j === fileContents.log.entries.length - 1) {
-                console.log(
-                  "STOPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP PRIN ITAN ARXEIO 1"
-                );
-              }
               break;
             case "response_expires":
               for (
@@ -753,9 +678,9 @@ function passtoArray(files, name_of_element, array_of_element) {
                       .match(/\d.+[^\D]/g)[0]
                       .split(/(?<=\d)\s(?=\d)/g)[0]
                       .match(/\d{4}/g)[0] +
-                      " " +
+                      "-" +
                       month +
-                      " " +
+                      "-" +
                       fileContents.log.entries[j].response.headers[k].value
                         .match(/\d.+[^\D]/g)[0]
                         .split(/(?<=\d)\s(?=\d)/g)[0]
@@ -771,11 +696,6 @@ function passtoArray(files, name_of_element, array_of_element) {
                 }
               }
               resolve();
-              if (j === fileContents.log.entries.length - 1) {
-                console.log(
-                  "STOPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP PRIN ITAN ARXEIO 1"
-                );
-              }
               break;
             case "response_age":
               for (
@@ -813,11 +733,6 @@ function passtoArray(files, name_of_element, array_of_element) {
                 }
               }
               resolve();
-              if (j === fileContents.log.entries.length - 1) {
-                console.log(
-                  "STOPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP PRIN ITAN ARXEIO 1"
-                );
-              }
               break;
             case "response_last_modified":
               for (
@@ -859,9 +774,9 @@ function passtoArray(files, name_of_element, array_of_element) {
                       .match(/\d.+[^\D]/g)[0]
                       .split(/(?<=\d)\s(?=\d)/g)[0]
                       .match(/\d{4}/g)[0] +
-                      " " +
+                      "-" +
                       month +
-                      " " +
+                      "-" +
                       fileContents.log.entries[j].response.headers[k].value
                         .match(/\d.+[^\D]/g)[0]
                         .split(/(?<=\d)\s(?=\d)/g)[0]
@@ -877,11 +792,6 @@ function passtoArray(files, name_of_element, array_of_element) {
                 }
               }
               resolve();
-              if (j === fileContents.log.entries.length - 1) {
-                console.log(
-                  "STOPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP PRIN ITAN ARXEIO 1"
-                );
-              }
               break;
             case "response_host":
               for (
@@ -920,11 +830,6 @@ function passtoArray(files, name_of_element, array_of_element) {
                 }
               }
               resolve();
-              if (j === fileContents.log.entries.length - 1) {
-                console.log(
-                  "STOPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP PRIN ITAN ARXEIO 1"
-                );
-              }
               break;
             case "response_status":
               if (
@@ -943,11 +848,6 @@ function passtoArray(files, name_of_element, array_of_element) {
                 array_of_element.push(null);
               }
               resolve();
-              if (j === fileContents.log.entries.length - 1) {
-                console.log(
-                  "STOPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP PRIN ITAN ARXEIO 1"
-                );
-              }
               break;
             case "response_statusText":
               if (
@@ -966,11 +866,6 @@ function passtoArray(files, name_of_element, array_of_element) {
                 array_of_element.push(null);
               }
               resolve();
-              if (j === fileContents.log.entries.length - 1) {
-                console.log(
-                  "STOPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP PRIN ITAN ARXEIO 1"
-                );
-              }
               break;
             default:
               console.log("No value found!");
