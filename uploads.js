@@ -83,6 +83,7 @@ fileInput.onchange = () => {
       await passtoArray(file[i], "response_host", response_host);
       await passtoArray(file[i], "response_status", response_status);
       await passtoArray(file[i], "response_statusText", response_statusText);
+
       startedDateTimes = [];
       timings_wait = [];
       serverIPAddresses = [];
@@ -174,6 +175,7 @@ dropArea.addEventListener("drop", (event) => {
         "response_statusText",
         response_statusText
       );
+
       startedDateTimes = [];
       timings_wait = [];
       serverIPAddresses = [];
