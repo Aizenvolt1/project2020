@@ -87,7 +87,11 @@ fileInput.onchange = () => {
       response_host = [];
     }
   }
+  async function proccessed_File() {
+    await Remove_File_Properties(file[0]);
+  }
   proccessing_data();
+  proccessed_File();
 };
 
 //This is for drag and drop area
@@ -258,8 +262,7 @@ function passtoArray(files, name_of_element, array_of_element) {
               ) {
                 array_of_element.push(null);
               } else if (
-                fileContents.log.entries[j].request.headers[k].name === "Content-Type" ||
-                fileContents.log.entries[j].request.headers[k].name === "content-type"
+                fileContents.log.entries[j].request.headers[k].name.toLowerCase() === "content-type"
               ) {
                 array_of_element.push(fileContents.log.entries[j].request.headers[k].value);
               }
@@ -284,8 +287,8 @@ function passtoArray(files, name_of_element, array_of_element) {
               ) {
                 array_of_element.push(null);
               } else if (
-                fileContents.log.entries[j].request.headers[k].name === "Cache-Control" ||
-                fileContents.log.entries[j].request.headers[k].name === "cache-control"
+                fileContents.log.entries[j].request.headers[k].name.toLowerCase() ===
+                "cache-control"
               ) {
                 array_of_element.push(fileContents.log.entries[j].request.headers[k].value);
               }
@@ -310,8 +313,7 @@ function passtoArray(files, name_of_element, array_of_element) {
               ) {
                 array_of_element.push(null);
               } else if (
-                fileContents.log.entries[j].request.headers[k].name === "pragma" ||
-                fileContents.log.entries[j].request.headers[k].name === "Pragma"
+                fileContents.log.entries[j].request.headers[k].name.toLowerCase() === "pragma"
               ) {
                 array_of_element.push(fileContents.log.entries[j].request.headers[k].value);
               }
@@ -336,8 +338,7 @@ function passtoArray(files, name_of_element, array_of_element) {
               ) {
                 array_of_element.push(null);
               } else if (
-                fileContents.log.entries[j].request.headers[k].name === "expires" ||
-                fileContents.log.entries[j].request.headers[k].name === "Expires"
+                fileContents.log.entries[j].request.headers[k].name.toLowerCase() === "expires"
               ) {
                 let month = new Date(
                   fileContents.log.entries[j].request.headers[k].value
@@ -385,8 +386,7 @@ function passtoArray(files, name_of_element, array_of_element) {
               ) {
                 array_of_element.push(null);
               } else if (
-                fileContents.log.entries[j].request.headers[k].name === "age" ||
-                fileContents.log.entries[j].request.headers[k].name === "Age"
+                fileContents.log.entries[j].request.headers[k].name.toLowerCase() === "age"
               ) {
                 array_of_element.push(fileContents.log.entries[j].request.headers[k].value);
               }
@@ -411,8 +411,8 @@ function passtoArray(files, name_of_element, array_of_element) {
               ) {
                 array_of_element.push(null);
               } else if (
-                fileContents.log.entries[j].request.headers[k].name === "last-modified" ||
-                fileContents.log.entries[j].request.headers[k].name === "Last-Modified"
+                fileContents.log.entries[j].request.headers[k].name.toLowerCase() ===
+                "last-modified"
               ) {
                 let month = new Date(
                   fileContents.log.entries[j].request.headers[k].value
@@ -460,8 +460,7 @@ function passtoArray(files, name_of_element, array_of_element) {
               ) {
                 array_of_element.push(null);
               } else if (
-                fileContents.log.entries[j].request.headers[k].name === "host" ||
-                fileContents.log.entries[j].request.headers[k].name === "Host"
+                fileContents.log.entries[j].request.headers[k].name.toLowerCase() === "host"
               ) {
                 array_of_element.push(fileContents.log.entries[j].request.headers[k].value);
               }
@@ -486,8 +485,8 @@ function passtoArray(files, name_of_element, array_of_element) {
               ) {
                 array_of_element.push(null);
               } else if (
-                fileContents.log.entries[j].response.headers[k].name === "Content-Type" ||
-                fileContents.log.entries[j].response.headers[k].name === "content-type"
+                fileContents.log.entries[j].response.headers[k].name.toLowerCase() ===
+                "content-type"
               ) {
                 array_of_element.push(fileContents.log.entries[j].response.headers[k].value);
               }
@@ -512,8 +511,8 @@ function passtoArray(files, name_of_element, array_of_element) {
               ) {
                 array_of_element.push(null);
               } else if (
-                fileContents.log.entries[j].response.headers[k].name === "Cache-Control" ||
-                fileContents.log.entries[j].response.headers[k].name === "cache-control"
+                fileContents.log.entries[j].response.headers[k].name.toLowerCase() ===
+                "cache-control"
               ) {
                 array_of_element.push(fileContents.log.entries[j].response.headers[k].value);
               }
@@ -538,8 +537,7 @@ function passtoArray(files, name_of_element, array_of_element) {
               ) {
                 array_of_element.push(null);
               } else if (
-                fileContents.log.entries[j].response.headers[k].name === "pragma" ||
-                fileContents.log.entries[j].response.headers[k].name === "Pragma"
+                fileContents.log.entries[j].response.headers[k].name.toLowerCase() === "pragma"
               ) {
                 array_of_element.push(fileContents.log.entries[j].response.headers[k].value);
               }
@@ -564,8 +562,7 @@ function passtoArray(files, name_of_element, array_of_element) {
               ) {
                 array_of_element.push(null);
               } else if (
-                fileContents.log.entries[j].response.headers[k].name === "expires" ||
-                fileContents.log.entries[j].response.headers[k].name === "Expires"
+                fileContents.log.entries[j].response.headers[k].name.toLowerCase() === "expires"
               ) {
                 let month = new Date(
                   fileContents.log.entries[j].response.headers[k].value
@@ -613,8 +610,7 @@ function passtoArray(files, name_of_element, array_of_element) {
               ) {
                 array_of_element.push(null);
               } else if (
-                fileContents.log.entries[j].response.headers[k].name === "age" ||
-                fileContents.log.entries[j].response.headers[k].name === "Age"
+                fileContents.log.entries[j].response.headers[k].name.toLowerCase() === "age"
               ) {
                 array_of_element.push(fileContents.log.entries[j].response.headers[k].value);
               }
@@ -639,8 +635,8 @@ function passtoArray(files, name_of_element, array_of_element) {
               ) {
                 array_of_element.push(null);
               } else if (
-                fileContents.log.entries[j].response.headers[k].name === "last-modified" ||
-                fileContents.log.entries[j].response.headers[k].name === "Last-Modified"
+                fileContents.log.entries[j].response.headers[k].name.toLowerCase() ===
+                "last-modified"
               ) {
                 let month = new Date(
                   fileContents.log.entries[j].response.headers[k].value
@@ -688,8 +684,7 @@ function passtoArray(files, name_of_element, array_of_element) {
               ) {
                 array_of_element.push(null);
               } else if (
-                fileContents.log.entries[j].response.headers[k].name === "host" ||
-                fileContents.log.entries[j].response.headers[k].name === "Host"
+                fileContents.log.entries[j].response.headers[k].name.toLowerCase() === "host"
               ) {
                 array_of_element.push(fileContents.log.entries[j].response.headers[k].value);
               }
@@ -733,6 +728,34 @@ function passtoArray(files, name_of_element, array_of_element) {
             console.log("No value found!");
         }
       }
+    };
+  });
+}
+
+function Remove_File_Properties(files) {
+  return new Promise((resolve, reject) => {
+    let fileReader = new FileReader();
+    let currentfilepickreader = fileReader.readAsText(files);
+    fileReader.onload = function () {
+      let fileContents = JSON.parse(fileReader.result);
+      for (let x in fileContents.log) {
+        if (x.toLowerCase() !== "entries") {
+          delete fileContents.log[x];
+        }
+      }
+      for (let i = 0; i < fileContents.log.entries.length; i++) {
+        for (let x in fileContents.log.entries[i]) {
+          if (
+            x.toLowerCase() !== "request" ||
+            x.toLowerCase() !== "response" ||
+            x.toLowerCase() !== "timings"
+          ) {
+            delete fileContents.log.entries[i][x];
+          }
+        }
+      }
+      console.log(fileContents.log.entries[0].connection);
+      resolve();
     };
   });
 }
