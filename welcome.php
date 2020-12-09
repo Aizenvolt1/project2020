@@ -51,7 +51,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             }
         </script>
         <script>
-            document.getElementById("sbmBtn").addEventListener("click", openform)
+            document.getElementById("sbmBtn").addEventListener("click", openForm)
             function openForm() {
                 document.getElementById("myForm").style.display = "block";
             }
