@@ -800,6 +800,76 @@ function Remove_File_Properties(files) {
           }
         }
       }
+      let needed_data = [];
+      for (let i = 0; i < fileContents.log.entries.length; i++) {
+        for (let j = 0; j < fileContents.log.entries[i].request.headers.length; j++) {
+          if (
+            fileContents.log.entries[i].request.headers[j].name.toLowerCase() === "content-type" ||
+            fileContents.log.entries[i].request.headers[j].name.toLowerCase() === "cache-control" ||
+            fileContents.log.entries[i].request.headers[j].name.toLowerCase() === "pragma" ||
+            fileContents.log.entries[i].request.headers[j].name.toLowerCase() === "expires" ||
+            fileContents.log.entries[i].request.headers[j].name.toLowerCase() === "age" ||
+            fileContents.log.entries[i].request.headers[j].name.toLowerCase() === "last-modified" ||
+            fileContents.log.entries[i].request.headers[j].name.toLowerCase() === "host"
+          ) {
+            needed_data.push(fileContents.log.entries[i].request.headers[j]);
+          }
+        }
+        if (needed_data.length === 0) {
+          needed_data.push(null);
+        }
+        if (needed_data.name == "undefined") {
+          needed_data.name.push(null);
+        } else if (needed_data.value == "undefined") {
+          needed_data.value.push(null);
+        } else if (typeof needed_data == "undefined") {
+          needed_data.push(null);
+        }
+        fileContents.log.entries[i].request.headers = [];
+        for (let k = 0; k < needed_data.length; k++) {
+          fileContents.log.entries[i].request.headers.push(needed_data[k]);
+        }
+        needed_data = [];
+      }
+
+      needed_data = [];
+      for (let i = 0; i < fileContents.log.entries.length; i++) {
+        for (let j = 0; j < fileContents.log.entries[i].response.headers.length; j++) {
+          if (
+            fileContents.log.entries[i].response.headers[j].name.toLowerCase() === "content-type" ||
+            fileContents.log.entries[i].response.headers[j].name.toLowerCase() ===
+              "cache-control" ||
+            fileContents.log.entries[i].response.headers[j].name.toLowerCase() === "pragma" ||
+            fileContents.log.entries[i].response.headers[j].name.toLowerCase() === "expires" ||
+            fileContents.log.entries[i].response.headers[j].name.toLowerCase() === "age" ||
+            fileContents.log.entries[i].response.headers[j].name.toLowerCase() ===
+              "last-modified" ||
+            fileContents.log.entries[i].response.headers[j].name.toLowerCase() === "host"
+          ) {
+            needed_data.push(fileContents.log.entries[i].response.headers[j]);
+          }
+        }
+        if (needed_data.length === 0) {
+          needed_data.push(null);
+        }
+        if (needed_data.name == "undefined") {
+          needed_data.name.push(null);
+        } else if (needed_data.value == "undefined") {
+          needed_data.value.push(null);
+        } else if (typeof needed_data == "undefined") {
+          needed_data.push(null);
+        }
+        fileContents.log.entries[i].response.headers = [];
+        for (let k = 0; k < needed_data.length; k++) {
+          fileContents.log.entries[i].response.headers.push(needed_data[k]);
+        }
+        needed_data = [];
+      }
+      for (let i = 0; i < fileContents.log.entries.length; i++) {
+        for (let j = 0; j < fileContents.log.entries[0].response.headers.length; j++) {
+          console.log(fileContents.log.entries[i].response.headers[j]);
+        }
+      }
       resolve();
     };
   });
