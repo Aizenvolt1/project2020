@@ -732,6 +732,7 @@ function passtoArray(files, name_of_element, array_of_element) {
   });
 }
 
+//H parakato sunartisi afairei ta dedomena pou de xreiazontai apo ta arxeia pou anebazei o xristis.
 function Remove_File_Properties(files) {
   return new Promise((resolve, reject) => {
     let fileReader = new FileReader();
@@ -746,15 +747,59 @@ function Remove_File_Properties(files) {
       for (let i = 0; i < fileContents.log.entries.length; i++) {
         for (let x in fileContents.log.entries[i]) {
           if (
-            x.toLowerCase() !== "request" ||
-            x.toLowerCase() !== "response" ||
+            x.toLowerCase() !== "request" &&
+            x.toLowerCase() !== "response" &&
             x.toLowerCase() !== "timings"
           ) {
             delete fileContents.log.entries[i][x];
           }
         }
       }
-      console.log(fileContents.log.entries[0].connection);
+      for (let i = 0; i < fileContents.log.entries.length; i++) {
+        for (let x in fileContents.log.entries[i].timings) {
+          if (x.toLowerCase() !== "wait") {
+            delete fileContents.log.entries[i].timings[x];
+          }
+        }
+      }
+      for (let i = 0; i < fileContents.log.entries.length; i++) {
+        for (let x in fileContents.log.entries[i].request) {
+          if (
+            x.toLowerCase() !== "method" &&
+            x.toLowerCase() !== "url" &&
+            x.toLowerCase() !== "headers"
+          ) {
+            delete fileContents.log.entries[i].request[x];
+          }
+          if (x.toLowerCase() === "url") {
+            if (
+              typeof fileContents.log.entries[i].request[x] == "undefined" ||
+              fileContents.log.entries[i].request[x] == null ||
+              fileContents.log.entries[i].request[x] == ""
+            ) {
+              fileContents.log.entries[i].request[x] == null;
+            } else {
+              fileContents.log.entries[i].request[x] = fileContents.log.entries[i].request[x].match(
+                /(https:\/\/|http:\/\/)(\S*?\/)/g
+              );
+            }
+            if (typeof fileContents.log.entries[i].request[x] === "undefined") {
+              fileContents.log.entries[i].request[x] == null;
+            }
+          }
+        }
+      }
+      for (let i = 0; i < fileContents.log.entries.length; i++) {
+        for (let x in fileContents.log.entries[i].response) {
+          if (
+            x.toLowerCase() !== "status" &&
+            x.toLowerCase() !== "statusText" &&
+            x.toLowerCase() !== "headers"
+          ) {
+            delete fileContents.log.entries[i].response[x];
+          }
+        }
+      }
       resolve();
     };
   });
