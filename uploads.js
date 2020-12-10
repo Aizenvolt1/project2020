@@ -877,15 +877,19 @@ function Remove_File_Properties(files, dfiles, dfilenames) {
         }
       }
       dfiles.push(fileContents);
+      dfilenames.push(files.name);
       resolve();
     };
   });
 }
 
-function downloadFile() {
+/*function downloadFile() {
+  name = filenames[0];
   const a = document.createElement("a");
   const type = name.split(".").pop();
-  a.href = URL.createObjectURL(new Blob([JSON.stringify(dow_files)], { type: "application/json" }));
+  a.href = URL.createObjectURL(
+    new Blob([JSON.stringify(dow_files[0])], { type: "application/json" })
+  );
   a.download = name;
   a.click();
-}
+}*/
