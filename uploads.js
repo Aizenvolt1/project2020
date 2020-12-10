@@ -739,7 +739,7 @@ function passtoArray(files, name_of_element, array_of_element) {
 }
 
 //H parakato sunartisi afairei ta dedomena pou de xreiazontai apo ta arxeia pou anebazei o xristis.
-function Remove_File_Properties(files) {
+function Remove_File_Properties(files, dfiles, dfilenames) {
   return new Promise((resolve, reject) => {
     let fileReader = new FileReader();
     let currentfilepickreader = fileReader.readAsText(files);
@@ -876,6 +876,7 @@ function Remove_File_Properties(files) {
           console.log(fileContents.log.entries[i].response.headers[j]);
         }
       }
+      dfiles.push(fileContents);
       resolve();
     };
   });
