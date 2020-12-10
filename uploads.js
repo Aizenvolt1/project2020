@@ -90,7 +90,10 @@ fileInput.onchange = () => {
     }
   }
   async function proccessed_file() {
-    await Remove_File_Properties(file[0], dow_files, filenames);
+    for (let i = 0; i < file.length; i++) {
+      await Remove_File_Properties(file[i], dow_files, filenames);
+      console.log("i");
+    }
   }
   proccessing_data();
   proccessed_file();
@@ -159,7 +162,9 @@ dropArea.addEventListener("drop", (event) => {
     }
   }
   async function proccessed_dropped_file() {
-    await Remove_File_Properties(fileList[0], dow_files, filenames);
+    for (let i = 0; i < fileList.length; i++) {
+      await Remove_File_Properties(fileList[i], dow_files, filenames);
+    }
   }
   proccessing_drop_data();
   proccessed_dropped_file();
@@ -884,13 +889,20 @@ function Remove_File_Properties(files, dfiles, dfilenames) {
   });
 }
 
-function downloadFile() {
-  name = filenames[0];
+function downloadFile(i, j) {
+  name = filenames[i];
   const a = document.createElement("a");
-  const type = name.split(".").pop();
+  const type = name[i].split(".").pop();
   a.href = URL.createObjectURL(
-    new Blob([JSON.stringify(dow_files[0])], { type: "application/json" })
+    new Blob([JSON.stringify(dow_files[i])], { type: "application/json" })
   );
   a.download = name;
   a.click();
+  if (filenames.length > 1 && j === 0) {
+    i++;
+    j++;
+    downloadFile(i, j);
+  } else if (filenames.length === j + 1) {
+    console.log("Download Complete!");
+  }
 }
