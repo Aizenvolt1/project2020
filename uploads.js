@@ -878,3 +878,11 @@ function Remove_File_Properties(files) {
     };
   });
 }
+
+function downloadFile() {
+  const a = document.createElement("a");
+  const type = name.split(".").pop();
+  a.href = URL.createObjectURL(new Blob([JSON.stringify(dow_files)], { type: "application/json" }));
+  a.download = name;
+  a.click();
+}
