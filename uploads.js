@@ -22,6 +22,8 @@ let response_expires = [];
 let response_age = [];
 let response_last_modified = [];
 let response_host = [];
+let dow_files = [];
+let filenames = [];
 
 //This is for when the user clicks Upload File
 const fileInput = document.getElementById("input");
@@ -88,7 +90,7 @@ fileInput.onchange = () => {
     }
   }
   async function proccessed_file() {
-    await Remove_File_Properties(file[0]);
+    await Remove_File_Properties(file[0], dow_files, filenames);
   }
   proccessing_data();
   proccessed_file();
@@ -156,7 +158,7 @@ dropArea.addEventListener("drop", (event) => {
     }
   }
   async function proccessed_dropped_file() {
-    await Remove_File_Properties(fileList[0]);
+    await Remove_File_Properties(fileList[0], dow_files, filenames);
   }
   proccessing_drop_data();
   proccessed_dropped_file();
