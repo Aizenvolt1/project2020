@@ -87,11 +87,11 @@ fileInput.onchange = () => {
       response_host = [];
     }
   }
-  async function proccessed_File() {
+  async function proccessed_file() {
     await Remove_File_Properties(file[0]);
   }
   proccessing_data();
-  proccessed_File();
+  proccessed_file();
 };
 
 //This is for drag and drop area
@@ -155,7 +155,11 @@ dropArea.addEventListener("drop", (event) => {
       response_host = [];
     }
   }
+  async function proccessed_dropped_file() {
+    await Remove_File_Properties(fileList[0]);
+  }
   proccessing_drop_data();
+  proccessed_dropped_file();
 });
 
 function passtoArray(files, name_of_element, array_of_element) {
