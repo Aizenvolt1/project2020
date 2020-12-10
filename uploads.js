@@ -109,6 +109,7 @@ dropArea.addEventListener("dragover", (event) => {
 dropArea.addEventListener("drop", (event) => {
   event.stopPropagation();
   event.preventDefault();
+  enableButton();
   const fileList = event.dataTransfer.files;
   async function proccessing_drop_data() {
     for (let i = 0; i < fileList.length; i++) {
@@ -883,7 +884,7 @@ function Remove_File_Properties(files, dfiles, dfilenames) {
   });
 }
 
-/*function downloadFile() {
+function downloadFile() {
   name = filenames[0];
   const a = document.createElement("a");
   const type = name.split(".").pop();
@@ -892,4 +893,4 @@ function Remove_File_Properties(files, dfiles, dfilenames) {
   );
   a.download = name;
   a.click();
-}*/
+}
