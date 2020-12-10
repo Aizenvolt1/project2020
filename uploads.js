@@ -22,6 +22,8 @@ let response_expires = [];
 let response_age = [];
 let response_last_modified = [];
 let response_host = [];
+let dow_files = [];
+let filenames = [];
 
 //This is for when the user clicks Upload File
 const fileInput = document.getElementById("input");
@@ -88,7 +90,10 @@ fileInput.onchange = () => {
     }
   }
   async function proccessed_file() {
-    await Remove_File_Properties(file[0]);
+    for (let i = 0; i < file.length; i++) {
+      await Remove_File_Properties(file[i], dow_files, filenames);
+      console.log("i");
+    }
   }
   proccessing_data();
   proccessed_file();
@@ -107,6 +112,7 @@ dropArea.addEventListener("dragover", (event) => {
 dropArea.addEventListener("drop", (event) => {
   event.stopPropagation();
   event.preventDefault();
+  enableButton();
   const fileList = event.dataTransfer.files;
   async function proccessing_drop_data() {
     for (let i = 0; i < fileList.length; i++) {
@@ -156,7 +162,9 @@ dropArea.addEventListener("drop", (event) => {
     }
   }
   async function proccessed_dropped_file() {
-    await Remove_File_Properties(fileList[0]);
+    for (let i = 0; i < fileList.length; i++) {
+      await Remove_File_Properties(fileList[i], dow_files, filenames);
+    }
   }
   proccessing_drop_data();
   proccessed_dropped_file();
@@ -737,7 +745,7 @@ function passtoArray(files, name_of_element, array_of_element) {
 }
 
 //H parakato sunartisi afairei ta dedomena pou de xreiazontai apo ta arxeia pou anebazei o xristis.
-function Remove_File_Properties(files) {
+function Remove_File_Properties(files, dfiles, dfilenames) {
   return new Promise((resolve, reject) => {
     let fileReader = new FileReader();
     let currentfilepickreader = fileReader.readAsText(files);
@@ -874,7 +882,27 @@ function Remove_File_Properties(files) {
           console.log(fileContents.log.entries[i].response.headers[j]);
         }
       }
+      dfiles.push(fileContents);
+      dfilenames.push(files.name);
       resolve();
     };
   });
+}
+
+function downloadFile(i, j) {
+  name = filenames[i];
+  const a = document.createElement("a");
+  const type = name[i].split(".").pop();
+  a.href = URL.createObjectURL(
+    new Blob([JSON.stringify(dow_files[i])], { type: "application/json" })
+  );
+  a.download = name;
+  a.click();
+  if (filenames.length > 1 && j === 0) {
+    i++;
+    j++;
+    downloadFile(i, j);
+  } else if (filenames.length === j + 1) {
+    console.log("Download Complete!");
+  }
 }
