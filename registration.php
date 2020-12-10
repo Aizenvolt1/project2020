@@ -20,6 +20,7 @@ require_once "config.php";
 $errors = [];
 $username = $email = $password = $password_confirm = /*$r_password = */"";
 $postData = [];
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = post_data('username');
     $email = post_data('email');
@@ -33,33 +34,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors['username'] = 'Username must be less than 16 and more than 6 chars';
         $insertionCheck = false;
     } else {
-        $sql = "SELECT id FROM users WHERE username = ?";
-
-        if ($stmt = mysqli_prepare($conn, $sql)){
-            // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "s", $param_username);
-            
-            // Set parameters
-            $param_username = trim($_POST["username"]);
-            
-            // Attempt to execute the prepared statement
-            if(mysqli_stmt_execute($stmt)){
-                /* store result */
-                mysqli_stmt_store_result($stmt);
-                
-                if(mysqli_stmt_num_rows($stmt) == 1){
-                    $username_err = "This username is already taken.";
-                } else{
-                    $username = trim($_POST["username"]);
-                }
-            } else{
-                echo "Oops! Something went wrong. Please try again later. :)";
-            }
-
-            // Close statement
-            mysqli_stmt_close($stmt);
+        $sql = "SELECT * FROM user WHERE username = '$username'";
+        $result = mysqli_query($conn, $sql);
+        if(mysqli_num_rows($result) > 0){
+            $username_err = "This username is already taken.";
+            $insertionCheck = false;
+        } else{
+            $username = trim($_POST["username"]);
         }
     }
+
     if (!$email) {
         $errors['email'] = REQUIRED_FIELD_ERROR;
         $insertionCheck = false;
@@ -88,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if ($insertionCheck){
-        $sql = "INSERT INTO user (username, email, password/*, password_r*/) VALUES (?, ?, ?/*, ?*/)";
+        $sql = "INSERT INTO user (username, email, password) VALUES (?, ?, ?)";
         
         if ($stmt = mysqli_prepare($conn, $sql)){
             // Bind variables to the prepared statement as parameters
