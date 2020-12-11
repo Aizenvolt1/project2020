@@ -42,7 +42,10 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             accept=".har"
         />
         <button type="button" id="upldBtn">Upload File</button>
-        <script src="uploads.js"><script></script>
+
+    <script></script>
+        <script src="http://cdn.jsdelivr.net/g/filesaver.js"></script>
+        <script src="uploads.js"></script>
         <button class="open-button" onclick="openForm()" type="button" id="sbmBtn" disabled>Submit Files</button>
         <script>
             document.getElementById("upldBtn").addEventListener("click", enableButton);
@@ -65,7 +68,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             <form action="welcome.php" class="form-container">
                 <h2>Choose what you want to do with your file.</h2>
                 <button type="submit" class="btn">Upload to System</button>
-                <button type="submit" onclick="downloadFile(0,0)" class="btn">Download to your Computer</button>
+                <button type="submit" id="dfiles" onclick= "downloadLoop()" class="btn">Download to your Computer</button>
                 <button type="submit" class="btn cancel" onclick="closeForm()">Close</button>
             </form>
         </div> 
