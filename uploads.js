@@ -889,20 +889,15 @@ function Remove_File_Properties(files, dfiles, dfilenames) {
   });
 }
 
-function downloadFile(i, j) {
-  name = filenames[i];
-  const a = document.createElement("a");
-  const type = name[i].split(".").pop();
-  a.href = URL.createObjectURL(
-    new Blob([JSON.stringify(dow_files[i])], { type: "application/json" })
-  );
-  a.download = name;
-  a.click();
-  if (filenames.length > 1 && j === 0) {
-    i++;
-    j++;
-    downloadFile(i, j);
-  } else if (filenames.length === j + 1) {
-    console.log("Download Complete!");
+function downloadLoop() {
+  for (let k = 0; k < filenames.length; k++) {
+    downloadFile(k);
   }
+}
+
+function downloadFile(i) {
+  let save = document.getElementById("dfiles").value;
+  let blob = new Blob([JSON.stringify(dow_files[i])], { type: "application/json" });
+  let fname = filenames[i];
+  saveAs(blob, fname);
 }
