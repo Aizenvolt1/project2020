@@ -111,21 +111,21 @@ function post_data($field)
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel="stylesheet" type="text/css"
-          href="./style.css"
-          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="./style.css">
+    <style type="text/css">
+        body{ font: 14px sans-serif; }
+            .wrapper{ width: 350px; padding: 20px; }
+    </style>
 </head>
-<body style="padding: 50px;">
-
-<form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" novalidate>
+<body style="position: relative">
+<div class="wrapper">
+<h2>Register</h2>
+<p>Please fill the boxes to register.<p>
+<form class="my-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" novalidate>
     <div class="row">
         <div class="col">
-            <div class="form-group">
-                <label>Username</label>
+            <div class="form-group">   
+            <label>Username</label>
                 <input class="form-control <?php echo isset($errors['username']) ? 'is-invalid' : '' ?>"
                        name="username" value="<?php echo "" ?>">
                 <small class="form-text text-muted">Min: 6 and max 16 characters</small>
@@ -135,8 +135,8 @@ function post_data($field)
             </div>
         </div>
         <div class="col">
-            <div class="form-group">
-                <label>Email</label>
+            <div class="form-group">   
+            <label>Email</label>
                 <input type="email" class="form-control <?php echo isset($errors['email']) ? 'is-invalid' : '' ?>"
                        name="email" value="<?php echo $email ?>">
                 <div class="invalid-feedback">
@@ -150,7 +150,7 @@ function post_data($field)
             <div class="form-group">
                 <label>Password</label>
                 <input type="password" class="form-control <?php echo isset($errors['password']) ? 'is-invalid' : '' ?>"
-                       name="password" value="<?php echo "" ?>">
+                    name="password" value="<?php echo "" ?>">
                 <div class="invalid-feedback">
                     <?php echo $errors['password'] ?? '' ?>
                 </div>
@@ -168,10 +168,12 @@ function post_data($field)
             </div>
         </div>
     </div>
-    <div class="form-group">
-        <button class="btn btn-primary">Register</button>
-    </div>
+    <div class="form-group-submit">
+                <input type="submit" class="btn btn-primary" value="Login">
+            </div>
+    <p>Already Have an Account? <a class="Sign-up" href="login.php">Login Now.</a>.</p>
 </form>
+</div>  
 
 </body>
 </html>
