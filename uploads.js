@@ -911,3 +911,15 @@ function downloadFile(i) {
   let fname = filenames[i];
   saveAs(blob, fname);
 }
+
+function datatoPHP() {
+  var myJSONText = JSON.stringify(filenames);
+  $.ajax({
+    type: "POST",
+    url: "har-reader.php",
+    data: { kvcArray: myJSONText },
+    success: function () {
+      alert("Success");
+    },
+  });
+}

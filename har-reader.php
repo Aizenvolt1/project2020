@@ -2,6 +2,8 @@
 session_start();
 require_once "config.php";
 
+$myArray1 = json_decode($_POST['kvcArray']);
+echo $myArrray1;
 $url=null;
 $data = array();
 $b = "uploads_";
@@ -11,7 +13,6 @@ $sql = "SELECT * FROM user_files WHERE user_id=$_SESSION[id]";
 $result = mysqli_query($conn, $sql);
 if (mysqli_num_rows($result) > 0) {
   while($row = mysqli_fetch_assoc($result)) {
-    if ($row["file_checked"] !== 1){
       $a = "";
       $a = $b . $row["file_name"];
       $c = "";
@@ -488,8 +489,8 @@ if (mysqli_num_rows($result) > 0) {
       {
         //echo $row["file_name"] . " " . $i . "<br>";
       }
-    } 
   }
 } else {
   echo "0 results";
 }
+?>
