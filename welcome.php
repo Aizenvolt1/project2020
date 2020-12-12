@@ -67,8 +67,8 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
         <div class="form-popup" id="myForm">
             <form action="welcome.php" class="form-container">
                 <h2>Choose what you want to do with your file.</h2>
-                <button type="submit" class="btn">Upload to System</button>
-                <button type="submit" id="dfiles" onclick= "downloadLoop()" class="btn">Download to your Computer</button>
+                <button type="submit" class="btn">Upload file(s) to Server </button>
+                <button type="submit" id="dfiles" onclick= "downloadLoop()" class="btn">Download file(s) to your Computer</button>
                 <button type="submit" class="btn cancel" onclick="closeForm()">Close</button>
             </form>
         </div> 
