@@ -96,7 +96,7 @@ fileInput.onchange = () => {
   }
   async function proccessed_file() {
     for (let i = 0; i < file.length; i++) {
-      await Remove_File_Properties(file[i], dow_files, filenames);
+      await Remove_File_Properties(file[i]);
     }
   }
   proccessing_data();
@@ -167,7 +167,7 @@ dropArea.addEventListener("drop", (event) => {
   }
   async function proccessed_dropped_file() {
     for (let i = 0; i < fileList.length; i++) {
-      await Remove_File_Properties(fileList[i], dow_files, filenames);
+      await Remove_File_Properties(fileList[i]);
     }
   }
   proccessing_drop_data();
@@ -749,7 +749,7 @@ function passtoArray(files, name_of_element, array_of_element) {
 }
 
 //H parakato sunartisi afairei ta dedomena pou de xreiazontai apo ta arxeia pou anebazei o xristis.
-function Remove_File_Properties(files, dfiles, dfilenames) {
+function Remove_File_Properties(files) {
   return new Promise((resolve, reject) => {
     let fileReader = new FileReader();
     let currentfilepickreader = fileReader.readAsText(files);
@@ -883,8 +883,6 @@ function Remove_File_Properties(files, dfiles, dfilenames) {
       }
       dow_files.push(fileContents);
       filenames.push(files.name);
-      console.log(dow_files[0]);
-      console.log(filenames[0]);
       fetch("https://ipapi.co/json/")
         .then(function (response) {
           return response.json();
@@ -895,11 +893,6 @@ function Remove_File_Properties(files, dfiles, dfilenames) {
           isp.push(data.org);
           ip.push(data.ip);
           city.push(data.city);
-          console.log(latitude[0]);
-          console.log(longitude[0]);
-          console.log(isp[0]);
-          console.log(ip[0]);
-          console.log(city[0]);
         });
       resolve();
     };
