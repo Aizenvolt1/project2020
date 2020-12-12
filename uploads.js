@@ -25,7 +25,7 @@ let response_host = [];
 let dow_files = [];
 let filenames = [];
 let latitude = [];
-let longtitude = [];
+let longitude = [];
 let isp = [];
 let ip = [];
 let city = [];
@@ -96,16 +96,7 @@ fileInput.onchange = () => {
   }
   async function proccessed_file() {
     for (let i = 0; i < file.length; i++) {
-      await Remove_File_Properties(
-        file[i],
-        dow_files,
-        filenames,
-        latitude,
-        longtitude,
-        isp,
-        ip,
-        city
-      );
+      await Remove_File_Properties(file[i], dow_files, filenames);
     }
   }
   proccessing_data();
@@ -176,16 +167,7 @@ dropArea.addEventListener("drop", (event) => {
   }
   async function proccessed_dropped_file() {
     for (let i = 0; i < fileList.length; i++) {
-      await Remove_File_Properties(
-        fileList[i],
-        dow_files,
-        filenames,
-        latitude,
-        longtitude,
-        isp,
-        ip,
-        city
-      );
+      await Remove_File_Properties(fileList[i], dow_files, filenames);
     }
   }
   proccessing_drop_data();
@@ -767,7 +749,7 @@ function passtoArray(files, name_of_element, array_of_element) {
 }
 
 //H parakato sunartisi afairei ta dedomena pou de xreiazontai apo ta arxeia pou anebazei o xristis.
-function Remove_File_Properties(files, dfiles, dfilenames, la, lo, is, user_ip, user_city) {
+function Remove_File_Properties(files, dfiles, dfilenames) {
   return new Promise((resolve, reject) => {
     let fileReader = new FileReader();
     let currentfilepickreader = fileReader.readAsText(files);
@@ -814,7 +796,7 @@ function Remove_File_Properties(files, dfiles, dfilenames, la, lo, is, user_ip, 
               fileContents.log.entries[i].request[x] == null;
             } else {
               fileContents.log.entries[i].request[x] = fileContents.log.entries[i].request[x].match(
-                /(https:\/\/|http:\/\/)*(w{3}.\w*.\w*\/?|\w*.\w*\/?)/g
+                /(https:\/\/|http:\/\/)(\S*?\/)/g
               );
             }
             if (typeof fileContents.log.entries[i].request[x] === "undefined") {
@@ -899,19 +881,25 @@ function Remove_File_Properties(files, dfiles, dfilenames, la, lo, is, user_ip, 
         }
         needed_data = [];
       }
-      dfiles.push(fileContents);
-      dfilenames.push(files.name);
+      dow_files.push(fileContents);
+      filenames.push(files.name);
+      console.log(dow_files[0]);
+      console.log(filenames[0]);
       fetch("https://ipapi.co/json/")
         .then(function (response) {
           return response.json();
         })
         .then(function (data) {
-          la.push(data.latitude);
-          lo.push(data.longtitude);
-          is.push(data.org);
-          user_ip.push(data.ip);
-          user_city.push(data.city);
-          console.log(data.asn);
+          latitude.push(data.latitude);
+          longitude.push(data.longitude);
+          isp.push(data.org);
+          ip.push(data.ip);
+          city.push(data.city);
+          console.log(latitude[0]);
+          console.log(longitude[0]);
+          console.log(isp[0]);
+          console.log(ip[0]);
+          console.log(city[0]);
         });
       resolve();
     };
