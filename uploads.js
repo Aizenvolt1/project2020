@@ -913,13 +913,5 @@ function downloadFile(i) {
 }
 
 function datatoPHP() {
-  var myJSONText = JSON.stringify(filenames);
-  $.ajax({
-    type: "POST",
-    url: "har-reader.php",
-    data: { kvcArray: myJSONText },
-    success: function () {
-      alert("Success");
-    },
-  });
+  sessionStorage.setItem("filenames", JSON.stringify(filenames));
 }

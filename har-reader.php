@@ -1,9 +1,8 @@
 <?php
 session_start();
 require_once "config.php";
-
-$myArray1 = json_decode($_POST['kvcArray']);
-echo $myArrray1;
+$myArray = json_decode($_POST['kvcArray']);
+ print_r($myArray);
 $url=null;
 $data = array();
 $b = "uploads_";
@@ -494,3 +493,38 @@ if (mysqli_num_rows($result) > 0) {
   echo "0 results";
 }
 ?>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <button id="play" >PLAY</button>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+  let filenames = []; 
+  function datatoPHP() {
+  filenames=JSON.parse(sessionStorage.getItem("filenames"));
+  var myJSONText = JSON.stringify(filenames);
+  $.ajax({
+    type: "POST",
+    url: "har-reader.php",
+    data: { kvcArray: myJSONText },
+    success: function () {
+      alert("Success");
+    },
+  });
+}
+
+document.getElementById("play").addEventListener("click", function() {
+  datatoPHP();
+  console.log(filenames);
+});
+
+</script>
+</body>
+</html>
