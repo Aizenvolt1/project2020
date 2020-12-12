@@ -42,8 +42,6 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             accept=".har"
         />
         <button type="button" id="upldBtn">Upload File</button>
-
-    <script></script>
         <script src="http://cdn.jsdelivr.net/g/filesaver.js"></script>
         <script src="uploads.js"></script>
         <button class="open-button" onclick="openForm()" type="button" id="sbmBtn" disabled>Submit Files</button>
@@ -53,8 +51,6 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             function enableButton() {
                 document.getElementById("sbmBtn").disabled = false;
             }
-        </script>
-        <script>
             document.getElementById("sbmBtn").addEventListener("click", openForm)
             function openForm() {
                 document.getElementById("myForm").style.display = "block";
