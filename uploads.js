@@ -24,6 +24,11 @@ let response_last_modified = [];
 let response_host = [];
 let dow_files = [];
 let filenames = [];
+let latitude = [];
+let longtitude = [];
+let isp = [];
+let ip = [];
+let city = [];
 
 //This is for when the user clicks Upload File
 const fileInput = document.getElementById("input");
@@ -91,8 +96,16 @@ fileInput.onchange = () => {
   }
   async function proccessed_file() {
     for (let i = 0; i < file.length; i++) {
-      await Remove_File_Properties(file[i], dow_files, filenames);
-      console.log("i");
+      await Remove_File_Properties(
+        file[i],
+        dow_files,
+        filenames,
+        latitude,
+        longtitude,
+        isp,
+        ip,
+        city
+      );
     }
   }
   proccessing_data();
@@ -163,7 +176,16 @@ dropArea.addEventListener("drop", (event) => {
   }
   async function proccessed_dropped_file() {
     for (let i = 0; i < fileList.length; i++) {
-      await Remove_File_Properties(fileList[i], dow_files, filenames);
+      await Remove_File_Properties(
+        fileList[i],
+        dow_files,
+        filenames,
+        latitude,
+        longtitude,
+        isp,
+        ip,
+        city
+      );
     }
   }
   proccessing_drop_data();
@@ -745,7 +767,7 @@ function passtoArray(files, name_of_element, array_of_element) {
 }
 
 //H parakato sunartisi afairei ta dedomena pou de xreiazontai apo ta arxeia pou anebazei o xristis.
-function Remove_File_Properties(files, dfiles, dfilenames) {
+function Remove_File_Properties(files, dfiles, dfilenames, la, lo, is, user_ip, user_city) {
   return new Promise((resolve, reject) => {
     let fileReader = new FileReader();
     let currentfilepickreader = fileReader.readAsText(files);
@@ -792,7 +814,7 @@ function Remove_File_Properties(files, dfiles, dfilenames) {
               fileContents.log.entries[i].request[x] == null;
             } else {
               fileContents.log.entries[i].request[x] = fileContents.log.entries[i].request[x].match(
-                /(https:\/\/|http:\/\/)(\S*?\/)/g
+                /(https:\/\/|http:\/\/)*(w{3}.\w*.\w*\/?|\w*.\w*\/?)/g
               );
             }
             if (typeof fileContents.log.entries[i].request[x] === "undefined") {
@@ -877,13 +899,20 @@ function Remove_File_Properties(files, dfiles, dfilenames) {
         }
         needed_data = [];
       }
-      for (let i = 0; i < fileContents.log.entries.length; i++) {
-        for (let j = 0; j < fileContents.log.entries[0].response.headers.length; j++) {
-          console.log(fileContents.log.entries[i].response.headers[j]);
-        }
-      }
       dfiles.push(fileContents);
       dfilenames.push(files.name);
+      fetch("https://ipapi.co/json/")
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (data) {
+          la.push(data.latitude);
+          lo.push(data.longtitude);
+          is.push(data.org);
+          user_ip.push(data.ip);
+          user_city.push(data.city);
+          console.log(data.asn);
+        });
       resolve();
     };
   });
