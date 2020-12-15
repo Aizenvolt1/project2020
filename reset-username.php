@@ -84,29 +84,44 @@ function post_data($field)
 <head>
     <meta charset="UTF-8">
     <title>Reset Username</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
-    <style type="text/css">
-        body{ font: 14px sans-serif; }
-        .wrapper{ width: 350px; padding: 20px; }
-    </style>
+    <link rel="stylesheet" type="text/css" href="./style.css">
 </head>
+<style>
+body{
+
+}
+h2,p {
+  text-align:center;
+  padding:1%;
+}
+
+.wrapper{ width: 350px; padding: 20px; }
+
+.form-group{
+    padding:1%;
+    text-align:center;
+
+}
+
+.menu-space{
+    padding:2%;
+}
+</style>
 <body>
     <div class="wrapper">
         <h2>Reset Username</h2>
         <p>Please fill out this form to reset your username.</p>
-        <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" novalidate>
-    <div class="row">
-        <div class="col">
+        <form class="my-form" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" novalidate>
             <div class="form-group">
                 <label>Username</label>
-                <input class="form-control <?php echo isset($errors['new_username']) ? 'is-invalid' : '' ?>"
+                      <div class="menu-space"></div>
+                <input class="form <?php echo isset($errors['new_username']) ? 'is-invalid' : '' ?>"
                        name="new_username" value="<?php echo "" ?>">
+                             <div class="menu-space"></div>
                 <small class="form-text text-muted">Min: 6 and max 16 characters</small>
                 <div class="invalid-feedback">
                     <?php echo $errors['new_username_err'] ?? '' ?>
                 </div>
             </div>
-        </div>
-    </div>    
 </body>
 </html>

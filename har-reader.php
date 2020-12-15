@@ -1,8 +1,11 @@
 <?php
 session_start();
 require_once "config.php";
-$myArray = json_decode($_POST['kvcArray']);
- print_r($myArray);
+function j2pr() {
+  $myArray = $_POST['kvcArray'];
+  print_r($myArray);
+  }
+j2pr();
 $url=null;
 $data = array();
 $b = "uploads_";
@@ -25,6 +28,7 @@ if (mysqli_num_rows($result) > 0) {
       }
       unset($data);
       $data = array();
+
       //Entries: StartedDateTimes
       $d="";
       foreach($test->log->entries as $i)
@@ -33,7 +37,7 @@ if (mysqli_num_rows($result) > 0) {
           array_push($data,$i->startedDateTime);
           $counter++;
         }
-        else{
+        else {
           array_push($data,null);
           $counter++;
         }
@@ -508,22 +512,13 @@ if (mysqli_num_rows($result) > 0) {
   <script>
   let filenames = []; 
   function datatoPHP() {
-  filenames=JSON.parse(sessionStorage.getItem("filenames"));
-  var myJSONText = JSON.stringify(filenames);
-  $.ajax({
-    type: "POST",
-    url: "har-reader.php",
-    data: { kvcArray: myJSONText },
-    success: function () {
-      alert("Success");
-    },
-  });
+ 
 }
 
-document.getElementById("play").addEventListener("click", function() {
+/*document.getElementById("play").addEventListener("click", function() {
   datatoPHP();
   console.log(filenames);
-});
+});*/
 
 </script>
 </body>

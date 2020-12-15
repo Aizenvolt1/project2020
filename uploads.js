@@ -913,5 +913,20 @@ function downloadFile(i) {
 }
 
 function datatoPHP() {
-  sessionStorage.setItem("filenames", JSON.stringify(filenames));
+  //sessionStorage.setItem("filenames", JSON.stringify(filenames));
+  //filenames = JSON.parse(sessionStorage.getItem("filenames"));
+  //var myJSONText = JSON.stringify(filenames);
+  var myJSONText = "hello";
+  $.ajax({
+    type: "POST",
+    url: "har-reader.php",
+    data: { kvcArray: myJSONText },
+    success: function () {
+      alert("Success");
+    },
+  });
+}
+
+function pass() {
+  datatoPHP();
 }

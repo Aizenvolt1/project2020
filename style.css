@@ -1,10 +1,11 @@
 * {
   margin: auto;
   text-decoration: none;
+  font-family: Helvetica, sans-serif;
 }
 
 a {
-  color: #cc0000;
+  color: #b5b5b5;
 }
 a:visited {
   color: inherit;
@@ -15,7 +16,8 @@ body {
   color: #b5b5b5;
 }
 
-h2 {
+h2,
+h3 {
   color: #cc0000;
 }
 #main-header {
@@ -138,4 +140,122 @@ input {
   height: 70px;
   padding: 10px;
   border: 1px solid #aaaaaa;
+}
+
+/* Button used to open the contact form - fixed at the bottom of the page */
+.open-button {
+  background-color: #444444;
+  color: #ffffff;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  bottom: 23px;
+  right: 28px;
+  width: 280px;
+}
+
+/* The popup form - hidden by default */
+.form-popup {
+  text-align: center;
+  padding: 3%;
+  display: none;
+  z-index: 9;
+}
+
+/* Add styles to the form container */
+.form-container {
+  max-width: 300px;
+  padding: 10px;
+  background-color: #000000;
+}
+
+/* Full-width input fields */
+.form-container input[type="text"],
+.form-container input[type="password"] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
+/* When the inputs get focus, do something */
+.form-container input[type="text"]:focus,
+.form-container input[type="password"]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for the upload/download button */
+.form-container .btn {
+  background-color: #444444;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom: 10px;
+  opacity: 0.8;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+  background-color: #cc0000;
+  color: #ffffff;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover,
+.open-button:hover {
+  opacity: 1;
+}
+
+.menu-space {
+  padding: 1%;
+}
+
+/* Add a black background color to the top navigation */
+.topnav {
+  background-color: #0d0e0e;
+  overflow: hidden;
+  padding: 1%;
+  padding-left: 7%;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+  background-color: #0d0e0e;
+  color: #cc0000;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+  background-color: #0d0e0e;
+  color: #cc0000;
+}
+
+.resize {
+  width: 230px;
+  height: auto;
+  float: left;
+  padding-top: 2%;
+  padding-left: 8%;
+  padding-bottom: 1%;
+}
+
+hr.solid {
+  border-top: 1px solid #cc0000;
+  border-bottom: 1px solid #0d0e0e;
+  padding-bottom: 2%;
 }
