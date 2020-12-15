@@ -12,11 +12,6 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 <!DOCTYPE html>
 <html lang="en">
     <head>
-    <link rel="stylesheet" type="text/css" href="./popup.css">
-    <style type="text/css">
-        body{ font: 14px sans-serif; }
-        .wrapper{ width: 350px; padding: 20px; }
-    </style>
         <meta charset="UTF-8">
         <title>Welcome</title>
         <link rel="stylesheet" type="text/css" href="./style.css">
@@ -25,15 +20,24 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
         </style>
     </head>
     <body>
+        <img class="resize" src="images/logo-header.png" alt="Logo"/>
+        <br style="clear:both">
+        <div class="topnav">
+            <a class="active" href="#home">Home</a>
+            <a href="http://localhost/project/reset-username.php">Reset Your Username</a>
+            <a href="http://localhost/project/reset-password.php">Reset Your Password</a>
+            <a href="http://localhost/project/logout.php">Logout</a>
+        </div>
+        <hr class="solid">
+        <div class="menu-space"></div>
         <div class="page-header">
             <h1>Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to our site.</h1>
         </div>
-        <a href="reset-username.php" class="btn btn-warning">Reset Your Username</a>
-        <a href="reset-password.php" class="btn btn-warning">Reset Your Password</a>
-        <a href="logout.php" class="btn btn-danger">Sign Out of Your Account</a>
+        <div class="menu-space"></div>
         <div id="drop_area" draggable="true">
             <p>Drag one or more files to this Drop Zone ...</p>
         </div>
+        <div class="menu-space"></div>
         <input
             type="file"
             multiple
@@ -41,7 +45,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             style="display: none"
             accept=".har"
         />
-        <button type="button" id="upldBtn">Upload File</button>
+        <button type="button" class="open-button">Upload File</button>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="http://cdn.jsdelivr.net/g/filesaver.js"></script>
         <script src="uploads.js"></script>
@@ -63,8 +67,8 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
         </script>
         <div class="form-popup" id="myForm">
             <form action="welcome.php" class="form-container">
-                <h2>Choose what you want to do with your file.</h2>
-                <button type="submit" id="sfiles" onclick= "datatoPHP()" class="btn">Upload file(s) to Server </button>
+                <h3>Choose what you want to do with your file.</h3>
+                <button type="submit" id="sfiles" onclick= "pass()" class="btn">Upload file(s) to Server </button>
                 <button type="submit" id="dfiles" onclick= "downloadLoop()" class="btn">Download file(s) to your Computer</button>
                 <button type="submit" class="btn cancel" onclick="closeForm()">Close</button>
             </form>
