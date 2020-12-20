@@ -23,12 +23,14 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
         <img class="resize" src="images/logo-header.png" alt="Logo"/>
         <br style="clear:both">
         <div class="topnav">
-            <a class="active" href="#home">Home</a>
+            <a class="active" href="http://localhost/project/welcome.php">Home</a>
             <a href="http://localhost/project/reset-username.php">Reset Your Username</a>
             <a href="http://localhost/project/reset-password.php">Reset Your Password</a>
             <a href="http://localhost/project/logout.php">Logout</a>
         </div>
         <hr class="solid">
+        <div class="menu-space"></div>
+        <div class="menu-space"></div>
         <div class="menu-space"></div>
         <div class="page-header">
             <h1>Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to our site.</h1>
@@ -45,7 +47,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             style="display: none"
             accept=".har"
         />
-        <button type="button" class="open-button">Upload File</button>
+        <button id="upldBtn" type="button" class="open-button">Upload File</button>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="http://cdn.jsdelivr.net/g/filesaver.js"></script>
         <script src="uploads.js"></script>
@@ -56,7 +58,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             function enableButton() {
                 document.getElementById("sbmBtn").disabled = false;
             }
-            document.getElementById("sbmBtn").addEventListener("click", openForm)
+            document.getElementById("sbmBtn").addEventListener("click", openForm);
             function openForm() {
                 document.getElementById("myForm").style.display = "block";
             }

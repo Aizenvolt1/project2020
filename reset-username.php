@@ -87,41 +87,55 @@ function post_data($field)
     <link rel="stylesheet" type="text/css" href="./style.css">
 </head>
 <style>
-body{
 
-}
 h2,p {
   text-align:center;
   padding:1%;
 }
 
-.wrapper{ width: 350px; padding: 20px; }
-
 .form-group{
     padding:1%;
     text-align:center;
-
 }
 
 .menu-space{
-    padding:2%;
+    padding:10%;
 }
+
 </style>
 <body>
-    <div class="wrapper">
+    <img class="resize" src="images/logo-header.png" alt="Logo"/>
+        <br style="clear:both">
+        <div class="topnav">
+            <a href="http://localhost/project/welcome.php">Home</a>
+            <a class="active" href="http://localhost/project/reset-username.php">Reset Your Username</a>
+            <a href="http://localhost/project/reset-password.php">Reset Your Password</a>
+            <a href="http://localhost/project/logout.php">Logout</a>
+        </div>
+        <hr class="solid">
+        <div class="small-space"></div>
         <h2>Reset Username</h2>
         <p>Please fill out this form to reset your username.</p>
+        <div class="wrapper">
         <form class="my-form" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" novalidate>
             <div class="form-group">
-                <label>Username</label>
-                      <div class="menu-space"></div>
+                <h4>Username</h4>
+                <div class="small-space"></div>
                 <input class="form <?php echo isset($errors['new_username']) ? 'is-invalid' : '' ?>"
                        name="new_username" value="<?php echo "" ?>">
-                             <div class="menu-space"></div>
-                <small class="form-text text-muted">Min: 6 and max 16 characters</small>
+                       <div class="small-space"></div>
+                <small class="form-text text-muted"><b>Min: 6 and max 16 characters<b></small>
                 <div class="invalid-feedback">
+                    <div class="small-space"></div>
+                    <div class="small-space"></div>
                     <?php echo $errors['new_username_err'] ?? '' ?>
                 </div>
             </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary" value="Submit">
+                <a class="btn btn-link" href="welcome.php">Cancel</a>
+            </div>
+        </form>
+        </div>
 </body>
 </html>
