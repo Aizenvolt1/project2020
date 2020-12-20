@@ -95,13 +95,21 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <title>Login</title>
     <link rel="stylesheet" type="text/css" href="./style.css">
     <style type="text/css">
-        .wrapper{ width: 350px; padding: 20px; }
+        .heading{
+            padding-top:11%;
+            text-align:center;
+        }
+        .small-space{
+            padding:1%;
+        }
     </style>
 </head>
 <body>
-    <div class="wrapper">
+        <div class="heading">
         <h2>Login</h2>
         <p>Please fill in your credentials to login.</p>
+        </div>
+        <div class="small-space"></div>
         <form class="my-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
                 <label>Username</label>
@@ -118,6 +126,5 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             </div>
             <p>Don't have an account? <a class="Sign-up" href="registration.php">Sign up now</a>.</p>
         </form>
-    </div>    
 </body>
 </html>

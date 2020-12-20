@@ -20,6 +20,10 @@ h2,
 h3 {
   color: #cc0000;
 }
+
+h4 {
+  text-align: left;
+}
 #main-header {
   color: #cc0000;
   background-color: #0d0e0e;
@@ -84,8 +88,10 @@ h3 {
 }
 
 .my-form {
-  text-align: center;
-  padding: 20px;
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
 }
 
 .form-group {
@@ -95,10 +101,12 @@ h3 {
 
 .form-group active {
   border-color: #cc0000;
+  text-align: center;
 }
 
 .my-form {
   display: block;
+  width: 15%;
 }
 
 .my-form:focus {
@@ -121,11 +129,8 @@ h3 {
 }
 
 .wrapper {
-  position: absolute;
-  top: 22%;
-  right: 0;
-  left: 0;
-  border-color: #cc0000;
+  display: block;
+  text-align: center;
 }
 
 .Sign-up:visited {
@@ -257,5 +262,8 @@ input {
 hr.solid {
   border-top: 1px solid #cc0000;
   border-bottom: 1px solid #0d0e0e;
-  padding-bottom: 2%;
+}
+
+.small-space {
+  padding: 2%;
 }
