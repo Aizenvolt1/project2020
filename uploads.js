@@ -595,26 +595,26 @@ function passtoArray(files, name_of_element, array_of_element) {
               ) {
                 let month = new Date(
                   fileContents.log.entries[j].response.headers[k].value
-                    .match(/\d.+[^\D]/g)[0]
+                    .match(/\d..\w\w\w\s\d\d\d\d\s\d\d:\d\d:\d\d/g)[0]
                     .split(/(?<=\d)\s(?=\d)/g)[0]
                     .match(/\d\d \w{3}/g)
                 );
                 month = month.getMonth() + 1;
                 array_of_element.push(
                   fileContents.log.entries[j].response.headers[k].value
-                    .match(/\d.+[^\D]/g)[0]
+                    .match(/\d..\w\w\w\s\d\d\d\d\s\d\d:\d\d:\d\d/g)[0]
                     .split(/(?<=\d)\s(?=\d)/g)[0]
                     .match(/\d{4}/g)[0] +
                     "-" +
                     month +
                     "-" +
                     fileContents.log.entries[j].response.headers[k].value
-                      .match(/\d.+[^\D]/g)[0]
+                      .match(/\d..\w\w\w\s\d\d\d\d\s\d\d:\d\d:\d\d/g)[0]
                       .split(/(?<=\d)\s(?=\d)/g)[0]
                       .match(/^\d\d/g) +
                     " " +
                     fileContents.log.entries[j].response.headers[k].value
-                      .match(/\d.+[^\D]/g)[0]
+                      .match(/\d..\w\w\w\s\d\d\d\d\s\d\d:\d\d:\d\d/g)[0]
                       .split(/(?<=\d)\s(?=\d)/g)[1]
                 );
               }
