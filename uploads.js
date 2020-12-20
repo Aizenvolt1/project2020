@@ -340,6 +340,7 @@ function passtoArray(files, name_of_element, array_of_element) {
             resolve();
             break;
           case "request_expires":
+            var re = new RegExp("/Mon,|Tue,|Wed,|Thu,|Fri,|Sat,|Sun,/g");
             for (let k = 0; k < fileContents.log.entries[j].request.headers.length; k++) {
               if (
                 typeof fileContents.log.entries[j].request.headers[k].name == "undefined" ||
@@ -354,36 +355,42 @@ function passtoArray(files, name_of_element, array_of_element) {
               ) {
                 array_of_element.push(null);
               } else if (
-                fileContents.log.entries[j].request.headers[k].name.toLowerCase() === "expires"
+                fileContents.log.entries[j].request.headers[k].name.toLowerCase() === "expires" &&
+                re.test(
+                  fileContents.log.entries[j].response.headers[k].value.match(
+                    /Mon,|Tue,|Wed,|Thu,|Fri,|Sat,|Sun,/g
+                  )
+                ) === true
               ) {
                 let month = new Date(
                   fileContents.log.entries[j].request.headers[k].value
-                    .match(/\d.+[^\D]/g)[0]
+                    .match(/\d..\w\w\w\s\d\d\d\d\s\d\d:\d\d:\d\d/g)[0]
                     .split(/(?<=\d)\s(?=\d)/g)[0]
                     .match(/\d\d \w{3}/g)
                 );
                 month = month.getMonth() + 1;
                 array_of_element.push(
                   fileContents.log.entries[j].request.headers[k].value
-                    .match(/\d.+[^\D]/g)[0]
+                    .match(/\d..\w\w\w\s\d\d\d\d\s\d\d:\d\d:\d\d/g)[0]
                     .split(/(?<=\d)\s(?=\d)/g)[0]
                     .match(/\d{4}/g)[0] +
                     "-" +
                     month +
                     "-" +
                     fileContents.log.entries[j].request.headers[k].value
-                      .match(/\d.+[^\D]/g)[0]
+                      .match(/\d..\w\w\w\s\d\d\d\d\s\d\d:\d\d:\d\d/g)[0]
                       .split(/(?<=\d)\s(?=\d)/g)[0]
                       .match(/^\d\d/g) +
                     " " +
                     fileContents.log.entries[j].request.headers[k].value
-                      .match(/\d.+[^\D]/g)[0]
+                      .match(/\d..\w\w\w\s\d\d\d\d\s\d\d:\d\d:\d\d/g)[0]
                       .split(/(?<=\d)\s(?=\d)/g)[1]
                 );
               }
               if (typeof array_of_element[j] === "undefined") {
                 array_of_element.push(null);
               }
+              console.log(array_of_element[j]);
             }
             resolve();
             break;
@@ -432,26 +439,26 @@ function passtoArray(files, name_of_element, array_of_element) {
               ) {
                 let month = new Date(
                   fileContents.log.entries[j].request.headers[k].value
-                    .match(/\d.+[^\D]/g)[0]
+                    .match(/\d..\w\w\w\s\d\d\d\d\s\d\d:\d\d:\d\d/g)[0]
                     .split(/(?<=\d)\s(?=\d)/g)[0]
                     .match(/\d\d \w{3}/g)
                 );
                 month = month.getMonth() + 1;
                 array_of_element.push(
                   fileContents.log.entries[j].request.headers[k].value
-                    .match(/\d.+[^\D]/g)[0]
+                    .match(/\d..\w\w\w\s\d\d\d\d\s\d\d:\d\d:\d\d/g)[0]
                     .split(/(?<=\d)\s(?=\d)/g)[0]
                     .match(/\d{4}/g)[0] +
                     "-" +
                     month +
                     "-" +
                     fileContents.log.entries[j].request.headers[k].value
-                      .match(/\d.+[^\D]/g)[0]
+                      .match(/\d..\w\w\w\s\d\d\d\d\s\d\d:\d\d:\d\d/g)[0]
                       .split(/(?<=\d)\s(?=\d)/g)[0]
                       .match(/^\d\d/g) +
                     " " +
                     fileContents.log.entries[j].request.headers[k].value
-                      .match(/\d.+[^\D]/g)[0]
+                      .match(/\d..\w\w\w\s\d\d\d\d\s\d\d:\d\d:\d\d/g)[0]
                       .split(/(?<=\d)\s(?=\d)/g)[1]
                 );
               }
@@ -564,6 +571,7 @@ function passtoArray(files, name_of_element, array_of_element) {
             resolve();
             break;
           case "response_expires":
+            var re = new RegExp("/Mon,|Tue,|Wed,|Thu,|Fri,|Sat,|Sun,/g");
             for (let k = 0; k < fileContents.log.entries[j].response.headers.length; k++) {
               if (
                 typeof fileContents.log.entries[j].response.headers[k].name == "undefined" ||
@@ -578,36 +586,42 @@ function passtoArray(files, name_of_element, array_of_element) {
               ) {
                 array_of_element.push(null);
               } else if (
-                fileContents.log.entries[j].response.headers[k].name.toLowerCase() === "expires"
+                fileContents.log.entries[j].response.headers[k].name.toLowerCase() === "expires" &&
+                re.test(
+                  fileContents.log.entries[j].response.headers[k].value.match(
+                    /Mon,|Tue,|Wed,|Thu,|Fri,|Sat,|Sun,/g
+                  )
+                ) === true
               ) {
                 let month = new Date(
                   fileContents.log.entries[j].response.headers[k].value
-                    .match(/\d.+[^\D]/g)[0]
+                    .match(/\d..\w\w\w\s\d\d\d\d\s\d\d:\d\d:\d\d/g)[0]
                     .split(/(?<=\d)\s(?=\d)/g)[0]
                     .match(/\d\d \w{3}/g)
                 );
                 month = month.getMonth() + 1;
                 array_of_element.push(
                   fileContents.log.entries[j].response.headers[k].value
-                    .match(/\d.+[^\D]/g)[0]
+                    .match(/\d..\w\w\w\s\d\d\d\d\s\d\d:\d\d:\d\d/g)[0]
                     .split(/(?<=\d)\s(?=\d)/g)[0]
                     .match(/\d{4}/g)[0] +
                     "-" +
                     month +
                     "-" +
                     fileContents.log.entries[j].response.headers[k].value
-                      .match(/\d.+[^\D]/g)[0]
+                      .match(/\d..\w\w\w\s\d\d\d\d\s\d\d:\d\d:\d\d/g)[0]
                       .split(/(?<=\d)\s(?=\d)/g)[0]
                       .match(/^\d\d/g) +
                     " " +
                     fileContents.log.entries[j].response.headers[k].value
-                      .match(/\d.+[^\D]/g)[0]
+                      .match(/\d..\w\w\w\s\d\d\d\d\s\d\d:\d\d:\d\d/g)[0]
                       .split(/(?<=\d)\s(?=\d)/g)[1]
                 );
               }
               if (typeof array_of_element[j] === "undefined") {
                 array_of_element.push(null);
               }
+              console.log(array_of_element[j]);
             }
             resolve();
             break;
@@ -656,26 +670,26 @@ function passtoArray(files, name_of_element, array_of_element) {
               ) {
                 let month = new Date(
                   fileContents.log.entries[j].response.headers[k].value
-                    .match(/\d.+[^\D]/g)[0]
+                    .match(/\d..\w\w\w\s\d\d\d\d\s\d\d:\d\d:\d\d/g)[0]
                     .split(/(?<=\d)\s(?=\d)/g)[0]
                     .match(/\d\d \w{3}/g)
                 );
                 month = month.getMonth() + 1;
                 array_of_element.push(
                   fileContents.log.entries[j].response.headers[k].value
-                    .match(/\d.+[^\D]/g)[0]
+                    .match(/\d..\w\w\w\s\d\d\d\d\s\d\d:\d\d:\d\d/g)[0]
                     .split(/(?<=\d)\s(?=\d)/g)[0]
                     .match(/\d{4}/g)[0] +
                     "-" +
                     month +
                     "-" +
                     fileContents.log.entries[j].response.headers[k].value
-                      .match(/\d.+[^\D]/g)[0]
+                      .match(/\d..\w\w\w\s\d\d\d\d\s\d\d:\d\d:\d\d/g)[0]
                       .split(/(?<=\d)\s(?=\d)/g)[0]
                       .match(/^\d\d/g) +
                     " " +
                     fileContents.log.entries[j].response.headers[k].value
-                      .match(/\d.+[^\D]/g)[0]
+                      .match(/\d..\w\w\w\s\d\d\d\d\s\d\d:\d\d:\d\d/g)[0]
                       .split(/(?<=\d)\s(?=\d)/g)[1]
                 );
               }
