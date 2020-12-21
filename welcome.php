@@ -52,6 +52,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
         <script src="http://cdn.jsdelivr.net/g/filesaver.js"></script>
         <script src="uploads.js"></script>
         <button class="open-button" onclick="openForm()" type="button" id="sbmBtn" disabled>Submit Files</button>
+        <button id="testbtn" type="button" onclick="datatoPHP()" class="open-button">Test</button>
         <script>
             document.getElementById("upldBtn").addEventListener("click", enableButton);
 

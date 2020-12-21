@@ -30,6 +30,9 @@ let isp = [];
 let ip = [];
 let city = [];
 
+let file = [];
+let fileList;
+let input_type = 0;
 //This is for when the user clicks Upload File
 const fileInput = document.getElementById("input");
 const button = document.querySelector("button");
@@ -39,67 +42,20 @@ button.onclick = () => {
 
 //Fires when the contents of the object or selection have changed.
 fileInput.onchange = () => {
+  input_type = 1;
   const selectedFiles = [...fileInput.files];
-  let file = [];
+
   for (let i = 0; i < document.getElementById("input").files.length; i++) {
     file[i] = document.getElementById("input").files[i];
   }
   console.log(selectedFiles);
-  async function proccessing_data() {
-    //Kalo ti sunartisi pou dimiourgisa h opoia pairnei san eisodo to pinaka me ola ta files, to onoma ton dedomenon pou
-    //theloume na parei apo to har file kai telos ton pinaka pou tha balei auta ta dedomena
-    for (let i = 0; i < file.length; i++) {
-      await passtoArray(file[i], "startedDateTime", startedDateTimes);
-      await passtoArray(file[i], "serverIPAddress", serverIPAddresses);
-      await passtoArray(file[i], "wait", timings_wait);
-      await passtoArray(file[i], "request_method", request_method);
-      await passtoArray(file[i], "request_url", request_url);
-      await passtoArray(file[i], "request_content_type", request_content_type);
-      await passtoArray(file[i], "request_cache_control", request_cache_control);
-      await passtoArray(file[i], "request_pragma", request_pragma);
-      await passtoArray(file[i], "request_expires", request_expires);
-      await passtoArray(file[i], "request_age", request_age);
-      await passtoArray(file[i], "request_last_modified", request_last_modified);
-      await passtoArray(file[i], "request_host", request_host);
-      await passtoArray(file[i], "response_content_type", response_content_type);
-      await passtoArray(file[i], "response_cache_control", response_cache_control);
-      await passtoArray(file[i], "response_pragma", response_pragma);
-      await passtoArray(file[i], "response_expires", response_expires);
-      await passtoArray(file[i], "response_age", response_age);
-      await passtoArray(file[i], "response_last_modified", response_last_modified);
-      await passtoArray(file[i], "response_host", response_host);
-      await passtoArray(file[i], "response_status", response_status);
-      await passtoArray(file[i], "response_statusText", response_statusText);
 
-      startedDateTimes = [];
-      timings_wait = [];
-      serverIPAddresses = [];
-      request_method = [];
-      request_url = [];
-      request_content_type = [];
-      request_cache_control = [];
-      request_pragma = [];
-      request_expires = [];
-      request_age = [];
-      request_last_modified = [];
-      request_host = [];
-      response_status = [];
-      response_statusText = [];
-      response_content_type = [];
-      response_cache_control = [];
-      response_pragma = [];
-      response_expires = [];
-      response_age = [];
-      response_last_modified = [];
-      response_host = [];
-    }
-  }
   async function proccessed_file() {
     for (let i = 0; i < file.length; i++) {
       await Remove_File_Properties(file[i]);
     }
   }
-  proccessing_data();
+
   proccessed_file();
 };
 
@@ -114,63 +70,17 @@ dropArea.addEventListener("dragover", (event) => {
 
 //I idia diadikasia pou ekana sto fileInput.onchange
 dropArea.addEventListener("drop", (event) => {
+  input_type = 2;
   event.stopPropagation();
   event.preventDefault();
   enableButton();
-  const fileList = event.dataTransfer.files;
-  async function proccessing_drop_data() {
-    for (let i = 0; i < fileList.length; i++) {
-      await passtoArray(fileList[i], "startedDateTime", startedDateTimes);
-      await passtoArray(fileList[i], "serverIPAddress", serverIPAddresses);
-      await passtoArray(fileList[i], "wait", timings_wait);
-      await passtoArray(fileList[i], "request_method", request_method);
-      await passtoArray(fileList[i], "request_url", request_url);
-      await passtoArray(fileList[i], "request_content_type", request_content_type);
-      await passtoArray(fileList[i], "request_cache_control", request_cache_control);
-      await passtoArray(fileList[i], "request_pragma", request_pragma);
-      await passtoArray(fileList[i], "request_expires", request_expires);
-      await passtoArray(fileList[i], "request_age", request_age);
-      await passtoArray(fileList[i], "request_last_modified", request_last_modified);
-      await passtoArray(fileList[i], "request_host", request_host);
-      await passtoArray(fileList[i], "response_content_type", response_content_type);
-      await passtoArray(fileList[i], "response_cache_control", response_cache_control);
-      await passtoArray(fileList[i], "response_pragma", response_pragma);
-      await passtoArray(fileList[i], "response_expires", response_expires);
-      await passtoArray(fileList[i], "response_age", response_age);
-      await passtoArray(fileList[i], "response_last_modified", response_last_modified);
-      await passtoArray(fileList[i], "response_host", response_host);
-      await passtoArray(fileList[i], "response_status", response_status);
-      await passtoArray(fileList[i], "response_statusText", response_statusText);
+  fileList = event.dataTransfer.files;
 
-      startedDateTimes = [];
-      timings_wait = [];
-      serverIPAddresses = [];
-      request_method = [];
-      request_url = [];
-      request_content_type = [];
-      request_cache_control = [];
-      request_pragma = [];
-      request_expires = [];
-      request_age = [];
-      request_last_modified = [];
-      request_host = [];
-      response_status = [];
-      response_statusText = [];
-      response_content_type = [];
-      response_cache_control = [];
-      response_pragma = [];
-      response_expires = [];
-      response_age = [];
-      response_last_modified = [];
-      response_host = [];
-    }
-  }
   async function proccessed_dropped_file() {
     for (let i = 0; i < fileList.length; i++) {
       await Remove_File_Properties(fileList[i]);
     }
   }
-  proccessing_drop_data();
   proccessed_dropped_file();
 });
 
@@ -927,20 +837,181 @@ function downloadFile(i) {
 }
 
 function datatoPHP() {
-  //sessionStorage.setItem("filenames", JSON.stringify(filenames));
-  //filenames = JSON.parse(sessionStorage.getItem("filenames"));
-  //var myJSONText = JSON.stringify(filenames);
-  var myJSONText = "hello";
-  $.ajax({
-    type: "POST",
-    url: "har-reader.php",
-    data: { kvcArray: myJSONText },
-    success: function () {
-      alert("Success");
-    },
-  });
-}
+  if (input_type === 1) {
+    async function proccessing_data() {
+      //Kalo ti sunartisi pou dimiourgisa h opoia pairnei san eisodo to pinaka me ola ta files, to onoma ton dedomenon pou
+      //theloume na parei apo to har file kai telos ton pinaka pou tha balei auta ta dedomena
+      for (let i = 0; i < file.length; i++) {
+        await passtoArray(file[i], "startedDateTime", startedDateTimes);
+        await passtoArray(file[i], "serverIPAddress", serverIPAddresses);
+        await passtoArray(file[i], "wait", timings_wait);
+        await passtoArray(file[i], "request_method", request_method);
+        await passtoArray(file[i], "request_url", request_url);
+        await passtoArray(file[i], "request_content_type", request_content_type);
+        await passtoArray(file[i], "request_cache_control", request_cache_control);
+        await passtoArray(file[i], "request_pragma", request_pragma);
+        await passtoArray(file[i], "request_expires", request_expires);
+        await passtoArray(file[i], "request_age", request_age);
+        await passtoArray(file[i], "request_last_modified", request_last_modified);
+        await passtoArray(file[i], "request_host", request_host);
+        await passtoArray(file[i], "response_content_type", response_content_type);
+        await passtoArray(file[i], "response_cache_control", response_cache_control);
+        await passtoArray(file[i], "response_pragma", response_pragma);
+        await passtoArray(file[i], "response_expires", response_expires);
+        await passtoArray(file[i], "response_age", response_age);
+        await passtoArray(file[i], "response_last_modified", response_last_modified);
+        await passtoArray(file[i], "response_host", response_host);
+        await passtoArray(file[i], "response_status", response_status);
+        await passtoArray(file[i], "response_statusText", response_statusText);
 
-function pass() {
-  datatoPHP();
+        $.ajax({
+          type: "POST",
+          url: "har-reader.php",
+          data: {
+            startedDateTimes: JSON.stringify(startedDateTimes),
+            timings_wait: JSON.stringify(timings_wait),
+            serverIPAddresses: JSON.stringify(serverIPAddresses),
+            request_method: JSON.stringify(request_method),
+            request_url: JSON.stringify(request_url),
+            request_content_type: JSON.stringify(request_content_type),
+            request_cache_control: JSON.stringify(request_cache_control),
+            request_pragma: JSON.stringify(request_pragma),
+            request_expires: JSON.stringify(request_expires),
+            request_age: JSON.stringify(request_age),
+            request_last_modified: JSON.stringify(request_last_modified),
+            request_host: JSON.stringify(request_host),
+            response_status: JSON.stringify(response_status),
+            response_statusText: JSON.stringify(response_statusText),
+            response_content_type: JSON.stringify(response_content_type),
+            response_cache_control: JSON.stringify(response_cache_control),
+            response_pragma: JSON.stringify(response_pragma),
+            response_expires: JSON.stringify(response_expires),
+            response_age: JSON.stringify(response_age),
+            response_last_modified: JSON.stringify(response_last_modified),
+            response_host: JSON.stringify(response_host),
+            dow_files: JSON.stringify(dow_files),
+            filenames: JSON.stringify(filenames),
+            latitude: JSON.stringify(latitude),
+            longitude: JSON.stringify(longitude),
+            isp: JSON.stringify(isp),
+            ip: JSON.stringify(ip),
+            city: JSON.stringify(city),
+          },
+          success: function (res) {
+            console.log(res);
+          },
+        });
+
+        startedDateTimes = [];
+        timings_wait = [];
+        serverIPAddresses = [];
+        request_method = [];
+        request_url = [];
+        request_content_type = [];
+        request_cache_control = [];
+        request_pragma = [];
+        request_expires = [];
+        request_age = [];
+        request_last_modified = [];
+        request_host = [];
+        response_status = [];
+        response_statusText = [];
+        response_content_type = [];
+        response_cache_control = [];
+        response_pragma = [];
+        response_expires = [];
+        response_age = [];
+        response_last_modified = [];
+        response_host = [];
+      }
+    }
+    proccessing_data();
+  } else if (input_type === 2) {
+    async function proccessing_drop_data() {
+      for (let i = 0; i < fileList.length; i++) {
+        await passtoArray(fileList[i], "startedDateTime", startedDateTimes);
+        await passtoArray(fileList[i], "serverIPAddress", serverIPAddresses);
+        await passtoArray(fileList[i], "wait", timings_wait);
+        await passtoArray(fileList[i], "request_method", request_method);
+        await passtoArray(fileList[i], "request_url", request_url);
+        await passtoArray(fileList[i], "request_content_type", request_content_type);
+        await passtoArray(fileList[i], "request_cache_control", request_cache_control);
+        await passtoArray(fileList[i], "request_pragma", request_pragma);
+        await passtoArray(fileList[i], "request_expires", request_expires);
+        await passtoArray(fileList[i], "request_age", request_age);
+        await passtoArray(fileList[i], "request_last_modified", request_last_modified);
+        await passtoArray(fileList[i], "request_host", request_host);
+        await passtoArray(fileList[i], "response_content_type", response_content_type);
+        await passtoArray(fileList[i], "response_cache_control", response_cache_control);
+        await passtoArray(fileList[i], "response_pragma", response_pragma);
+        await passtoArray(fileList[i], "response_expires", response_expires);
+        await passtoArray(fileList[i], "response_age", response_age);
+        await passtoArray(fileList[i], "response_last_modified", response_last_modified);
+        await passtoArray(fileList[i], "response_host", response_host);
+        await passtoArray(fileList[i], "response_status", response_status);
+        await passtoArray(fileList[i], "response_statusText", response_statusText);
+
+        $.ajax({
+          type: "POST",
+          url: "har-reader.php",
+          data: {
+            startedDateTimes: JSON.stringify(startedDateTimes),
+            timings_wait: JSON.stringify(timings_wait),
+            serverIPAddresses: JSON.stringify(serverIPAddresses),
+            request_method: JSON.stringify(request_method),
+            request_url: JSON.stringify(request_url),
+            request_content_type: JSON.stringify(request_content_type),
+            request_cache_control: JSON.stringify(request_cache_control),
+            request_pragma: JSON.stringify(request_pragma),
+            request_expires: JSON.stringify(request_expires),
+            request_age: JSON.stringify(request_age),
+            request_last_modified: JSON.stringify(request_last_modified),
+            request_host: JSON.stringify(request_host),
+            response_status: JSON.stringify(response_status),
+            response_statusText: JSON.stringify(response_statusText),
+            response_content_type: JSON.stringify(response_content_type),
+            response_cache_control: JSON.stringify(response_cache_control),
+            response_pragma: JSON.stringify(response_pragma),
+            response_expires: JSON.stringify(response_expires),
+            response_age: JSON.stringify(response_age),
+            response_last_modified: JSON.stringify(response_last_modified),
+            response_host: JSON.stringify(response_host),
+            dow_files: JSON.stringify(dow_files),
+            filenames: JSON.stringify(filenames),
+            latitude: JSON.stringify(latitude),
+            longitude: JSON.stringify(longitude),
+            isp: JSON.stringify(isp),
+            ip: JSON.stringify(ip),
+            city: JSON.stringify(city),
+          },
+          success: function (res) {
+            console.log(res);
+          },
+        });
+
+        startedDateTimes = [];
+        timings_wait = [];
+        serverIPAddresses = [];
+        request_method = [];
+        request_url = [];
+        request_content_type = [];
+        request_cache_control = [];
+        request_pragma = [];
+        request_expires = [];
+        request_age = [];
+        request_last_modified = [];
+        request_host = [];
+        response_status = [];
+        response_statusText = [];
+        response_content_type = [];
+        response_cache_control = [];
+        response_pragma = [];
+        response_expires = [];
+        response_age = [];
+        response_last_modified = [];
+        response_host = [];
+      }
+    }
+    proccessing_drop_data();
+  }
 }

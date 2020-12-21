@@ -1,16 +1,58 @@
 <?php
 session_start();
 require_once "config.php";
-function j2pr() {
-  $myArray = $_POST['kvcArray'];
-  print_r($myArray);
-  }
-j2pr();
 $url=null;
+
+
+$startedDateTimes = json_decode($_POST['startedDateTimes'],true);
+$timings_wait = json_decode($_POST['timings_wait'],true);
+$serverIPAddresses = json_decode($_POST['serverIPAddresses'],true);
+$request_method = json_decode($_POST['request_method'],true);
+$request_url = json_decode($_POST['request_url'],true);
+$request_content_type = json_decode($_POST['request_content_type'],true);
+$request_cache_control = json_decode($_POST['request_cache_control'],true);
+$request_pragma = json_decode($_POST['request_pragma'],true);
+$request_expires = json_decode($_POST['request_expires'],true);
+$request_age = json_decode($_POST['request_age'],true);
+$request_last_modified = json_decode($_POST['request_last_modified'],true);
+$request_host = json_decode($_POST['request_host'],true);
+$response_status = json_decode($_POST['response_status'],true);
+$response_statusText = json_decode($_POST['response_statusText'],true);
+$response_content_type = json_decode($_POST['response_content_type'],true);
+$response_cache_control = json_decode($_POST['response_cache_control'],true);
+$response_pragma = json_decode($_POST['response_pragma'],true);
+$response_expires = json_decode($_POST['response_expires'],true);
+$response_age = json_decode($_POST['response_age'],true);
+$response_last_modified = json_decode($_POST['response_last_modified'],true);
+$response_host = json_decode($_POST['response_host'],true);
+$dow_files = json_decode($_POST['dow_files'],true);
+$filenames = json_decode($_POST['filenames'],true);
+$latitude = json_decode($_POST['latitude'],true);
+$longitude = json_decode($_POST['longitude'],true);
+$isp = json_decode($_POST['isp'],true);
+$ip = json_decode($_POST['ip'],true);
+$city = json_decode($_POST['city'],true);
+
+print_r($myArray);
+print_r($myArray2);
 $data = array();
 $b = "uploads_";
 $d="";
 $counter = 0;
+$sql = "INSERT INTO user_files (user_id, file_name) VALUES (?)";
+if ($stmt = mysqli_prepare($conn, $sql)){
+  // Bind variables to the prepared statement as parameters
+  mysqli_stmt_bind_param($stmt, "i", $param_userID);
+  $param_userID = $_SESSION["id"];
+  // Attempt to execute the prepared statement
+  if (mysqli_stmt_execute($stmt)){
+    echo "";
+  } else {
+    echo "Something went wrong. Please try again later.";
+  }
+  // Close statement
+  mysqli_stmt_close($stmt);
+}
 $sql = "SELECT * FROM user_files WHERE user_id=$_SESSION[id]";
 $result = mysqli_query($conn, $sql);
 if (mysqli_num_rows($result) > 0) {
@@ -496,30 +538,3 @@ if (mysqli_num_rows($result) > 0) {
 } else {
   echo "0 results";
 }
-?>
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  <button id="play" >PLAY</button>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script>
-  let filenames = []; 
-  function datatoPHP() {
- 
-}
-
-/*document.getElementById("play").addEventListener("click", function() {
-  datatoPHP();
-  console.log(filenames);
-});*/
-
-</script>
-</body>
-</html>
