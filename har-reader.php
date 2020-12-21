@@ -25,7 +25,6 @@ $response_expires = json_decode($_POST['response_expires'],true);
 $response_age = json_decode($_POST['response_age'],true);
 $response_last_modified = json_decode($_POST['response_last_modified'],true);
 $response_host = json_decode($_POST['response_host'],true);
-$dow_files = json_decode($_POST['dow_files'],true);
 $filenames = json_decode($_POST['filenames'],true);
 $latitude = json_decode($_POST['latitude'],true);
 $longitude = json_decode($_POST['longitude'],true);
@@ -33,99 +32,58 @@ $isp = json_decode($_POST['isp'],true);
 $ip = json_decode($_POST['ip'],true);
 $city = json_decode($_POST['city'],true);
 
-print_r($myArray);
-print_r($myArray2);
+print_r($startedDateTimes);
+print_r($serverIPAddresses);
 $data = array();
+$a;
 $b = "uploads_";
 $d="";
 $counter = 0;
-$sql = "INSERT INTO user_files (user_id, file_name) VALUES (?)";
+$sql = "INSERT INTO user_files (user_id) VALUES (?)";
 if ($stmt = mysqli_prepare($conn, $sql)){
   // Bind variables to the prepared statement as parameters
   mysqli_stmt_bind_param($stmt, "i", $param_userID);
-  $param_userID = $_SESSION["id"];
+  $param_userID = $_SESSION[id];
   // Attempt to execute the prepared statement
   if (mysqli_stmt_execute($stmt)){
-    echo "";
   } else {
     echo "Something went wrong. Please try again later.";
   }
   // Close statement
   mysqli_stmt_close($stmt);
 }
-$sql = "SELECT * FROM user_files WHERE user_id=$_SESSION[id]";
+$sql = "SELECT MAX(file_number) as fileNum FROM user_files WHERE user_id=$_SESSION[id]";
 $result = mysqli_query($conn, $sql);
-if (mysqli_num_rows($result) > 0) {
-  while($row = mysqli_fetch_assoc($result)) {
-      $a = "";
-      $a = $b . $row["file_name"];
-      $c = "";
-      $counter = 0;
-      $test=json_decode(file_get_contents($a));
-      $sql = "INSERT INTO file_number_data (file_number) VALUES ('$row[file_number]')";
-      if ($conn->query($sql) === TRUE) {
-        echo "";
-      } else {
-        echo "Error updating record: " . $conn->error;
-      }
-      unset($data);
-      $data = array();
-
       //Entries: StartedDateTimes
-      $d="";
-      foreach($test->log->entries as $i)
+      while($row = mysqli_fetch_assoc($result))
       {
-        if (isset($i->startedDateTime)){
-          array_push($data,$i->startedDateTime);
-          $counter++;
-        }
-        else {
-          array_push($data,null);
-          $counter++;
-        }
-      }
-      $sql = "UPDATE file_number_data SET startedDateTime_num='$counter' WHERE file_number='$row[file_number]'";
-      if ($conn->query($sql) === TRUE) {
-        echo "";
-      } else {
-        echo "Error updating record: " . $conn->error;
-      }
-      $counter = 0;
-      foreach($data as $i)
+      foreach($startedDateTimes as $i)
       {
-        $counter++;
-        preg_match('/(\d*)-(\d*)-(\d*)T(\d*):(\d*):(\d*)/',$i, $matches);
-        $d=$matches[1] . "-" . $matches[2] . "-" . $matches[3] . " " . $matches[4] . ":" . $matches[5] . ":" . $matches[6];
-        $d = date('Y-m-d H:i:s', strtotime($d));
-        $sql = "INSERT INTO started_date_times (NumberOfEntry, entr, file_number) VALUES ('$counter','$d', '$row[file_number]')"; 
-        if ($conn->query($sql) === TRUE) {
-          echo "";
-        } else {
-          echo "Error updating record: " . $conn->error;
+          $a++;
+          $sql = "INSERT INTO started_date_times (NumberOfEntry, entr, file_number) VALUES ('$a','$i', '$row[fileNum]')"; 
+          if ($conn->query($sql) === TRUE) {
+            echo "";
+          } else {
+            echo "Error updating record: " . $conn->error;
+          }
         }
       }
-
-      echo "<br><br><br><br><br>";
-
+      $a=0;
       //Entries: serverIPAddress
-      unset($data);
-      $data = array();
-      foreach($test->log->entries as $i)
+      while($row = mysqli_fetch_assoc($result))
       {
-        if (isset($i->serverIPAddress)){
-          array_push($data,$i->serverIPAddress);
-        }
-        else{
-          array_push($data,null);
+      foreach($serverIPAddresses as $i)
+      {
+          $a++;
+          $sql = "INSERT INTO server_ip_address (NumberOfEntry, entr, file_number) VALUES ('$a','$i', '$row[fileNum]')"; 
+          if ($conn->query($sql) === TRUE) {
+            echo "";
+          } else {
+            echo "Error updating record: " . $conn->error;
+          }
         }
       }
-      foreach($data as $i)
-      {
-        //echo $row["file_name"] . " " . $i . "<br>";
-      }
-
-      echo "<br><br><br><br><br>";
-
+      $a=0;
       //Entries: timing
       unset($data);
       $data = array();
@@ -530,11 +488,6 @@ if (mysqli_num_rows($result) > 0) {
           }
         }
       }
-      foreach($data as $i)
-      {
+      foreach($data as $i){
         //echo $row["file_name"] . " " . $i . "<br>";
       }
-  }
-} else {
-  echo "0 results";
-}
