@@ -94,16 +94,21 @@ function passtoArray(files, name_of_element, array_of_element) {
         switch (name_of_element) {
           case "startedDateTime":
             if (
-              typeof fileContents.log.entries[j].startedDateTime == "undefined" ||
+              typeof fileContents.log.entries[j].startedDateTime ==
+                "undefined" ||
               fileContents.log.entries[j].startedDateTime == null ||
               fileContents.log.entries[j].startedDateTime == ""
             ) {
               array_of_element.push(null);
             } else {
               array_of_element.push(
-                fileContents.log.entries[j].startedDateTime.match(/\d\d\d\d-\d\d-\d\d/g) +
+                fileContents.log.entries[j].startedDateTime.match(
+                  /\d\d\d\d-\d\d-\d\d/g
+                ) +
                   " " +
-                  fileContents.log.entries[j].startedDateTime.match(/\d\d:\d\d:\d\d/g)
+                  fileContents.log.entries[j].startedDateTime.match(
+                    /\d\d:\d\d:\d\d/g
+                  )
               );
             }
             if (typeof array_of_element[j] === "undefined") {
@@ -113,13 +118,16 @@ function passtoArray(files, name_of_element, array_of_element) {
             break;
           case "serverIPAddress":
             if (
-              typeof fileContents.log.entries[j].serverIPAddress == "undefined" ||
+              typeof fileContents.log.entries[j].serverIPAddress ==
+                "undefined" ||
               fileContents.log.entries[j].serverIPAddress == null ||
               fileContents.log.entries[j].serverIPAddress == ""
             ) {
               array_of_element.push(null);
             } else {
-              array_of_element.push(fileContents.log.entries[j].serverIPAddress);
+              array_of_element.push(
+                fileContents.log.entries[j].serverIPAddress
+              );
             }
             if (typeof array_of_element[j] === "undefined") {
               array_of_element.push(null);
@@ -143,7 +151,8 @@ function passtoArray(files, name_of_element, array_of_element) {
             break;
           case "request_method":
             if (
-              typeof fileContents.log.entries[j].request.method == "undefined" ||
+              typeof fileContents.log.entries[j].request.method ==
+                "undefined" ||
               fileContents.log.entries[j].request.method == null ||
               fileContents.log.entries[j].request.method == ""
             ) {
@@ -165,7 +174,9 @@ function passtoArray(files, name_of_element, array_of_element) {
               array_of_element.push(null);
             } else {
               array_of_element.push(
-                fileContents.log.entries[j].request.url.match(/(https:\/\/|http:\/\/)(\S*?\/)/g)
+                fileContents.log.entries[j].request.url.match(
+                  /(https:\/\/|http:\/\/)(\S*?\/)/g
+                )
               );
             }
             if (typeof array_of_element[j] === "undefined") {
@@ -174,23 +185,33 @@ function passtoArray(files, name_of_element, array_of_element) {
             resolve();
             break;
           case "request_content_type":
-            for (let k = 0; k < fileContents.log.entries[j].request.headers.length; k++) {
+            for (
+              let k = 0;
+              k < fileContents.log.entries[j].request.headers.length;
+              k++
+            ) {
               if (
-                typeof fileContents.log.entries[j].request.headers[k].name == "undefined" ||
+                typeof fileContents.log.entries[j].request.headers[k].name ==
+                  "undefined" ||
                 fileContents.log.entries[j].request.headers[k].name == null ||
                 fileContents.log.entries[j].request.headers[k].name == ""
               ) {
                 array_of_element.push(null);
               } else if (
-                typeof fileContents.log.entries[j].request.headers[k].value == "undefined" ||
+                typeof fileContents.log.entries[j].request.headers[k].value ==
+                  "undefined" ||
                 fileContents.log.entries[j].request.headers[k].value == null ||
                 fileContents.log.entries[j].request.headers[k].value == ""
               ) {
                 array_of_element.push(null);
               } else if (
-                fileContents.log.entries[j].request.headers[k].name.toLowerCase() === "content-type"
+                fileContents.log.entries[j].request.headers[
+                  k
+                ].name.toLowerCase() === "content-type"
               ) {
-                array_of_element.push(fileContents.log.entries[j].request.headers[k].value);
+                array_of_element.push(
+                  fileContents.log.entries[j].request.headers[k].value
+                );
               }
               if (typeof array_of_element[j] === "undefined") {
                 array_of_element.push(null);
@@ -199,24 +220,33 @@ function passtoArray(files, name_of_element, array_of_element) {
             resolve();
             break;
           case "request_cache_control":
-            for (let k = 0; k < fileContents.log.entries[j].request.headers.length; k++) {
+            for (
+              let k = 0;
+              k < fileContents.log.entries[j].request.headers.length;
+              k++
+            ) {
               if (
-                typeof fileContents.log.entries[j].request.headers[k].name == "undefined" ||
+                typeof fileContents.log.entries[j].request.headers[k].name ==
+                  "undefined" ||
                 fileContents.log.entries[j].request.headers[k].name == null ||
                 fileContents.log.entries[j].request.headers[k].name == ""
               ) {
                 array_of_element.push(null);
               } else if (
-                typeof fileContents.log.entries[j].request.headers[k].value == "undefined" ||
+                typeof fileContents.log.entries[j].request.headers[k].value ==
+                  "undefined" ||
                 fileContents.log.entries[j].request.headers[k].value == null ||
                 fileContents.log.entries[j].request.headers[k].value == ""
               ) {
                 array_of_element.push(null);
               } else if (
-                fileContents.log.entries[j].request.headers[k].name.toLowerCase() ===
-                "cache-control"
+                fileContents.log.entries[j].request.headers[
+                  k
+                ].name.toLowerCase() === "cache-control"
               ) {
-                array_of_element.push(fileContents.log.entries[j].request.headers[k].value);
+                array_of_element.push(
+                  fileContents.log.entries[j].request.headers[k].value
+                );
               }
               if (typeof array_of_element[j] === "undefined") {
                 array_of_element.push(null);
@@ -225,23 +255,33 @@ function passtoArray(files, name_of_element, array_of_element) {
             resolve();
             break;
           case "request_pragma":
-            for (let k = 0; k < fileContents.log.entries[j].request.headers.length; k++) {
+            for (
+              let k = 0;
+              k < fileContents.log.entries[j].request.headers.length;
+              k++
+            ) {
               if (
-                typeof fileContents.log.entries[j].request.headers[k].name == "undefined" ||
+                typeof fileContents.log.entries[j].request.headers[k].name ==
+                  "undefined" ||
                 fileContents.log.entries[j].request.headers[k].name == null ||
                 fileContents.log.entries[j].request.headers[k].name == ""
               ) {
                 array_of_element.push(null);
               } else if (
-                typeof fileContents.log.entries[j].request.headers[k].value == "undefined" ||
+                typeof fileContents.log.entries[j].request.headers[k].value ==
+                  "undefined" ||
                 fileContents.log.entries[j].request.headers[k].value == null ||
                 fileContents.log.entries[j].request.headers[k].value == ""
               ) {
                 array_of_element.push(null);
               } else if (
-                fileContents.log.entries[j].request.headers[k].name.toLowerCase() === "pragma"
+                fileContents.log.entries[j].request.headers[
+                  k
+                ].name.toLowerCase() === "pragma"
               ) {
-                array_of_element.push(fileContents.log.entries[j].request.headers[k].value);
+                array_of_element.push(
+                  fileContents.log.entries[j].request.headers[k].value
+                );
               }
               if (typeof array_of_element[j] === "undefined") {
                 array_of_element.push(null);
@@ -251,21 +291,29 @@ function passtoArray(files, name_of_element, array_of_element) {
             break;
           case "request_expires":
             var re = new RegExp("/Mon,|Tue,|Wed,|Thu,|Fri,|Sat,|Sun,/g");
-            for (let k = 0; k < fileContents.log.entries[j].request.headers.length; k++) {
+            for (
+              let k = 0;
+              k < fileContents.log.entries[j].request.headers.length;
+              k++
+            ) {
               if (
-                typeof fileContents.log.entries[j].request.headers[k].name == "undefined" ||
+                typeof fileContents.log.entries[j].request.headers[k].name ==
+                  "undefined" ||
                 fileContents.log.entries[j].request.headers[k].name == null ||
                 fileContents.log.entries[j].request.headers[k].name == ""
               ) {
                 array_of_element.push(null);
               } else if (
-                typeof fileContents.log.entries[j].request.headers[k].value == "undefined" ||
+                typeof fileContents.log.entries[j].request.headers[k].value ==
+                  "undefined" ||
                 fileContents.log.entries[j].request.headers[k].value == null ||
                 fileContents.log.entries[j].request.headers[k].value == ""
               ) {
                 array_of_element.push(null);
               } else if (
-                fileContents.log.entries[j].request.headers[k].name.toLowerCase() === "expires" &&
+                fileContents.log.entries[j].request.headers[
+                  k
+                ].name.toLowerCase() === "expires" &&
                 re.test(
                   fileContents.log.entries[j].response.headers[k].value.match(
                     /Mon,|Tue,|Wed,|Thu,|Fri,|Sat,|Sun,/g
@@ -305,23 +353,33 @@ function passtoArray(files, name_of_element, array_of_element) {
             resolve();
             break;
           case "request_age":
-            for (let k = 0; k < fileContents.log.entries[j].request.headers.length; k++) {
+            for (
+              let k = 0;
+              k < fileContents.log.entries[j].request.headers.length;
+              k++
+            ) {
               if (
-                typeof fileContents.log.entries[j].request.headers[k].name == "undefined" ||
+                typeof fileContents.log.entries[j].request.headers[k].name ==
+                  "undefined" ||
                 fileContents.log.entries[j].request.headers[k].name == null ||
                 fileContents.log.entries[j].request.headers[k].name == ""
               ) {
                 array_of_element.push(null);
               } else if (
-                typeof fileContents.log.entries[j].request.headers[k].value == "undefined" ||
+                typeof fileContents.log.entries[j].request.headers[k].value ==
+                  "undefined" ||
                 fileContents.log.entries[j].request.headers[k].value == null ||
                 fileContents.log.entries[j].request.headers[k].value == ""
               ) {
                 array_of_element.push(null);
               } else if (
-                fileContents.log.entries[j].request.headers[k].name.toLowerCase() === "age"
+                fileContents.log.entries[j].request.headers[
+                  k
+                ].name.toLowerCase() === "age"
               ) {
-                array_of_element.push(fileContents.log.entries[j].request.headers[k].value);
+                array_of_element.push(
+                  fileContents.log.entries[j].request.headers[k].value
+                );
               }
               if (typeof array_of_element[j] === "undefined") {
                 array_of_element.push(null);
@@ -330,22 +388,29 @@ function passtoArray(files, name_of_element, array_of_element) {
             resolve();
             break;
           case "request_last_modified":
-            for (let k = 0; k < fileContents.log.entries[j].request.headers.length; k++) {
+            for (
+              let k = 0;
+              k < fileContents.log.entries[j].request.headers.length;
+              k++
+            ) {
               if (
-                typeof fileContents.log.entries[j].request.headers[k].name == "undefined" ||
+                typeof fileContents.log.entries[j].request.headers[k].name ==
+                  "undefined" ||
                 fileContents.log.entries[j].request.headers[k].name == null ||
                 fileContents.log.entries[j].request.headers[k].name == ""
               ) {
                 array_of_element.push(null);
               } else if (
-                typeof fileContents.log.entries[j].request.headers[k].value == "undefined" ||
+                typeof fileContents.log.entries[j].request.headers[k].value ==
+                  "undefined" ||
                 fileContents.log.entries[j].request.headers[k].value == null ||
                 fileContents.log.entries[j].request.headers[k].value == ""
               ) {
                 array_of_element.push(null);
               } else if (
-                fileContents.log.entries[j].request.headers[k].name.toLowerCase() ===
-                "last-modified"
+                fileContents.log.entries[j].request.headers[
+                  k
+                ].name.toLowerCase() === "last-modified"
               ) {
                 let month = new Date(
                   fileContents.log.entries[j].request.headers[k].value
@@ -379,23 +444,33 @@ function passtoArray(files, name_of_element, array_of_element) {
             resolve();
             break;
           case "request_host":
-            for (let k = 0; k < fileContents.log.entries[j].request.headers.length; k++) {
+            for (
+              let k = 0;
+              k < fileContents.log.entries[j].request.headers.length;
+              k++
+            ) {
               if (
-                typeof fileContents.log.entries[j].request.headers[k].name == "undefined" ||
+                typeof fileContents.log.entries[j].request.headers[k].name ==
+                  "undefined" ||
                 fileContents.log.entries[j].request.headers[k].name == null ||
                 fileContents.log.entries[j].request.headers[k].name == ""
               ) {
                 array_of_element.push(null);
               } else if (
-                typeof fileContents.log.entries[j].request.headers[k].value == "undefined" ||
+                typeof fileContents.log.entries[j].request.headers[k].value ==
+                  "undefined" ||
                 fileContents.log.entries[j].request.headers[k].value == null ||
                 fileContents.log.entries[j].request.headers[k].value == ""
               ) {
                 array_of_element.push(null);
               } else if (
-                fileContents.log.entries[j].request.headers[k].name.toLowerCase() === "host"
+                fileContents.log.entries[j].request.headers[
+                  k
+                ].name.toLowerCase() === "host"
               ) {
-                array_of_element.push(fileContents.log.entries[j].request.headers[k].value);
+                array_of_element.push(
+                  fileContents.log.entries[j].request.headers[k].value
+                );
               }
               if (typeof array_of_element[j] === "undefined") {
                 array_of_element.push(null);
@@ -404,24 +479,33 @@ function passtoArray(files, name_of_element, array_of_element) {
             resolve();
             break;
           case "response_content_type":
-            for (let k = 0; k < fileContents.log.entries[j].response.headers.length; k++) {
+            for (
+              let k = 0;
+              k < fileContents.log.entries[j].response.headers.length;
+              k++
+            ) {
               if (
-                typeof fileContents.log.entries[j].response.headers[k].name == "undefined" ||
+                typeof fileContents.log.entries[j].response.headers[k].name ==
+                  "undefined" ||
                 fileContents.log.entries[j].response.headers[k].name == null ||
                 fileContents.log.entries[j].response.headers[k].name == ""
               ) {
                 array_of_element.push(null);
               } else if (
-                typeof fileContents.log.entries[j].response.headers[k].value == "undefined" ||
+                typeof fileContents.log.entries[j].response.headers[k].value ==
+                  "undefined" ||
                 fileContents.log.entries[j].response.headers[k].value == null ||
                 fileContents.log.entries[j].response.headers[k].value == ""
               ) {
                 array_of_element.push(null);
               } else if (
-                fileContents.log.entries[j].response.headers[k].name.toLowerCase() ===
-                "content-type"
+                fileContents.log.entries[j].response.headers[
+                  k
+                ].name.toLowerCase() === "content-type"
               ) {
-                array_of_element.push(fileContents.log.entries[j].response.headers[k].value);
+                array_of_element.push(
+                  fileContents.log.entries[j].response.headers[k].value
+                );
               }
               if (typeof array_of_element[j] === "undefined") {
                 array_of_element.push(null);
@@ -430,24 +514,33 @@ function passtoArray(files, name_of_element, array_of_element) {
             resolve();
             break;
           case "response_cache_control":
-            for (let k = 0; k < fileContents.log.entries[j].response.headers.length; k++) {
+            for (
+              let k = 0;
+              k < fileContents.log.entries[j].response.headers.length;
+              k++
+            ) {
               if (
-                typeof fileContents.log.entries[j].response.headers[k].name == "undefined" ||
+                typeof fileContents.log.entries[j].response.headers[k].name ==
+                  "undefined" ||
                 fileContents.log.entries[j].response.headers[k].name == null ||
                 fileContents.log.entries[j].response.headers[k].name == ""
               ) {
                 array_of_element.push(null);
               } else if (
-                typeof fileContents.log.entries[j].response.headers[k].value == "undefined" ||
+                typeof fileContents.log.entries[j].response.headers[k].value ==
+                  "undefined" ||
                 fileContents.log.entries[j].response.headers[k].value == null ||
                 fileContents.log.entries[j].response.headers[k].value == ""
               ) {
                 array_of_element.push(null);
               } else if (
-                fileContents.log.entries[j].response.headers[k].name.toLowerCase() ===
-                "cache-control"
+                fileContents.log.entries[j].response.headers[
+                  k
+                ].name.toLowerCase() === "cache-control"
               ) {
-                array_of_element.push(fileContents.log.entries[j].response.headers[k].value);
+                array_of_element.push(
+                  fileContents.log.entries[j].response.headers[k].value
+                );
               }
               if (typeof array_of_element[j] === "undefined") {
                 array_of_element.push(null);
@@ -456,23 +549,33 @@ function passtoArray(files, name_of_element, array_of_element) {
             resolve();
             break;
           case "response_pragma":
-            for (let k = 0; k < fileContents.log.entries[j].response.headers.length; k++) {
+            for (
+              let k = 0;
+              k < fileContents.log.entries[j].response.headers.length;
+              k++
+            ) {
               if (
-                typeof fileContents.log.entries[j].response.headers[k].name == "undefined" ||
+                typeof fileContents.log.entries[j].response.headers[k].name ==
+                  "undefined" ||
                 fileContents.log.entries[j].response.headers[k].name == null ||
                 fileContents.log.entries[j].response.headers[k].name == ""
               ) {
                 array_of_element.push(null);
               } else if (
-                typeof fileContents.log.entries[j].response.headers[k].value == "undefined" ||
+                typeof fileContents.log.entries[j].response.headers[k].value ==
+                  "undefined" ||
                 fileContents.log.entries[j].response.headers[k].value == null ||
                 fileContents.log.entries[j].response.headers[k].value == ""
               ) {
                 array_of_element.push(null);
               } else if (
-                fileContents.log.entries[j].response.headers[k].name.toLowerCase() === "pragma"
+                fileContents.log.entries[j].response.headers[
+                  k
+                ].name.toLowerCase() === "pragma"
               ) {
-                array_of_element.push(fileContents.log.entries[j].response.headers[k].value);
+                array_of_element.push(
+                  fileContents.log.entries[j].response.headers[k].value
+                );
               }
               if (typeof array_of_element[j] === "undefined") {
                 array_of_element.push(null);
@@ -482,21 +585,29 @@ function passtoArray(files, name_of_element, array_of_element) {
             break;
           case "response_expires":
             var re = new RegExp("/Mon,|Tue,|Wed,|Thu,|Fri,|Sat,|Sun,/g");
-            for (let k = 0; k < fileContents.log.entries[j].response.headers.length; k++) {
+            for (
+              let k = 0;
+              k < fileContents.log.entries[j].response.headers.length;
+              k++
+            ) {
               if (
-                typeof fileContents.log.entries[j].response.headers[k].name == "undefined" ||
+                typeof fileContents.log.entries[j].response.headers[k].name ==
+                  "undefined" ||
                 fileContents.log.entries[j].response.headers[k].name == null ||
                 fileContents.log.entries[j].response.headers[k].name == ""
               ) {
                 array_of_element.push(null);
               } else if (
-                typeof fileContents.log.entries[j].response.headers[k].value == "undefined" ||
+                typeof fileContents.log.entries[j].response.headers[k].value ==
+                  "undefined" ||
                 fileContents.log.entries[j].response.headers[k].value == null ||
                 fileContents.log.entries[j].response.headers[k].value == ""
               ) {
                 array_of_element.push(null);
               } else if (
-                fileContents.log.entries[j].response.headers[k].name.toLowerCase() === "expires" &&
+                fileContents.log.entries[j].response.headers[
+                  k
+                ].name.toLowerCase() === "expires" &&
                 re.test(
                   fileContents.log.entries[j].response.headers[k].value.match(
                     /Mon,|Tue,|Wed,|Thu,|Fri,|Sat,|Sun,/g
@@ -536,23 +647,33 @@ function passtoArray(files, name_of_element, array_of_element) {
             resolve();
             break;
           case "response_age":
-            for (let k = 0; k < fileContents.log.entries[j].response.headers.length; k++) {
+            for (
+              let k = 0;
+              k < fileContents.log.entries[j].response.headers.length;
+              k++
+            ) {
               if (
-                typeof fileContents.log.entries[j].response.headers[k].name == "undefined" ||
+                typeof fileContents.log.entries[j].response.headers[k].name ==
+                  "undefined" ||
                 fileContents.log.entries[j].response.headers[k].name == null ||
                 fileContents.log.entries[j].response.headers[k].name == ""
               ) {
                 array_of_element.push(null);
               } else if (
-                typeof fileContents.log.entries[j].response.headers[k].value == "undefined" ||
+                typeof fileContents.log.entries[j].response.headers[k].value ==
+                  "undefined" ||
                 fileContents.log.entries[j].response.headers[k].value == null ||
                 fileContents.log.entries[j].response.headers[k].value == ""
               ) {
                 array_of_element.push(null);
               } else if (
-                fileContents.log.entries[j].response.headers[k].name.toLowerCase() === "age"
+                fileContents.log.entries[j].response.headers[
+                  k
+                ].name.toLowerCase() === "age"
               ) {
-                array_of_element.push(fileContents.log.entries[j].response.headers[k].value);
+                array_of_element.push(
+                  fileContents.log.entries[j].response.headers[k].value
+                );
               }
               if (typeof array_of_element[j] === "undefined") {
                 array_of_element.push(null);
@@ -561,22 +682,29 @@ function passtoArray(files, name_of_element, array_of_element) {
             resolve();
             break;
           case "response_last_modified":
-            for (let k = 0; k < fileContents.log.entries[j].response.headers.length; k++) {
+            for (
+              let k = 0;
+              k < fileContents.log.entries[j].response.headers.length;
+              k++
+            ) {
               if (
-                typeof fileContents.log.entries[j].response.headers[k].name == "undefined" ||
+                typeof fileContents.log.entries[j].response.headers[k].name ==
+                  "undefined" ||
                 fileContents.log.entries[j].response.headers[k].name == null ||
                 fileContents.log.entries[j].response.headers[k].name == ""
               ) {
                 array_of_element.push(null);
               } else if (
-                typeof fileContents.log.entries[j].response.headers[k].value == "undefined" ||
+                typeof fileContents.log.entries[j].response.headers[k].value ==
+                  "undefined" ||
                 fileContents.log.entries[j].response.headers[k].value == null ||
                 fileContents.log.entries[j].response.headers[k].value == ""
               ) {
                 array_of_element.push(null);
               } else if (
-                fileContents.log.entries[j].response.headers[k].name.toLowerCase() ===
-                "last-modified"
+                fileContents.log.entries[j].response.headers[
+                  k
+                ].name.toLowerCase() === "last-modified"
               ) {
                 let month = new Date(
                   fileContents.log.entries[j].response.headers[k].value
@@ -610,23 +738,33 @@ function passtoArray(files, name_of_element, array_of_element) {
             resolve();
             break;
           case "response_host":
-            for (let k = 0; k < fileContents.log.entries[j].response.headers.length; k++) {
+            for (
+              let k = 0;
+              k < fileContents.log.entries[j].response.headers.length;
+              k++
+            ) {
               if (
-                typeof fileContents.log.entries[j].response.headers[k].name == "undefined" ||
+                typeof fileContents.log.entries[j].response.headers[k].name ==
+                  "undefined" ||
                 fileContents.log.entries[j].response.headers[k].name == null ||
                 fileContents.log.entries[j].response.headers[k].name == ""
               ) {
                 array_of_element.push(null);
               } else if (
-                typeof fileContents.log.entries[j].response.headers[k].value == "undefined" ||
+                typeof fileContents.log.entries[j].response.headers[k].value ==
+                  "undefined" ||
                 fileContents.log.entries[j].response.headers[k].value == null ||
                 fileContents.log.entries[j].response.headers[k].value == ""
               ) {
                 array_of_element.push(null);
               } else if (
-                fileContents.log.entries[j].response.headers[k].name.toLowerCase() === "host"
+                fileContents.log.entries[j].response.headers[
+                  k
+                ].name.toLowerCase() === "host"
               ) {
-                array_of_element.push(fileContents.log.entries[j].response.headers[k].value);
+                array_of_element.push(
+                  fileContents.log.entries[j].response.headers[k].value
+                );
               }
               if (typeof array_of_element[j] === "undefined") {
                 array_of_element.push(null);
@@ -636,13 +774,16 @@ function passtoArray(files, name_of_element, array_of_element) {
             break;
           case "response_status":
             if (
-              typeof fileContents.log.entries[j].response.status == "undefined" ||
+              typeof fileContents.log.entries[j].response.status ==
+                "undefined" ||
               fileContents.log.entries[j].response.status == null ||
               fileContents.log.entries[j].response.status == ""
             ) {
               array_of_element.push(null);
             } else {
-              array_of_element.push(fileContents.log.entries[j].response.status);
+              array_of_element.push(
+                fileContents.log.entries[j].response.status
+              );
             }
             if (typeof array_of_element[j] === "undefined") {
               array_of_element.push(null);
@@ -651,13 +792,16 @@ function passtoArray(files, name_of_element, array_of_element) {
             break;
           case "response_statusText":
             if (
-              typeof fileContents.log.entries[j].response.statusText == "undefined" ||
+              typeof fileContents.log.entries[j].response.statusText ==
+                "undefined" ||
               fileContents.log.entries[j].response.statusText == null ||
               fileContents.log.entries[j].response.statusText == ""
             ) {
               array_of_element.push(null);
             } else {
-              array_of_element.push(fileContents.log.entries[j].response.statusText);
+              array_of_element.push(
+                fileContents.log.entries[j].response.statusText
+              );
             }
             if (typeof array_of_element[j] === "undefined") {
               array_of_element.push(null);
@@ -719,9 +863,9 @@ function Remove_File_Properties(files) {
             ) {
               fileContents.log.entries[i].request[x] == null;
             } else {
-              fileContents.log.entries[i].request[x] = fileContents.log.entries[i].request[x].match(
-                /(https:\/\/|http:\/\/)(\S*?\/)/g
-              );
+              fileContents.log.entries[i].request[x] = fileContents.log.entries[
+                i
+              ].request[x].match(/(https:\/\/|http:\/\/)(\S*?\/)/g);
             }
             if (typeof fileContents.log.entries[i].request[x] === "undefined") {
               fileContents.log.entries[i].request[x] == null;
@@ -742,15 +886,33 @@ function Remove_File_Properties(files) {
       }
       let needed_data = [];
       for (let i = 0; i < fileContents.log.entries.length; i++) {
-        for (let j = 0; j < fileContents.log.entries[i].request.headers.length; j++) {
+        for (
+          let j = 0;
+          j < fileContents.log.entries[i].request.headers.length;
+          j++
+        ) {
           if (
-            fileContents.log.entries[i].request.headers[j].name.toLowerCase() === "content-type" ||
-            fileContents.log.entries[i].request.headers[j].name.toLowerCase() === "cache-control" ||
-            fileContents.log.entries[i].request.headers[j].name.toLowerCase() === "pragma" ||
-            fileContents.log.entries[i].request.headers[j].name.toLowerCase() === "expires" ||
-            fileContents.log.entries[i].request.headers[j].name.toLowerCase() === "age" ||
-            fileContents.log.entries[i].request.headers[j].name.toLowerCase() === "last-modified" ||
-            fileContents.log.entries[i].request.headers[j].name.toLowerCase() === "host"
+            fileContents.log.entries[i].request.headers[
+              j
+            ].name.toLowerCase() === "content-type" ||
+            fileContents.log.entries[i].request.headers[
+              j
+            ].name.toLowerCase() === "cache-control" ||
+            fileContents.log.entries[i].request.headers[
+              j
+            ].name.toLowerCase() === "pragma" ||
+            fileContents.log.entries[i].request.headers[
+              j
+            ].name.toLowerCase() === "expires" ||
+            fileContents.log.entries[i].request.headers[
+              j
+            ].name.toLowerCase() === "age" ||
+            fileContents.log.entries[i].request.headers[
+              j
+            ].name.toLowerCase() === "last-modified" ||
+            fileContents.log.entries[i].request.headers[
+              j
+            ].name.toLowerCase() === "host"
           ) {
             needed_data.push(fileContents.log.entries[i].request.headers[j]);
           }
@@ -774,17 +936,33 @@ function Remove_File_Properties(files) {
 
       needed_data = [];
       for (let i = 0; i < fileContents.log.entries.length; i++) {
-        for (let j = 0; j < fileContents.log.entries[i].response.headers.length; j++) {
+        for (
+          let j = 0;
+          j < fileContents.log.entries[i].response.headers.length;
+          j++
+        ) {
           if (
-            fileContents.log.entries[i].response.headers[j].name.toLowerCase() === "content-type" ||
-            fileContents.log.entries[i].response.headers[j].name.toLowerCase() ===
-              "cache-control" ||
-            fileContents.log.entries[i].response.headers[j].name.toLowerCase() === "pragma" ||
-            fileContents.log.entries[i].response.headers[j].name.toLowerCase() === "expires" ||
-            fileContents.log.entries[i].response.headers[j].name.toLowerCase() === "age" ||
-            fileContents.log.entries[i].response.headers[j].name.toLowerCase() ===
-              "last-modified" ||
-            fileContents.log.entries[i].response.headers[j].name.toLowerCase() === "host"
+            fileContents.log.entries[i].response.headers[
+              j
+            ].name.toLowerCase() === "content-type" ||
+            fileContents.log.entries[i].response.headers[
+              j
+            ].name.toLowerCase() === "cache-control" ||
+            fileContents.log.entries[i].response.headers[
+              j
+            ].name.toLowerCase() === "pragma" ||
+            fileContents.log.entries[i].response.headers[
+              j
+            ].name.toLowerCase() === "expires" ||
+            fileContents.log.entries[i].response.headers[
+              j
+            ].name.toLowerCase() === "age" ||
+            fileContents.log.entries[i].response.headers[
+              j
+            ].name.toLowerCase() === "last-modified" ||
+            fileContents.log.entries[i].response.headers[
+              j
+            ].name.toLowerCase() === "host"
           ) {
             needed_data.push(fileContents.log.entries[i].response.headers[j]);
           }
@@ -831,7 +1009,9 @@ function downloadLoop() {
 
 function downloadFile(i) {
   let save = document.getElementById("dfiles").value;
-  let blob = new Blob([JSON.stringify(dow_files[i])], { type: "application/json" });
+  let blob = new Blob([JSON.stringify(dow_files[i])], {
+    type: "application/json",
+  });
   let fname = filenames[i];
   saveAs(blob, fname);
 }
@@ -847,19 +1027,43 @@ function datatoPHP() {
         await passtoArray(file[i], "wait", timings_wait);
         await passtoArray(file[i], "request_method", request_method);
         await passtoArray(file[i], "request_url", request_url);
-        await passtoArray(file[i], "request_content_type", request_content_type);
-        await passtoArray(file[i], "request_cache_control", request_cache_control);
+        await passtoArray(
+          file[i],
+          "request_content_type",
+          request_content_type
+        );
+        await passtoArray(
+          file[i],
+          "request_cache_control",
+          request_cache_control
+        );
         await passtoArray(file[i], "request_pragma", request_pragma);
         await passtoArray(file[i], "request_expires", request_expires);
         await passtoArray(file[i], "request_age", request_age);
-        await passtoArray(file[i], "request_last_modified", request_last_modified);
+        await passtoArray(
+          file[i],
+          "request_last_modified",
+          request_last_modified
+        );
         await passtoArray(file[i], "request_host", request_host);
-        await passtoArray(file[i], "response_content_type", response_content_type);
-        await passtoArray(file[i], "response_cache_control", response_cache_control);
+        await passtoArray(
+          file[i],
+          "response_content_type",
+          response_content_type
+        );
+        await passtoArray(
+          file[i],
+          "response_cache_control",
+          response_cache_control
+        );
         await passtoArray(file[i], "response_pragma", response_pragma);
         await passtoArray(file[i], "response_expires", response_expires);
         await passtoArray(file[i], "response_age", response_age);
-        await passtoArray(file[i], "response_last_modified", response_last_modified);
+        await passtoArray(
+          file[i],
+          "response_last_modified",
+          response_last_modified
+        );
         await passtoArray(file[i], "response_host", response_host);
         await passtoArray(file[i], "response_status", response_status);
         await passtoArray(file[i], "response_statusText", response_statusText);
@@ -934,22 +1138,50 @@ function datatoPHP() {
         await passtoArray(fileList[i], "wait", timings_wait);
         await passtoArray(fileList[i], "request_method", request_method);
         await passtoArray(fileList[i], "request_url", request_url);
-        await passtoArray(fileList[i], "request_content_type", request_content_type);
-        await passtoArray(fileList[i], "request_cache_control", request_cache_control);
+        await passtoArray(
+          fileList[i],
+          "request_content_type",
+          request_content_type
+        );
+        await passtoArray(
+          fileList[i],
+          "request_cache_control",
+          request_cache_control
+        );
         await passtoArray(fileList[i], "request_pragma", request_pragma);
         await passtoArray(fileList[i], "request_expires", request_expires);
         await passtoArray(fileList[i], "request_age", request_age);
-        await passtoArray(fileList[i], "request_last_modified", request_last_modified);
+        await passtoArray(
+          fileList[i],
+          "request_last_modified",
+          request_last_modified
+        );
         await passtoArray(fileList[i], "request_host", request_host);
-        await passtoArray(fileList[i], "response_content_type", response_content_type);
-        await passtoArray(fileList[i], "response_cache_control", response_cache_control);
+        await passtoArray(
+          fileList[i],
+          "response_content_type",
+          response_content_type
+        );
+        await passtoArray(
+          fileList[i],
+          "response_cache_control",
+          response_cache_control
+        );
         await passtoArray(fileList[i], "response_pragma", response_pragma);
         await passtoArray(fileList[i], "response_expires", response_expires);
         await passtoArray(fileList[i], "response_age", response_age);
-        await passtoArray(fileList[i], "response_last_modified", response_last_modified);
+        await passtoArray(
+          fileList[i],
+          "response_last_modified",
+          response_last_modified
+        );
         await passtoArray(fileList[i], "response_host", response_host);
         await passtoArray(fileList[i], "response_status", response_status);
-        await passtoArray(fileList[i], "response_statusText", response_statusText);
+        await passtoArray(
+          fileList[i],
+          "response_statusText",
+          response_statusText
+        );
 
         $.ajax({
           type: "POST",
@@ -1014,4 +1246,7 @@ function datatoPHP() {
     }
     proccessing_drop_data();
   }
+  setTimeout(function () {
+    location.reload();
+  }, 5000); // After 5 secs
 }
