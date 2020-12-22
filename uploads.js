@@ -898,9 +898,14 @@ function datatoPHP() {
             isp: JSON.stringify(isp),
             ip: JSON.stringify(ip),
             city: JSON.stringify(city),
+            reloads: "command",
           },
           success: function (res) {
             console.log(res);
+            console.log(res.reloading);
+            if (i === file.length - 1) {
+              location.reload();
+            }
           },
         });
 
@@ -985,9 +990,14 @@ function datatoPHP() {
             isp: JSON.stringify(isp),
             ip: JSON.stringify(ip),
             city: JSON.stringify(city),
+            reloads: "command",
           },
           success: function (res) {
             console.log(res);
+            console.log(res.reloading);
+            if (i === fileList.length - 1) {
+              location.reload();
+            }
           },
         });
 
