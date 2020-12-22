@@ -113,14 +113,15 @@ function post_data($field)
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="./style.css">
     <style type="text/css">
-        body{ font: 14px sans-serif; }
-            .wrapper{ width: 350px; padding: 20px; }
+        .align{
+            text-align:center;
+            padding:1%;
+        }
     </style>
 </head>
 <body style="position: relative">
-<div class="wrapper">
-<h2>Register</h2>
-<p>Please fill the boxes to register.<p>
+<h2 class = "align">Register</h2>
+<p class = "align">Please fill the boxes to register.<p>
 <form class="my-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" novalidate>
     <div class="row">
         <div class="col">
@@ -173,7 +174,6 @@ function post_data($field)
             </div>
     <p>Already Have an Account? <a class="Sign-up" href="login.php">Login Now.</a>.</p>
 </form>
-</div>  
 
 </body>
 </html>
