@@ -32,11 +32,10 @@ $isp = json_decode($_POST['isp'],true);
 $ip = json_decode($_POST['ip'],true);
 $city = json_decode($_POST['city'],true);
 
-$mergedData = array();
-$mergedData[] = array_merge($startedDateTimes,$timings_wait,$serverIPAddresses,$request_method,$request_url,$request_content_type,$request_cache_control,$request_pragma,$request_expires,$request_age,$request_last_modified,$request_host,$response_status,$response_statusText,$response_content_type,$response_cache_control,$response_pragma,$response_expires,$response_age
-,$response_last_modified,$response_host);
 
-print_r($mergedData);
+//print_r($mergedData) . "<br><br><br>";
+//print_r($args) . "<br><br><br>";
+//print_r($args1);
 $data = array();
 $a;
 $b = "uploads_";
@@ -60,8 +59,20 @@ $result = mysqli_query($conn, $sql);
       //Entries: StartedDateTimes
       while($row = mysqli_fetch_assoc($result))
       {
+        $file_number=array_fill(0,count($startedDateTimes),1);
+        $args[] = $file_number  . " " . $startedDateTimes . " " . $timings_wait . " " . $serverIPAddresses . " " . $request_method . " " . $request_url . " " . $request_content_type . " " . 
+        $request_cache_control . " " . $request_pragma . " " . $request_expires . " " . $request_age . " " . 
+        $request_last_modified . " " . $request_host . " " . $response_status
+        . " " . $response_statusText . " " . $response_content_type . " " . 
+        $response_cache_control . " " . $response_pragma . " " . $response_expires . " " . $response_age
+        . " " . $response_last_modified . " " . $response_host;
+        $args1 = "'" . implode(",", $args) . "'"; 
         $a++;
-        $sql = "INSERT INTO file_data (started_date_times, timings_wait, server_ip_addresses, request_methods, request_urls, request_content_types, request_cache_controls, request_pragmas, request_expires, request_ages, request_last_modified, request_posts, response_statuses, response_status_texts, response_content_types, response_cache_controls, response_pragmas, response_expires, response_ages, response_last_modified, response_posts) VALUES (".implode(',', array_values($mergedData)).")"; 
+        $sql = "INSERT INTO file_data (file_number, started_date_times, timings_wait, server_ip_addresses, request_methods, 
+        request_urls, request_content_types, request_cache_controls, request_pragmas, request_expires, request_ages, 
+        request_last_modified, request_posts, response_statuses, response_status_texts, response_content_types, 
+        response_cache_controls, response_pragmas, response_expires, response_ages, response_last_modified, 
+        response_posts) VALUES ($args1)"; 
         if ($conn->query($sql) === TRUE) {
           echo "";
         } else {

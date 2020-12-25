@@ -904,7 +904,7 @@ function datatoPHP() {
             console.log(res);
             console.log(res.reloading);
             if (i === file.length - 1) {
-              location.reload();
+              //location.reload();
             }
           },
         });
