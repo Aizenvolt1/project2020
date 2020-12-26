@@ -31,10 +31,14 @@ $isp = json_decode($_POST['isp'],true);
 $ip = json_decode($_POST['ip'],true);
 $city = json_decode($_POST['city'],true);
 
+for($i=0;$i<count($startedDateTimes);$i++)
+{
+  $file_number[$i]=0;
+}
 $mergedData = array();
 for($i=0;$i<count($startedDateTimes);$i++)
 {
-$mergedData[$i]=array($startedDateTimes[$i],$timings_wait[$i], $serverIPAddresses[$i],$request_method[$i],$request_url[0][$i],$request_content_type[$i], 
+$mergedData[$i]=array($file_number[$i], $startedDateTimes[$i],$timings_wait[$i], $serverIPAddresses[$i],$request_method[$i],$request_url[0][$i],$request_content_type[$i], 
 $request_cache_control[$i],$request_pragma[$i],$request_expires[$i],$request_age[$i],
 $request_last_modified[$i],$request_host[$i],$response_status[$i]
 ,$response_statusText[$i],$response_content_type[$i],
@@ -85,7 +89,7 @@ $result = mysqli_query($conn, $sql);
       while($row = mysqli_fetch_assoc($result))
       {
         $a++;
-        $sql = "INSERT INTO file_data (started_date_times, timings_wait, server_ip_addresses, request_methods, 
+        $sql = "INSERT INTO file_data (file_number, started_date_times, timings_wait, server_ip_addresses, request_methods, 
         request_urls, request_content_types, request_cache_controls, request_pragmas, request_expires, request_ages, 
         request_last_modified, request_hosts, response_statuses, response_status_texts, response_content_types, 
         response_cache_controls, response_pragmas, response_expires, response_ages, response_last_modified, 
@@ -95,13 +99,12 @@ $result = mysqli_query($conn, $sql);
         } else {
           echo "Error updating record: " . $conn->error;
         }
-        /*
-          $sql = "UPDATE file_data SET file_number = $row[fileNum] WHERE file_number = ' '";
-          if ($conn->query($sql) === TRUE) {
+        
+        $sql = "UPDATE file_data SET file_number = $row[fileNum] WHERE file_number = 0";
+        if ($conn->query($sql) === TRUE) {
           echo "";
         } else {
           echo "Error updating record: " . $conn->error;
         }
-        */
-        
       }
+      
