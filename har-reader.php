@@ -3,7 +3,6 @@ session_start();
 require_once "config.php";
 $url=null;
 
-
 $startedDateTimes = json_decode($_POST['startedDateTimes'],true);
 $timings_wait = json_decode($_POST['timings_wait'],true);
 $serverIPAddresses = json_decode($_POST['serverIPAddresses'],true);
@@ -32,9 +31,34 @@ $isp = json_decode($_POST['isp'],true);
 $ip = json_decode($_POST['ip'],true);
 $city = json_decode($_POST['city'],true);
 
-
+$mergedData = array();
+for($i=0;$i<count($startedDateTimes);$i++)
+{
+$mergedData[$i]=array($startedDateTimes[$i],$timings_wait[$i], $serverIPAddresses[$i],$request_method[$i],$request_url[0][$i],$request_content_type[$i], 
+$request_cache_control[$i],$request_pragma[$i],$request_expires[$i],$request_age[$i],
+$request_last_modified[$i],$request_host[$i],$response_status[$i]
+,$response_statusText[$i],$response_content_type[$i],
+$response_cache_control[$i],$response_pragma[$i], $response_expires[$i], $response_age[$i]
+, $response_last_modified[$i],$response_host[$i]);
+}
+for($i=0;$i<count($mergedData);$i++)
+{
+  if($i==0)
+  {
+    $args = "('" . implode("','", $mergedData[$i]) . "'),"; 
+  }
+  else if($i==count($mergedData)-1)
+  {
+    $args .= "('" . implode("','", $mergedData[$i]) . "')"; 
+  }
+  else {
+    {
+      $args .= "('" . implode("','", $mergedData[$i]) . "'),"; 
+    }
+  }
+}
 //print_r($mergedData) . "<br><br><br>";
-//print_r($args) . "<br><br><br>";
+print_r($mergedData) . "<br><br><br>";
 //print_r($args1);
 $data = array();
 $a;
@@ -54,28 +78,30 @@ if ($stmt = mysqli_prepare($conn, $sql)){
   // Close statement
   mysqli_stmt_close($stmt);
 }
+
 $sql = "SELECT MAX(file_number) as fileNum FROM user_files WHERE user_id=$_SESSION[id]";
 $result = mysqli_query($conn, $sql);
       //Entries: StartedDateTimes
       while($row = mysqli_fetch_assoc($result))
       {
-        $file_number=array_fill(0,count($startedDateTimes),1);
-        $args[] = $file_number  . " " . $startedDateTimes . " " . $timings_wait . " " . $serverIPAddresses . " " . $request_method . " " . $request_url . " " . $request_content_type . " " . 
-        $request_cache_control . " " . $request_pragma . " " . $request_expires . " " . $request_age . " " . 
-        $request_last_modified . " " . $request_host . " " . $response_status
-        . " " . $response_statusText . " " . $response_content_type . " " . 
-        $response_cache_control . " " . $response_pragma . " " . $response_expires . " " . $response_age
-        . " " . $response_last_modified . " " . $response_host;
-        $args1 = "'" . implode(",", $args) . "'"; 
         $a++;
-        $sql = "INSERT INTO file_data (file_number, started_date_times, timings_wait, server_ip_addresses, request_methods, 
+        $sql = "INSERT INTO file_data (started_date_times, timings_wait, server_ip_addresses, request_methods, 
         request_urls, request_content_types, request_cache_controls, request_pragmas, request_expires, request_ages, 
-        request_last_modified, request_posts, response_statuses, response_status_texts, response_content_types, 
+        request_last_modified, request_hosts, response_statuses, response_status_texts, response_content_types, 
         response_cache_controls, response_pragmas, response_expires, response_ages, response_last_modified, 
-        response_posts) VALUES ($args1)"; 
+        response_hosts) VALUES $args"; 
         if ($conn->query($sql) === TRUE) {
           echo "";
         } else {
           echo "Error updating record: " . $conn->error;
         }
+        /*
+          $sql = "UPDATE file_data SET file_number = $row[fileNum] WHERE file_number = ' '";
+          if ($conn->query($sql) === TRUE) {
+          echo "";
+        } else {
+          echo "Error updating record: " . $conn->error;
+        }
+        */
+        
       }
