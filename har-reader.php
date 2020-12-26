@@ -3,7 +3,6 @@ session_start();
 require_once "config.php";
 $url=null;
 
-
 $startedDateTimes = json_decode($_POST['startedDateTimes'],true);
 $timings_wait = json_decode($_POST['timings_wait'],true);
 $serverIPAddresses = json_decode($_POST['serverIPAddresses'],true);
@@ -32,11 +31,40 @@ $isp = json_decode($_POST['isp'],true);
 $ip = json_decode($_POST['ip'],true);
 $city = json_decode($_POST['city'],true);
 
-$mergedData = array();
-$mergedData[] = array_merge($startedDateTimes,$timings_wait,$serverIPAddresses,$request_method,$request_url,$request_content_type,$request_cache_control,$request_pragma,$request_expires,$request_age,$request_last_modified,$request_host,$response_status,$response_statusText,$response_content_type,$response_cache_control,$response_pragma,$response_expires,$response_age
-,$response_last_modified,$response_host);
 
-print_r($mergedData);
+for($i=0;$i<count($startedDateTimes);$i++)
+{
+  $file_number[$i]=0;
+}
+$mergedData = array();
+for($i=0;$i<count($startedDateTimes);$i++)
+{
+$mergedData[$i]=array($file_number[$i], $startedDateTimes[$i],$timings_wait[$i], $serverIPAddresses[$i],$request_method[$i],$request_url[0][$i],$request_content_type[$i], 
+$request_cache_control[$i],$request_pragma[$i],$request_expires[$i],$request_age[$i],
+$request_last_modified[$i],$request_host[$i],$response_status[$i]
+,$response_statusText[$i],$response_content_type[$i],
+$response_cache_control[$i],$response_pragma[$i], $response_expires[$i], $response_age[$i]
+, $response_last_modified[$i],$response_host[$i]);
+}
+for($i=0;$i<count($mergedData);$i++)
+{
+  if($i==0)
+  {
+    $args = "('" . implode("','", $mergedData[$i]) . "'),"; 
+  }
+  else if($i==count($mergedData)-1)
+  {
+    $args .= "('" . implode("','", $mergedData[$i]) . "')"; 
+  }
+  else {
+    {
+      $args .= "('" . implode("','", $mergedData[$i]) . "'),"; 
+    }
+  }
+}
+//print_r($mergedData) . "<br><br><br>";
+print_r($mergedData) . "<br><br><br>";
+//print_r($args1);
 $data = array();
 $a;
 $b = "uploads_";
@@ -55,13 +83,165 @@ if ($stmt = mysqli_prepare($conn, $sql)){
   // Close statement
   mysqli_stmt_close($stmt);
 }
+
 $sql = "SELECT MAX(file_number) as fileNum FROM user_files WHERE user_id=$_SESSION[id]";
 $result = mysqli_query($conn, $sql);
       //Entries: StartedDateTimes
       while($row = mysqli_fetch_assoc($result))
       {
         $a++;
-        $sql = "INSERT INTO file_data (started_date_times, timings_wait, server_ip_addresses, request_methods, request_urls, request_content_types, request_cache_controls, request_pragmas, request_expires, request_ages, request_last_modified, request_posts, response_statuses, response_status_texts, response_content_types, response_cache_controls, response_pragmas, response_expires, response_ages, response_last_modified, response_posts) VALUES (".implode(',', array_values($mergedData)).")"; 
+        $sql = "INSERT INTO file_data (file_number, started_date_times, timings_wait, server_ip_addresses, request_methods, 
+        request_urls, request_content_types, request_cache_controls, request_pragmas, request_expires, request_ages, 
+        request_last_modified, request_hosts, response_statuses, response_status_texts, response_content_types, 
+        response_cache_controls, response_pragmas, response_expires, response_ages, response_last_modified, 
+        response_hosts) VALUES $args"; 
+        if ($conn->query($sql) === TRUE) {
+          echo "";
+        } else {
+          echo "Error updating record: " . $conn->error;
+        }
+        
+        $sql = "UPDATE file_data SET file_number = $row[fileNum] WHERE file_number = 0";
+        if ($conn->query($sql) === TRUE) {
+          echo "";
+        } else {
+          echo "Error updating record: " . $conn->error;
+        }
+
+        $sql = "UPDATE file_data SET timings_wait = NULL WHERE  timings_wait = 0";
+        if ($conn->query($sql) === TRUE) {
+          echo "";
+        } else {
+          echo "Error updating record: " . $conn->error;
+        }
+
+        $sql = "UPDATE file_data SET  server_ip_addresses = NULL WHERE server_ip_addresses = ''";
+        if ($conn->query($sql) === TRUE) {
+          echo "";
+        } else {
+          echo "Error updating record: " . $conn->error;
+        }
+
+        $sql = "UPDATE file_data SET request_methods = NULL WHERE request_methods = ''";
+        if ($conn->query($sql) === TRUE) {
+          echo "";
+        } else {
+          echo "Error updating record: " . $conn->error;
+        }
+
+        $sql = "UPDATE file_data SET request_urls = NULL WHERE request_urls = ''";
+        if ($conn->query($sql) === TRUE) {
+          echo "";
+        } else {
+          echo "Error updating record: " . $conn->error;
+        }
+
+        $sql = "UPDATE file_data SET request_content_types = NULL WHERE  request_content_types = ''";
+        if ($conn->query($sql) === TRUE) {
+          echo "";
+        } else {
+          echo "Error updating record: " . $conn->error;
+        }
+
+        $sql = "UPDATE file_data SET request_cache_controls = NULL WHERE  request_cache_controls = ''";
+        if ($conn->query($sql) === TRUE) {
+          echo "";
+        } else {
+          echo "Error updating record: " . $conn->error;
+        }
+
+        $sql = "UPDATE file_data SET request_pragmas = NULL WHERE  request_pragmas = ''";
+        if ($conn->query($sql) === TRUE) {
+          echo "";
+        } else {
+          echo "Error updating record: " . $conn->error;
+        }
+
+        $sql = "UPDATE file_data SET request_expires = NULL WHERE  request_expires = ''";
+        if ($conn->query($sql) === TRUE) {
+          echo "";
+        } else {
+          echo "Error updating record: " . $conn->error;
+        }
+
+        $sql = "UPDATE file_data SET request_ages = NULL WHERE  request_ages = ''";
+        if ($conn->query($sql) === TRUE) {
+          echo "";
+        } else {
+          echo "Error updating record: " . $conn->error;
+        }
+
+        $sql = "UPDATE file_data SET request_last_modified = NULL WHERE  request_last_modified = ''";
+        if ($conn->query($sql) === TRUE) {
+          echo "";
+        } else {
+          echo "Error updating record: " . $conn->error;
+        }
+
+        $sql = "UPDATE file_data SET request_hosts = NULL WHERE  request_hosts = ''";
+        if ($conn->query($sql) === TRUE) {
+          echo "";
+        } else {
+          echo "Error updating record: " . $conn->error;
+        }
+
+        $sql = "UPDATE file_data SET response_statuses = NULL WHERE  response_statuses = ''";
+        if ($conn->query($sql) === TRUE) {
+          echo "";
+        } else {
+          echo "Error updating record: " . $conn->error;
+        }
+
+        $sql = "UPDATE file_data SET response_status_texts = NULL WHERE  response_status_texts = ''";
+        if ($conn->query($sql) === TRUE) {
+          echo "";
+        } else {
+          echo "Error updating record: " . $conn->error;
+        }
+
+        $sql = "UPDATE file_data SET response_content_types = NULL WHERE  response_content_types = ''";
+        if ($conn->query($sql) === TRUE) {
+          echo "";
+        } else {
+          echo "Error updating record: " . $conn->error;
+        }
+
+        $sql = "UPDATE file_data SET response_cache_controls = NULL WHERE  response_cache_controls = ''";
+        if ($conn->query($sql) === TRUE) {
+          echo "";
+        } else {
+          echo "Error updating record: " . $conn->error;
+        }
+
+        $sql = "UPDATE file_data SET response_pragmas = NULL WHERE  response_pragmas = ''";
+        if ($conn->query($sql) === TRUE) {
+          echo "";
+        } else {
+          echo "Error updating record: " . $conn->error;
+        }
+
+        $sql = "UPDATE file_data SET response_expires = NULL WHERE  response_expires = ''";
+        if ($conn->query($sql) === TRUE) {
+          echo "";
+        } else {
+          echo "Error updating record: " . $conn->error;
+        }
+
+        $sql = "UPDATE file_data SET response_ages = NULL WHERE  response_ages = ''";
+        if ($conn->query($sql) === TRUE) {
+          echo "";
+        } else {
+          echo "Error updating record: " . $conn->error;
+        }
+
+        $sql = "UPDATE file_data SET response_last_modified = NULL WHERE  response_last_modified = ''";
+        if ($conn->query($sql) === TRUE) {
+          echo "";
+        } else {
+          echo "Error updating record: " . $conn->error;
+        }
+
+        $sql = "UPDATE file_data SET response_hosts = NULL WHERE  response_hosts = ''";
         if ($conn->query($sql) === TRUE) {
           echo "";
         } else {
