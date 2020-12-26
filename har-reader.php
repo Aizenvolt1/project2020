@@ -248,3 +248,10 @@ $result = mysqli_query($conn, $sql);
           echo "Error updating record: " . $conn->error;
         }
       }
+
+$reloader="yes";
+if(isset($_POST['reload']) && !empty($_POST['reload'])) {
+if(isset($_POST['reloads']) && !empty($_POST['reloads'])) {
+echo json_encode(array("reloading"=>$reloader));
+} 
+}
