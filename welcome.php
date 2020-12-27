@@ -26,6 +26,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             <a class="active" href="http://localhost/project/welcome.php">Home</a>
             <a href="http://localhost/project/reset-username.php">Reset Your Username</a>
             <a href="http://localhost/project/reset-password.php">Reset Your Password</a>
+            <a href="http://localhost/project/statistics.php">Statistics</a>
             <a href="http://localhost/project/logout.php">Logout</a>
         </div>
         <hr class="solid">
@@ -52,7 +53,6 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
         <script src="http://cdn.jsdelivr.net/g/filesaver.js"></script>
         <script src="uploads.js"></script>
         <button class="open-button" onclick="openForm()" type="button" id="sbmBtn" disabled>Submit Files</button>
-        <button id="testbtn" type="button" onclick="datatoPHP()" class="open-button">Test</button>
         <script>
             document.getElementById("upldBtn").addEventListener("click", enableButton);
 
@@ -71,9 +71,10 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
         <div class="form-popup" id="myForm">
             <form action="welcome.php" class="form-container">
                 <h3>Choose what you want to do with your file.</h3>
-                <button type="submit" id="sfiles" onclick= "pass()" class="btn">Upload file(s) to Server </button>
-                <button type="submit" id="dfiles" onclick= "downloadLoop()" class="btn">Download file(s) to your Computer</button>
-                <button type="submit" class="btn cancel" onclick="closeForm()">Close</button>
+                <div class="menu-space"></div>
+                <button type="button" id="sfiles" onclick="datatoPHP()" class="btn">Upload file(s) to Server </button>
+                <button type="button" id="dfiles" onclick= "downloadLoop()" class="btn">Download file(s) to your Computer</button>
+                <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
             </form>
         </div> 
     </body>

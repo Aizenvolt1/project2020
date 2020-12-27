@@ -272,35 +272,169 @@ function passtoArray(files, name_of_element, array_of_element) {
                   )
                 ) === true
               ) {
-                let month = new Date(
+                let month;
+                if (
                   fileContents.log.entries[j].request.headers[k].value
-                    .match(/\d..\w\w\w\s\d\d\d\d\s\d\d:\d\d:\d\d/g)[0]
-                    .split(/(?<=\d)\s(?=\d)/g)[0]
-                    .match(/\d\d \w{3}/g)
-                );
-                month = month.getMonth() + 1;
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("jan") ||
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("Jan") ||
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("JAN")
+                ) {
+                  month = 1;
+                } else if (
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("feb") ||
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("Feb") ||
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("FEB")
+                ) {
+                  month = 2;
+                } else if (
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("mar") ||
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("Mar") ||
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("MAR")
+                ) {
+                  month = 3;
+                } else if (
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("apr") ||
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("Apr") ||
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("APR")
+                ) {
+                  month = 4;
+                } else if (
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("may") ||
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("May") ||
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("MAY")
+                ) {
+                  month = 5;
+                } else if (
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("jun") ||
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("Jun") ||
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("JUN")
+                ) {
+                  month = 6;
+                } else if (
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("jul") ||
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("Jul") ||
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("JUL")
+                ) {
+                  month = 7;
+                } else if (
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("aug") ||
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("Aug") ||
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("AUG")
+                ) {
+                  month = 8;
+                } else if (
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("sep") ||
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("Sep") ||
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("SEP")
+                ) {
+                  month = 9;
+                } else if (
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("oct") ||
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("Oct") ||
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("OCT")
+                ) {
+                  month = 10;
+                } else if (
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("nov") ||
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("Nov") ||
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("NOV")
+                ) {
+                  month = 11;
+                } else if (
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("dec") ||
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("Dec") ||
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("DEC")
+                ) {
+                  month = 12;
+                }
                 array_of_element.push(
                   fileContents.log.entries[j].request.headers[k].value
-                    .match(/\d..\w\w\w\s\d\d\d\d\s\d\d:\d\d:\d\d/g)[0]
-                    .split(/(?<=\d)\s(?=\d)/g)[0]
-                    .match(/\d{4}/g)[0] +
+                    .match(/\d\d\d\d/g)[0]
+                    .match(/^\d\d\d\d/g) +
                     "-" +
                     month +
                     "-" +
                     fileContents.log.entries[j].request.headers[k].value
-                      .match(/\d..\w\w\w\s\d\d\d\d\s\d\d:\d\d:\d\d/g)[0]
-                      .split(/(?<=\d)\s(?=\d)/g)[0]
+                      .match(/\d\d/g)[0]
                       .match(/^\d\d/g) +
                     " " +
-                    fileContents.log.entries[j].request.headers[k].value
-                      .match(/\d..\w\w\w\s\d\d\d\d\s\d\d:\d\d:\d\d/g)[0]
-                      .split(/(?<=\d)\s(?=\d)/g)[1]
+                    fileContents.log.entries[j].request.headers[k].value.match(/\d\d:\d\d:\d\d/g)
                 );
               }
               if (typeof array_of_element[j] === "undefined") {
                 array_of_element.push(null);
               }
-              console.log(array_of_element[j]);
             }
             resolve();
             break;
@@ -347,29 +481,164 @@ function passtoArray(files, name_of_element, array_of_element) {
                 fileContents.log.entries[j].request.headers[k].name.toLowerCase() ===
                 "last-modified"
               ) {
-                let month = new Date(
+                let month;
+                if (
                   fileContents.log.entries[j].request.headers[k].value
-                    .match(/\d..\w\w\w\s\d\d\d\d\s\d\d:\d\d:\d\d/g)[0]
-                    .split(/(?<=\d)\s(?=\d)/g)[0]
-                    .match(/\d\d \w{3}/g)
-                );
-                month = month.getMonth() + 1;
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("jan") ||
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("Jan") ||
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("JAN")
+                ) {
+                  month = 1;
+                } else if (
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("feb") ||
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("Feb") ||
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("FEB")
+                ) {
+                  month = 2;
+                } else if (
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("mar") ||
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("Mar") ||
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("MAR")
+                ) {
+                  month = 3;
+                } else if (
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("apr") ||
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("Apr") ||
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("APR")
+                ) {
+                  month = 4;
+                } else if (
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("may") ||
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("May") ||
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("MAY")
+                ) {
+                  month = 5;
+                } else if (
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("jun") ||
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("Jun") ||
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("JUN")
+                ) {
+                  month = 6;
+                } else if (
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("jul") ||
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("Jul") ||
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("JUL")
+                ) {
+                  month = 7;
+                } else if (
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("aug") ||
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("Aug") ||
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("AUG")
+                ) {
+                  month = 8;
+                } else if (
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("sep") ||
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("Sep") ||
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("SEP")
+                ) {
+                  month = 9;
+                } else if (
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("oct") ||
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("Oct") ||
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("OCT")
+                ) {
+                  month = 10;
+                } else if (
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("nov") ||
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("Nov") ||
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("NOV")
+                ) {
+                  month = 11;
+                } else if (
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("dec") ||
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("Dec") ||
+                  fileContents.log.entries[j].request.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("DEC")
+                ) {
+                  month = 12;
+                }
                 array_of_element.push(
                   fileContents.log.entries[j].request.headers[k].value
-                    .match(/\d..\w\w\w\s\d\d\d\d\s\d\d:\d\d:\d\d/g)[0]
-                    .split(/(?<=\d)\s(?=\d)/g)[0]
-                    .match(/\d{4}/g)[0] +
+                    .match(/\d\d\d\d/g)[0]
+                    .match(/^\d\d\d\d/g) +
                     "-" +
                     month +
                     "-" +
                     fileContents.log.entries[j].request.headers[k].value
-                      .match(/\d..\w\w\w\s\d\d\d\d\s\d\d:\d\d:\d\d/g)[0]
-                      .split(/(?<=\d)\s(?=\d)/g)[0]
+                      .match(/\d\d/g)[0]
                       .match(/^\d\d/g) +
                     " " +
-                    fileContents.log.entries[j].request.headers[k].value
-                      .match(/\d..\w\w\w\s\d\d\d\d\s\d\d:\d\d:\d\d/g)[0]
-                      .split(/(?<=\d)\s(?=\d)/g)[1]
+                    fileContents.log.entries[j].request.headers[k].value.match(/\d\d:\d\d:\d\d/g)
                 );
               }
               if (typeof array_of_element[j] === "undefined") {
@@ -503,35 +772,169 @@ function passtoArray(files, name_of_element, array_of_element) {
                   )
                 ) === true
               ) {
-                let month = new Date(
+                let month;
+                if (
                   fileContents.log.entries[j].response.headers[k].value
-                    .match(/\d..\w\w\w\s\d\d\d\d\s\d\d:\d\d:\d\d/g)[0]
-                    .split(/(?<=\d)\s(?=\d)/g)[0]
-                    .match(/\d\d \w{3}/g)
-                );
-                month = month.getMonth() + 1;
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("jan") ||
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("Jan") ||
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("JAN")
+                ) {
+                  month = 1;
+                } else if (
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("feb") ||
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("Feb") ||
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("FEB")
+                ) {
+                  month = 2;
+                } else if (
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("mar") ||
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("Mar") ||
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("MAR")
+                ) {
+                  month = 3;
+                } else if (
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("apr") ||
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("Apr") ||
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("APR")
+                ) {
+                  month = 4;
+                } else if (
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("may") ||
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("May") ||
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("MAY")
+                ) {
+                  month = 5;
+                } else if (
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("jun") ||
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("Jun") ||
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("JUN")
+                ) {
+                  month = 6;
+                } else if (
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("jul") ||
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("Jul") ||
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("JUL")
+                ) {
+                  month = 7;
+                } else if (
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("aug") ||
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("Aug") ||
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("AUG")
+                ) {
+                  month = 8;
+                } else if (
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("sep") ||
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("Sep") ||
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("SEP")
+                ) {
+                  month = 9;
+                } else if (
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("oct") ||
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("Oct") ||
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("OCT")
+                ) {
+                  month = 10;
+                } else if (
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("nov") ||
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("Nov") ||
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("NOV")
+                ) {
+                  month = 11;
+                } else if (
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("dec") ||
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("Dec") ||
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("DEC")
+                ) {
+                  month = 12;
+                }
                 array_of_element.push(
                   fileContents.log.entries[j].response.headers[k].value
-                    .match(/\d..\w\w\w\s\d\d\d\d\s\d\d:\d\d:\d\d/g)[0]
-                    .split(/(?<=\d)\s(?=\d)/g)[0]
-                    .match(/\d{4}/g)[0] +
+                    .match(/\d\d\d\d/g)[0]
+                    .match(/^\d\d\d\d/g) +
                     "-" +
                     month +
                     "-" +
                     fileContents.log.entries[j].response.headers[k].value
-                      .match(/\d..\w\w\w\s\d\d\d\d\s\d\d:\d\d:\d\d/g)[0]
-                      .split(/(?<=\d)\s(?=\d)/g)[0]
+                      .match(/\d\d/g)[0]
                       .match(/^\d\d/g) +
                     " " +
-                    fileContents.log.entries[j].response.headers[k].value
-                      .match(/\d..\w\w\w\s\d\d\d\d\s\d\d:\d\d:\d\d/g)[0]
-                      .split(/(?<=\d)\s(?=\d)/g)[1]
+                    fileContents.log.entries[j].response.headers[k].value.match(/\d\d:\d\d:\d\d/g)
                 );
               }
               if (typeof array_of_element[j] === "undefined") {
                 array_of_element.push(null);
               }
-              console.log(array_of_element[j]);
             }
             resolve();
             break;
@@ -578,29 +981,164 @@ function passtoArray(files, name_of_element, array_of_element) {
                 fileContents.log.entries[j].response.headers[k].name.toLowerCase() ===
                 "last-modified"
               ) {
-                let month = new Date(
+                let month;
+                if (
                   fileContents.log.entries[j].response.headers[k].value
-                    .match(/\d..\w\w\w\s\d\d\d\d\s\d\d:\d\d:\d\d/g)[0]
-                    .split(/(?<=\d)\s(?=\d)/g)[0]
-                    .match(/\d\d \w{3}/g)
-                );
-                month = month.getMonth() + 1;
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("jan") ||
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("Jan") ||
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("JAN")
+                ) {
+                  month = 1;
+                } else if (
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("feb") ||
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("Feb") ||
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("FEB")
+                ) {
+                  month = 2;
+                } else if (
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("mar") ||
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("Mar") ||
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("MAR")
+                ) {
+                  month = 3;
+                } else if (
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("apr") ||
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("Apr") ||
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("APR")
+                ) {
+                  month = 4;
+                } else if (
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("may") ||
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("May") ||
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("MAY")
+                ) {
+                  month = 5;
+                } else if (
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("jun") ||
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("Jun") ||
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("JUN")
+                ) {
+                  month = 6;
+                } else if (
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("jul") ||
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("Jul") ||
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("JUL")
+                ) {
+                  month = 7;
+                } else if (
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("aug") ||
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("Aug") ||
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("AUG")
+                ) {
+                  month = 8;
+                } else if (
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("sep") ||
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("Sep") ||
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("SEP")
+                ) {
+                  month = 9;
+                } else if (
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("oct") ||
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("Oct") ||
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("OCT")
+                ) {
+                  month = 10;
+                } else if (
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("nov") ||
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("Nov") ||
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("NOV")
+                ) {
+                  month = 11;
+                } else if (
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("dec") ||
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("Dec") ||
+                  fileContents.log.entries[j].response.headers[k].value
+                    .match(/.*:\d\d/gi)[0]
+                    .includes("DEC")
+                ) {
+                  month = 12;
+                }
                 array_of_element.push(
                   fileContents.log.entries[j].response.headers[k].value
-                    .match(/\d..\w\w\w\s\d\d\d\d\s\d\d:\d\d:\d\d/g)[0]
-                    .split(/(?<=\d)\s(?=\d)/g)[0]
-                    .match(/\d{4}/g)[0] +
+                    .match(/\d\d\d\d/g)[0]
+                    .match(/^\d\d\d\d/g) +
                     "-" +
                     month +
                     "-" +
                     fileContents.log.entries[j].response.headers[k].value
-                      .match(/\d..\w\w\w\s\d\d\d\d\s\d\d:\d\d:\d\d/g)[0]
-                      .split(/(?<=\d)\s(?=\d)/g)[0]
+                      .match(/\d\d/g)[0]
                       .match(/^\d\d/g) +
                     " " +
-                    fileContents.log.entries[j].response.headers[k].value
-                      .match(/\d..\w\w\w\s\d\d\d\d\s\d\d:\d\d:\d\d/g)[0]
-                      .split(/(?<=\d)\s(?=\d)/g)[1]
+                    fileContents.log.entries[j].response.headers[k].value.match(/\d\d:\d\d:\d\d/g)
                 );
               }
               if (typeof array_of_element[j] === "undefined") {

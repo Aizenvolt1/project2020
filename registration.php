@@ -170,7 +170,7 @@ function post_data($field)
         </div>
     </div>
     <div class="form-group-submit">
-                <input type="submit" class="btn btn-primary" value="Login">
+                <input type="submit" class="btn btn-primary" value="Submit">
             </div>
     <p>Already Have an Account? <a class="Sign-up" href="login.php">Login Now.</a>.</p>
 </form>
