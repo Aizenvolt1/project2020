@@ -62,19 +62,27 @@ for($i=0;$i<count($mergedData);$i++)
     }
   }
 }
-//print_r($mergedData) . "<br><br><br>";
-print_r($mergedData) . "<br><br><br>";
-//print_r($args1);
+/*print_r($latitude[0]) . "<br><br><br>";
+print_r($longitude[0]) . "<br><br><br>";
+print_r($isp[0]) . "<br><br><br>";
+print_r($ip[0]) . "<br><br><br>";
+print_r($city[0]);*/
 $data = array();
 $a;
 $b = "uploads_";
 $d="";
 $counter = 0;
-$sql = "INSERT INTO user_files (user_id) VALUES (?)";
+$sql = "INSERT INTO user_files (user_id, upload_date, latitude, longitude, isp, ip, city, entries) VALUES (?, now(), ?, ?, ?, ?, ?, ?)";
 if ($stmt = mysqli_prepare($conn, $sql)){
   // Bind variables to the prepared statement as parameters
-  mysqli_stmt_bind_param($stmt, "i", $param_userID);
+  mysqli_stmt_bind_param($stmt, "iddsssi", $param_userID, $param_latitude, $param_longitude, $param_isp, $param_ip, $param_city, $param_entries);
   $param_userID = $_SESSION["id"];
+  $param_latitude = $latitude[0];
+  $param_longitude = $longitude[0];
+  $param_isp = $isp[0];
+  $param_ip = $ip[0];
+  $param_city = $city[0];
+  $param_entries = count($startedDateTimes);
   // Attempt to execute the prepared statement
   if (mysqli_stmt_execute($stmt)){
   } else {
