@@ -267,3 +267,15 @@ hr.solid {
 .small-space {
   padding: 2%;
 }
+
+#ResetUsername {
+  display: none;
+}
+
+#ResetPassword {
+  display: none;
+}
+
+#ShowStatistics {
+  display: none;
+}

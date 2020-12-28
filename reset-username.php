@@ -12,8 +12,8 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 require_once "config.php";
 $errors = [];
 // Define variables and initialize with empty values
-$new_username = $confirm_username = "";
-$new_username_err = $confirm_username_err = "";
+$new_username = "";
+$new_username_err = "";
 $insertionCheck = true;
 
 // Processing form data when form is submitted

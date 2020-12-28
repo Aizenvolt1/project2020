@@ -1,13 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Welcome</title>
-        <link rel="stylesheet" type="text/css" href="./style.css">
-        <style type="text/css">
-            body{ font: 14px sans-serif; text-align: center; }
-        </style>
-    </head>
-    <body>
-    </body>
-</html>
+<?php
+
+// Initialize the session
+session_start();
+// Include config file
+require_once "config.php";
+//Statistics
+$sql = "SELECT max(upload_date) as last_upload, sum(entries) as total_entries FROM user_files WHERE user_id = $_SESSION[id]";
+
+$result = mysqli_query($conn, $sql);
+if($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+        echo $row["last_upload"] . "+" .$row["total_entries"];
+    }
+}
+else{
+    $last_upload=0;
+    $total_entries=0;
+}
+?>
