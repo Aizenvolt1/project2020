@@ -8,15 +8,15 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     exit;
 }
  
+// Include config file
+require_once "config.php";
+
 function passCheck($string){
     if ($string[0] !== ' ' && preg_match('/[A-Z]/', $string) && preg_match('/[0-9]/', $string) && preg_match('/[.!@#$&*]/', $string) && substr($string, -1) !== ' '){
         return true;
     }
     return false;
 }
-// Include config file
-require_once "config.php";
- 
 // Define variables and initialize with empty values
 $new_password = $confirm_password = "";
 $new_password_err = $confirm_password_err = "";

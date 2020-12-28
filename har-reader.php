@@ -62,16 +62,7 @@ for($i=0;$i<count($mergedData);$i++)
     }
   }
 }
-/*print_r($latitude[0]) . "<br><br><br>";
-print_r($longitude[0]) . "<br><br><br>";
-print_r($isp[0]) . "<br><br><br>";
-print_r($ip[0]) . "<br><br><br>";
-print_r($city[0]);*/
-$data = array();
-$a;
-$b = "uploads_";
-$d="";
-$counter = 0;
+
 $sql = "INSERT INTO user_files (user_id, upload_date, latitude, longitude, isp, ip, city, entries) VALUES (?, now(), ?, ?, ?, ?, ?, ?)";
 if ($stmt = mysqli_prepare($conn, $sql)){
   // Bind variables to the prepared statement as parameters

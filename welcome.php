@@ -24,9 +24,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
         <br style="clear:both">
         <div class="topnav">
             <a class="active" href="http://localhost/project/welcome.php">Home</a>
-            <a href="http://localhost/project/reset-username.php">Reset Your Username</a>
-            <a href="http://localhost/project/reset-password.php">Reset Your Password</a>
-            <a href="http://localhost/project/statistics.php">Statistics</a>
+            <a href="http://localhost/project/user_profile.php">User Profile</a>
             <a href="http://localhost/project/logout.php">Logout</a>
         </div>
         <hr class="solid">
