@@ -39,3 +39,51 @@
   font-weight: bold;
   color: #009879;
 }
+
+.side_nav button {
+  background-color: #0d0e0e;
+  color: #ffffff;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  bottom: 23px;
+  right: 28px;
+  width: 280px;
+  display: block; /* Make the buttons appear below each other */
+  outline: none;
+  float: left;
+}
+
+.nav_btn {
+  clear: both;
+}
+
+.side_nav :hover {
+  color: #cc0000;
+}
+
+.flex-container {
+  display: flex;
+  justify-content: center;
+}
+
+.nav_bar {
+  align-self: start;
+  position: absolute;
+}
+
+#ResetUsername {
+  text-align: left;
+  display: none;
+}
+
+#ResetPassword {
+  text-align: left;
+  display: none;
+}
+
+#ShowStatistics {
+  text-align: center;
+  display: none;
+}
