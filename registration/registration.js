@@ -79,7 +79,6 @@ function registration_validation() {
           document.getElementById("user-help").innerHTML = "";
           document.getElementById("pass-help").innerHTML = "";
           document.getElementById("passc-help").innerHTML = "";
-          ("Something went wrong! Please try again later!");
         } else if (res.trim() === "Something went wrong! Please try again later!") {
           document.getElementById("user-help").innerHTML = "";
           document.getElementById("pass-help").innerHTML =
