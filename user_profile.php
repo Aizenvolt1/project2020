@@ -52,7 +52,7 @@ p{
         <div id="ResetUsername">
         <h2>Reset Username</h2>
         <p>Please fill out this form to reset your username.</p>
-            <form name="u-form" id="new-username" action="<?php echo 'reset-username.php'; ?>" method="post">
+            <form name="u-form" id="new-username" action="<?php echo 'reset_username.php'; ?>" method="post">
                 <div class="form-group">
                     <h4>Username</h4>
                     <input class="form-control" name="new_username">
@@ -71,7 +71,7 @@ p{
     <div id="ResetPassword">
         <h2>Reset Password</h2>
         <p>Please fill out this form to reset your password.</p>
-        <form name= "pass-form" id="new-password" action ="<?php echo  htmlspecialchars('reset-password.php');?>" method="post"> 
+        <form name= "pass-form" id="new-password" action ="<?php echo  htmlspecialchars('reset_password.php');?>" method="post"> 
             <div class="form-group">
                 <h4>New Password</h4>
                 <input type="password" class="form-control" name="new_password">

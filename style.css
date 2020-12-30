@@ -244,3 +244,19 @@ hr.solid {
   width: 15em;
   margin: auto;
 }
+
+#user-help {
+  color: #cc0000;
+}
+
+#pass-help {
+  color: #cc0000;
+}
+
+.flex-registration li {
+  display: flex;
+  align-content: center;
+  flex-direction: column;
+  width: 15em;
+  margin: auto;
+}
