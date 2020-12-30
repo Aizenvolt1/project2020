@@ -4,12 +4,12 @@ session_start();
 
 // Check if the user is logged in, if not then redirect to login page
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("location: login.php");
+    header("location: ../login/login.php");
     exit;
 }
 
 // Include config file
-require_once "config.php";
+require_once "../config.php";
 
 
 // Processing form data when form is submitted
@@ -30,7 +30,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         if(mysqli_stmt_execute($stmt)){
             // Password updated successfully. Destroy the session, and redirect to login page
             session_destroy();
-            header("location: login.php");
+            header("location: ../login/login.php");
             exit();
         } else{
             echo "Oops! Something went wrong. Please try again later.";

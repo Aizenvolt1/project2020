@@ -85,7 +85,7 @@ function registration_validation() {
           document.getElementById("pass-help").innerHTML =
             "Something went wrong! Please try again later!";
         } else if (res.trim() === "Success") {
-          window.location = "http://localhost/project/login.php";
+          window.location = "http://localhost/project/login/login.php";
         }
       },
     });

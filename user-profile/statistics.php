@@ -3,7 +3,7 @@
 // Initialize the session
 session_start();
 // Include config file
-require_once "config.php";
+require_once "../config.php";
 //Statistics
 $sql = "SELECT max(upload_date) as last_upload, sum(entries) as total_entries FROM user_files WHERE user_id = $_SESSION[id]";
 
