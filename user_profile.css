@@ -87,3 +87,11 @@
   text-align: center;
   display: none;
 }
+
+#username-help-block {
+  color: #cc0000;
+}
+
+#password-help-block {
+  color: #cc0000;
+}

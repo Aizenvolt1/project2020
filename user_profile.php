@@ -18,7 +18,7 @@ require_once "config.php";
     <meta charset="UTF-8">
     <title>Reset Username</title>
     <link rel="stylesheet" type="text/css" href="./style.css">
-    <link rel="stylesheet" type="text/css" href="./statistics.css">
+    <link rel="stylesheet" type="text/css" href="./user_profile.css">
 </head>
 <style>
 
@@ -56,6 +56,7 @@ p{
                 <div class="form-group">
                     <h4>Username</h4>
                     <input class="form-control" name="new_username">
+                    <br>
                     <small><b>Min: 6 and max 16 characters<b></small>
                     <div>
                     <span id="username-help-block"></span>

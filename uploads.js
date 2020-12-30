@@ -1406,7 +1406,7 @@ function datatoPHP() {
 
         $.ajax({
           type: "POST",
-          url: "har-reader.php",
+          url: "har_reader.php",
           data: {
             startedDateTimes: JSON.stringify(startedDateTimes),
             timings_wait: JSON.stringify(timings_wait),

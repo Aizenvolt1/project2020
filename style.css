@@ -125,6 +125,7 @@ input {
   max-width: 300px;
   padding: 10px;
   background-color: #000000;
+  margin: auto;
 }
 
 /* Full-width input fields */
@@ -221,4 +222,25 @@ hr.solid {
 
 .small-space {
   padding: 2%;
+}
+
+/*.my-form {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.form-group {
+  align-items: center;
+  display: block;
+}*/
+
+.flex-login li {
+  display: flex;
+  align-content: center;
+  flex-direction: column;
+  width: 15em;
+  margin: auto;
 }

@@ -12,26 +12,11 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
 require_once "config.php";
 
 // Define variables and initialize with empty values
-$username = $password = "";
 $username_err = $password_err = "";
 
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
 
-    // Check if username is empty
-    if(empty(trim($_POST["username"]))){
-        $username_err = "Please enter username.";
-    } else{
-        $username = trim($_POST["username"]);
-    }
-    
-    // Check if password is empty
-    if(empty(trim($_POST["password"]))){
-        $password_err = "Please enter your password.";
-    } else{
-        $password = trim($_POST["password"]);
-    }
-    
     // Validate credentials
     if (empty($username_err) && empty($password_err)){
         // Prepare a select statement
@@ -42,7 +27,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             mysqli_stmt_bind_param($stmt, "s", $param_username);
             
             // Set parameters
-            $param_username = $username;
+            $param_username = $_POST["username"];
             
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
@@ -54,7 +39,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     // Bind result variables
                     mysqli_stmt_bind_result($stmt, $id, $username, $hashed_password);
                     if(mysqli_stmt_fetch($stmt)){
-                        if(password_verify($password, $hashed_password)){
+                        if(password_verify($_POST["password"], $hashed_password)){
                             // Password is correct, so start a new session
                             session_start();
                             
@@ -67,12 +52,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             header('Location: welcome.php');
                         } else{
                             // Display an error message if password is not valid
-                            $password_err = "The password you entered was not valid.";
+                            echo "Wrong Password";
                         }
                     }
                 } else{
                     // Display an error message if username doesn't exist
-                    $username_err = "Δεν βρέθηκε χρήστης με αυτό το όνομα.";
+                    echo "Wrong Username";
                 }
             } else{
                 echo "Oops! Something went wrong. Please try again later.";
@@ -99,6 +84,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             padding-top:11%;
             text-align:center;
         }
+        h2{
+            text-align:left;
+        }
         .small-space{
             padding:1%;
         }
@@ -106,25 +94,29 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 </head>
 <body>
         <div class="heading">
-        <h2>Login</h2>
-        <p>Please fill in your credentials to login.</p>
         </div>
         <div class="small-space"></div>
         <form class="my-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-            <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
+        <ul class="flex-login">
+            <li>
+                <h2>Login</h2>
+                <p>Please fill in your credentials to login.</p>
+            </li>
+            <li>
                 <label>Username</label>
                 <input type="text" name="username" class="form-control" value="<?php echo $username; ?>">
-                <span class="help-block"><?php echo $username_err; ?></span>
-            </div>    
-            <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
+            </li>
+            <br>
+            <li> 
                 <label>Password</label>
                 <input type="password" name="password" class="form-control">
-                <span class="help-block"><?php echo $password_err; ?></span>
-            </div>
-            <div class="form-group-submit">
-                <input type="submit" class="btn btn-primary" value="Login">
-            </div>
+            </li>
+            <li>
+                <br>
+                <input type="button" class="btn btn-primary" value="Login" onclick="login_validation()">
+            <li>
             <p>Don't have an account? <a class="Sign-up" href="registration.php">Sign up now</a>.</p>
+        </ul>
         </form>
 </body>
 </html>
