@@ -1,0 +1,106 @@
+<?php
+// Initialize the session
+session_start();
+
+// Check if the user is logged in, if not then redirect to login page
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+    header("location: ../login/login.php");
+    exit;
+}
+
+// Include config file
+require_once "../config.php";
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Reset Username</title>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+    <link rel="stylesheet" type="text/css" href="../user-profile/user_profile.css">
+    <link rel="stylesheet" type="text/css" href="./users_info.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel = "stylesheet" href = "http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css"/>
+    <script src = "http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/heatmapjs@2.0.2/heatmap.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet-heatmap@1.0.0/leaflet-heatmap.js"></script>
+    
+</head>
+<style>
+
+p{
+    font-weight: normal;
+}
+
+.form-group{
+    padding:1%;
+}
+
+.menu-space{
+    padding:10%;
+}
+
+</style>
+<body>
+    <img class="resize" src="../images/logo-header.png" alt="Logo"/>
+        <br style="clear:both">
+        <div class="topnav">
+            <a href="http://localhost/project/welcome.php">Home</a>
+            <a href="http://localhost/project/user-profile/user_profile.php">User Profile</a>
+            <a class="active" href="http://localhost/project/users-info/users_info.php">Users Info</a>
+            <a href="http://localhost/project/logout.php">Logout</a>
+        </div>
+    <hr class="solid"/>
+        <div class="side_nav">
+            <button class="nav_btn" id="nu" onclick="NumberOfUsers()">Number of Users</button>
+            <button class="nav_btn" id="rms" onclick="RequestMethodStatistics()">Request Method Statistics</button>
+            <button class="nav_btn" id="rss" onclick="ResponseStatusStatistics()">Response Status Statistics</button>
+            <button class="nav_btn" id="ud" onclick="UniqueDomains()">Unique Domains</button>
+            <button class="nav_btn" id="isp" onclick="ISPs()">ISPs</button>
+            <button class="nav_btn" id="aa" onclick="AverageAgeofCont()">Average Age of Cont</button>
+            <button class="nav_btn" id="sm" onclick="showMap()">Show Map</button>
+        </div>
+    <div class="flex-container">
+        <div id = "map" style = "width: 850px; height: 470px"></div>
+        <div id="NumberOfUsers">
+            <div class="menu-space"></div>
+            <table id="content-table">
+                <thead>
+                    <tr> 
+                        <th>Number of Registered Users</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td id="number_of_users"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    <div id="RequestMethodStatistics">
+       
+    </div>
+    <div id="ResponseStatusStatistics">
+      <h2>Your Statistics</h2>
+        <table id="content-table">
+        <thead>
+        <tr> 
+            <th>Ημερομηνία Τελευταίου Upload</th>
+            <th>Πλήθος Εγγραφών</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+            <td id="last_upload"></td>
+            <td id="total_entries"></td>
+            </tr>
+        </tbody>
+        </table>
+    </div>
+    </div>
+    <script src="users_info.js"></script>
+</body>
+</html>    
+
+

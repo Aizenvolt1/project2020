@@ -1,0 +1,18 @@
+#NumberOfUsers {
+  text-align: left;
+  display: none;
+}
+
+#RequestMethodStatistics {
+  text-align: left;
+  display: none;
+}
+
+#ResponseStatusStatistics {
+  text-align: center;
+  display: none;
+}
+
+#map {
+  visibility: hidden;
+}

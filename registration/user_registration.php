@@ -17,14 +17,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $insertionCheck = false;
     }
 
-    $sql = "SELECT * FROM user WHERE email = '$email'";
-    $result = mysqli_query($conn, $sql);
-    if(mysqli_num_rows($result) > 0){
-        echo "This email is already being used.";
-        $insertionCheck = false;
-    }else if (!filter_var($email, FILTER_VALIDATE_EMAIL)){
-        echo "Please enter a valid email address";
-        $insertionCheck = false;
+    if($insertionCheck)
+    {
+        $sql = "SELECT * FROM user WHERE email = '$email'";
+        $result = mysqli_query($conn, $sql);
+        if(mysqli_num_rows($result) > 0){
+            echo "This email is already being used.";
+            $insertionCheck = false;
+        }else if (!filter_var($email, FILTER_VALIDATE_EMAIL)){
+            echo "Please enter a valid email address";
+            $insertionCheck = false;
+        }
     }
 
     if ($insertionCheck){

@@ -19,12 +19,17 @@ require_once "../config.php";
     <title>Reset Username</title>
     <link rel="stylesheet" type="text/css" href="../style.css">
     <link rel="stylesheet" type="text/css" href="./user_profile.css">
+    <link rel = "stylesheet" href = "http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css"/>
+    <script src = "http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/heatmapjs@2.0.2/heatmap.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet-heatmap@1.0.0/leaflet-heatmap.js"></script>
 </head>
 <style>
 
 p{
     font-weight: normal;
 }
+
 .form-group{
     padding:1%;
 }
@@ -40,15 +45,18 @@ p{
         <div class="topnav">
             <a href="http://localhost/project/welcome.php">Home</a>
             <a class="active" href="http://localhost/project/user-profile/user_profile.php">User Profile</a>
+            <a href="http://localhost/project/users-info/users_info.php">Users Info</a>
             <a href="http://localhost/project/logout.php">Logout</a>
         </div>
     <hr class="solid"/>
         <div class="side_nav">
-            <button class="nav_btn" onclick="showResetUsername()">Reset Username</button>
-            <button class="nav_btn" onclick="showResetPassword()">Reset Password</button>
-            <button class="nav_btn" onclick="showStatistics()">Show Statistics</button>
+            <button class="nav_btn" id="ru" onclick="showResetUsername()">Reset Username</button>
+            <button class="nav_btn" id="rp" onclick="showResetPassword()">Reset Password</button>
+            <button class="nav_btn" id="ss" onclick="showStatistics()">Show Statistics</button>
+            <button class="nav_btn" id="sm" onclick="showMap()">Show Map</button>
         </div>
     <div class="flex-container">
+        <div id = "map" style = "width: 850px; height: 470px"></div>
         <div id="ResetUsername">
         <h2>Reset Username</h2>
         <p>Please fill out this form to reset your username.</p>
@@ -81,7 +89,7 @@ p{
                 <h4>Confirm Password</h4>
                 <input type="password" class="form-control" name="confirm_password">
             </div>
-             <div class="form-group">
+            <div class="form-group">
                     <input type="button" class="btn btn-primary"  value="Submit" onclick="password_check()">
                     <a class="btn btn-link" href="user_profile.php">Cancel</a>
             </div>
