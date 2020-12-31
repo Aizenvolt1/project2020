@@ -25,6 +25,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
         <div class="topnav">
             <a class="active" href="http://localhost/project/welcome.php">Home</a>
             <a href="http://localhost/project/user-profile/user_profile.php">User Profile</a>
+            <a href="http://localhost/project/users-info/users_info.php">Users Info</a>
             <a href="http://localhost/project/logout.php">Logout</a>
         </div>
         <hr class="solid"/>

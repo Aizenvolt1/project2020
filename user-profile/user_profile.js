@@ -28,9 +28,6 @@ function set_coordinates() {
   });
 }
 
-//console.log(typeof coordinates[0]);
-//console.log(typeof coordinates[1]);
-
 function showResetUsername() {
   let su = document.getElementById("ResetUsername");
   let sp = document.getElementById("ResetPassword");

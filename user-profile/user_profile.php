@@ -23,13 +23,13 @@ require_once "../config.php";
     <script src = "http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/heatmapjs@2.0.2/heatmap.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/leaflet-heatmap@1.0.0/leaflet-heatmap.js"></script>
-    
 </head>
 <style>
 
 p{
     font-weight: normal;
 }
+
 .form-group{
     padding:1%;
 }
@@ -45,6 +45,7 @@ p{
         <div class="topnav">
             <a href="http://localhost/project/welcome.php">Home</a>
             <a class="active" href="http://localhost/project/user-profile/user_profile.php">User Profile</a>
+            <a href="http://localhost/project/users-info/users_info.php">Users Info</a>
             <a href="http://localhost/project/logout.php">Logout</a>
         </div>
     <hr class="solid"/>
