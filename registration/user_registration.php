@@ -2,7 +2,7 @@
 
 session_start();
 
-require_once "config.php";
+require_once "../config.php";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $result = mysqli_query($conn, $sql);
     if(mysqli_num_rows($result) > 0){
         echo "This username is already taken.";
-    $insertionCheck = false;
+        $insertionCheck = false;
     }
 
     $sql = "SELECT * FROM user WHERE email = '$email'";

@@ -4,12 +4,12 @@ session_start();
  
 // Check if the user is already logged in, if yes then redirect him to welcome page
 if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-    header("location: welcome.php");
+    header("location: ../welcome.php");
     exit;
 }
  
 // Include config file
-require_once "config.php";
+require_once "../config.php";
 
 ?>
  
@@ -18,7 +18,7 @@ require_once "config.php";
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-    <link rel="stylesheet" type="text/css" href="./style.css">
+    <link rel="stylesheet" type="text/css" href="../style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <style type="text/css">
         h2{
@@ -62,7 +62,7 @@ require_once "config.php";
                 <br>
                 <input id= "sum" type="button" class="btn btn-primary" value="Login" onclick="login_validation()">
             <li>
-            <p>Don't have an account? <a class="Sign-up" href="registration.php">Sign up now</a>.</p>
+            <p>Don't have an account? <a class="Sign-up" href="../registration/registration.php">Sign up now</a>.</p>
         </ul>
         </form>
         <script src="login.js"></script>

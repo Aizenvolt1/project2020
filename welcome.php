@@ -24,7 +24,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
         <br style="clear:both">
         <div class="topnav">
             <a class="active" href="http://localhost/project/welcome.php">Home</a>
-            <a href="http://localhost/project/user_profile.php">User Profile</a>
+            <a href="http://localhost/project/user-profile/user_profile.php">User Profile</a>
             <a href="http://localhost/project/logout.php">Logout</a>
         </div>
         <hr class="solid"/>
@@ -49,7 +49,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
         <button id="upldBtn" type="button" class="open-button">Upload File</button>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="http://cdn.jsdelivr.net/g/filesaver.js"></script>
-        <script src="uploads.js"></script>
+        <script src="./file-processing/uploads.js"></script>
         <button class="open-button" onclick="openForm()" type="button" id="sbmBtn" disabled>Submit Files</button>
         <script>
             document.getElementById("upldBtn").addEventListener("click", enableButton);

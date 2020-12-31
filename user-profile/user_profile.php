@@ -4,12 +4,12 @@ session_start();
 
 // Check if the user is logged in, if not then redirect to login page
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("location: login.php");
+    header("location: ../login/login.php");
     exit;
 }
 
 // Include config file
-require_once "config.php";
+require_once "../config.php";
 ?>
 
 <!DOCTYPE html>
@@ -17,7 +17,7 @@ require_once "config.php";
 <head>
     <meta charset="UTF-8">
     <title>Reset Username</title>
-    <link rel="stylesheet" type="text/css" href="./style.css">
+    <link rel="stylesheet" type="text/css" href="../style.css">
     <link rel="stylesheet" type="text/css" href="./user_profile.css">
 </head>
 <style>
@@ -35,11 +35,11 @@ p{
 
 </style>
 <body>
-    <img class="resize" src="images/logo-header.png" alt="Logo"/>
+    <img class="resize" src="../images/logo-header.png" alt="Logo"/>
         <br style="clear:both">
         <div class="topnav">
             <a href="http://localhost/project/welcome.php">Home</a>
-            <a class="active" href="http://localhost/project/user_profile.php">User Profile</a>
+            <a class="active" href="http://localhost/project/user-profile/user_profile.php">User Profile</a>
             <a href="http://localhost/project/logout.php">Logout</a>
         </div>
     <hr class="solid"/>
@@ -64,7 +64,7 @@ p{
                 </div>
                 <div class="form-group">
                     <input type="button" class="btn btn-primary"  value="Submit" onclick="username_check()">
-                    <a class="btn btn-link" href="welcome.php">Cancel</a>
+                    <a class="btn btn-link" href="user_profile.php">Cancel</a>
                 </div>
             </form>
         </div>
@@ -83,7 +83,7 @@ p{
             </div>
              <div class="form-group">
                     <input type="button" class="btn btn-primary"  value="Submit" onclick="password_check()">
-                    <a class="btn btn-link" href="welcome.php">Cancel</a>
+                    <a class="btn btn-link" href="user_profile.php">Cancel</a>
             </div>
         </form>    
     </div>
