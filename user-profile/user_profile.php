@@ -19,6 +19,8 @@ require_once "../config.php";
     <title>Reset Username</title>
     <link rel="stylesheet" type="text/css" href="../style.css">
     <link rel="stylesheet" type="text/css" href="./user_profile.css">
+    <link rel = "stylesheet" href = "http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css"/>
+    <script src = "http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
 </head>
 <style>
 
@@ -44,11 +46,13 @@ p{
         </div>
     <hr class="solid"/>
         <div class="side_nav">
-            <button class="nav_btn" onclick="showResetUsername()">Reset Username</button>
-            <button class="nav_btn" onclick="showResetPassword()">Reset Password</button>
-            <button class="nav_btn" onclick="showStatistics()">Show Statistics</button>
+            <button class="nav_btn" id="ru" onclick="showResetUsername()">Reset Username</button>
+            <button class="nav_btn" id="rp" onclick="showResetPassword()">Reset Password</button>
+            <button class="nav_btn" id="ss" onclick="showStatistics()">Show Statistics</button>
+            <button class="nav_btn" id="sm" onclick="showMap()">Show Map</button>
         </div>
     <div class="flex-container">
+        <div id = "map" style = "width: 850px; height: 470px"></div>
         <div id="ResetUsername">
         <h2>Reset Username</h2>
         <p>Please fill out this form to reset your username.</p>

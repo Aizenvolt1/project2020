@@ -1,30 +1,47 @@
 "use strict";
 
+//To set active button.
+const room = document.querySelector(".side_nav");
+const btns = document.querySelectorAll(".nav_btn");
+
+room.addEventListener("click", (e) => {
+  btns.forEach((btn) => {
+    if (btn.getAttribute("id") === e.target.getAttribute("id")) btn.classList.add("active");
+    else btn.classList.remove("active");
+  });
+});
+
 function showResetUsername() {
   let su = document.getElementById("ResetUsername");
   let sp = document.getElementById("ResetPassword");
   let st = document.getElementById("ShowStatistics");
+  let sm = document.getElementById("map");
   su.style.display = "block";
   sp.style.display = "none";
   st.style.display = "none";
+  sm.style.display = "none";
 }
 
 function showResetPassword() {
   let su = document.getElementById("ResetUsername");
   let sp = document.getElementById("ResetPassword");
   let st = document.getElementById("ShowStatistics");
+  let sm = document.getElementById("map");
   su.style.display = "none";
   sp.style.display = "block";
   st.style.display = "none";
+  sm.style.display = "none";
 }
 
 function showStatistics() {
   let su = document.getElementById("ResetUsername");
   let sp = document.getElementById("ResetPassword");
   let st = document.getElementById("ShowStatistics");
+  let sm = document.getElementById("map");
   su.style.display = "none";
   sp.style.display = "none";
   st.style.display = "block";
+  sm.style.display = "none";
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
@@ -35,6 +52,18 @@ function showStatistics() {
   };
   xhttp.open("POST", "statistics.php?q=", true);
   xhttp.send();
+}
+
+function showMap() {
+  let su = document.getElementById("ResetUsername");
+  let sp = document.getElementById("ResetPassword");
+  let st = document.getElementById("ShowStatistics");
+  let sm = document.getElementById("map");
+  su.style.display = "none";
+  sp.style.display = "none";
+  st.style.display = "none";
+  sm.style.display = "block";
+  sm.style.visibility = "visible";
 }
 
 function username_check() {
@@ -81,3 +110,18 @@ function password_check() {
     return true;
   }
 }
+
+// Creating map options
+var mapOptions = {
+  center: [17.385044, 78.486671],
+  zoom: 10,
+};
+
+// Creating a map object
+var map = new L.map("map", mapOptions);
+
+// Creating a Layer object
+var layer = new L.TileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png");
+
+// Adding layer to the map
+map.addLayer(layer);
