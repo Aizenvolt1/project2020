@@ -11,6 +11,28 @@ room.addEventListener("click", (e) => {
   });
 });
 
+let coordinates = [2];
+function set_coordinates() {
+  return new Promise((resolve, reject) => {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        const [latitude, longitude] = this.responseText.split("+");
+        coordinates[0] = parseFloat(latitude);
+        coordinates[1] = parseFloat(longitude);
+        console.log(typeof parseFloat(latitude));
+        console.log(typeof parseFloat(longitude));
+        resolve();
+      }
+    };
+    xhttp.open("POST", "map.php?q=", true);
+    xhttp.send();
+  });
+}
+
+//console.log(typeof coordinates[0]);
+//console.log(typeof coordinates[1]);
+
 function showResetUsername() {
   let su = document.getElementById("ResetUsername");
   let sp = document.getElementById("ResetPassword");
@@ -112,16 +134,16 @@ function password_check() {
 }
 
 // Creating map options
-var mapOptions = {
-  center: [17.385044, 78.486671],
-  zoom: 10,
-};
+async function make_map() {
+  await set_coordinates();
+  // Creating a map object
+  var map = new L.map("map", { center: [coordinates[0], coordinates[1]], zoom: 10 });
 
-// Creating a map object
-var map = new L.map("map", mapOptions);
+  // Creating a Layer object
+  var layer = new L.TileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png");
 
-// Creating a Layer object
-var layer = new L.TileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png");
+  // Adding layer to the map
+  map.addLayer(layer);
+}
 
-// Adding layer to the map
-map.addLayer(layer);
+make_map();

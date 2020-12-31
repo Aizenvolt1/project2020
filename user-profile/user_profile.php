@@ -21,6 +21,7 @@ require_once "../config.php";
     <link rel="stylesheet" type="text/css" href="./user_profile.css">
     <link rel = "stylesheet" href = "http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css"/>
     <script src = "http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+    
 </head>
 <style>
 
@@ -85,7 +86,7 @@ p{
                 <h4>Confirm Password</h4>
                 <input type="password" class="form-control" name="confirm_password">
             </div>
-             <div class="form-group">
+            <div class="form-group">
                     <input type="button" class="btn btn-primary"  value="Submit" onclick="password_check()">
                     <a class="btn btn-link" href="user_profile.php">Cancel</a>
             </div>
