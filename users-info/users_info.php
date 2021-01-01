@@ -78,26 +78,96 @@ p{
                 </tbody>
             </table>
         </div>
-    <div id="RequestMethodStatistics">
-       
-    </div>
-    <div id="ResponseStatusStatistics">
-      <h2>Your Statistics</h2>
-        <table id="content-table">
-        <thead>
-        <tr> 
-            <th>Ημερομηνία Τελευταίου Upload</th>
-            <th>Πλήθος Εγγραφών</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-            <td id="last_upload"></td>
-            <td id="total_entries"></td>
-            </tr>
-        </tbody>
-        </table>
-    </div>
+        <div id="RequestMethodStatistics">
+            <table id="content-table">
+                <thead>
+                    <tr> 
+                        <th>Method Type</th>
+                        <th>Number</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>POST</td>
+                        <td id="nop"></td>
+                    </tr>
+                    <tr>
+                        <td>GET</td>
+                        <td id="nog"></td>
+                    </tr>
+                    <tr>
+                        <td>HEAD</td>
+                        <td id="noh"></td>
+                    </tr>
+                    <tr>
+                        <td>PUT</td>
+                        <td id="nopu"></td>
+                    </tr>
+                    <tr>
+                        <td>DELETE</td>
+                        <td id="nod"></td>
+                    </tr>
+                    <tr>
+                        <td>CONNECT</td>
+                        <td id="noc"></td>
+                    </tr>
+                    <tr>
+                        <td>OPTIONS</td>
+                        <td id="noo"></td>
+                    </tr>
+                    <tr>
+                        <td>TRACE</td>
+                        <td id="notr"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="ResponseStatusStatistics">
+            <table id="content-table">
+                <thead>
+                    <tr> 
+                        <th>Ημερομηνία Τελευταίου Upload</th>
+                        <th>Πλήθος Εγγραφών</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td id="last_upload"></td>
+                        <td id="total_entries"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="UniqueDomains">
+            <div class="menu-space"></div>
+            <table id="content-table">
+                <thead>
+                    <tr> 
+                        <th>Number of Unique Domains</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    <td id="noud"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="ISPs">
+            <div class="menu-space"></div>
+            <table id="content-table">
+                <thead>
+                    <tr> 
+                        <th>Number of Unique ISPs</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    <td id="noisp"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
     <script src="users_info.js"></script>
 </body>

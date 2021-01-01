@@ -32,10 +32,14 @@ function NumberOfUsers() {
   let nou = document.getElementById("NumberOfUsers");
   let rms = document.getElementById("RequestMethodStatistics");
   let rss = document.getElementById("ResponseStatusStatistics");
+  let ud = document.getElementById("UniqueDomains");
+  let isp = document.getElementById("ISPs");
   let sm = document.getElementById("map");
   nou.style.display = "block";
   rms.style.display = "none";
   rss.style.display = "none";
+  ud.style.display = "none";
+  isp.style.display = "none";
   sm.style.display = "none";
   $.ajax({
     type: "POST",
@@ -53,21 +57,48 @@ function RequestMethodStatistics() {
   let nou = document.getElementById("NumberOfUsers");
   let rms = document.getElementById("RequestMethodStatistics");
   let rss = document.getElementById("ResponseStatusStatistics");
+  let ud = document.getElementById("UniqueDomains");
+  let isp = document.getElementById("ISPs");
   let sm = document.getElementById("map");
   nou.style.display = "none";
   rms.style.display = "block";
   rss.style.display = "none";
+  ud.style.display = "none";
+  isp.style.display = "none";
   sm.style.display = "none";
+
+  $.ajax({
+    type: "POST",
+    url: "collect_data.php",
+    data: {
+      request: "request_method_statistics",
+    },
+    success: function (res) {
+      const [nop, nog, noh, nopu, nod, noc, noo, notr] = res.split("+");
+      document.getElementById("nop").innerHTML = nop;
+      document.getElementById("nog").innerHTML = nog;
+      document.getElementById("noh").innerHTML = noh;
+      document.getElementById("nopu").innerHTML = nopu;
+      document.getElementById("nod").innerHTML = nod;
+      document.getElementById("noc").innerHTML = noc;
+      document.getElementById("noo").innerHTML = noo;
+      document.getElementById("notr").innerHTML = notr;
+    },
+  });
 }
 
 function ResponseStatusStatistics() {
   let nou = document.getElementById("NumberOfUsers");
   let rms = document.getElementById("RequestMethodStatistics");
   let rss = document.getElementById("ResponseStatusStatistics");
+  let ud = document.getElementById("UniqueDomains");
+  let isp = document.getElementById("ISPs");
   let sm = document.getElementById("map");
   nou.style.display = "none";
   rms.style.display = "none";
   rss.style.display = "block";
+  ud.style.display = "none";
+  isp.style.display = "none";
   sm.style.display = "none";
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
@@ -81,14 +112,70 @@ function ResponseStatusStatistics() {
   xhttp.send();
 }
 
-function showMap() {
+function UniqueDomains() {
   let nou = document.getElementById("NumberOfUsers");
   let rms = document.getElementById("RequestMethodStatistics");
   let rss = document.getElementById("ResponseStatusStatistics");
+  let ud = document.getElementById("UniqueDomains");
+  let isp = document.getElementById("ISPs");
   let sm = document.getElementById("map");
   nou.style.display = "none";
   rms.style.display = "none";
   rss.style.display = "none";
+  ud.style.display = "block";
+  isp.style.display = "none";
+  sm.style.display = "none";
+
+  $.ajax({
+    type: "POST",
+    url: "collect_data.php",
+    data: {
+      request: "request_number_of_unique_domains",
+    },
+    success: function (res) {
+      document.getElementById("noud").innerHTML = res;
+    },
+  });
+}
+
+function ISPs() {
+  let nou = document.getElementById("NumberOfUsers");
+  let rms = document.getElementById("RequestMethodStatistics");
+  let rss = document.getElementById("ResponseStatusStatistics");
+  let ud = document.getElementById("UniqueDomains");
+  let isp = document.getElementById("ISPs");
+  let sm = document.getElementById("map");
+  nou.style.display = "none";
+  rms.style.display = "none";
+  rss.style.display = "none";
+  ud.style.display = "none";
+  isp.style.display = "block";
+  sm.style.display = "none";
+
+  $.ajax({
+    type: "POST",
+    url: "collect_data.php",
+    data: {
+      request: "request_number_of_unique_isps",
+    },
+    success: function (res) {
+      document.getElementById("noisp").innerHTML = res;
+    },
+  });
+}
+
+function showMap() {
+  let nou = document.getElementById("NumberOfUsers");
+  let rms = document.getElementById("RequestMethodStatistics");
+  let rss = document.getElementById("ResponseStatusStatistics");
+  let ud = document.getElementById("UniqueDomains");
+  let isp = document.getElementById("ISPs");
+  let sm = document.getElementById("map");
+  nou.style.display = "none";
+  rms.style.display = "none";
+  rss.style.display = "none";
+  ud.style.display = "none";
+  isp.style.display = "none";
   sm.style.display = "block";
   sm.style.visibility = "visible";
 }
