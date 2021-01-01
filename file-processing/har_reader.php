@@ -25,11 +25,11 @@ $response_age = json_decode($_POST['response_age'],true);
 $response_last_modified = json_decode($_POST['response_last_modified'],true);
 $response_host = json_decode($_POST['response_host'],true);
 $filenames = json_decode($_POST['filenames'],true);
-$latitude = json_decode($_POST['latitude'],true);
-$longitude = json_decode($_POST['longitude'],true);
+$city_latitude = json_decode($_POST['city_latitude'],true);
+$city_longitude = json_decode($_POST['city_longitude'],true);
+$server_latitude = $_POST['server_latitude'];
+$server_longitude = $_POST['server_longitude'];
 $isp = json_decode($_POST['isp'],true);
-$ip = json_decode($_POST['ip'],true);
-$city = json_decode($_POST['city'],true);
 
 
 for($i=0;$i<count($startedDateTimes);$i++)
@@ -63,16 +63,16 @@ for($i=0;$i<count($mergedData);$i++)
   }
 }
 
-$sql = "INSERT INTO user_files (user_id, upload_date, latitude, longitude, isp, ip, city, entries) VALUES (?, now(), ?, ?, ?, ?, ?, ?)";
+$sql = "INSERT INTO user_files (user_id, upload_date, server_latitude, server_longitude ,city_latitude, city_longitude, isp, entries) VALUES (?, now(), ?, ?, ?, ?, ?, ?)";
 if ($stmt = mysqli_prepare($conn, $sql)){
   // Bind variables to the prepared statement as parameters
-  mysqli_stmt_bind_param($stmt, "iddsssi", $param_userID, $param_latitude, $param_longitude, $param_isp, $param_ip, $param_city, $param_entries);
+  mysqli_stmt_bind_param($stmt, "iddddsi", $param_userID, $param_server_latitude, $param_server_longitude, $param_city_latitude, $param_city_longitude, $param_isp, $param_entries);
   $param_userID = $_SESSION["id"];
-  $param_latitude = $latitude[0];
-  $param_longitude = $longitude[0];
+  $param_server_latitude = $server_latitude;
+  $param_server_longitude = $server_longitude;
+  $param_city_latitude = $city_latitude[0];
+  $param_city_longitude = $city_longitude[0];
   $param_isp = $isp[0];
-  $param_ip = $ip[0];
-  $param_city = $city[0];
   $param_entries = count($startedDateTimes);
   // Attempt to execute the prepared statement
   if (mysqli_stmt_execute($stmt)){
