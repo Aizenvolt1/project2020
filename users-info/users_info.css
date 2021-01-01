@@ -13,6 +13,16 @@
   display: none;
 }
 
+#UniqueDomains {
+  text-align: left;
+  display: none;
+}
+
+#ISPs {
+  text-align: left;
+  display: none;
+}
+
 #map {
   visibility: hidden;
 }
