@@ -3,12 +3,38 @@
 //To set active button.
 const room = document.querySelector(".side_nav");
 const btns = document.querySelectorAll(".nav_btn");
+let select;
+let options = [];
+let opt;
+let el = [];
+let hasChild = false;
 
 room.addEventListener("click", (e) => {
   btns.forEach((btn) => {
     if (btn.getAttribute("id") === e.target.getAttribute("id")) btn.classList.add("active");
     else btn.classList.remove("active");
   });
+});
+
+const selectElement = document.querySelector("#selectStatus");
+
+selectElement.addEventListener("change", (event) => {
+  if (event.target.value === "Choose Response Status") {
+    document.getElementById("occur").innerHTML = "-";
+  } else {
+    $.ajax({
+      type: "POST",
+      url: "collect_data.php",
+      data: {
+        request: "request_number_of_response_statuses",
+        request_type: "value",
+        value_name: event.target.value,
+      },
+      success: function (res) {
+        document.getElementById("occur").innerHTML = res;
+      },
+    });
+  }
 });
 
 let coordinates = [2];
@@ -29,6 +55,12 @@ function set_coordinates() {
 }
 
 function NumberOfUsers() {
+  if (hasChild === true) {
+    for (let i = 0; i < options.length; i++) {
+      select.removeChild(el[i]);
+    }
+    hasChild = false;
+  }
   let nou = document.getElementById("NumberOfUsers");
   let rms = document.getElementById("RequestMethodStatistics");
   let rss = document.getElementById("ResponseStatusStatistics");
@@ -54,6 +86,12 @@ function NumberOfUsers() {
 }
 
 function RequestMethodStatistics() {
+  if (hasChild === true) {
+    for (let i = 0; i < options.length; i++) {
+      select.removeChild(el[i]);
+    }
+    hasChild = false;
+  }
   let nou = document.getElementById("NumberOfUsers");
   let rms = document.getElementById("RequestMethodStatistics");
   let rss = document.getElementById("ResponseStatusStatistics");
@@ -88,6 +126,7 @@ function RequestMethodStatistics() {
 }
 
 function ResponseStatusStatistics() {
+  document.getElementById("occur").innerHTML = "-";
   let nou = document.getElementById("NumberOfUsers");
   let rms = document.getElementById("RequestMethodStatistics");
   let rss = document.getElementById("ResponseStatusStatistics");
@@ -100,19 +139,37 @@ function ResponseStatusStatistics() {
   ud.style.display = "none";
   isp.style.display = "none";
   sm.style.display = "none";
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      const [last_upload, total_entries] = this.responseText.split("+");
-      document.getElementById("last_upload").innerHTML = last_upload;
-      document.getElementById("total_entries").innerHTML = total_entries;
-    }
-  };
-  xhttp.open("POST", "statistics.php?q=", true);
-  xhttp.send();
+
+  select = document.getElementById("selectStatus");
+
+  $.ajax({
+    type: "POST",
+    url: "collect_data.php",
+    data: {
+      request: "request_number_of_response_statuses",
+      request_type: "element",
+    },
+    success: function (res) {
+      options = JSON.parse(res);
+      for (let i = 0; i < options.length; i++) {
+        opt = options[i];
+        el[i] = document.createElement("option");
+        el[i].textContent = opt;
+        el[i].value = opt;
+        select.appendChild(el[i]);
+      }
+      hasChild = true;
+    },
+  });
 }
 
 function UniqueDomains() {
+  if (hasChild === true) {
+    for (let i = 0; i < options.length; i++) {
+      select.removeChild(el[i]);
+    }
+    hasChild = false;
+  }
   let nou = document.getElementById("NumberOfUsers");
   let rms = document.getElementById("RequestMethodStatistics");
   let rss = document.getElementById("ResponseStatusStatistics");
@@ -139,6 +196,12 @@ function UniqueDomains() {
 }
 
 function ISPs() {
+  if (hasChild === true) {
+    for (let i = 0; i < options.length; i++) {
+      select.removeChild(el[i]);
+    }
+    hasChild = false;
+  }
   let nou = document.getElementById("NumberOfUsers");
   let rms = document.getElementById("RequestMethodStatistics");
   let rss = document.getElementById("ResponseStatusStatistics");
@@ -165,6 +228,12 @@ function ISPs() {
 }
 
 function showMap() {
+  if (hasChild === true) {
+    for (let i = 0; i < options.length; i++) {
+      select.removeChild(el[i]);
+    }
+    hasChild = false;
+  }
   let nou = document.getElementById("NumberOfUsers");
   let rms = document.getElementById("RequestMethodStatistics");
   let rss = document.getElementById("ResponseStatusStatistics");

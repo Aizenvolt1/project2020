@@ -37,6 +37,33 @@ else if($_POST['request'] == "request_method_statistics")
         }
     }
 }
+else if($_POST['request'] == "request_number_of_response_statuses")
+{
+    if($_POST['request_type'] == "element")
+    {
+        $response_statuses = array();
+        $sql = "SELECT DISTINCT response_statuses FROM file_data WHERE response_statuses IS NOT NULL ORDER BY response_statuses ASC";
+
+        $result = mysqli_query($conn, $sql);
+        if($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+                array_push($response_statuses,$row["response_statuses"]);
+            }
+        }
+        echo json_encode($response_statuses);
+    }
+    else if($_POST['request_type'] == "value")
+    {
+        $sql = "SELECT COUNT(response_statuses) AS num FROM file_data WHERE response_statuses=$_POST[value_name]";
+
+        $result = mysqli_query($conn, $sql);
+        if($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+                echo $row["num"];
+            }
+        }
+    }
+}
 else if($_POST['request'] == "request_number_of_unique_domains")
 {
     $sql="SELECT COUNT(DISTINCT request_urls) AS unique_urls FROM file_data";
@@ -47,7 +74,6 @@ else if($_POST['request'] == "request_number_of_unique_domains")
         }
     }
 }
-
 else if($_POST['request'] == "request_number_of_unique_isps")
 {
     $sql="SELECT COUNT(DISTINCT isp) AS unique_isp FROM user_files";

@@ -123,17 +123,22 @@ p{
             </table>
         </div>
         <div id="ResponseStatusStatistics">
+            <div class="menu-space"></div>
             <table id="content-table">
                 <thead>
                     <tr> 
-                        <th>Ημερομηνία Τελευταίου Upload</th>
-                        <th>Πλήθος Εγγραφών</th>
+                        <th>Response Status</th>
+                        <th>Occurrences</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td id="last_upload"></td>
-                        <td id="total_entries"></td>
+                        <td>
+                            <select id="selectStatus">
+                                <option>Choose Response Status</option>
+                            </select>
+                        </td>
+                        <td id="occur"></td>
                     </tr>
                 </tbody>
             </table>
