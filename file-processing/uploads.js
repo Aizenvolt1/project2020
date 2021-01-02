@@ -26,8 +26,8 @@ let dow_files = [];
 let filenames = [];
 let city_latitude = [];
 let city_longitude = [];
-let server_latitude;
-let server_longitude;
+let server_latitude = [];
+let server_longitude = [];
 let domain_url = "0";
 let isp = [];
 
@@ -166,9 +166,7 @@ function passtoArray(files, name_of_element, array_of_element) {
               array_of_element.push(null);
             } else {
               array_of_element.push(
-                fileContents.log.entries[j].request.url.match(
-                  /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}/g
-                )[0]
+                fileContents.log.entries[j].request.url.match(/(?<=\/\/)(.*?)(?=\/|$)/g)
               );
             }
             if (typeof array_of_element[j] === "undefined") {
@@ -1261,8 +1259,8 @@ function Remove_File_Properties(files) {
               fileContents.log.entries[i].request[x] == null;
             } else {
               fileContents.log.entries[i].request[x] = fileContents.log.entries[i].request[x].match(
-                /([-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6})/g
-              )[0];
+                /(?<=\/\/)(.*?)(?=\/|$)/g
+              );
               if (domain_url === "0") {
                 domain_url = fileContents.log.entries[i].request[x];
               }
@@ -1362,11 +1360,10 @@ function Remove_File_Properties(files) {
         });
       domain_url = "http://ip-api.com/json/" + domain_url;
       $.get(domain_url, function (data) {
-        console.log(data);
-        server_latitude = data.lat;
-        server_longitude = data.lon;
+        server_latitude.push(data.lat);
+        server_longitude.push(data.lon);
       });
-
+      domain_url = "0";
       resolve();
     };
   });
@@ -1444,8 +1441,8 @@ function datatoPHP() {
             filenames: JSON.stringify(filenames),
             city_latitude: JSON.stringify(city_latitude),
             city_longitude: JSON.stringify(city_longitude),
-            server_latitude: server_latitude,
-            server_longitude: server_longitude,
+            server_latitude: server_latitude[i],
+            server_longitude: server_longitude[i],
             isp: JSON.stringify(isp),
             reloads: "command",
           },
@@ -1533,8 +1530,8 @@ function datatoPHP() {
             filenames: JSON.stringify(filenames),
             city_latitude: JSON.stringify(city_latitude),
             city_longitude: JSON.stringify(city_longitude),
-            server_latitude: server_latitude,
-            server_longitude: server_longitude,
+            server_latitude: server_latitude[i],
+            server_longitude: server_longitude[i],
             isp: JSON.stringify(isp),
             reloads: "command",
           },
