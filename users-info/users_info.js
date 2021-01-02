@@ -3,12 +3,18 @@
 //To set active button.
 const room = document.querySelector(".side_nav");
 const btns = document.querySelectorAll(".nav_btn");
-let select;
-let options = [];
-let opt;
-let el = [];
-let hasChild = false;
+let select_status;
+let select_content;
+let options_status = [];
+let options_content = [];
+let opt_status;
+let opt_content;
+let el_status = [];
+let el_content = [];
+let hasChild_status = false;
+let hasChild_content = false;
 
+//This is for active css color for Side Menu
 room.addEventListener("click", (e) => {
   btns.forEach((btn) => {
     if (btn.getAttribute("id") === e.target.getAttribute("id")) btn.classList.add("active");
@@ -16,27 +22,7 @@ room.addEventListener("click", (e) => {
   });
 });
 
-const selectElement = document.querySelector("#selectStatus");
-
-selectElement.addEventListener("change", (event) => {
-  if (event.target.value === "Choose Response Status") {
-    document.getElementById("occur").innerHTML = "-";
-  } else {
-    $.ajax({
-      type: "POST",
-      url: "collect_data.php",
-      data: {
-        request: "request_number_of_response_statuses",
-        request_type: "value",
-        value_name: event.target.value,
-      },
-      success: function (res) {
-        document.getElementById("occur").innerHTML = res;
-      },
-    });
-  }
-});
-
+//Setting starting map coordinates
 let coordinates = [2];
 function set_coordinates() {
   return new Promise((resolve, reject) => {
@@ -54,24 +40,33 @@ function set_coordinates() {
   });
 }
 
+//This functions runs when Number of Users is selected from Side Menu
 function NumberOfUsers() {
-  if (hasChild === true) {
-    for (let i = 0; i < options.length; i++) {
-      select.removeChild(el[i]);
+  if (hasChild_status === true) {
+    for (let i = 0; i < options_status.length; i++) {
+      select_status.removeChild(el_status[i]);
     }
-    hasChild = false;
+    hasChild_status = false;
+  }
+  if (hasChild_content === true) {
+    for (let i = 0; i < options_content.length; i++) {
+      select_content.removeChild(el_content[i]);
+    }
+    hasChild_content = false;
   }
   let nou = document.getElementById("NumberOfUsers");
   let rms = document.getElementById("RequestMethodStatistics");
   let rss = document.getElementById("ResponseStatusStatistics");
   let ud = document.getElementById("UniqueDomains");
   let isp = document.getElementById("ISPs");
+  let aoc = document.getElementById("AverageAgeOfContent");
   let sm = document.getElementById("map");
   nou.style.display = "block";
   rms.style.display = "none";
   rss.style.display = "none";
   ud.style.display = "none";
   isp.style.display = "none";
+  aoc.style.display = "none";
   sm.style.display = "none";
   $.ajax({
     type: "POST",
@@ -85,24 +80,33 @@ function NumberOfUsers() {
   });
 }
 
+//This functions runs when Request Method Statistics is selected from Side Menu
 function RequestMethodStatistics() {
-  if (hasChild === true) {
-    for (let i = 0; i < options.length; i++) {
-      select.removeChild(el[i]);
+  if (hasChild_status === true) {
+    for (let i = 0; i < options_status.length; i++) {
+      select_status.removeChild(el_status[i]);
     }
-    hasChild = false;
+    hasChild_status = false;
+  }
+  if (hasChild_content === true) {
+    for (let i = 0; i < options_content.length; i++) {
+      select_content.removeChild(el_content[i]);
+    }
+    hasChild_content = false;
   }
   let nou = document.getElementById("NumberOfUsers");
   let rms = document.getElementById("RequestMethodStatistics");
   let rss = document.getElementById("ResponseStatusStatistics");
   let ud = document.getElementById("UniqueDomains");
   let isp = document.getElementById("ISPs");
+  let aoc = document.getElementById("AverageAgeOfContent");
   let sm = document.getElementById("map");
   nou.style.display = "none";
   rms.style.display = "block";
   rss.style.display = "none";
   ud.style.display = "none";
   isp.style.display = "none";
+  aoc.style.display = "none";
   sm.style.display = "none";
 
   $.ajax({
@@ -125,22 +129,31 @@ function RequestMethodStatistics() {
   });
 }
 
+//This functions runs when Response Status Statistics is selected from Side Menu
 function ResponseStatusStatistics() {
+  if (hasChild_content === true) {
+    for (let i = 0; i < options_content.length; i++) {
+      select_content.removeChild(el_content[i]);
+    }
+    hasChild_content = false;
+  }
   document.getElementById("occur").innerHTML = "-";
   let nou = document.getElementById("NumberOfUsers");
   let rms = document.getElementById("RequestMethodStatistics");
   let rss = document.getElementById("ResponseStatusStatistics");
   let ud = document.getElementById("UniqueDomains");
   let isp = document.getElementById("ISPs");
+  let aoc = document.getElementById("AverageAgeOfContent");
   let sm = document.getElementById("map");
   nou.style.display = "none";
   rms.style.display = "none";
   rss.style.display = "block";
   ud.style.display = "none";
   isp.style.display = "none";
+  aoc.style.display = "none";
   sm.style.display = "none";
 
-  select = document.getElementById("selectStatus");
+  select_status = document.getElementById("selectStatus");
 
   $.ajax({
     type: "POST",
@@ -150,37 +163,68 @@ function ResponseStatusStatistics() {
       request_type: "element",
     },
     success: function (res) {
-      options = JSON.parse(res);
-      for (let i = 0; i < options.length; i++) {
-        opt = options[i];
-        el[i] = document.createElement("option");
-        el[i].textContent = opt;
-        el[i].value = opt;
-        select.appendChild(el[i]);
+      options_status = JSON.parse(res);
+      for (let i = 0; i < options_status.length; i++) {
+        opt_status = options_status[i];
+        el_status[i] = document.createElement("option");
+        el_status[i].textContent = opt_status;
+        el_status[i].value = opt_status;
+        select_status.appendChild(el_status[i]);
       }
-      hasChild = true;
+      hasChild_status = true;
     },
   });
 }
 
+//This is for the drop down menu on Response Status Statistics
+const selectElementStatus = document.querySelector("#selectStatus");
+
+selectElementStatus.addEventListener("change", (event) => {
+  if (event.target.value === "Choose Response Status") {
+    document.getElementById("occur").innerHTML = "-";
+  } else {
+    $.ajax({
+      type: "POST",
+      url: "collect_data.php",
+      data: {
+        request: "request_number_of_response_statuses",
+        request_type: "value",
+        value_name: event.target.value,
+      },
+      success: function (res) {
+        document.getElementById("occur").innerHTML = res;
+      },
+    });
+  }
+});
+
+//This functions runs when Unique Domains is selected from Side Menu
 function UniqueDomains() {
-  if (hasChild === true) {
-    for (let i = 0; i < options.length; i++) {
-      select.removeChild(el[i]);
+  if (hasChild_status === true) {
+    for (let i = 0; i < options_status.length; i++) {
+      select_status.removeChild(el_status[i]);
     }
-    hasChild = false;
+    hasChild_status = false;
+  }
+  if (hasChild_content === true) {
+    for (let i = 0; i < options_content.length; i++) {
+      select_content.removeChild(el_content[i]);
+    }
+    hasChild_content = false;
   }
   let nou = document.getElementById("NumberOfUsers");
   let rms = document.getElementById("RequestMethodStatistics");
   let rss = document.getElementById("ResponseStatusStatistics");
   let ud = document.getElementById("UniqueDomains");
   let isp = document.getElementById("ISPs");
+  let aoc = document.getElementById("AverageAgeOfContent");
   let sm = document.getElementById("map");
   nou.style.display = "none";
   rms.style.display = "none";
   rss.style.display = "none";
   ud.style.display = "block";
   isp.style.display = "none";
+  aoc.style.display = "none";
   sm.style.display = "none";
 
   $.ajax({
@@ -195,24 +239,33 @@ function UniqueDomains() {
   });
 }
 
+//This functions runs when ISPs is selected from Side Menu
 function ISPs() {
-  if (hasChild === true) {
-    for (let i = 0; i < options.length; i++) {
-      select.removeChild(el[i]);
+  if (hasChild_status === true) {
+    for (let i = 0; i < options_status.length; i++) {
+      select_status.removeChild(el_status[i]);
     }
-    hasChild = false;
+    hasChild_status = false;
+  }
+  if (hasChild_content === true) {
+    for (let i = 0; i < options_content.length; i++) {
+      select_content.removeChild(el_content[i]);
+    }
+    hasChild_content = false;
   }
   let nou = document.getElementById("NumberOfUsers");
   let rms = document.getElementById("RequestMethodStatistics");
   let rss = document.getElementById("ResponseStatusStatistics");
   let ud = document.getElementById("UniqueDomains");
   let isp = document.getElementById("ISPs");
+  let aoc = document.getElementById("AverageAgeOfContent");
   let sm = document.getElementById("map");
   nou.style.display = "none";
   rms.style.display = "none";
   rss.style.display = "none";
   ud.style.display = "none";
   isp.style.display = "block";
+  aoc.style.display = "none";
   sm.style.display = "none";
 
   $.ajax({
@@ -227,24 +280,102 @@ function ISPs() {
   });
 }
 
-function showMap() {
-  if (hasChild === true) {
-    for (let i = 0; i < options.length; i++) {
-      select.removeChild(el[i]);
+//This functions runs when Average Age Of Content is selected from Side Menu
+function AverageAgeOfContent() {
+  if (hasChild_status === true) {
+    for (let i = 0; i < options_status.length; i++) {
+      select_status.removeChild(el_status[i]);
     }
-    hasChild = false;
+    hasChild_status = false;
   }
+  document.getElementById("aaoc").innerHTML = "-";
   let nou = document.getElementById("NumberOfUsers");
   let rms = document.getElementById("RequestMethodStatistics");
   let rss = document.getElementById("ResponseStatusStatistics");
   let ud = document.getElementById("UniqueDomains");
   let isp = document.getElementById("ISPs");
+  let aoc = document.getElementById("AverageAgeOfContent");
   let sm = document.getElementById("map");
   nou.style.display = "none";
   rms.style.display = "none";
   rss.style.display = "none";
   ud.style.display = "none";
   isp.style.display = "none";
+  aoc.style.display = "block";
+  sm.style.display = "none";
+
+  select_content = document.getElementById("selectContentType");
+
+  $.ajax({
+    type: "POST",
+    url: "collect_data.php",
+    data: {
+      request: "request_content_type_info",
+      request_type: "content_type",
+    },
+    success: function (res) {
+      options_content = JSON.parse(res);
+      for (let i = 0; i < options_content.length; i++) {
+        opt_content = options_content[i];
+        el_content[i] = document.createElement("option");
+        el_content[i].textContent = opt_content;
+        el_content[i].value = opt_content;
+        select_content.appendChild(el_content[i]);
+      }
+      hasChild_content = true;
+    },
+  });
+}
+
+//This is for the drop down menu on Average Age of Content
+const selectElementContent = document.querySelector("#selectContentType");
+
+selectElementContent.addEventListener("change", (event) => {
+  if (event.target.value === "Choose Content-Type") {
+    document.getElementById("aaoc").innerHTML = "-";
+  } else {
+    $.ajax({
+      type: "POST",
+      url: "collect_data.php",
+      data: {
+        request: "request_content_type_info",
+        request_type: "average_age",
+        value_name_content: event.target.value,
+      },
+      success: function (res) {
+        document.getElementById("aaoc").innerHTML = res;
+      },
+    });
+  }
+});
+
+//This functions runs when Show Map is selected from Side Menu
+function showMap() {
+  if (hasChild_status === true) {
+    for (let i = 0; i < options_status.length; i++) {
+      select_status.removeChild(el_status[i]);
+    }
+    hasChild_status = false;
+  }
+  if (hasChild_content === true) {
+    for (let i = 0; i < options_content.length; i++) {
+      select_content.removeChild(el_content[i]);
+    }
+    hasChild_content = false;
+  }
+  let nou = document.getElementById("NumberOfUsers");
+  let rms = document.getElementById("RequestMethodStatistics");
+  let rss = document.getElementById("ResponseStatusStatistics");
+  let ud = document.getElementById("UniqueDomains");
+  let isp = document.getElementById("ISPs");
+  let aoc = document.getElementById("AverageAgeOfContent");
+  let sm = document.getElementById("map");
+  nou.style.display = "none";
+  rms.style.display = "none";
+  rss.style.display = "none";
+  ud.style.display = "none";
+  isp.style.display = "none";
+  aoc.style.display = "none";
   sm.style.display = "block";
   sm.style.visibility = "visible";
 }

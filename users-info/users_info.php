@@ -58,7 +58,7 @@ p{
             <button class="nav_btn" id="rss" onclick="ResponseStatusStatistics()">Response Status Statistics</button>
             <button class="nav_btn" id="ud" onclick="UniqueDomains()">Unique Domains</button>
             <button class="nav_btn" id="isp" onclick="ISPs()">ISPs</button>
-            <button class="nav_btn" id="aa" onclick="AverageAgeofCont()">Average Age of Cont</button>
+            <button class="nav_btn" id="aa" onclick="AverageAgeOfContent()">Average Age of Content-Types</button>
             <button class="nav_btn" id="sm" onclick="showMap()">Show Map</button>
         </div>
     <div class="flex-container">
@@ -169,6 +169,27 @@ p{
                 <tbody>
                     <tr>
                     <td id="noisp"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="AverageAgeOfContent">
+            <div class="menu-space"></div>
+            <table id="content-table">
+                <thead>
+                    <tr> 
+                        <th>Content-Type</th>
+                        <th>Average Age</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <select id="selectContentType">
+                                <option>Choose Content-Type</option>
+                            </select>
+                        </td>
+                        <td id="aaoc"></td>
                     </tr>
                 </tbody>
             </table>

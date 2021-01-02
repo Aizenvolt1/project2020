@@ -54,7 +54,7 @@ else if($_POST['request'] == "request_number_of_response_statuses")
     }
     else if($_POST['request_type'] == "value")
     {
-        $sql = "SELECT COUNT(response_statuses) AS num FROM file_data WHERE response_statuses=$_POST[value_name]";
+        $sql = "SELECT COUNT(response_statuses) AS num FROM file_data WHERE response_statuses = $_POST[value_name]";
 
         $result = mysqli_query($conn, $sql);
         if($result->num_rows > 0) {
@@ -81,6 +81,39 @@ else if($_POST['request'] == "request_number_of_unique_isps")
     if($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
             echo $row["unique_isp"];
+        }
+    }
+}
+else if($_POST['request'] == "request_content_type_info")
+{
+    if($_POST['request_type'] == "content_type")
+    {
+        $content_types = array();
+        $sql = "SELECT DISTINCT response_content_types FROM file_data WHERE response_content_types IS NOT NULL ORDER BY response_content_types ASC";
+
+        $result = mysqli_query($conn, $sql);
+        if($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+                array_push($content_types,$row["response_content_types"]);
+            }
+        }
+        echo json_encode($content_types);
+    }
+    else if($_POST['request_type'] == "average_age")
+    {
+        $sql="SELECT AVG(response_ages) AS avg_age FROM file_data WHERE response_content_types = '$_POST[value_name_content]'";
+        $result = mysqli_query($conn, $sql);
+        if($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+                if($row["avg_age"]!=null)
+                {
+                    echo $row["avg_age"];
+                }
+                else
+                {
+                    echo "-";
+                }
+            }
         }
     }
 }
