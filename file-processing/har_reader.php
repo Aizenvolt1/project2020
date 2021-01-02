@@ -62,11 +62,12 @@ for($i=0;$i<count($mergedData);$i++)
   }
 }
 
-$sql = "INSERT INTO user_files (user_id, upload_date, server_latitude, server_longitude ,city_latitude, city_longitude, isp, entries) VALUES (?, now(), ?, ?, ?, ?, ?, ?)";
+$sql = "INSERT INTO user_files (user_id, upload_date, domain, server_latitude, server_longitude ,city_latitude, city_longitude, isp, entries) VALUES (?, now(), ?, ?, ?, ?, ?, ?, ?)";
 if ($stmt = mysqli_prepare($conn, $sql)){
   // Bind variables to the prepared statement as parameters
-  mysqli_stmt_bind_param($stmt, "iddddsi", $param_userID, $param_server_latitude, $param_server_longitude, $param_city_latitude, $param_city_longitude, $param_isp, $param_entries);
+  mysqli_stmt_bind_param($stmt, "isddddsi", $param_userID, $param_domain, $param_server_latitude, $param_server_longitude, $param_city_latitude, $param_city_longitude, $param_isp, $param_entries);
   $param_userID = $_SESSION["id"];
+  $param_domain = $request_url[0][0];
   $param_server_latitude = $server_latitude;
   $param_server_longitude = $server_longitude;
   $param_city_latitude = $city_latitude[0];
