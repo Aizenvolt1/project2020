@@ -23,6 +23,11 @@
   display: none;
 }
 
+#AverageAgeOfContent {
+  text-align: left;
+  display: none;
+}
+
 #map {
   visibility: hidden;
 }

@@ -24,11 +24,12 @@ let response_last_modified = [];
 let response_host = [];
 let dow_files = [];
 let filenames = [];
-let latitude = [];
-let longitude = [];
+let city_latitude = [];
+let city_longitude = [];
+let server_latitude = [];
+let server_longitude = [];
+let domain_url = "0";
 let isp = [];
-let ip = [];
-let city = [];
 
 let file = [];
 let fileList;
@@ -165,7 +166,7 @@ function passtoArray(files, name_of_element, array_of_element) {
               array_of_element.push(null);
             } else {
               array_of_element.push(
-                fileContents.log.entries[j].request.url.match(/(https:\/\/|http:\/\/)(\S*?\/)/g)
+                fileContents.log.entries[j].request.url.match(/(?<=\/\/)(.*?)(?=\/|$)/g)
               );
             }
             if (typeof array_of_element[j] === "undefined") {
@@ -1258,8 +1259,11 @@ function Remove_File_Properties(files) {
               fileContents.log.entries[i].request[x] == null;
             } else {
               fileContents.log.entries[i].request[x] = fileContents.log.entries[i].request[x].match(
-                /(https:\/\/|http:\/\/)(\S*?\/)/g
+                /(?<=\/\/)(.*?)(?=\/|$)/g
               );
+              if (domain_url === "0") {
+                domain_url = fileContents.log.entries[i].request[x];
+              }
             }
             if (typeof fileContents.log.entries[i].request[x] === "undefined") {
               fileContents.log.entries[i].request[x] == null;
@@ -1350,12 +1354,16 @@ function Remove_File_Properties(files) {
           return response.json();
         })
         .then(function (data) {
-          latitude.push(data.latitude);
-          longitude.push(data.longitude);
+          city_latitude.push(data.latitude);
+          city_longitude.push(data.longitude);
           isp.push(data.org);
-          ip.push(data.ip);
-          city.push(data.city);
         });
+      domain_url = "http://ip-api.com/json/" + domain_url;
+      $.get(domain_url, function (data) {
+        server_latitude.push(data.lat);
+        server_longitude.push(data.lon);
+      });
+      domain_url = "0";
       resolve();
     };
   });
@@ -1431,22 +1439,19 @@ function datatoPHP() {
             response_host: JSON.stringify(response_host),
             dow_files: JSON.stringify(dow_files),
             filenames: JSON.stringify(filenames),
-            latitude: JSON.stringify(latitude),
-            longitude: JSON.stringify(longitude),
+            city_latitude: JSON.stringify(city_latitude),
+            city_longitude: JSON.stringify(city_longitude),
+            server_latitude: server_latitude[i],
+            server_longitude: server_longitude[i],
             isp: JSON.stringify(isp),
-            ip: JSON.stringify(ip),
-            city: JSON.stringify(city),
             reloads: "command",
           },
           success: function (res) {
-            console.log(res);
-            console.log(res.reloading);
             if (i === file.length - 1) {
               location.reload();
             }
           },
         });
-
         startedDateTimes = [];
         timings_wait = [];
         serverIPAddresses = [];
@@ -1523,16 +1528,14 @@ function datatoPHP() {
             response_host: JSON.stringify(response_host),
             dow_files: JSON.stringify(dow_files),
             filenames: JSON.stringify(filenames),
-            latitude: JSON.stringify(latitude),
-            longitude: JSON.stringify(longitude),
+            city_latitude: JSON.stringify(city_latitude),
+            city_longitude: JSON.stringify(city_longitude),
+            server_latitude: server_latitude[i],
+            server_longitude: server_longitude[i],
             isp: JSON.stringify(isp),
-            ip: JSON.stringify(ip),
-            city: JSON.stringify(city),
             reloads: "command",
           },
           success: function (res) {
-            console.log(res);
-            console.log(res.reloading);
             if (i === fileList.length - 1) {
               location.reload();
             }
