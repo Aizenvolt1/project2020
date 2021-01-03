@@ -60,6 +60,7 @@ function NumberOfUsers() {
   let ud = document.getElementById("UniqueDomains");
   let isp = document.getElementById("ISPs");
   let aoc = document.getElementById("AverageAgeOfContent");
+  let rta = document.getElementById("ResponseTimeAnalysis");
   let sm = document.getElementById("map");
   nou.style.display = "block";
   rms.style.display = "none";
@@ -67,6 +68,7 @@ function NumberOfUsers() {
   ud.style.display = "none";
   isp.style.display = "none";
   aoc.style.display = "none";
+  rta.style.display = "none";
   sm.style.display = "none";
   $.ajax({
     type: "POST",
@@ -100,6 +102,7 @@ function RequestMethodStatistics() {
   let ud = document.getElementById("UniqueDomains");
   let isp = document.getElementById("ISPs");
   let aoc = document.getElementById("AverageAgeOfContent");
+  let rta = document.getElementById("ResponseTimeAnalysis");
   let sm = document.getElementById("map");
   nou.style.display = "none";
   rms.style.display = "block";
@@ -107,6 +110,7 @@ function RequestMethodStatistics() {
   ud.style.display = "none";
   isp.style.display = "none";
   aoc.style.display = "none";
+  rta.style.display = "none";
   sm.style.display = "none";
 
   $.ajax({
@@ -144,6 +148,7 @@ function ResponseStatusStatistics() {
   let ud = document.getElementById("UniqueDomains");
   let isp = document.getElementById("ISPs");
   let aoc = document.getElementById("AverageAgeOfContent");
+  let rta = document.getElementById("ResponseTimeAnalysis");
   let sm = document.getElementById("map");
   nou.style.display = "none";
   rms.style.display = "none";
@@ -151,6 +156,7 @@ function ResponseStatusStatistics() {
   ud.style.display = "none";
   isp.style.display = "none";
   aoc.style.display = "none";
+  rta.style.display = "none";
   sm.style.display = "none";
 
   select_status = document.getElementById("selectStatus");
@@ -218,6 +224,7 @@ function UniqueDomains() {
   let ud = document.getElementById("UniqueDomains");
   let isp = document.getElementById("ISPs");
   let aoc = document.getElementById("AverageAgeOfContent");
+  let rta = document.getElementById("ResponseTimeAnalysis");
   let sm = document.getElementById("map");
   nou.style.display = "none";
   rms.style.display = "none";
@@ -225,6 +232,7 @@ function UniqueDomains() {
   ud.style.display = "block";
   isp.style.display = "none";
   aoc.style.display = "none";
+  rta.style.display = "none";
   sm.style.display = "none";
 
   $.ajax({
@@ -259,6 +267,7 @@ function ISPs() {
   let ud = document.getElementById("UniqueDomains");
   let isp = document.getElementById("ISPs");
   let aoc = document.getElementById("AverageAgeOfContent");
+  let rta = document.getElementById("ResponseTimeAnalysis");
   let sm = document.getElementById("map");
   nou.style.display = "none";
   rms.style.display = "none";
@@ -266,6 +275,7 @@ function ISPs() {
   ud.style.display = "none";
   isp.style.display = "block";
   aoc.style.display = "none";
+  rta.style.display = "none";
   sm.style.display = "none";
 
   $.ajax({
@@ -295,6 +305,7 @@ function AverageAgeOfContent() {
   let ud = document.getElementById("UniqueDomains");
   let isp = document.getElementById("ISPs");
   let aoc = document.getElementById("AverageAgeOfContent");
+  let rta = document.getElementById("ResponseTimeAnalysis");
   let sm = document.getElementById("map");
   nou.style.display = "none";
   rms.style.display = "none";
@@ -302,6 +313,7 @@ function AverageAgeOfContent() {
   ud.style.display = "none";
   isp.style.display = "none";
   aoc.style.display = "block";
+  rta.style.display = "none";
   sm.style.display = "none";
 
   select_content = document.getElementById("selectContentType");
@@ -349,6 +361,48 @@ selectElementContent.addEventListener("change", (event) => {
   }
 });
 
+function ResponseTimeAnalysis() {
+  if (hasChild_status === true) {
+    for (let i = 0; i < options_status.length; i++) {
+      select_status.removeChild(el_status[i]);
+    }
+    hasChild_status = false;
+  }
+  if (hasChild_content === true) {
+    for (let i = 0; i < options_content.length; i++) {
+      select_content.removeChild(el_content[i]);
+    }
+    hasChild_content = false;
+  }
+  let nou = document.getElementById("NumberOfUsers");
+  let rms = document.getElementById("RequestMethodStatistics");
+  let rss = document.getElementById("ResponseStatusStatistics");
+  let ud = document.getElementById("UniqueDomains");
+  let isp = document.getElementById("ISPs");
+  let aoc = document.getElementById("AverageAgeOfContent");
+  let rta = document.getElementById("ResponseTimeAnalysis");
+  let sm = document.getElementById("map");
+  nou.style.display = "none";
+  rms.style.display = "none";
+  rss.style.display = "none";
+  ud.style.display = "none";
+  isp.style.display = "none";
+  aoc.style.display = "none";
+  rta.style.display = "block";
+  sm.style.display = "none";
+
+  $.ajax({
+    type: "POST",
+    url: "collect_data.php",
+    data: {
+      request: "request_number_of_unique_isps",
+    },
+    success: function (res) {
+      document.getElementById("noisp").innerHTML = res;
+    },
+  });
+}
+
 //This functions runs when Show Map is selected from Side Menu
 function showMap() {
   if (hasChild_status === true) {
@@ -369,6 +423,7 @@ function showMap() {
   let ud = document.getElementById("UniqueDomains");
   let isp = document.getElementById("ISPs");
   let aoc = document.getElementById("AverageAgeOfContent");
+  let rta = document.getElementById("ResponseTimeAnalysis");
   let sm = document.getElementById("map");
   nou.style.display = "none";
   rms.style.display = "none";
@@ -376,6 +431,7 @@ function showMap() {
   ud.style.display = "none";
   isp.style.display = "none";
   aoc.style.display = "none";
+  rta.style.display = "none";
   sm.style.display = "block";
   sm.style.visibility = "visible";
 }
