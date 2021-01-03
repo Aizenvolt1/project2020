@@ -7,6 +7,15 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: login.php");
     exit;
 }
+
+if(isset($_SESSION["role"]) && $_SESSION["role"] == "admin")
+{
+    $call = "your";
+}
+else
+{
+    $call = "our";
+}
 ?>
 
 <!DOCTYPE html>
@@ -31,7 +40,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
         <hr class="solid"/>
         <div class="menu-space"></div>
         <div class="page-header">
-            <h1>Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to our site.</h1>
+            <h1>Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to <b><?php echo $call ?></b> site.</h1>
         </div>
         <div class="menu-space"></div>
         <div id="drop_area" draggable="true">

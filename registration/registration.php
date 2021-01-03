@@ -74,6 +74,7 @@ require_once "../config.php";
                 <br>
                 <input type="button" class="btn btn-primary" value="Submit" onclick="registration_validation()">
             </li>
+            <p style="text-align:center;">Already have an account? <a class="Sign-up" href="../login/login.php">Login now</a>.</p>
         </ul>
     </form>
     <script src="registration.js"></script>
