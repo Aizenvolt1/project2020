@@ -17,10 +17,16 @@ function set_coordinates() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
-        const [latitude, longitude] = this.responseText.split("+");
-        coordinates[0] = parseFloat(latitude);
-        coordinates[1] = parseFloat(longitude);
-        resolve();
+        if (this.responseText.trim() !== "nothing") {
+          const [latitude, longitude] = this.responseText.split("+");
+          coordinates[0] = parseFloat(latitude);
+          coordinates[1] = parseFloat(longitude);
+          resolve();
+        } else {
+          coordinates[0] = 37.9838;
+          coordinates[1] = 23.7275;
+          resolve();
+        }
       }
     };
     xhttp.open("POST", "map.php?q=", true);
@@ -165,3 +171,17 @@ async function make_map() {
 }
 
 make_map();
+
+$.ajax({
+  type: "POST",
+  url: "../users-info/collect_data.php",
+  data: {
+    request: "request_role",
+  },
+  success: function (res) {
+    let adon = document.getElementById("admin-only");
+    if (res.trim() === "admin") {
+      adon.style.display = "block";
+    }
+  },
+});

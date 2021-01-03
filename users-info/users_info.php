@@ -7,6 +7,10 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: ../login/login.php");
     exit;
 }
+if(isset($_SESSION["role"]) && $_SESSION["role"]!="admin")
+{
+    header("location: ../welcome.php");
+}
 
 // Include config file
 require_once "../config.php";
