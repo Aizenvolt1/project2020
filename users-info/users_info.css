@@ -28,6 +28,11 @@
   display: none;
 }
 
+#ResponseTimeAnalysis {
+  text-align: left;
+  display: none;
+}
+
 #map {
   visibility: hidden;
 }

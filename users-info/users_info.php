@@ -27,9 +27,10 @@ require_once "../config.php";
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel = "stylesheet" href = "http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css"/>
     <script src = "http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/heatmapjs@2.0.2/heatmap.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/leaflet-heatmap@1.0.0/leaflet-heatmap.js"></script>
-    
+    <script src = "https://cdn.jsdelivr.net/npm/heatmapjs@2.0.2/heatmap.js"></script>
+    <script src = "https://cdn.jsdelivr.net/npm/leaflet-heatmap@1.0.0/leaflet-heatmap.js"></script>
+    <script src = "https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script> 
+    <script src = " https://cdnjs.cloudflare.com/ajax/libs/google-palette/1.1.0/palette.js"></script>
 </head>
 <style>
 
@@ -63,6 +64,7 @@ p{
             <button class="nav_btn" id="ud" onclick="UniqueDomains()">Unique Domains</button>
             <button class="nav_btn" id="isp" onclick="ISPs()">ISPs</button>
             <button class="nav_btn" id="aa" onclick="AverageAgeOfContent()">Average Age of Content-Types</button>
+            <button class="nav_btn" id="rta" onclick="ResponseTimeAnalysis()">Response Time Analysis</button>
             <button class="nav_btn" id="sm" onclick="showMap()">Show Map</button>
         </div>
     <div class="flex-container">
@@ -197,6 +199,9 @@ p{
                     </tr>
                 </tbody>
             </table>
+        </div>
+        <div id = "ResponseTimeAnalysis">
+            <canvas id = "rtaChart" width="700" height="400"></canvas>
         </div>
     </div>
     <script src="users_info.js"></script>
