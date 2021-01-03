@@ -27,9 +27,10 @@ require_once "../config.php";
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel = "stylesheet" href = "http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css"/>
     <script src = "http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/heatmapjs@2.0.2/heatmap.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/leaflet-heatmap@1.0.0/leaflet-heatmap.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script> 
+    <script src = "https://cdn.jsdelivr.net/npm/heatmapjs@2.0.2/heatmap.js"></script>
+    <script src = "https://cdn.jsdelivr.net/npm/leaflet-heatmap@1.0.0/leaflet-heatmap.js"></script>
+    <script src = "https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script> 
+    <script src = " https://cdnjs.cloudflare.com/ajax/libs/google-palette/1.1.0/palette.js"></script>
 </head>
 <style>
 
@@ -200,7 +201,7 @@ p{
             </table>
         </div>
         <div id = "ResponseTimeAnalysis">
-            <canvas id = "rtaChart" width="400" height="400"></canvas>
+            <canvas id = "rtaChart" width="700" height="400"></canvas>
         </div>
     </div>
     <script src="users_info.js"></script>

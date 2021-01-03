@@ -13,6 +13,13 @@ let el_status = [];
 let el_content = [];
 let hasChild_status = false;
 let hasChild_content = false;
+let color_array = [];
+palette("tol-sq", 12).map(function (hex) {
+  color_array.push("#" + hex);
+});
+palette("tol", 12).map(function (hex) {
+  color_array.push("#" + hex);
+});
 
 //This is for active css color for Side Menu
 room.addEventListener("click", (e) => {
@@ -395,10 +402,61 @@ function ResponseTimeAnalysis() {
     type: "POST",
     url: "collect_data.php",
     data: {
-      request: "request_number_of_unique_isps",
+      request: "request_time_analysis",
     },
     success: function (res) {
-      document.getElementById("noisp").innerHTML = res;
+      var ctx = document.getElementById("rtaChart").getContext("2d");
+      var rtaChart = new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: [
+            "0:00",
+            "1:00",
+            "2:00",
+            "3:00",
+            "4:00",
+            "5:00",
+            "6:00",
+            "7:00",
+            "8:00",
+            "9:00",
+            "10:00",
+            "11:00",
+            "12:00",
+            "13:00",
+            "14:00",
+            "15:00",
+            "16:00",
+            "17:00",
+            "18:00",
+            "19:00",
+            "20:00",
+            "21:00",
+            "22:00",
+            "23:00",
+          ],
+          datasets: [
+            {
+              label: "Response Time Analysis",
+              data: JSON.parse(res),
+              backgroundColor: color_array,
+              borderColor: color_array,
+              borderWidth: 1,
+            },
+          ],
+        },
+        options: {
+          scales: {
+            yAxes: [
+              {
+                ticks: {
+                  beginAtZero: true,
+                },
+              },
+            ],
+          },
+        },
+      });
     },
   });
 }

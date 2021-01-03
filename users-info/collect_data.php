@@ -117,6 +117,33 @@ else if($_POST['request'] == "request_content_type_info")
         }
     }
 }
+else if($_POST['request'] == "request_time_analysis")
+{
+    $first_date_array= array();
+    $second_date_array = array();
+    $first_date;
+    $second_date;
+    $avg_time = array();
+    for($i = 0; $i < 24; $i++)
+    {   
+        $first_date = date("$i:00:00");
+        $second_date = date("$i:59:59");
+        array_push($first_date_array,$first_date);
+        array_push($second_date_array,$second_date);
+    }
+    for($i = 0; $i < 24; $i++)
+    {
+        $sql="SELECT AVG(timings_wait) as avg_time FROM file_data WHERE cast(started_date_times as time) 
+        BETWEEN '$first_date_array[$i]' AND '$second_date_array[$i]'";
+        $result = mysqli_query($conn, $sql);
+        if($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+                array_push($avg_time,$row["avg_time"]);
+            }
+        }
+    }
+    echo json_encode($avg_time);
+}
 if($_POST['request'] == "request_role")
 {
     if($_SESSION["role"] == "admin")
