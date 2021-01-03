@@ -260,3 +260,7 @@ hr.solid {
   width: 15em;
   margin: auto;
 }
+
+#admin-only {
+  display: none;
+}

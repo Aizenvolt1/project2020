@@ -117,4 +117,14 @@ else if($_POST['request'] == "request_content_type_info")
         }
     }
 }
+if($_POST['request'] == "request_role")
+{
+    if($_SESSION["role"] == "admin")
+    {
+        echo "admin";
+    }
+    else {
+        echo "user";
+    }
+}
 ?>

@@ -25,7 +25,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
         <div class="topnav">
             <a class="active" href="http://localhost/project/welcome.php">Home</a>
             <a href="http://localhost/project/user-profile/user_profile.php">User Profile</a>
-            <a href="http://localhost/project/users-info/users_info.php">Users Info</a>
+            <a id="admin-only" href="http://localhost/project/users-info/users_info.php">Users Info</a>
             <a href="http://localhost/project/logout.php">Logout</a>
         </div>
         <hr class="solid"/>
@@ -73,6 +73,23 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                 <button type="button" id="dfiles" onclick= "downloadLoop()" class="btn">Download file(s) to your Computer</button>
                 <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
             </form>
-        </div> 
+        </div>
+        <script>
+
+        $.ajax({
+            type: "POST",
+            url: "./users-info/collect_data.php",
+            data: {
+            request: "request_role",
+            },
+            success: function (res) {
+                let adon = document.getElementById("admin-only");
+                if(res.trim()==="admin")
+                {
+                    adon.style.display="block";
+                }
+            },
+        });
+        </script> 
     </body>
 </html>

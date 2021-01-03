@@ -10,12 +10,14 @@ $sql = "SELECT city_latitude, city_longitude FROM user_files WHERE user_id = $_S
 $result = mysqli_query($conn, $sql);
 if($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
-        echo $row["city_latitude"] . "+" . $row["city_longitude"];
+        if($row["city_latitude"] != null && $row["city_longitude"] != null)
+        {
+            echo $row["city_latitude"] . "+" . $row["city_longitude"];
+        }
+        else{
+            echo "nothing";
+        }
     }
-}
-else{
-    $last_upload=0;
-    $total_entries=0;
 }
 
 ?>
