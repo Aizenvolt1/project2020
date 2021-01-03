@@ -27,8 +27,7 @@ function registration_validation() {
     document.getElementById("pass-help").innerHTML = "";
     document.getElementById("passc-help").innerHTML = "";
   } else if (uname.length < 6 || uname.length > 16) {
-    document.getElementById("user-help").innerHTML =
-      "Username must be between 6 and 16 characters!";
+    document.getElementById("user-help").innerHTML = "Username must be between 6 and 16 characters!";
   } else if (uname.indexOf(" ") > 0) {
     document.getElementById("user-help").innerHTML = "Username must not have spaces!";
     document.getElementById("pass-help").innerHTML = "";
@@ -81,8 +80,7 @@ function registration_validation() {
           document.getElementById("passc-help").innerHTML = "";
         } else if (res.trim() === "Something went wrong! Please try again later!") {
           document.getElementById("user-help").innerHTML = "";
-          document.getElementById("pass-help").innerHTML =
-            "Something went wrong! Please try again later!";
+          document.getElementById("pass-help").innerHTML = "Something went wrong! Please try again later!";
         } else if (res.trim() === "Success") {
           window.location = "http://localhost/project/login/login.php";
         }

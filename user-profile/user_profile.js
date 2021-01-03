@@ -95,8 +95,7 @@ function username_check() {
     document.getElementById("username-help-block").innerHTML = "Username must be filled!";
     return false;
   } else if (x.length < 6 || x.length > 16) {
-    document.getElementById("username-help-block").innerHTML =
-      "Username must be between 6 and 16 characters!";
+    document.getElementById("username-help-block").innerHTML = "Username must be between 6 and 16 characters!";
     return false;
   } else if (x.indexOf(" ") > 0) {
     document.getElementById("username-help-block").innerHTML = "Username must not have spaces!";
@@ -111,15 +110,13 @@ function password_check() {
   let new_pass = document.forms["pass-form"]["new_password"].value;
   let conf_pass = document.forms["pass-form"]["confirm_password"].value;
   if (new_pass === "" || conf_pass === "") {
-    document.getElementById("password-help-block").innerHTML =
-      "One of the password fields is empty!";
+    document.getElementById("password-help-block").innerHTML = "One of the password fields is empty!";
     return false;
   } else if (new_pass !== conf_pass) {
     document.getElementById("password-help-block").innerHTML = "Passwords must match!";
     return false;
   } else if (new_pass.length < 8) {
-    document.getElementById("password-help-block").innerHTML =
-      "Password must be at least 8 characters!";
+    document.getElementById("password-help-block").innerHTML = "Password must be at least 8 characters!";
     return false;
   } else if (new_pass.indexOf(" ") > 0) {
     document.getElementById("password-help-block").innerHTML = "Password must not have spaces!";

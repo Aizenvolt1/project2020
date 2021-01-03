@@ -29,8 +29,7 @@ function login_validation() {
           document.getElementById("pass-help").innerHTML = "";
         } else if (res.trim() === "Oops! Something went wrong! Please try again later!") {
           document.getElementById("user-help").innerHTML = "";
-          document.getElementById("pass-help").innerHTML =
-            "Oops! Something went wrong! Please try again later!";
+          document.getElementById("pass-help").innerHTML = "Oops! Something went wrong! Please try again later!";
         } else if (res.trim() === "Success") {
           window.location = "http://localhost/project/welcome.php";
         }
