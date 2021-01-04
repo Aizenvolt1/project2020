@@ -178,7 +178,14 @@ $.ajax({
   success: function (res) {
     let adon = document.getElementById("admin-only");
     if (res.trim() === "admin") {
-      adon.style.display = "block";
+      var theme = document.getElementsByTagName("link")[2];
+      // Change the value of href attribute
+      // to change the css sheet.
+      if (theme.getAttribute("href") === "../user.css") {
+        theme.setAttribute("href", "../admin.css");
+      } else {
+        theme.setAttribute("href", "../user.css");
+      }
     }
   },
 });

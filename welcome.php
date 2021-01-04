@@ -24,6 +24,7 @@ else
         <meta charset="UTF-8">
         <title>Welcome</title>
         <link rel="stylesheet" type="text/css" href="./style.css">
+        <link rel="stylesheet" type="text/css" href="./user.css">
         <style type="text/css">
             body{ font: 14px sans-serif; text-align: center; }
         </style>
@@ -95,7 +96,14 @@ else
                 let adon = document.getElementById("admin-only");
                 if(res.trim()==="admin")
                 {
-                    adon.style.display="block";
+                    var theme = document.getElementsByTagName('link')[1]; 
+                    // Change the value of href attribute  
+                    // to change the css sheet. 
+                    if (theme.getAttribute('href') === "./user.css") { 
+                        theme.setAttribute('href', './admin.css'); 
+                    } else { 
+                        theme.setAttribute('href', './user.css'); 
+                    } 
                 }
             },
         });
