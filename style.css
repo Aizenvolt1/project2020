@@ -345,32 +345,62 @@ hr.solid {
   0% {
     background-image: linear-gradient(to right, #000, #c00);
   }
+  5% {
+    background-image: linear-gradient(to right, #000 5%, #c00);
+  }
   10% {
     background-image: linear-gradient(to right, #000 10%, #c00);
+  }
+  15% {
+    background-image: linear-gradient(to right, #000 15%, #c00);
   }
   20% {
     background-image: linear-gradient(to right, #000 20%, #c00);
   }
+  25% {
+    background-image: linear-gradient(to right, #000 25%, #c00);
+  }
   30% {
     background-image: linear-gradient(to right, #000 30%, #c00);
+  }
+  35% {
+    background-image: linear-gradient(to right, #000 35%, #c00);
   }
   40% {
     background-image: linear-gradient(to right, #000 40%, #c00);
   }
+  45% {
+    background-image: linear-gradient(to right, #000 45%, #c00);
+  }
   50% {
     background-image: linear-gradient(to right, #000 50%, #c00);
+  }
+  55% {
+    background-image: linear-gradient(to right, #000 55%, #c00);
   }
   60% {
     background-image: linear-gradient(to right, #000 60%, #c00);
   }
+  65% {
+    background-image: linear-gradient(to right, #000 65%, #c00);
+  }
   70% {
     background-image: linear-gradient(to right, #000 70%, #c00);
+  }
+  75% {
+    background-image: linear-gradient(to right, #000 75%, #c00);
   }
   80% {
     background-image: linear-gradient(to right, #000 80%, #c00);
   }
+  85% {
+    background-image: linear-gradient(to right, #000 85%, #c00);
+  }
   90% {
     background-image: linear-gradient(to right, #000 90%, #c00);
+  }
+  95% {
+    background-image: linear-gradient(to right, #000 95%, #c00);
   }
   100% {
     background-image: linear-gradient(to right, #000, #000);
