@@ -1,6 +1,6 @@
 * {
   text-decoration: none;
-  font-family: Helvetica, sans-serif;
+  font-family: verdana, sans-serif;
 }
 
 a {
@@ -54,7 +54,7 @@ body {
 
 h2,
 h3 {
-  color: #cc0000;
+  color: #c00;
 }
 
 #main-header {
@@ -99,9 +99,15 @@ h3 {
   top: 1px;
 }
 
+.Sign-up:link,
 .Sign-up:visited {
-  color: #cc0000;
+  color: #c00;
 }
+
+.Sign-up:hover {
+  color: #f00;
+}
+
 input {
   outline: none;
 }
@@ -247,12 +253,10 @@ hr.solid {
   margin: auto;
 }
 
-#user-help {
-  color: #cc0000;
-}
-
+#user-help,
 #pass-help {
   color: #cc0000;
+  font-family: cursive;
 }
 
 .flex-registration li {
@@ -261,6 +265,63 @@ hr.solid {
   flex-direction: column;
   width: 15em;
   margin: auto;
+}
+
+#login-form {
+  border-left: 1px solid #c00;
+  width: 35%;
+  position: fixed;
+  top: 20%;
+  left: 30%;
+  border-radius: 5px 5px 5px 5px;
+  background-color: #2c3134;
+  color: black;
+}
+
+#login-red-box {
+  width: 4%;
+  height: 100%;
+  background-color: #c00;
+  position: absolute;
+  border-radius: 5px 0px 0px 5px;
+}
+
+.form-control {
+  height: 25px;
+  border: 1px solid #74797d;
+  margin-top: 10px;
+  background-color: #74797d;
+  border-radius: 8px;
+}
+
+#sum {
+  height: 31px;
+  margin-top: 12px;
+  background-image: linear-gradient(to right, #000, #c00);
+  border: 0px solid #74797d;
+  color: #ccc;
+  border-radius: 8px;
+  background-image: linear-gradient(to right, #000, #c00);
+}
+
+#sum.animated {
+  animation-name: logBtnOut;
+  animation-duration: 0.2s;
+  animation-fill-mode: forwards;
+  animation-timing-function: linear;
+  transition: color 0.4s;
+}
+
+#sum:hover {
+  color: #c00;
+  animation-name: logBtnIn;
+  animation-duration: 0.2s;
+  animation-fill-mode: forwards;
+  animation-timing-function: linear;
+}
+
+.label-color {
+  color: #ccc;
 }
 
 @keyframes load {
@@ -277,5 +338,77 @@ hr.solid {
     left: 235px;
     height: 30px;
     width: 15px;
+  }
+}
+
+@keyframes logBtnIn {
+  0% {
+    background-image: linear-gradient(to right, #000, #c00);
+  }
+  10% {
+    background-image: linear-gradient(to right, #000 10%, #c00);
+  }
+  20% {
+    background-image: linear-gradient(to right, #000 20%, #c00);
+  }
+  30% {
+    background-image: linear-gradient(to right, #000 30%, #c00);
+  }
+  40% {
+    background-image: linear-gradient(to right, #000 40%, #c00);
+  }
+  50% {
+    background-image: linear-gradient(to right, #000 50%, #c00);
+  }
+  60% {
+    background-image: linear-gradient(to right, #000 60%, #c00);
+  }
+  70% {
+    background-image: linear-gradient(to right, #000 70%, #c00);
+  }
+  80% {
+    background-image: linear-gradient(to right, #000 80%, #c00);
+  }
+  90% {
+    background-image: linear-gradient(to right, #000 90%, #c00);
+  }
+  100% {
+    background-image: linear-gradient(to right, #000, #000);
+  }
+}
+
+@keyframes logBtnOut {
+  0% {
+    background-image: linear-gradient(to right, #000, #000);
+  }
+  10% {
+    background-image: linear-gradient(to right, #000 90%, #c00);
+  }
+  20% {
+    background-image: linear-gradient(to right, #000 80%, #c00);
+  }
+  30% {
+    background-image: linear-gradient(to right, #000 70%, #c00);
+  }
+  40% {
+    background-image: linear-gradient(to right, #000 60%, #c00);
+  }
+  50% {
+    background-image: linear-gradient(to right, #000 50%, #c00);
+  }
+  60% {
+    background-image: linear-gradient(to right, #000 40%, #c00);
+  }
+  70% {
+    background-image: linear-gradient(to right, #000 30%, #c00);
+  }
+  80% {
+    background-image: linear-gradient(to right, #000 20%, #c00);
+  }
+  90% {
+    background-image: linear-gradient(to right, #000 10%, #c00);
+  }
+  100% {
+    background-image: linear-gradient(to right, #000, #c00);
   }
 }
