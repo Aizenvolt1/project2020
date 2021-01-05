@@ -30,6 +30,7 @@ else
         </style>
     </head>
     <body>
+    <div id="test">
         <img class="resize" src="images/logo-header.png" alt="Logo"/>
         <br style="clear:both">
         <div class="topnav">
@@ -84,6 +85,8 @@ else
                 <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
             </form>
         </div>
+        </div>
+        <div id="loader">Loading...</div>
         <script>
 
         $.ajax({
@@ -107,6 +110,12 @@ else
                 }
             },
         });
-        </script> 
+        setTimeout(function(){
+        let nor = document.getElementById("loader");
+        nor.style.display = "none";
+        var x = document.getElementById("test");
+        x.style.display = "block";
+        }, 1400);
+        </script>
     </body>
 </html>
