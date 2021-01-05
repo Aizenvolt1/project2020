@@ -37,30 +37,31 @@ require_once "../config.php";
         }
     </style>
 </head>
-<body>
+<body class="preload">
         <div class="small-space"></div>
-        <form id="my-form" name="login-form">
+        <form id="login-form" name="login-form">
+            <div id="login-red-box"></div>
         <ul class="flex-login">
             <li>
                 <h2>Login</h2>
                 <p>Please fill in your credentials to login.</p>
             </li>
             <li>
-                <label>Username</label>
+                <label class="label-color">Username</label>
                 <input type="text" name="username" class="form-control">
                 <div class="small-margin"> </div>
                 <span id="user-help"></span>
             </li>
             <br>
             <li> 
-                <label>Password</label>
+                <label class="label-color">Password</label>
                 <input type="password" name="password" class="form-control">
                 <div class="small-margin"> </div>
                 <span id="pass-help"></span>
             </li>
             <li>
                 <br>
-                <input id= "sum" type="button" class="btn btn-primary" value="Login" onclick="login_validation()">
+                <input id= "sum" type="button" value="Login" onclick="login_validation()">
             <li>
             <p>Don't have an account? <a class="Sign-up" href="../registration/registration.php">Sign up now</a>.</p>
         </ul>
