@@ -16,7 +16,7 @@ body {
   overflow-x: hidden;
 }
 
-#test {
+#content {
   display: none;
 }
 
@@ -238,19 +238,6 @@ hr.solid {
 .small-space {
   padding: 2%;
 }
-
-/*.my-form {
-  display: flex;
-  align-items: center;
-  align-content: center;
-  flex-direction: column;
-  flex-wrap: wrap;
-}
-
-.form-group {
-  align-items: center;
-  display: block;
-}*/
 
 .flex-login li {
   display: flex;

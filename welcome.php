@@ -30,7 +30,7 @@ else
         </style>
     </head>
     <body>
-    <div id="test">
+    <div id="content">
         <img class="resize" src="images/logo-header.png" alt="Logo"/>
         <br style="clear:both">
         <div class="topnav">
@@ -113,7 +113,7 @@ else
         setTimeout(function(){
         let nor = document.getElementById("loader");
         nor.style.display = "none";
-        var x = document.getElementById("test");
+        var x = document.getElementById("content");
         x.style.display = "block";
         }, 1400);
         </script>
