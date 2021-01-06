@@ -10,7 +10,6 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
  
 // Include config file
 require_once "../config.php";
-
 ?>
  
 <!DOCTYPE html>
@@ -67,5 +66,9 @@ require_once "../config.php";
         </ul>
         </form>
         <script src="login.js"></script>
+        <div class="ocean">
+            <div class="wave"></div>
+            <div class="wave"></div>
+        </div>
 </body>
 </html>
