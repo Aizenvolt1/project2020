@@ -71,8 +71,5 @@ require_once "../config.php";
             <div class="wave"></div>
             <div class="wave"></div>
         </div>
-        <audio autoplay preload='auto' loop id="myAudio">
-            <source src="../audio-files/Nightcore - River Flows In You.mp3" type="audio/mpeg" >
-        </audio>
 </body>
 </html>

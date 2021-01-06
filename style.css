@@ -281,7 +281,7 @@ hr.solid {
   animation-name: zoom;
   animation-fill-mode: forwards;
   animation-timing-function: linear;
-  animation-duration: 1s;
+  animation-duration: 0.7s;
 }
 
 #login-red-box {
@@ -466,12 +466,7 @@ body {
   height: 100%;
 }
 #logBody {
-  background: radial-gradient(
-    ellipse at center,
-    rgba(228, 114, 48, 0.1) 0%,
-    rgba(226, 116, 13, 0.9) 35%,
-    #f06553 100%
-  );
+  background: radial-gradient(ellipse at center, rgba(228, 114, 48, 0.1) 0%, rgba(226, 116, 13, 0.9) 35%, #f06553 100%);
   overflow: hidden;
 }
 
@@ -485,8 +480,7 @@ body {
 }
 
 .wave {
-  background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/85486/wave.svg)
-    repeat-x;
+  background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/85486/wave.svg) repeat-x;
   position: absolute;
   top: -198px;
   width: 6400px;
@@ -498,8 +492,7 @@ body {
 
 .wave:nth-of-type(2) {
   top: -175px;
-  animation: wave 7s cubic-bezier(0.36, 0.45, 0.63, 0.53) -0.125s infinite,
-    swell 7s ease -1.25s infinite;
+  animation: wave 7s cubic-bezier(0.36, 0.45, 0.63, 0.53) -0.125s infinite, swell 7s ease -1.25s infinite;
   opacity: 1;
 }
 
