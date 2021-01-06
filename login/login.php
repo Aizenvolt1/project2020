@@ -37,7 +37,7 @@ require_once "../config.php";
         }
     </style>
 </head>
-<body class="preload">
+<body class="preload" id="logBody">
         <div class="small-space"></div>
         <form id="login-form" name="login-form">
             <div id="login-red-box"></div>
