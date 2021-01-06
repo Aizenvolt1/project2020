@@ -114,7 +114,7 @@ else
         let nor = document.getElementById("loader");
         nor.style.display = "none";
         var x = document.getElementById("content");
-        x.style.display = "block";
+        x.style.visibility = "visible";
         }, 1400);
         </script>
     </body>
