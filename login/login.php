@@ -1,17 +1,18 @@
 <?php
 // Initialize the session
 session_start();
- 
+
 // Check if the user is already logged in, if yes then redirect him to welcome page
 if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
     header("location: ../welcome.php");
     exit;
 }
- 
+
 // Include config file
 require_once "../config.php";
+
 ?>
- 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -70,5 +71,8 @@ require_once "../config.php";
             <div class="wave"></div>
             <div class="wave"></div>
         </div>
+        <audio autoplay preload='auto' loop id="myAudio">
+            <source src="../audio-files/Nightcore - River Flows In You.mp3" type="audio/mpeg" >
+        </audio>
 </body>
 </html>
