@@ -5,15 +5,23 @@ const room = document.querySelector(".side_nav");
 const btns = document.querySelectorAll(".nav_btn");
 let select_status;
 let select_content;
+let select_chart;
 let options_status = [];
 let options_content = [];
+let options_chart = ["Content-Type Chart", "Day of the Week Chart", "HTTP Method Chart", "ISP Chart"];
 let opt_status;
 let opt_content;
+let opt_chart;
 let el_status = [];
 let el_content = [];
+let el_chart = [];
 let hasChild_status = false;
 let hasChild_content = false;
+let hasChild_chart = false;
 let color_array = [];
+let chart_data = [];
+let chart_isps = [];
+let chart_isps_avg = [];
 palette("tol-sq", 12).map(function (hex) {
   color_array.push("#" + hex);
 });
@@ -61,6 +69,12 @@ function NumberOfUsers() {
     }
     hasChild_content = false;
   }
+  if (hasChild_chart === true) {
+    for (let i = 0; i < options_chart.length; i++) {
+      select_chart.removeChild(el_chart[i]);
+    }
+    hasChild_chart = false;
+  }
   let nou = document.getElementById("NumberOfUsers");
   let rms = document.getElementById("RequestMethodStatistics");
   let rss = document.getElementById("ResponseStatusStatistics");
@@ -102,6 +116,12 @@ function RequestMethodStatistics() {
       select_content.removeChild(el_content[i]);
     }
     hasChild_content = false;
+  }
+  if (hasChild_chart === true) {
+    for (let i = 0; i < options_chart.length; i++) {
+      select_chart.removeChild(el_chart[i]);
+    }
+    hasChild_chart = false;
   }
   let nou = document.getElementById("NumberOfUsers");
   let rms = document.getElementById("RequestMethodStatistics");
@@ -147,6 +167,12 @@ function ResponseStatusStatistics() {
       select_content.removeChild(el_content[i]);
     }
     hasChild_content = false;
+  }
+  if (hasChild_chart === true) {
+    for (let i = 0; i < options_chart.length; i++) {
+      select_chart.removeChild(el_chart[i]);
+    }
+    hasChild_chart = false;
   }
   document.getElementById("occur").innerHTML = "-";
   let nou = document.getElementById("NumberOfUsers");
@@ -225,6 +251,12 @@ function UniqueDomains() {
     }
     hasChild_content = false;
   }
+  if (hasChild_chart === true) {
+    for (let i = 0; i < options_chart.length; i++) {
+      select_chart.removeChild(el_chart[i]);
+    }
+    hasChild_chart = false;
+  }
   let nou = document.getElementById("NumberOfUsers");
   let rms = document.getElementById("RequestMethodStatistics");
   let rss = document.getElementById("ResponseStatusStatistics");
@@ -268,6 +300,12 @@ function ISPs() {
     }
     hasChild_content = false;
   }
+  if (hasChild_chart === true) {
+    for (let i = 0; i < options_chart.length; i++) {
+      select_chart.removeChild(el_chart[i]);
+    }
+    hasChild_chart = false;
+  }
   let nou = document.getElementById("NumberOfUsers");
   let rms = document.getElementById("RequestMethodStatistics");
   let rss = document.getElementById("ResponseStatusStatistics");
@@ -304,6 +342,12 @@ function AverageAgeOfContent() {
       select_status.removeChild(el_status[i]);
     }
     hasChild_status = false;
+  }
+  if (hasChild_chart === true) {
+    for (let i = 0; i < options_chart.length; i++) {
+      select_chart.removeChild(el_chart[i]);
+    }
+    hasChild_chart = false;
   }
   document.getElementById("aaoc").innerHTML = "-";
   let nou = document.getElementById("NumberOfUsers");
@@ -398,6 +442,8 @@ function ResponseTimeAnalysis() {
   rta.style.display = "block";
   sm.style.display = "none";
 
+  select_chart = document.getElementById("selectChartType");
+
   $.ajax({
     type: "POST",
     url: "collect_data.php",
@@ -405,6 +451,15 @@ function ResponseTimeAnalysis() {
       request: "request_time_analysis",
     },
     success: function (res) {
+      for (let i = 0; i < options_chart.length; i++) {
+        opt_chart = options_chart[i];
+        el_chart[i] = document.createElement("option");
+        el_chart[i].textContent = opt_chart;
+        el_chart[i].value = opt_chart;
+        select_chart.appendChild(el_chart[i]);
+      }
+      hasChild_chart = true;
+
       var ctx = document.getElementById("rtaChart").getContext("2d");
       var rtaChart = new Chart(ctx, {
         type: "bar",
@@ -441,7 +496,8 @@ function ResponseTimeAnalysis() {
               data: JSON.parse(res),
               backgroundColor: color_array,
               borderColor: color_array,
-              borderWidth: 1,
+              borderWidth: 2,
+              hoverBorderColor: "#b5b5b5",
             },
           ],
         },
@@ -461,6 +517,104 @@ function ResponseTimeAnalysis() {
   });
 }
 
+const selectElementChart = document.querySelector("#selectChartType");
+
+selectElementChart.addEventListener("change", (event) => {
+  if (event.target.value === "ISP Chart") {
+    //rtaChart.destroy();
+    $.ajax({
+      type: "POST",
+      url: "collect_data.php",
+      data: {
+        request: "request_isp_chart",
+      },
+      success: function (res) {
+        let array_switch = "0";
+        let temp_array = [];
+        chart_data = [];
+        chart_isps_avg = [];
+        chart_data = JSON.parse(res);
+        for (let i = 0; i < chart_data.length; i++) {
+          if (chart_data[i] === "//") {
+            array_switch = "1";
+            continue;
+          }
+          if (chart_data[i] === "+") {
+            chart_isps_avg.push(temp_array);
+            temp_array = [];
+            continue;
+          }
+          if (array_switch === "0") {
+            chart_isps.push(chart_data[i]);
+          } else {
+            temp_array.push(chart_data[i]);
+          }
+          if (i === chart_data.length - 1) {
+            chart_isps_avg.push(temp_array);
+            temp_array = [];
+          }
+        }
+        console.log(chart_isps_avg);
+        console.log(chart_data);
+        /*
+            var ctx = document.getElementById("rtaChart").getContext("2d");
+            var rtaChart = new Chart(ctx, {
+              type: "bar",
+              data: {
+                labels: [
+                  "0:00",
+                  "1:00",
+                  "2:00",
+                  "3:00",
+                  "4:00",
+                  "5:00",
+                  "6:00",
+                  "7:00",
+                  "8:00",
+                  "9:00",
+                  "10:00",
+                  "11:00",
+                  "12:00",
+                  "13:00",
+                  "14:00",
+                  "15:00",
+                  "16:00",
+                  "17:00",
+                  "18:00",
+                  "19:00",
+                  "20:00",
+                  "21:00",
+                  "22:00",
+                  "23:00",
+                ],
+                datasets: [
+                  {
+                    label: "ISP Chart",
+                    data: JSON.parse(res),
+                    backgroundColor: color_array,
+                    borderColor: color_array,
+                    borderWidth: 2,
+                    hoverBorderColor: "#b5b5b5",
+                  },
+                ],
+              },
+              options: {
+                scales: {
+                  yAxes: [
+                    {
+                      ticks: {
+                        beginAtZero: true,
+                      },
+                    },
+                  ],
+                },
+              },
+            });*/
+      },
+    });
+  }
+});
+
 //This functions runs when Show Map is selected from Side Menu
 function showMap() {
   if (hasChild_status === true) {
@@ -474,6 +628,12 @@ function showMap() {
       select_content.removeChild(el_content[i]);
     }
     hasChild_content = false;
+  }
+  if (hasChild_chart === true) {
+    for (let i = 0; i < options_chart.length; i++) {
+      select_chart.removeChild(el_chart[i]);
+    }
+    hasChild_chart = false;
   }
   let nou = document.getElementById("NumberOfUsers");
   let rms = document.getElementById("RequestMethodStatistics");

@@ -202,6 +202,9 @@ p{
                 </table>
             </div>
             <div id = "ResponseTimeAnalysis">
+                <select id="selectChartType">
+                    <option>Response Time Analysis by Hour</option>
+                </select>
                 <canvas id = "rtaChart" width="700" height="400"></canvas>
             </div>
         </div>

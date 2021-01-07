@@ -119,7 +119,7 @@ else if($_POST['request'] == "request_content_type_info")
 }
 else if($_POST['request'] == "request_time_analysis")
 {
-    $first_date_array= array();
+    $first_date_array = array();
     $second_date_array = array();
     $first_date;
     $second_date;
@@ -144,6 +144,55 @@ else if($_POST['request'] == "request_time_analysis")
     }
     echo json_encode($avg_time);
 }
+else if($_POST['request'] == "request_isp_chart")
+{
+    $chart_data = array();
+    $isps_array = array();
+    $first_date_array = array();
+    $second_date_array = array();
+    $first_date;
+    $second_date;
+    $avg_time = array();
+
+    $sql = "SELECT DISTINCT(isp) as isp FROM user_files WHERE isp IS NOT NULL";
+    $result = mysqli_query($conn, $sql);
+    if($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            array_push($isps_array,$row["isp"]);
+        }
+    }
+
+    for($i = 0; $i < 24; $i++)
+    {   
+        $first_date = date("$i:00:00");
+        $second_date = date("$i:59:59");
+        array_push($first_date_array,$first_date);
+        array_push($second_date_array,$second_date);
+    }
+    for($i = 0; $i < count($isps_array); $i++)
+    {
+        for($j = 0; $j < 24; $j++)
+        {
+            $sql="SELECT AVG(file_data.timings_wait) as avg_time FROM file_data 
+            INNER JOIN user_files ON file_data.file_number=user_files.file_number 
+            WHERE cast(file_data.started_date_times as time) 
+            BETWEEN '$first_date_array[$j]' AND '$second_date_array[$j]' AND user_files.isp='$isps_array[$i]'";
+            $result = mysqli_query($conn, $sql);
+            if($result->num_rows > 0) {
+                while($row = $result->fetch_assoc()) {
+                    array_push($avg_time,$row["avg_time"]);
+                }
+            }
+        }
+        if($i<count($isps_array)-1)
+        {
+            array_push($avg_time,"+");
+        }
+    }
+    array_push($isps_array,"//");
+    $chart_data=array_merge($isps_array,$avg_time);
+    echo json_encode($chart_data);
+}
 if($_POST['request'] == "request_role")
 {
     if($_SESSION["role"] == "admin")
@@ -154,4 +203,5 @@ if($_POST['request'] == "request_role")
         echo "user";
     }
 }
+
 ?>
