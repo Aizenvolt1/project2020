@@ -33,38 +33,39 @@ require_once "../config.php";
         }
     </style>
 </head>
-<body>
+<body class="preload" id="logBody">
     <div class="small-space"></div>
-    <form class="my-form" name="registration-form">
-        <ul class="flex-registration">
+    <form id="reg-form" name="login-form" class="reg">
+        <div id="login-red-box"></div>
+        <ul class="flex-login">
             <li>
                 <h2>Register</h2>
                 <p>Please fill the boxes to register.<p>
             </li>
             <li>
-                <label>Username</label>
+                <label class="label-color">Username</label>
+                <input type="text" class="form-control" name="username">
                 <div class="small-margin"> </div>
-                <input class="form-control" name="username">
                 <small class="form-text text-muted">Min: 6 and max 16 characters</small>
                 <div class="small-margin"> </div>
                 <span id="user-help"></span>
             </li>
             <li>
-                <label>Email</label>
+                <label class="label-color">Email</label>
                 <div class="small-margin"> </div>
                 <input type="email" class="form-control" name="email">
                 <div class="small-margin"> </div>
                 <span id="email-help"></span>
             </li>
             <li>
-                <label>Password</label>
+                <label class="label-color">Password</label>
                 <div class="small-margin"> </div>
                 <input type="password" class="form-control" name="password">
                 <div class="small-margin"> </div>
                 <span id="pass-help"></span>
             </li>
             <li>
-                <label>Repeat Password</label>
+                <label class="label-color">Repeat Password</label>
                 <div class="small-margin"> </div>
                 <input type="password" class="form-control" name="password_confirm">
                 <div class="small-margin"> </div>
@@ -72,11 +73,15 @@ require_once "../config.php";
             </li>
             <li>
                 <br>
-                <input type="button" class="btn btn-primary" value="Submit" onclick="registration_validation()">
+                <input type="button" class="btn btn-primary" id="sum" value="Submit" onclick="registration_validation()">
             </li>
             <p style="text-align:center;">Already have an account? <a class="Sign-up" href="../login/login.php">Login now</a>.</p>
         </ul>
     </form>
     <script src="registration.js"></script>
+    <div class="ocean">
+            <div class="wave"></div>
+            <div class="wave"></div>
+        </div>
 </body>
 </html>
