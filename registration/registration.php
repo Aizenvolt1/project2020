@@ -35,7 +35,7 @@ require_once "../config.php";
 </head>
 <body class="preload" id="logBody">
     <div class="small-space"></div>
-    <form id="reg-form" name="login-form" class="reg">
+    <form id="reg-form" name="registration-form" class="reg">
         <div id="login-red-box"></div>
         <ul class="flex-login">
             <li>
