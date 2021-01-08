@@ -37,6 +37,16 @@
   visibility: hidden;
 }
 
+.nav_btn {
+  transition: scale 0.15s linear;
+  transition: color 0.1s linear;
+}
+
+.nav_btn:hover {
+  transform: scale(1.3);
+  color: #c00;
+}
+
 select {
   /* styling */
   background-color: #444;
