@@ -131,7 +131,7 @@ p{
             </div>
             <div id="ResponseStatusStatistics">
                 <div class="menu-space"></div>
-                <table id="content-table">
+                <table id="content-table-selector">
                     <thead>
                         <tr> 
                             <th>Response Status</th>
@@ -182,7 +182,7 @@ p{
             </div>
             <div id="AverageAgeOfContent">
                 <div class="menu-space"></div>
-                <table id="content-table">
+                <table id="content-table-selector">
                     <thead>
                         <tr> 
                             <th>Content-Type</th>
