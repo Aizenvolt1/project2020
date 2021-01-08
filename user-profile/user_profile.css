@@ -115,10 +115,6 @@
   float: left;
 }
 
-.nav_btn {
-  clear: both;
-}
-
 .side_nav :hover {
   color: #cc0000;
 }
@@ -162,4 +158,51 @@
 
 #password-help-block {
   color: #cc0000;
+}
+
+.nav_btn {
+  clear: both;
+  transition: scale 0.15s linear;
+  transition: color 0.1s linear;
+}
+
+.nav_btn:hover {
+  transform: scale(1.3);
+  color: #c00;
+}
+
+.insideOut {
+  margin-bottom: 0px;
+}
+
+#sum {
+  height: 31px;
+  margin-top: 12px;
+  background-image: linear-gradient(to right, #000, #c00);
+  border: 0px solid #74797d;
+  color: #ccc;
+  border-radius: 8px;
+  background-image: linear-gradient(to right, #000, #c00);
+}
+
+#sum.animated {
+  animation-name: logBtnOut;
+  animation-duration: 0.2s;
+  animation-fill-mode: forwards;
+  animation-timing-function: linear;
+  transition: color 0.4s;
+}
+
+#sum:hover {
+  color: #c00;
+  animation-name: logBtnIn;
+  animation-duration: 0.2s;
+  animation-fill-mode: forwards;
+  animation-timing-function: linear;
+}
+
+#username-help-block,
+#password-help-block {
+  color: #cc0000;
+  font-family: cursive;
 }

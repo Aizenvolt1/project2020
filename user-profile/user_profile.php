@@ -65,7 +65,7 @@ p{
             <p>Please fill out this form to reset your username.</p>
                 <form name="u-form" id="new-username" action="<?php echo 'reset_username.php'; ?>" method="post">
                     <div class="form-group">
-                        <h4>Username</h4>
+                        <h4 class="insideOut">Username</h4>
                         <input class="form-control" name="new_username">
                         <br>
                         <small><b>Min: 6 and max 16 characters<b></small>
@@ -74,7 +74,7 @@ p{
                         </div>
                     </div>
                     <div class="form-group">
-                        <input type="button" class="btn btn-primary"  value="Submit" onclick="username_check()">
+                        <input type="button" class="btn btn-primary"  id="sum" value="Submit" onclick="username_check()">
                         <a class="btn btn-link" href="user_profile.php">Cancel</a>
                     </div>
                 </form>
@@ -84,16 +84,16 @@ p{
             <p>Please fill out this form to reset your password.</p>
             <form name= "pass-form" id="new-password" action ="<?php echo  htmlspecialchars('reset_password.php');?>" method="post"> 
                 <div class="form-group">
-                    <h4>New Password</h4>
+                    <h4 class="insideOut">New Password</h4>
                     <input type="password" class="form-control" name="new_password">
                     <span id="password-help-block"></span>
                 </div>
                 <div class="form-group">
-                    <h4>Confirm Password</h4>
+                    <h4 class="insideOut">Confirm Password</h4>
                     <input type="password" class="form-control" name="confirm_password">
                 </div>
                 <div class="form-group">
-                        <input type="button" class="btn btn-primary"  value="Submit" onclick="password_check()">
+                        <input type="button" class="btn btn-primary" id="sum"  value="Submit" onclick="password_check()">
                         <a class="btn btn-link" href="user_profile.php">Cancel</a>
                 </div>
             </form>    
