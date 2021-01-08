@@ -6,7 +6,8 @@ const btns = document.querySelectorAll(".nav_btn");
 
 room.addEventListener("click", (e) => {
   btns.forEach((btn) => {
-    if (btn.getAttribute("id") === e.target.getAttribute("id")) btn.classList.add("active");
+    if (btn.getAttribute("id") === e.target.getAttribute("id"))
+      btn.classList.add("active");
     else btn.classList.remove("active");
   });
 });
@@ -92,13 +93,16 @@ function showMap() {
 function username_check() {
   let x = document.forms["u-form"]["new_username"].value;
   if (x === "") {
-    document.getElementById("username-help-block").innerHTML = "Username must be filled!";
+    document.getElementById("username-help-block").innerHTML =
+      "Username must be filled!";
     return false;
   } else if (x.length < 6 || x.length > 16) {
-    document.getElementById("username-help-block").innerHTML = "Username must be between 6 and 16 characters!";
+    document.getElementById("username-help-block").innerHTML =
+      "Username must be between 6 and 16 characters!";
     return false;
   } else if (x.indexOf(" ") > 0) {
-    document.getElementById("username-help-block").innerHTML = "Username must not have spaces!";
+    document.getElementById("username-help-block").innerHTML =
+      "Username must not have spaces!";
     return false;
   } else {
     document.getElementById("new-username").submit();
@@ -110,18 +114,26 @@ function password_check() {
   let new_pass = document.forms["pass-form"]["new_password"].value;
   let conf_pass = document.forms["pass-form"]["confirm_password"].value;
   if (new_pass === "" || conf_pass === "") {
-    document.getElementById("password-help-block").innerHTML = "One of the password fields is empty!";
+    document.getElementById("password-help-block").innerHTML =
+      "One of the password fields is empty!";
     return false;
   } else if (new_pass !== conf_pass) {
-    document.getElementById("password-help-block").innerHTML = "Passwords must match!";
+    document.getElementById("password-help-block").innerHTML =
+      "Passwords must match!";
     return false;
   } else if (new_pass.length < 8) {
-    document.getElementById("password-help-block").innerHTML = "Password must be at least 8 characters!";
+    document.getElementById("password-help-block").innerHTML =
+      "Password must be at least 8 characters!";
     return false;
   } else if (new_pass.indexOf(" ") > 0) {
-    document.getElementById("password-help-block").innerHTML = "Password must not have spaces!";
+    document.getElementById("password-help-block").innerHTML =
+      "Password must not have spaces!";
     return false;
-  } else if (!/[A-Z]/g.test(new_pass) || !/[0-9]/g.test(new_pass) || !/[.!@#$&*]/g.test(new_pass)) {
+  } else if (
+    !/[A-Z]/g.test(new_pass) ||
+    !/[0-9]/g.test(new_pass) ||
+    !/[.!@#$&*]/g.test(new_pass)
+  ) {
     document.getElementById("password-help-block").innerHTML =
       "Password must contain at least 8 character and must also contain, at least one capital letter, a digit and one of these symbols(e.g. .!#$*&@)!";
     return false;
@@ -135,10 +147,15 @@ function password_check() {
 async function make_map() {
   await set_coordinates();
   // Creating a map object
-  var map = new L.map("map", { center: [coordinates[0], coordinates[1]], zoom: 10 });
+  var map = new L.map("map", {
+    center: [coordinates[0], coordinates[1]],
+    zoom: 10,
+  });
 
   // Creating a Layer object
-  var layer = new L.TileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png");
+  var layer = new L.TileLayer(
+    "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+  );
 
   // Adding layer to the map
   map.addLayer(layer);
@@ -196,3 +213,27 @@ setTimeout(function () {
   var x = document.getElementById("content");
   x.style.visibility = "visible";
 }, 1400);
+
+(function () {
+  var c = document.getElementById("sum_us");
+  function addAnim() {
+    c.classList.add("animated");
+    // remove the listener, no longer needed
+    c.removeEventListener("mouseover", addAnim);
+  }
+
+  // listen to mouseover for the container
+  c.addEventListener("mouseover", addAnim);
+})();
+
+(function () {
+  var c = document.getElementById("sum_pass");
+  function addAnim() {
+    c.classList.add("animated");
+    // remove the listener, no longer needed
+    c.removeEventListener("mouseover", addAnim);
+  }
+
+  // listen to mouseover for the container
+  c.addEventListener("mouseover", addAnim);
+})();
