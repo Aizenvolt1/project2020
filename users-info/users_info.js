@@ -22,6 +22,7 @@ let color_array = [];
 let chart_data = [];
 let chart_isps = [];
 let chart_isps_avg = [];
+
 palette("tol-sq", 12).map(function (hex) {
   color_array.push("#" + hex);
 });
@@ -57,162 +58,168 @@ function set_coordinates() {
 
 //This functions runs when Number of Users is selected from Side Menu
 function NumberOfUsers() {
-  if (hasChild_status === true) {
-    for (let i = 0; i < options_status.length; i++) {
-      select_status.removeChild(el_status[i]);
+  if (document.getElementById("NumberOfUsers").style.display !== "block") {
+    if (hasChild_status === true) {
+      for (let i = 0; i < options_status.length; i++) {
+        select_status.removeChild(el_status[i]);
+      }
+      hasChild_status = false;
     }
-    hasChild_status = false;
-  }
-  if (hasChild_content === true) {
-    for (let i = 0; i < options_content.length; i++) {
-      select_content.removeChild(el_content[i]);
+    if (hasChild_content === true) {
+      for (let i = 0; i < options_content.length; i++) {
+        select_content.removeChild(el_content[i]);
+      }
+      hasChild_content = false;
     }
-    hasChild_content = false;
-  }
-  if (hasChild_chart === true) {
-    for (let i = 0; i < options_chart.length; i++) {
-      select_chart.removeChild(el_chart[i]);
+    if (hasChild_chart === true) {
+      for (let i = 0; i < options_chart.length; i++) {
+        select_chart.removeChild(el_chart[i]);
+      }
+      hasChild_chart = false;
     }
-    hasChild_chart = false;
+    let nou = document.getElementById("NumberOfUsers");
+    let rms = document.getElementById("RequestMethodStatistics");
+    let rss = document.getElementById("ResponseStatusStatistics");
+    let ud = document.getElementById("UniqueDomains");
+    let isp = document.getElementById("ISPs");
+    let aoc = document.getElementById("AverageAgeOfContent");
+    let rta = document.getElementById("ResponseTimeAnalysis");
+    let sm = document.getElementById("map");
+    nou.style.display = "block";
+    rms.style.display = "none";
+    rss.style.display = "none";
+    ud.style.display = "none";
+    isp.style.display = "none";
+    aoc.style.display = "none";
+    rta.style.display = "none";
+    sm.style.display = "none";
+    $.ajax({
+      type: "POST",
+      url: "collect_data.php",
+      data: {
+        request: "number_of_users",
+      },
+      success: function (res) {
+        document.getElementById("number_of_users").innerHTML = res;
+      },
+    });
   }
-  let nou = document.getElementById("NumberOfUsers");
-  let rms = document.getElementById("RequestMethodStatistics");
-  let rss = document.getElementById("ResponseStatusStatistics");
-  let ud = document.getElementById("UniqueDomains");
-  let isp = document.getElementById("ISPs");
-  let aoc = document.getElementById("AverageAgeOfContent");
-  let rta = document.getElementById("ResponseTimeAnalysis");
-  let sm = document.getElementById("map");
-  nou.style.display = "block";
-  rms.style.display = "none";
-  rss.style.display = "none";
-  ud.style.display = "none";
-  isp.style.display = "none";
-  aoc.style.display = "none";
-  rta.style.display = "none";
-  sm.style.display = "none";
-  $.ajax({
-    type: "POST",
-    url: "collect_data.php",
-    data: {
-      request: "number_of_users",
-    },
-    success: function (res) {
-      document.getElementById("number_of_users").innerHTML = res;
-    },
-  });
 }
 
 //This functions runs when Request Method Statistics is selected from Side Menu
 function RequestMethodStatistics() {
-  if (hasChild_status === true) {
-    for (let i = 0; i < options_status.length; i++) {
-      select_status.removeChild(el_status[i]);
+  if (document.getElementById("RequestMethodStatistics").style.display !== "block") {
+    if (hasChild_status === true) {
+      for (let i = 0; i < options_status.length; i++) {
+        select_status.removeChild(el_status[i]);
+      }
+      hasChild_status = false;
     }
-    hasChild_status = false;
-  }
-  if (hasChild_content === true) {
-    for (let i = 0; i < options_content.length; i++) {
-      select_content.removeChild(el_content[i]);
+    if (hasChild_content === true) {
+      for (let i = 0; i < options_content.length; i++) {
+        select_content.removeChild(el_content[i]);
+      }
+      hasChild_content = false;
     }
-    hasChild_content = false;
-  }
-  if (hasChild_chart === true) {
-    for (let i = 0; i < options_chart.length; i++) {
-      select_chart.removeChild(el_chart[i]);
+    if (hasChild_chart === true) {
+      for (let i = 0; i < options_chart.length; i++) {
+        select_chart.removeChild(el_chart[i]);
+      }
+      hasChild_chart = false;
     }
-    hasChild_chart = false;
-  }
-  let nou = document.getElementById("NumberOfUsers");
-  let rms = document.getElementById("RequestMethodStatistics");
-  let rss = document.getElementById("ResponseStatusStatistics");
-  let ud = document.getElementById("UniqueDomains");
-  let isp = document.getElementById("ISPs");
-  let aoc = document.getElementById("AverageAgeOfContent");
-  let rta = document.getElementById("ResponseTimeAnalysis");
-  let sm = document.getElementById("map");
-  nou.style.display = "none";
-  rms.style.display = "block";
-  rss.style.display = "none";
-  ud.style.display = "none";
-  isp.style.display = "none";
-  aoc.style.display = "none";
-  rta.style.display = "none";
-  sm.style.display = "none";
+    let nou = document.getElementById("NumberOfUsers");
+    let rms = document.getElementById("RequestMethodStatistics");
+    let rss = document.getElementById("ResponseStatusStatistics");
+    let ud = document.getElementById("UniqueDomains");
+    let isp = document.getElementById("ISPs");
+    let aoc = document.getElementById("AverageAgeOfContent");
+    let rta = document.getElementById("ResponseTimeAnalysis");
+    let sm = document.getElementById("map");
+    nou.style.display = "none";
+    rms.style.display = "block";
+    rss.style.display = "none";
+    ud.style.display = "none";
+    isp.style.display = "none";
+    aoc.style.display = "none";
+    rta.style.display = "none";
+    sm.style.display = "none";
 
-  $.ajax({
-    type: "POST",
-    url: "collect_data.php",
-    data: {
-      request: "request_method_statistics",
-    },
-    success: function (res) {
-      const [nop, nog, noh, nopu, nod, noc, noo, notr] = res.split("+");
-      document.getElementById("nop").innerHTML = nop;
-      document.getElementById("nog").innerHTML = nog;
-      document.getElementById("noh").innerHTML = noh;
-      document.getElementById("nopu").innerHTML = nopu;
-      document.getElementById("nod").innerHTML = nod;
-      document.getElementById("noc").innerHTML = noc;
-      document.getElementById("noo").innerHTML = noo;
-      document.getElementById("notr").innerHTML = notr;
-    },
-  });
+    $.ajax({
+      type: "POST",
+      url: "collect_data.php",
+      data: {
+        request: "request_method_statistics",
+      },
+      success: function (res) {
+        const [nop, nog, noh, nopu, nod, noc, noo, notr] = res.split("+");
+        document.getElementById("nop").innerHTML = nop;
+        document.getElementById("nog").innerHTML = nog;
+        document.getElementById("noh").innerHTML = noh;
+        document.getElementById("nopu").innerHTML = nopu;
+        document.getElementById("nod").innerHTML = nod;
+        document.getElementById("noc").innerHTML = noc;
+        document.getElementById("noo").innerHTML = noo;
+        document.getElementById("notr").innerHTML = notr;
+      },
+    });
+  }
 }
 
 //This functions runs when Response Status Statistics is selected from Side Menu
 function ResponseStatusStatistics() {
-  if (hasChild_content === true) {
-    for (let i = 0; i < options_content.length; i++) {
-      select_content.removeChild(el_content[i]);
-    }
-    hasChild_content = false;
-  }
-  if (hasChild_chart === true) {
-    for (let i = 0; i < options_chart.length; i++) {
-      select_chart.removeChild(el_chart[i]);
-    }
-    hasChild_chart = false;
-  }
-  document.getElementById("occur").innerHTML = "-";
-  let nou = document.getElementById("NumberOfUsers");
-  let rms = document.getElementById("RequestMethodStatistics");
-  let rss = document.getElementById("ResponseStatusStatistics");
-  let ud = document.getElementById("UniqueDomains");
-  let isp = document.getElementById("ISPs");
-  let aoc = document.getElementById("AverageAgeOfContent");
-  let rta = document.getElementById("ResponseTimeAnalysis");
-  let sm = document.getElementById("map");
-  nou.style.display = "none";
-  rms.style.display = "none";
-  rss.style.display = "block";
-  ud.style.display = "none";
-  isp.style.display = "none";
-  aoc.style.display = "none";
-  rta.style.display = "none";
-  sm.style.display = "none";
-
-  select_status = document.getElementById("selectStatus");
-
-  $.ajax({
-    type: "POST",
-    url: "collect_data.php",
-    data: {
-      request: "request_number_of_response_statuses",
-      request_type: "element",
-    },
-    success: function (res) {
-      options_status = JSON.parse(res);
-      for (let i = 0; i < options_status.length; i++) {
-        opt_status = options_status[i];
-        el_status[i] = document.createElement("option");
-        el_status[i].textContent = opt_status;
-        el_status[i].value = opt_status;
-        select_status.appendChild(el_status[i]);
+  if (document.getElementById("ResponseStatusStatistics").style.display !== "block") {
+    if (hasChild_content === true) {
+      for (let i = 0; i < options_content.length; i++) {
+        select_content.removeChild(el_content[i]);
       }
-      hasChild_status = true;
-    },
-  });
+      hasChild_content = false;
+    }
+    if (hasChild_chart === true) {
+      for (let i = 0; i < options_chart.length; i++) {
+        select_chart.removeChild(el_chart[i]);
+      }
+      hasChild_chart = false;
+    }
+    document.getElementById("occur").innerHTML = "-";
+    let nou = document.getElementById("NumberOfUsers");
+    let rms = document.getElementById("RequestMethodStatistics");
+    let rss = document.getElementById("ResponseStatusStatistics");
+    let ud = document.getElementById("UniqueDomains");
+    let isp = document.getElementById("ISPs");
+    let aoc = document.getElementById("AverageAgeOfContent");
+    let rta = document.getElementById("ResponseTimeAnalysis");
+    let sm = document.getElementById("map");
+    nou.style.display = "none";
+    rms.style.display = "none";
+    rss.style.display = "block";
+    ud.style.display = "none";
+    isp.style.display = "none";
+    aoc.style.display = "none";
+    rta.style.display = "none";
+    sm.style.display = "none";
+
+    select_status = document.getElementById("selectStatus");
+
+    $.ajax({
+      type: "POST",
+      url: "collect_data.php",
+      data: {
+        request: "request_number_of_response_statuses",
+        request_type: "element",
+      },
+      success: function (res) {
+        options_status = JSON.parse(res);
+        for (let i = 0; i < options_status.length; i++) {
+          opt_status = options_status[i];
+          el_status[i] = document.createElement("option");
+          el_status[i].textContent = opt_status;
+          el_status[i].value = opt_status;
+          select_status.appendChild(el_status[i]);
+        }
+        hasChild_status = true;
+      },
+    });
+  }
 }
 
 //This is for the drop down menu on Response Status Statistics
@@ -239,155 +246,161 @@ selectElementStatus.addEventListener("change", (event) => {
 
 //This functions runs when Unique Domains is selected from Side Menu
 function UniqueDomains() {
-  if (hasChild_status === true) {
-    for (let i = 0; i < options_status.length; i++) {
-      select_status.removeChild(el_status[i]);
+  if (document.getElementById("UniqueDomains").style.display !== "block") {
+    if (hasChild_status === true) {
+      for (let i = 0; i < options_status.length; i++) {
+        select_status.removeChild(el_status[i]);
+      }
+      hasChild_status = false;
     }
-    hasChild_status = false;
-  }
-  if (hasChild_content === true) {
-    for (let i = 0; i < options_content.length; i++) {
-      select_content.removeChild(el_content[i]);
+    if (hasChild_content === true) {
+      for (let i = 0; i < options_content.length; i++) {
+        select_content.removeChild(el_content[i]);
+      }
+      hasChild_content = false;
     }
-    hasChild_content = false;
-  }
-  if (hasChild_chart === true) {
-    for (let i = 0; i < options_chart.length; i++) {
-      select_chart.removeChild(el_chart[i]);
+    if (hasChild_chart === true) {
+      for (let i = 0; i < options_chart.length; i++) {
+        select_chart.removeChild(el_chart[i]);
+      }
+      hasChild_chart = false;
     }
-    hasChild_chart = false;
-  }
-  let nou = document.getElementById("NumberOfUsers");
-  let rms = document.getElementById("RequestMethodStatistics");
-  let rss = document.getElementById("ResponseStatusStatistics");
-  let ud = document.getElementById("UniqueDomains");
-  let isp = document.getElementById("ISPs");
-  let aoc = document.getElementById("AverageAgeOfContent");
-  let rta = document.getElementById("ResponseTimeAnalysis");
-  let sm = document.getElementById("map");
-  nou.style.display = "none";
-  rms.style.display = "none";
-  rss.style.display = "none";
-  ud.style.display = "block";
-  isp.style.display = "none";
-  aoc.style.display = "none";
-  rta.style.display = "none";
-  sm.style.display = "none";
+    let nou = document.getElementById("NumberOfUsers");
+    let rms = document.getElementById("RequestMethodStatistics");
+    let rss = document.getElementById("ResponseStatusStatistics");
+    let ud = document.getElementById("UniqueDomains");
+    let isp = document.getElementById("ISPs");
+    let aoc = document.getElementById("AverageAgeOfContent");
+    let rta = document.getElementById("ResponseTimeAnalysis");
+    let sm = document.getElementById("map");
+    nou.style.display = "none";
+    rms.style.display = "none";
+    rss.style.display = "none";
+    ud.style.display = "block";
+    isp.style.display = "none";
+    aoc.style.display = "none";
+    rta.style.display = "none";
+    sm.style.display = "none";
 
-  $.ajax({
-    type: "POST",
-    url: "collect_data.php",
-    data: {
-      request: "request_number_of_unique_domains",
-    },
-    success: function (res) {
-      document.getElementById("noud").innerHTML = res;
-    },
-  });
+    $.ajax({
+      type: "POST",
+      url: "collect_data.php",
+      data: {
+        request: "request_number_of_unique_domains",
+      },
+      success: function (res) {
+        document.getElementById("noud").innerHTML = res;
+      },
+    });
+  }
 }
 
 //This functions runs when ISPs is selected from Side Menu
 function ISPs() {
-  if (hasChild_status === true) {
-    for (let i = 0; i < options_status.length; i++) {
-      select_status.removeChild(el_status[i]);
+  if (document.getElementById("ISPs").style.display !== "block") {
+    if (hasChild_status === true) {
+      for (let i = 0; i < options_status.length; i++) {
+        select_status.removeChild(el_status[i]);
+      }
+      hasChild_status = false;
     }
-    hasChild_status = false;
-  }
-  if (hasChild_content === true) {
-    for (let i = 0; i < options_content.length; i++) {
-      select_content.removeChild(el_content[i]);
+    if (hasChild_content === true) {
+      for (let i = 0; i < options_content.length; i++) {
+        select_content.removeChild(el_content[i]);
+      }
+      hasChild_content = false;
     }
-    hasChild_content = false;
-  }
-  if (hasChild_chart === true) {
-    for (let i = 0; i < options_chart.length; i++) {
-      select_chart.removeChild(el_chart[i]);
+    if (hasChild_chart === true) {
+      for (let i = 0; i < options_chart.length; i++) {
+        select_chart.removeChild(el_chart[i]);
+      }
+      hasChild_chart = false;
     }
-    hasChild_chart = false;
-  }
-  let nou = document.getElementById("NumberOfUsers");
-  let rms = document.getElementById("RequestMethodStatistics");
-  let rss = document.getElementById("ResponseStatusStatistics");
-  let ud = document.getElementById("UniqueDomains");
-  let isp = document.getElementById("ISPs");
-  let aoc = document.getElementById("AverageAgeOfContent");
-  let rta = document.getElementById("ResponseTimeAnalysis");
-  let sm = document.getElementById("map");
-  nou.style.display = "none";
-  rms.style.display = "none";
-  rss.style.display = "none";
-  ud.style.display = "none";
-  isp.style.display = "block";
-  aoc.style.display = "none";
-  rta.style.display = "none";
-  sm.style.display = "none";
+    let nou = document.getElementById("NumberOfUsers");
+    let rms = document.getElementById("RequestMethodStatistics");
+    let rss = document.getElementById("ResponseStatusStatistics");
+    let ud = document.getElementById("UniqueDomains");
+    let isp = document.getElementById("ISPs");
+    let aoc = document.getElementById("AverageAgeOfContent");
+    let rta = document.getElementById("ResponseTimeAnalysis");
+    let sm = document.getElementById("map");
+    nou.style.display = "none";
+    rms.style.display = "none";
+    rss.style.display = "none";
+    ud.style.display = "none";
+    isp.style.display = "block";
+    aoc.style.display = "none";
+    rta.style.display = "none";
+    sm.style.display = "none";
 
-  $.ajax({
-    type: "POST",
-    url: "collect_data.php",
-    data: {
-      request: "request_number_of_unique_isps",
-    },
-    success: function (res) {
-      document.getElementById("noisp").innerHTML = res;
-    },
-  });
+    $.ajax({
+      type: "POST",
+      url: "collect_data.php",
+      data: {
+        request: "request_number_of_unique_isps",
+      },
+      success: function (res) {
+        document.getElementById("noisp").innerHTML = res;
+      },
+    });
+  }
 }
 
 //This functions runs when Average Age Of Content is selected from Side Menu
 function AverageAgeOfContent() {
-  if (hasChild_status === true) {
-    for (let i = 0; i < options_status.length; i++) {
-      select_status.removeChild(el_status[i]);
-    }
-    hasChild_status = false;
-  }
-  if (hasChild_chart === true) {
-    for (let i = 0; i < options_chart.length; i++) {
-      select_chart.removeChild(el_chart[i]);
-    }
-    hasChild_chart = false;
-  }
-  document.getElementById("aaoc").innerHTML = "-";
-  let nou = document.getElementById("NumberOfUsers");
-  let rms = document.getElementById("RequestMethodStatistics");
-  let rss = document.getElementById("ResponseStatusStatistics");
-  let ud = document.getElementById("UniqueDomains");
-  let isp = document.getElementById("ISPs");
-  let aoc = document.getElementById("AverageAgeOfContent");
-  let rta = document.getElementById("ResponseTimeAnalysis");
-  let sm = document.getElementById("map");
-  nou.style.display = "none";
-  rms.style.display = "none";
-  rss.style.display = "none";
-  ud.style.display = "none";
-  isp.style.display = "none";
-  aoc.style.display = "block";
-  rta.style.display = "none";
-  sm.style.display = "none";
-
-  select_content = document.getElementById("selectContentType");
-
-  $.ajax({
-    type: "POST",
-    url: "collect_data.php",
-    data: {
-      request: "request_content_type_info",
-      request_type: "content_type",
-    },
-    success: function (res) {
-      options_content = JSON.parse(res);
-      for (let i = 0; i < options_content.length; i++) {
-        opt_content = options_content[i];
-        el_content[i] = document.createElement("option");
-        el_content[i].textContent = opt_content;
-        el_content[i].value = opt_content;
-        select_content.appendChild(el_content[i]);
+  if (document.getElementById("AverageAgeOfContent").style.display !== "block") {
+    if (hasChild_status === true) {
+      for (let i = 0; i < options_status.length; i++) {
+        select_status.removeChild(el_status[i]);
       }
-      hasChild_content = true;
-    },
-  });
+      hasChild_status = false;
+    }
+    if (hasChild_chart === true) {
+      for (let i = 0; i < options_chart.length; i++) {
+        select_chart.removeChild(el_chart[i]);
+      }
+      hasChild_chart = false;
+    }
+    document.getElementById("aaoc").innerHTML = "-";
+    let nou = document.getElementById("NumberOfUsers");
+    let rms = document.getElementById("RequestMethodStatistics");
+    let rss = document.getElementById("ResponseStatusStatistics");
+    let ud = document.getElementById("UniqueDomains");
+    let isp = document.getElementById("ISPs");
+    let aoc = document.getElementById("AverageAgeOfContent");
+    let rta = document.getElementById("ResponseTimeAnalysis");
+    let sm = document.getElementById("map");
+    nou.style.display = "none";
+    rms.style.display = "none";
+    rss.style.display = "none";
+    ud.style.display = "none";
+    isp.style.display = "none";
+    aoc.style.display = "block";
+    rta.style.display = "none";
+    sm.style.display = "none";
+
+    select_content = document.getElementById("selectContentType");
+
+    $.ajax({
+      type: "POST",
+      url: "collect_data.php",
+      data: {
+        request: "request_content_type_info",
+        request_type: "content_type",
+      },
+      success: function (res) {
+        options_content = JSON.parse(res);
+        for (let i = 0; i < options_content.length; i++) {
+          opt_content = options_content[i];
+          el_content[i] = document.createElement("option");
+          el_content[i].textContent = opt_content;
+          el_content[i].value = opt_content;
+          select_content.appendChild(el_content[i]);
+        }
+        hasChild_content = true;
+      },
+    });
+  }
 }
 
 //This is for the drop down menu on Average Age of Content
@@ -413,108 +426,110 @@ selectElementContent.addEventListener("change", (event) => {
 });
 
 function ResponseTimeAnalysis() {
-  if (hasChild_status === true) {
-    for (let i = 0; i < options_status.length; i++) {
-      select_status.removeChild(el_status[i]);
-    }
-    hasChild_status = false;
-  }
-  if (hasChild_content === true) {
-    for (let i = 0; i < options_content.length; i++) {
-      select_content.removeChild(el_content[i]);
-    }
-    hasChild_content = false;
-  }
-  let nou = document.getElementById("NumberOfUsers");
-  let rms = document.getElementById("RequestMethodStatistics");
-  let rss = document.getElementById("ResponseStatusStatistics");
-  let ud = document.getElementById("UniqueDomains");
-  let isp = document.getElementById("ISPs");
-  let aoc = document.getElementById("AverageAgeOfContent");
-  let rta = document.getElementById("ResponseTimeAnalysis");
-  let sm = document.getElementById("map");
-  nou.style.display = "none";
-  rms.style.display = "none";
-  rss.style.display = "none";
-  ud.style.display = "none";
-  isp.style.display = "none";
-  aoc.style.display = "none";
-  rta.style.display = "block";
-  sm.style.display = "none";
-
-  select_chart = document.getElementById("selectChartType");
-
-  $.ajax({
-    type: "POST",
-    url: "collect_data.php",
-    data: {
-      request: "request_time_analysis",
-    },
-    success: function (res) {
-      for (let i = 0; i < options_chart.length; i++) {
-        opt_chart = options_chart[i];
-        el_chart[i] = document.createElement("option");
-        el_chart[i].textContent = opt_chart;
-        el_chart[i].value = opt_chart;
-        select_chart.appendChild(el_chart[i]);
+  if (document.getElementById("ResponseTimeAnalysis").style.display !== "block") {
+    if (hasChild_status === true) {
+      for (let i = 0; i < options_status.length; i++) {
+        select_status.removeChild(el_status[i]);
       }
-      hasChild_chart = true;
+      hasChild_status = false;
+    }
+    if (hasChild_content === true) {
+      for (let i = 0; i < options_content.length; i++) {
+        select_content.removeChild(el_content[i]);
+      }
+      hasChild_content = false;
+    }
+    let nou = document.getElementById("NumberOfUsers");
+    let rms = document.getElementById("RequestMethodStatistics");
+    let rss = document.getElementById("ResponseStatusStatistics");
+    let ud = document.getElementById("UniqueDomains");
+    let isp = document.getElementById("ISPs");
+    let aoc = document.getElementById("AverageAgeOfContent");
+    let rta = document.getElementById("ResponseTimeAnalysis");
+    let sm = document.getElementById("map");
+    nou.style.display = "none";
+    rms.style.display = "none";
+    rss.style.display = "none";
+    ud.style.display = "none";
+    isp.style.display = "none";
+    aoc.style.display = "none";
+    rta.style.display = "block";
+    sm.style.display = "none";
 
-      var ctx = document.getElementById("rtaChart").getContext("2d");
-      var rtaChart = new Chart(ctx, {
-        type: "bar",
-        data: {
-          labels: [
-            "0:00",
-            "1:00",
-            "2:00",
-            "3:00",
-            "4:00",
-            "5:00",
-            "6:00",
-            "7:00",
-            "8:00",
-            "9:00",
-            "10:00",
-            "11:00",
-            "12:00",
-            "13:00",
-            "14:00",
-            "15:00",
-            "16:00",
-            "17:00",
-            "18:00",
-            "19:00",
-            "20:00",
-            "21:00",
-            "22:00",
-            "23:00",
-          ],
-          datasets: [
-            {
-              label: "Response Time Analysis",
-              data: JSON.parse(res),
-              backgroundColor: color_array,
-              borderColor: color_array,
-              borderWidth: 2,
-              hoverBorderColor: "#b5b5b5",
-            },
-          ],
-        },
-        options: {
-          scales: {
-            yAxes: [
+    select_chart = document.getElementById("selectChartType");
+
+    $.ajax({
+      type: "POST",
+      url: "collect_data.php",
+      data: {
+        request: "request_time_analysis",
+      },
+      success: function (res) {
+        for (let i = 0; i < options_chart.length; i++) {
+          opt_chart = options_chart[i];
+          el_chart[i] = document.createElement("option");
+          el_chart[i].textContent = opt_chart;
+          el_chart[i].value = opt_chart;
+          select_chart.appendChild(el_chart[i]);
+        }
+        hasChild_chart = true;
+
+        var ctx = document.getElementById("rtaChart").getContext("2d");
+        var rtaChart = new Chart(ctx, {
+          type: "bar",
+          data: {
+            labels: [
+              "0:00",
+              "1:00",
+              "2:00",
+              "3:00",
+              "4:00",
+              "5:00",
+              "6:00",
+              "7:00",
+              "8:00",
+              "9:00",
+              "10:00",
+              "11:00",
+              "12:00",
+              "13:00",
+              "14:00",
+              "15:00",
+              "16:00",
+              "17:00",
+              "18:00",
+              "19:00",
+              "20:00",
+              "21:00",
+              "22:00",
+              "23:00",
+            ],
+            datasets: [
               {
-                ticks: {
-                  beginAtZero: true,
-                },
+                label: "Response Time Analysis",
+                data: JSON.parse(res),
+                backgroundColor: color_array,
+                borderColor: color_array,
+                borderWidth: 2,
+                hoverBorderColor: "#b5b5b5",
               },
             ],
           },
-        },
-      });
-    },
-  });
+          options: {
+            scales: {
+              yAxes: [
+                {
+                  ticks: {
+                    beginAtZero: true,
+                  },
+                },
+              ],
+            },
+          },
+        });
+      },
+    });
+  }
 }
 
 const selectElementChart = document.querySelector("#selectChartType");
@@ -617,41 +632,43 @@ selectElementChart.addEventListener("change", (event) => {
 
 //This functions runs when Show Map is selected from Side Menu
 function showMap() {
-  if (hasChild_status === true) {
-    for (let i = 0; i < options_status.length; i++) {
-      select_status.removeChild(el_status[i]);
+  if (document.getElementById("showMap").style.display !== "block") {
+    if (hasChild_status === true) {
+      for (let i = 0; i < options_status.length; i++) {
+        select_status.removeChild(el_status[i]);
+      }
+      hasChild_status = false;
     }
-    hasChild_status = false;
-  }
-  if (hasChild_content === true) {
-    for (let i = 0; i < options_content.length; i++) {
-      select_content.removeChild(el_content[i]);
+    if (hasChild_content === true) {
+      for (let i = 0; i < options_content.length; i++) {
+        select_content.removeChild(el_content[i]);
+      }
+      hasChild_content = false;
     }
-    hasChild_content = false;
-  }
-  if (hasChild_chart === true) {
-    for (let i = 0; i < options_chart.length; i++) {
-      select_chart.removeChild(el_chart[i]);
+    if (hasChild_chart === true) {
+      for (let i = 0; i < options_chart.length; i++) {
+        select_chart.removeChild(el_chart[i]);
+      }
+      hasChild_chart = false;
     }
-    hasChild_chart = false;
+    let nou = document.getElementById("NumberOfUsers");
+    let rms = document.getElementById("RequestMethodStatistics");
+    let rss = document.getElementById("ResponseStatusStatistics");
+    let ud = document.getElementById("UniqueDomains");
+    let isp = document.getElementById("ISPs");
+    let aoc = document.getElementById("AverageAgeOfContent");
+    let rta = document.getElementById("ResponseTimeAnalysis");
+    let sm = document.getElementById("map");
+    nou.style.display = "none";
+    rms.style.display = "none";
+    rss.style.display = "none";
+    ud.style.display = "none";
+    isp.style.display = "none";
+    aoc.style.display = "none";
+    rta.style.display = "none";
+    sm.style.display = "block";
+    sm.style.visibility = "visible";
   }
-  let nou = document.getElementById("NumberOfUsers");
-  let rms = document.getElementById("RequestMethodStatistics");
-  let rss = document.getElementById("ResponseStatusStatistics");
-  let ud = document.getElementById("UniqueDomains");
-  let isp = document.getElementById("ISPs");
-  let aoc = document.getElementById("AverageAgeOfContent");
-  let rta = document.getElementById("ResponseTimeAnalysis");
-  let sm = document.getElementById("map");
-  nou.style.display = "none";
-  rms.style.display = "none";
-  rss.style.display = "none";
-  ud.style.display = "none";
-  isp.style.display = "none";
-  aoc.style.display = "none";
-  rta.style.display = "none";
-  sm.style.display = "block";
-  sm.style.visibility = "visible";
 }
 
 // Creating map options
