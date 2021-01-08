@@ -74,7 +74,7 @@ p{
                         </div>
                     </div>
                     <div class="form-group">
-                        <input type="button" class="btn btn-primary"  id="sum" value="Submit" onclick="username_check()">
+                        <input type="button" class="btn btn-primary"  id="sum_us" value="Submit" onclick="username_check()">
                         <a class="btn btn-link" href="user_profile.php">Cancel</a>
                     </div>
                 </form>
@@ -86,14 +86,14 @@ p{
                 <div class="form-group">
                     <h4 class="insideOut">New Password</h4>
                     <input type="password" class="form-control" name="new_password">
-                    <span id="password-help-block"></span>
                 </div>
+                <span id="password-help-block"></span>
                 <div class="form-group">
                     <h4 class="insideOut">Confirm Password</h4>
                     <input type="password" class="form-control" name="confirm_password">
                 </div>
                 <div class="form-group">
-                        <input type="button" class="btn btn-primary" id="sum"  value="Submit" onclick="password_check()">
+                        <input type="button" class="btn btn-primary" id="sum_pass"  value="Submit" onclick="password_check()">
                         <a class="btn btn-link" href="user_profile.php">Cancel</a>
                 </div>
             </form>    
