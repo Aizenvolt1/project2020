@@ -19,9 +19,8 @@ let hasChild_status = false;
 let hasChild_content = false;
 let hasChild_chart = false;
 let color_array = [];
-let chart_data = [];
-let chart_isps = [];
-let chart_isps_avg = [];
+var ctx = document.getElementById("rtaChart").getContext("2d");
+var rtaChart;
 
 palette("tol-sq", 12).map(function (hex) {
   color_array.push("#" + hex);
@@ -473,9 +472,10 @@ function ResponseTimeAnalysis() {
           select_chart.appendChild(el_chart[i]);
         }
         hasChild_chart = true;
-
-        var ctx = document.getElementById("rtaChart").getContext("2d");
-        var rtaChart = new Chart(ctx, {
+        if (rtaChart) {
+          rtaChart.destroy();
+        }
+        rtaChart = new Chart(ctx, {
           type: "bar",
           data: {
             labels: [
@@ -535,8 +535,72 @@ function ResponseTimeAnalysis() {
 const selectElementChart = document.querySelector("#selectChartType");
 
 selectElementChart.addEventListener("change", (event) => {
-  if (event.target.value === "ISP Chart") {
-    //rtaChart.destroy();
+  if (event.target.value === "Response Time Analysis by Hour") {
+    $.ajax({
+      type: "POST",
+      url: "collect_data.php",
+      data: {
+        request: "request_time_analysis",
+      },
+      success: function (res) {
+        if (rtaChart) {
+          rtaChart.destroy();
+        }
+        rtaChart = new Chart(ctx, {
+          type: "bar",
+          data: {
+            labels: [
+              "0:00",
+              "1:00",
+              "2:00",
+              "3:00",
+              "4:00",
+              "5:00",
+              "6:00",
+              "7:00",
+              "8:00",
+              "9:00",
+              "10:00",
+              "11:00",
+              "12:00",
+              "13:00",
+              "14:00",
+              "15:00",
+              "16:00",
+              "17:00",
+              "18:00",
+              "19:00",
+              "20:00",
+              "21:00",
+              "22:00",
+              "23:00",
+            ],
+            datasets: [
+              {
+                label: "Response Time Analysis",
+                data: JSON.parse(res),
+                backgroundColor: color_array,
+                borderColor: color_array,
+                borderWidth: 2,
+                hoverBorderColor: "#b5b5b5",
+              },
+            ],
+          },
+          options: {
+            scales: {
+              yAxes: [
+                {
+                  ticks: {
+                    beginAtZero: true,
+                  },
+                },
+              ],
+            },
+          },
+        });
+      },
+    });
+  } else if (event.target.value === "ISP Chart") {
     $.ajax({
       type: "POST",
       url: "collect_data.php",
@@ -546,8 +610,10 @@ selectElementChart.addEventListener("change", (event) => {
       success: function (res) {
         let array_switch = "0";
         let temp_array = [];
-        chart_data = [];
-        chart_isps_avg = [];
+        let chart_data = [];
+        let chart_isps = [];
+        let chart_isps_avg = [];
+        let isp_dataset = [];
         chart_data = JSON.parse(res);
         for (let i = 0; i < chart_data.length; i++) {
           if (chart_data[i] === "//") {
@@ -569,62 +635,71 @@ selectElementChart.addEventListener("change", (event) => {
             temp_array = [];
           }
         }
-        console.log(chart_isps_avg);
-        console.log(chart_data);
-        /*
-            var ctx = document.getElementById("rtaChart").getContext("2d");
-            var rtaChart = new Chart(ctx, {
-              type: "bar",
-              data: {
-                labels: [
-                  "0:00",
-                  "1:00",
-                  "2:00",
-                  "3:00",
-                  "4:00",
-                  "5:00",
-                  "6:00",
-                  "7:00",
-                  "8:00",
-                  "9:00",
-                  "10:00",
-                  "11:00",
-                  "12:00",
-                  "13:00",
-                  "14:00",
-                  "15:00",
-                  "16:00",
-                  "17:00",
-                  "18:00",
-                  "19:00",
-                  "20:00",
-                  "21:00",
-                  "22:00",
-                  "23:00",
-                ],
-                datasets: [
-                  {
-                    label: "ISP Chart",
-                    data: JSON.parse(res),
-                    backgroundColor: color_array,
-                    borderColor: color_array,
-                    borderWidth: 2,
-                    hoverBorderColor: "#b5b5b5",
+
+        for (let i = 0; i < chart_isps.length; i++) {
+          let temp = getRandomColor();
+          isp_dataset.push({
+            label: chart_isps[i],
+            data: chart_isps_avg[i],
+            backgroundColor: temp,
+            borderColor: temp,
+            borderWidth: 2,
+            hoverBorderColor: "#b5b5b5",
+          });
+        }
+
+        if (rtaChart) {
+          rtaChart.destroy();
+        }
+        rtaChart = new Chart(ctx, {
+          type: "bar",
+          data: {
+            labels: [
+              "0:00",
+              "1:00",
+              "2:00",
+              "3:00",
+              "4:00",
+              "5:00",
+              "6:00",
+              "7:00",
+              "8:00",
+              "9:00",
+              "10:00",
+              "11:00",
+              "12:00",
+              "13:00",
+              "14:00",
+              "15:00",
+              "16:00",
+              "17:00",
+              "18:00",
+              "19:00",
+              "20:00",
+              "21:00",
+              "22:00",
+              "23:00",
+            ],
+            datasets: isp_dataset,
+          },
+          options: {
+            scales: {
+              yAxes: [
+                {
+                  ticks: {
+                    beginAtZero: true,
                   },
-                ],
-              },
-              options: {
-                scales: {
-                  yAxes: [
-                    {
-                      ticks: {
-                        beginAtZero: true,
-                      },
-                    },
-                  ],
                 },
-              },
-            });*/
+              ],
+              xAxes: [
+                {
+                  barPercentage: 0.7,
+                  categoryPercentage: 0.55,
+                },
+              ],
+            },
+          },
+        });
       },
     });
   }
@@ -715,3 +790,12 @@ setTimeout(function () {
   var x = document.getElementById("content");
   x.style.visibility = "visible";
 }, 1400);
+
+function getRandomColor() {
+  var letters = "0123456789ABCDEF";
+  var color = "#";
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
