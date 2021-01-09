@@ -99,7 +99,6 @@ p{
             </form>    
         </div>
         <div id="ShowStatistics">
-        <h2>Your Statistics</h2>
             <table id="content-table">
             <thead>
             <tr> 

@@ -80,8 +80,8 @@ else
             <form action="welcome.php" class="form-container">
                 <h3>Choose what you want to do with your file.</h3>
                 <div class="menu-space"></div>
-                <button type="button" id="sfiles" onclick="datatoPHP()" class="btn">Upload file(s) to Server </button>
-                <button type="button" id="dfiles" onclick= "downloadLoop()" class="btn">Download file(s) to your Computer</button>
+                <button type="button" id="sfiles" onclick="datatoPHP()" class="open-button">Upload file(s) to Server </button>
+                <button type="button" id="dfiles" onclick= "downloadLoop()" class="open-button" style="margin:20px 0px;">Download file(s) to your Computer</button>
                 <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
             </form>
         </div>

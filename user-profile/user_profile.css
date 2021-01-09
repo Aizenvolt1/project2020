@@ -146,6 +146,9 @@
 #ShowStatistics {
   text-align: center;
   display: none;
+  position: relative;
+  right: 15%;
+  top: 130%;
 }
 
 #map {

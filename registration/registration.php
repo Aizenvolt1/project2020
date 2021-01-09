@@ -36,46 +36,46 @@ require_once "../config.php";
 <body class="preload" id="logBody">
     <div class="small-space"></div>
     <form id="reg-form" name="registration-form" class="reg">
-        <div id="login-red-box"></div>
+        <div id="login-red-box" style="opacity:0.9;"></div>
         <ul class="flex-login">
-            <li>
-                <h2>Register</h2>
-                <p>Please fill the boxes to register.<p>
+            <li style="opacity:0.9;">
+                <h2 style="opacity:0.9;">Register</h2>
+                <p style="opacity:0.9;">Please fill the boxes to register.<p>
             </li>
             <li>
-                <label class="label-color">Username</label>
-                <input type="text" class="form-control" name="username">
-                <div class="small-margin"> </div>
+                <label class="label-color" style="opacity:0.9;">Username</label>
+                <input type="text" class="form-control" name="username" style="opacity:0.9;">
+                <div class="small-margin" style="opacity:0.9;"> </div>
                 <small class="form-text text-muted">Min: 6 and max 16 characters</small>
-                <div class="small-margin"> </div>
-                <span id="user-help"></span>
+                <div class="small-margin" style="opacity:0.9;"> </div>
+                <span id="user-help" class="opacityFix" style="opacity:1;"></span>
             </li>
             <li>
-                <label class="label-color">Email</label>
-                <div class="small-margin"> </div>
-                <input type="email" class="form-control" name="email">
-                <div class="small-margin"> </div>
+                <label class="label-color" style="opacity:0.9;">Email</label>
+                <div class="small-margin" style="opacity:0.9;"> </div>
+                <input type="email" class="form-control" name="email" style="opacity:0.9;">
+                <div class="small-margin" style="opacity:0.9;"> </div>
                 <span id="email-help"></span>
             </li>
             <li>
-                <label class="label-color">Password</label>
-                <div class="small-margin"> </div>
-                <input type="password" class="form-control" name="password">
-                <div class="small-margin"> </div>
+                <label class="label-color" style="opacity:0.9;">Password</label>
+                <div class="small-margin" style="opacity:0.9;"> </div>
+                <input type="password" class="form-control" name="password" style="opacity:0.9;">
+                <div class="small-margin" style="opacity:0.9;"> </div>
                 <span id="pass-help"></span>
             </li>
             <li>
-                <label class="label-color">Repeat Password</label>
-                <div class="small-margin"> </div>
-                <input type="password" class="form-control" name="password_confirm">
-                <div class="small-margin"> </div>
+                <label class="label-color" style="opacity:0.9;">Repeat Password</label>
+                <div class="small-margin" style="opacity:0.9;"> </div>
+                <input type="password" class="form-control" name="password_confirm" style="opacity:0.2;">
+                <div class="small-margin" style="opacity:0.9;"> </div>
                 <span id="passc-help"></span>
             </li>
-            <li>
+            <li style="opacity:0.9;">
                 <br>
                 <input type="button" class="btn btn-primary" id="sum" value="Submit" onclick="registration_validation()">
             </li>
-            <p style="text-align:center;">Already have an account? <a class="Sign-up" href="../login/login.php">Login now</a>.</p>
+            <p style="text-align:center;" style="opacity:0.9;">Already have an account? <a class="Sign-up" href="../login/login.php">Login now</a>.</p>
         </ul>
     </form>
     <script src="registration.js"></script>
