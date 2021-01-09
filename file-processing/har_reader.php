@@ -27,8 +27,8 @@ $response_host = json_decode($_POST['response_host'],true);
 $filenames = json_decode($_POST['filenames'],true);
 $city_latitude = json_decode($_POST['city_latitude'],true);
 $city_longitude = json_decode($_POST['city_longitude'],true);
-$server_latitude = $_POST['server_latitude'];
-$server_longitude = $_POST['server_longitude'];
+$server_latitude = json_decode($_POST['server_latitude'],true);
+$server_longitude = json_decode($_POST['server_longitude'],true);
 $isp = json_decode($_POST['isp'],true);
 
 for($i=0;$i<count($startedDateTimes);$i++)
@@ -43,7 +43,7 @@ $request_cache_control[$i],$request_pragma[$i],$request_expires[$i],$request_age
 $request_last_modified[$i],$request_host[$i],$response_status[$i]
 ,$response_statusText[$i],$response_content_type[$i],
 $response_cache_control[$i],$response_pragma[$i], $response_expires[$i], $response_age[$i]
-, $response_last_modified[$i],$response_host[$i]);
+, $response_last_modified[$i],$response_host[$i],$server_latitude[$i],$server_longitude[$i]);
 }
 for($i=0;$i<count($mergedData);$i++)
 {
@@ -62,14 +62,11 @@ for($i=0;$i<count($mergedData);$i++)
   }
 }
 
-$sql = "INSERT INTO user_files (user_id, upload_date, domain, server_latitude, server_longitude ,city_latitude, city_longitude, isp, entries) VALUES (?, now(), ?, ?, ?, ?, ?, ?, ?)";
+$sql = "INSERT INTO user_files (user_id, upload_date,city_latitude, city_longitude, isp, entries) VALUES (?, now(), ?, ?, ?, ?)";
 if ($stmt = mysqli_prepare($conn, $sql)){
   // Bind variables to the prepared statement as parameters
-  mysqli_stmt_bind_param($stmt, "isddddsi", $param_userID, $param_domain, $param_server_latitude, $param_server_longitude, $param_city_latitude, $param_city_longitude, $param_isp, $param_entries);
+  mysqli_stmt_bind_param($stmt, "iddsi", $param_userID, $param_city_latitude, $param_city_longitude, $param_isp, $param_entries);
   $param_userID = $_SESSION["id"];
-  $param_domain = $request_url[0][0];
-  $param_server_latitude = $server_latitude;
-  $param_server_longitude = $server_longitude;
   $param_city_latitude = $city_latitude[0];
   $param_city_longitude = $city_longitude[0];
   $param_isp = $isp[0];
@@ -93,7 +90,7 @@ $result = mysqli_query($conn, $sql);
         request_urls, request_content_types, request_cache_controls, request_pragmas, request_expires, request_ages, 
         request_last_modified, request_hosts, response_statuses, response_status_texts, response_content_types, 
         response_cache_controls, response_pragmas, response_expires, response_ages, response_last_modified, 
-        response_hosts) VALUES $args"; 
+        response_hosts,server_latitude,server_longitude) VALUES $args"; 
         if ($conn->query($sql) === TRUE) {
           echo "";
         } else {
@@ -241,6 +238,18 @@ $result = mysqli_query($conn, $sql);
         }
 
         $sql = "UPDATE file_data SET response_hosts = NULL WHERE  response_hosts = ''";
+        if ($conn->query($sql) === TRUE) {
+          echo "";
+        } else {
+          echo "Error updating record: " . $conn->error;
+        }
+        $sql = "UPDATE file_data SET server_latitude = NULL WHERE  server_latitude = 0";
+        if ($conn->query($sql) === TRUE) {
+          echo "";
+        } else {
+          echo "Error updating record: " . $conn->error;
+        }
+        $sql = "UPDATE file_data SET server_longitude = NULL WHERE  server_longitude = 0";
         if ($conn->query($sql) === TRUE) {
           echo "";
         } else {

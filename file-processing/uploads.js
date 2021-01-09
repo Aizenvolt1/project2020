@@ -28,7 +28,6 @@ let city_latitude = [];
 let city_longitude = [];
 let server_latitude = [];
 let server_longitude = [];
-let domain_url = "0";
 let isp = [];
 
 let file = [];
@@ -108,9 +107,11 @@ function passtoArray(files, name_of_element, array_of_element) {
               );
             }
             if (typeof array_of_element[j] === "undefined") {
-              array_of_element.push(null);
+              array_of_element[j] = null;
             }
-            resolve();
+            if (j === fileContents.log.entries.length - 1) {
+              resolve();
+            }
             break;
           case "serverIPAddress":
             if (
@@ -123,9 +124,11 @@ function passtoArray(files, name_of_element, array_of_element) {
               array_of_element.push(fileContents.log.entries[j].serverIPAddress);
             }
             if (typeof array_of_element[j] === "undefined") {
-              array_of_element.push(null);
+              array_of_element[j] = null;
             }
-            resolve();
+            if (j === fileContents.log.entries.length - 1) {
+              resolve();
+            }
             break;
           case "wait":
             if (
@@ -138,9 +141,11 @@ function passtoArray(files, name_of_element, array_of_element) {
               array_of_element.push(fileContents.log.entries[j].timings.wait);
             }
             if (typeof array_of_element[j] === "undefined") {
-              array_of_element.push(null);
+              array_of_element[j] = null;
             }
-            resolve();
+            if (j === fileContents.log.entries.length - 1) {
+              resolve();
+            }
             break;
           case "request_method":
             if (
@@ -153,9 +158,11 @@ function passtoArray(files, name_of_element, array_of_element) {
               array_of_element.push(fileContents.log.entries[j].request.method);
             }
             if (typeof array_of_element[j] === "undefined") {
-              array_of_element.push(null);
+              array_of_element[j] = null;
             }
-            resolve();
+            if (j === fileContents.log.entries.length - 1) {
+              resolve();
+            }
             break;
           case "request_url":
             if (
@@ -168,9 +175,11 @@ function passtoArray(files, name_of_element, array_of_element) {
               array_of_element.push(fileContents.log.entries[j].request.url.match(/(?<=\/\/)(.*?)(?=\/|$)/g));
             }
             if (typeof array_of_element[j] === "undefined") {
-              array_of_element.push(null);
+              array_of_element[j] = null;
             }
-            resolve();
+            if (j === fileContents.log.entries.length - 1) {
+              resolve();
+            }
             break;
           case "request_content_type":
             for (let k = 0; k < fileContents.log.entries[j].request.headers.length; k++) {
@@ -190,10 +199,12 @@ function passtoArray(files, name_of_element, array_of_element) {
                 array_of_element.push(fileContents.log.entries[j].request.headers[k].value);
               }
               if (typeof array_of_element[j] === "undefined") {
-                array_of_element.push(null);
+                array_of_element[j] = null;
               }
             }
-            resolve();
+            if (j === fileContents.log.entries.length - 1) {
+              resolve();
+            }
             break;
           case "request_cache_control":
             for (let k = 0; k < fileContents.log.entries[j].request.headers.length; k++) {
@@ -213,10 +224,12 @@ function passtoArray(files, name_of_element, array_of_element) {
                 array_of_element.push(fileContents.log.entries[j].request.headers[k].value);
               }
               if (typeof array_of_element[j] === "undefined") {
-                array_of_element.push(null);
+                array_of_element[j] = null;
               }
             }
-            resolve();
+            if (j === fileContents.log.entries.length - 1) {
+              resolve();
+            }
             break;
           case "request_pragma":
             for (let k = 0; k < fileContents.log.entries[j].request.headers.length; k++) {
@@ -236,10 +249,12 @@ function passtoArray(files, name_of_element, array_of_element) {
                 array_of_element.push(fileContents.log.entries[j].request.headers[k].value);
               }
               if (typeof array_of_element[j] === "undefined") {
-                array_of_element.push(null);
+                array_of_element[j] = null;
               }
             }
-            resolve();
+            if (j === fileContents.log.entries.length - 1) {
+              resolve();
+            }
             break;
           case "request_expires":
             var re = new RegExp("/Mon,|Tue,|Wed,|Thu,|Fri,|Sat,|Sun,/g");
@@ -345,10 +360,12 @@ function passtoArray(files, name_of_element, array_of_element) {
                 );
               }
               if (typeof array_of_element[j] === "undefined") {
-                array_of_element.push(null);
+                array_of_element[j] = null;
               }
             }
-            resolve();
+            if (j === fileContents.log.entries.length - 1) {
+              resolve();
+            }
             break;
           case "request_age":
             for (let k = 0; k < fileContents.log.entries[j].request.headers.length; k++) {
@@ -368,10 +385,12 @@ function passtoArray(files, name_of_element, array_of_element) {
                 array_of_element.push(fileContents.log.entries[j].request.headers[k].value);
               }
               if (typeof array_of_element[j] === "undefined") {
-                array_of_element.push(null);
+                array_of_element[j] = null;
               }
             }
-            resolve();
+            if (j === fileContents.log.entries.length - 1) {
+              resolve();
+            }
             break;
           case "request_last_modified":
             for (let k = 0; k < fileContents.log.entries[j].request.headers.length; k++) {
@@ -473,10 +492,12 @@ function passtoArray(files, name_of_element, array_of_element) {
                 );
               }
               if (typeof array_of_element[j] === "undefined") {
-                array_of_element.push(null);
+                array_of_element[j] = null;
               }
             }
-            resolve();
+            if (j === fileContents.log.entries.length - 1) {
+              resolve();
+            }
             break;
           case "request_host":
             for (let k = 0; k < fileContents.log.entries[j].request.headers.length; k++) {
@@ -496,10 +517,12 @@ function passtoArray(files, name_of_element, array_of_element) {
                 array_of_element.push(fileContents.log.entries[j].request.headers[k].value);
               }
               if (typeof array_of_element[j] === "undefined") {
-                array_of_element.push(null);
+                array_of_element[j] = null;
               }
             }
-            resolve();
+            if (j === fileContents.log.entries.length - 1) {
+              resolve();
+            }
             break;
           case "response_content_type":
             for (let k = 0; k < fileContents.log.entries[j].response.headers.length; k++) {
@@ -519,10 +542,12 @@ function passtoArray(files, name_of_element, array_of_element) {
                 array_of_element.push(fileContents.log.entries[j].response.headers[k].value);
               }
               if (typeof array_of_element[j] === "undefined") {
-                array_of_element.push(null);
+                array_of_element[j] = null;
               }
             }
-            resolve();
+            if (j === fileContents.log.entries.length - 1) {
+              resolve();
+            }
             break;
           case "response_cache_control":
             for (let k = 0; k < fileContents.log.entries[j].response.headers.length; k++) {
@@ -542,10 +567,12 @@ function passtoArray(files, name_of_element, array_of_element) {
                 array_of_element.push(fileContents.log.entries[j].response.headers[k].value);
               }
               if (typeof array_of_element[j] === "undefined") {
-                array_of_element.push(null);
+                array_of_element[j] = null;
               }
             }
-            resolve();
+            if (j === fileContents.log.entries.length - 1) {
+              resolve();
+            }
             break;
           case "response_pragma":
             for (let k = 0; k < fileContents.log.entries[j].response.headers.length; k++) {
@@ -565,10 +592,12 @@ function passtoArray(files, name_of_element, array_of_element) {
                 array_of_element.push(fileContents.log.entries[j].response.headers[k].value);
               }
               if (typeof array_of_element[j] === "undefined") {
-                array_of_element.push(null);
+                array_of_element[j] = null;
               }
             }
-            resolve();
+            if (j === fileContents.log.entries.length - 1) {
+              resolve();
+            }
             break;
           case "response_expires":
             var re = new RegExp("/Mon,|Tue,|Wed,|Thu,|Fri,|Sat,|Sun,/g");
@@ -674,10 +703,12 @@ function passtoArray(files, name_of_element, array_of_element) {
                 );
               }
               if (typeof array_of_element[j] === "undefined") {
-                array_of_element.push(null);
+                array_of_element[j] = null;
               }
             }
-            resolve();
+            if (j === fileContents.log.entries.length - 1) {
+              resolve();
+            }
             break;
           case "response_age":
             for (let k = 0; k < fileContents.log.entries[j].response.headers.length; k++) {
@@ -697,10 +728,12 @@ function passtoArray(files, name_of_element, array_of_element) {
                 array_of_element.push(fileContents.log.entries[j].response.headers[k].value);
               }
               if (typeof array_of_element[j] === "undefined") {
-                array_of_element.push(null);
+                array_of_element[j] = null;
               }
             }
-            resolve();
+            if (j === fileContents.log.entries.length - 1) {
+              resolve();
+            }
             break;
           case "response_last_modified":
             for (let k = 0; k < fileContents.log.entries[j].response.headers.length; k++) {
@@ -802,10 +835,12 @@ function passtoArray(files, name_of_element, array_of_element) {
                 );
               }
               if (typeof array_of_element[j] === "undefined") {
-                array_of_element.push(null);
+                array_of_element[j] = null;
               }
             }
-            resolve();
+            if (j === fileContents.log.entries.length - 1) {
+              resolve();
+            }
             break;
           case "response_host":
             for (let k = 0; k < fileContents.log.entries[j].response.headers.length; k++) {
@@ -825,10 +860,12 @@ function passtoArray(files, name_of_element, array_of_element) {
                 array_of_element.push(fileContents.log.entries[j].response.headers[k].value);
               }
               if (typeof array_of_element[j] === "undefined") {
-                array_of_element.push(null);
+                array_of_element[j] = null;
               }
             }
-            resolve();
+            if (j === fileContents.log.entries.length - 1) {
+              resolve();
+            }
             break;
           case "response_status":
             if (
@@ -841,9 +878,11 @@ function passtoArray(files, name_of_element, array_of_element) {
               array_of_element.push(fileContents.log.entries[j].response.status);
             }
             if (typeof array_of_element[j] === "undefined") {
-              array_of_element.push(null);
+              array_of_element[j] = null;
             }
-            resolve();
+            if (j === fileContents.log.entries.length - 1) {
+              resolve();
+            }
             break;
           case "response_statusText":
             if (
@@ -856,9 +895,11 @@ function passtoArray(files, name_of_element, array_of_element) {
               array_of_element.push(fileContents.log.entries[j].response.statusText);
             }
             if (typeof array_of_element[j] === "undefined") {
-              array_of_element.push(null);
+              array_of_element[j] = null;
             }
-            resolve();
+            if (j === fileContents.log.entries.length - 1) {
+              resolve();
+            }
             break;
           default:
             console.log("No value found!");
@@ -908,9 +949,6 @@ function Remove_File_Properties(files) {
               fileContents.log.entries[i].request[x] == null;
             } else {
               fileContents.log.entries[i].request[x] = fileContents.log.entries[i].request[x].match(/(?<=\/\/)(.*?)(?=\/|$)/g);
-              if (domain_url === "0") {
-                domain_url = fileContents.log.entries[i].request[x];
-              }
             }
             if (typeof fileContents.log.entries[i].request[x] === "undefined") {
               fileContents.log.entries[i].request[x] == null;
@@ -999,12 +1037,6 @@ function Remove_File_Properties(files) {
           city_longitude.push(data.longitude);
           isp.push(data.org);
         });
-      domain_url = "http://ip-api.com/json/" + domain_url;
-      $.get(domain_url, function (data) {
-        server_latitude.push(data.lat);
-        server_longitude.push(data.lon);
-      });
-      domain_url = "0";
       resolve();
     };
   });
@@ -1052,7 +1084,9 @@ function datatoPHP() {
         await passtoArray(file[i], "response_host", response_host);
         await passtoArray(file[i], "response_status", response_status);
         await passtoArray(file[i], "response_statusText", response_statusText);
-
+        for (let j = 0; j < serverIPAddresses.length; j++) {
+          await get_server_locations(j);
+        }
         $.ajax({
           type: "POST",
           url: "./file-processing/har_reader.php",
@@ -1082,8 +1116,8 @@ function datatoPHP() {
             filenames: JSON.stringify(filenames),
             city_latitude: JSON.stringify(city_latitude),
             city_longitude: JSON.stringify(city_longitude),
-            server_latitude: server_latitude[i],
-            server_longitude: server_longitude[i],
+            server_latitude: JSON.stringify(server_latitude),
+            server_longitude: JSON.stringify(server_longitude),
             isp: JSON.stringify(isp),
             reloads: "command",
           },
@@ -1114,6 +1148,8 @@ function datatoPHP() {
         response_age = [];
         response_last_modified = [];
         response_host = [];
+        server_latitude = [];
+        server_longitude = [];
       }
     }
     proccessing_data();
@@ -1141,7 +1177,9 @@ function datatoPHP() {
         await passtoArray(fileList[i], "response_host", response_host);
         await passtoArray(fileList[i], "response_status", response_status);
         await passtoArray(fileList[i], "response_statusText", response_statusText);
-
+        for (let j = 0; j < serverIPAddresses.length; j++) {
+          await get_server_locations(j);
+        }
         $.ajax({
           type: "POST",
           url: "./file-processing/har_reader.php",
@@ -1171,8 +1209,8 @@ function datatoPHP() {
             filenames: JSON.stringify(filenames),
             city_latitude: JSON.stringify(city_latitude),
             city_longitude: JSON.stringify(city_longitude),
-            server_latitude: server_latitude[i],
-            server_longitude: server_longitude[i],
+            server_latitude: JSON.stringify(server_latitude),
+            server_longitude: JSON.stringify(server_longitude),
             isp: JSON.stringify(isp),
             reloads: "command",
           },
@@ -1204,8 +1242,30 @@ function datatoPHP() {
         response_age = [];
         response_last_modified = [];
         response_host = [];
+        server_latitude = [];
+        server_longitude = [];
       }
     }
     proccessing_drop_data();
   }
+}
+
+function get_server_locations(pos) {
+  return new Promise((resolve, reject) => {
+    if (serverIPAddresses[pos] != null) {
+      fetch("https://get.geojs.io/v1/ip/geo/" + serverIPAddresses[pos] + ".json")
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (data) {
+          server_latitude.push(data.latitude);
+          server_longitude.push(data.longitude);
+          resolve();
+        });
+    } else {
+      server_latitude.push(null);
+      server_longitude.push(null);
+      resolve();
+    }
+  });
 }
