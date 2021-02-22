@@ -1155,7 +1155,6 @@ function get_server_locations(pos) {
       server_latitude.push(null);
       server_longitude.push(null);
       resolve();
-      //ss
     }
   });
 }
