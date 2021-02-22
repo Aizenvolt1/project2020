@@ -512,7 +512,10 @@ function passtoArray(files, name_of_element, array_of_element) {
           case "response_expires":
             for (let k = 0; k < fileContents.log.entries[j].response.headers.length; k++) {
               if (fileContents.log.entries[j].response.headers[k].name.toLowerCase() === "expires") {
-                if (fileContents.log.entries[j].response.headers[k].value != "") {
+                if (
+                  fileContents.log.entries[j].response.headers[k].value != "" &&
+                  fileContents.log.entries[j].response.headers[k].value.match(/.*:\d\d/gi) != null
+                ) {
                   let month;
                   if (
                     fileContents.log.entries[j].response.headers[k].value.match(/.*:\d\d/gi)[0].includes("jan") ||
@@ -867,11 +870,11 @@ function Remove_File_Properties(files) {
           needed_data.push(null);
         }
         for (let m = 0; m < needed_data.length; m++) {
-          if (needed_data[m].name == "undefined") {
+          if (needed_data[m] != null && typeof needed_data[m].name == "undefined") {
             needed_data[m].name = null;
-          } else if (typeof needed_data[m].value == "undefined") {
+          } else if (needed_data[m] != null && typeof needed_data[m].value == "undefined") {
             needed_data[m].value = null;
-          } else if (typeof needed_data[m] == "undefined") {
+          } else if (needed_data[m] != null && typeof needed_data[m] == "undefined") {
             needed_data[m] = null;
           }
         }
@@ -901,11 +904,11 @@ function Remove_File_Properties(files) {
           needed_data.push(null);
         }
         for (let m = 0; m < needed_data.length; m++) {
-          if (typeof needed_data[m].name == "undefined") {
+          if (needed_data[m] != null && typeof needed_data[m].name == "undefined") {
             needed_data[m].name = null;
-          } else if (typeof needed_data[m].value == "undefined") {
+          } else if (needed_data[m] != null && typeof needed_data[m].value == "undefined") {
             needed_data[m].value = null;
-          } else if (typeof needed_data[m] == "undefined") {
+          } else if (needed_data[m] != null && typeof needed_data[m] == "undefined") {
             needed_data[m] = null;
           }
         }
