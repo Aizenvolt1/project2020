@@ -513,7 +513,6 @@ function passtoArray(files, name_of_element, array_of_element) {
             for (let k = 0; k < fileContents.log.entries[j].response.headers.length; k++) {
               if (fileContents.log.entries[j].response.headers[k].name.toLowerCase() === "expires") {
                 if (fileContents.log.entries[j].response.headers[k].value != "") {
-                  console.log(array_of_element);
                   let month;
                   if (
                     fileContents.log.entries[j].response.headers[k].value.match(/.*:\d\d/gi)[0].includes("jan") ||
@@ -1013,7 +1012,7 @@ function datatoPHP() {
           },
           success: function (res) {
             if (i === file.length - 1) {
-              //location.reload();
+              location.reload();
             }
           },
         });
