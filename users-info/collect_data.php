@@ -66,7 +66,7 @@ else if($_POST['request'] == "request_number_of_response_statuses")
 }
 else if($_POST['request'] == "request_number_of_unique_domains")
 {
-    $sql="SELECT COUNT(DISTINCT domain) AS unique_urls FROM user_files";
+    $sql="SELECT COUNT(DISTINCT request_urls) AS unique_urls FROM file_data";
     $result = mysqli_query($conn, $sql);
     if($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
