@@ -101,7 +101,7 @@ else if($_POST['request'] == "request_content_type_info")
     }
     else if($_POST['request_type'] == "average_age")
     {
-        $sql="SELECT AVG(response_last_modified - started_date_times) AS avg_age FROM file_data WHERE response_content_types = '$_POST[value_name_content]' AND response_last_modified IS NOT NULL";
+        $sql="SELECT AVG(started_date_times - response_last_modified) AS avg_age FROM file_data WHERE response_content_types = '$_POST[value_name_content]' AND response_last_modified IS NOT NULL";
         $result = mysqli_query($conn, $sql);
         if($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
