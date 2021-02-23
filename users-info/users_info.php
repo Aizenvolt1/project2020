@@ -20,7 +20,7 @@ require_once "../config.php";
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Reset Username</title>
+    <title>Users Info</title>
     <link rel="stylesheet" type="text/css" href="../style.css">
     <link rel="stylesheet" type="text/css" href="../user-profile/user_profile.css">
     <link rel="stylesheet" type="text/css" href="./users_info.css">

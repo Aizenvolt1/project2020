@@ -14,6 +14,7 @@ require_once "../config.php";
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <title>Register</title>
     <link rel="stylesheet" type="text/css" href="../style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <style type="text/css">
