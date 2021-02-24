@@ -55,7 +55,7 @@ function set_coordinates() {
   });
 }
 
-//This functions runs when Number of Users is selected from Side Menu
+//This function runs when Number of Users is selected from Side Menu
 function NumberOfUsers() {
   if (document.getElementById("NumberOfUsers").style.display !== "block") {
     if (hasChild_status === true) {
@@ -105,7 +105,7 @@ function NumberOfUsers() {
   }
 }
 
-//This functions runs when Request Method Statistics is selected from Side Menu
+//This function runs when Request Method Statistics is selected from Side Menu
 function RequestMethodStatistics() {
   if (document.getElementById("RequestMethodStatistics").style.display !== "block") {
     if (hasChild_status === true) {
@@ -164,7 +164,7 @@ function RequestMethodStatistics() {
   }
 }
 
-//This functions runs when Response Status Statistics is selected from Side Menu
+//This function runs when Response Status Statistics is selected from Side Menu
 function ResponseStatusStatistics() {
   if (document.getElementById("ResponseStatusStatistics").style.display !== "block") {
     if (hasChild_content === true) {
@@ -243,7 +243,7 @@ selectElementStatus.addEventListener("change", (event) => {
   }
 });
 
-//This functions runs when Unique Domains is selected from Side Menu
+//This function runs when Unique Domains is selected from Side Menu
 function UniqueDomains() {
   if (document.getElementById("UniqueDomains").style.display !== "block") {
     if (hasChild_status === true) {
@@ -294,7 +294,7 @@ function UniqueDomains() {
   }
 }
 
-//This functions runs when ISPs is selected from Side Menu
+//This function runs when ISPs is selected from Side Menu
 function ISPs() {
   if (document.getElementById("ISPs").style.display !== "block") {
     if (hasChild_status === true) {
@@ -345,7 +345,7 @@ function ISPs() {
   }
 }
 
-//This functions runs when Average Age Of Content is selected from Side Menu
+//This function runs when Average Age Of Content is selected from Side Menu
 function AverageAgeOfContent() {
   if (document.getElementById("AverageAgeOfContent").style.display !== "block") {
     if (hasChild_status === true) {
@@ -705,7 +705,7 @@ selectElementChart.addEventListener("change", (event) => {
   }
 });
 
-//This functions runs when Show Map is selected from Side Menu
+//This function runs when Show Map is selected from Side Menu
 function showMap() {
   if (document.getElementById("showMap").style.display !== "block") {
     if (hasChild_status === true) {
