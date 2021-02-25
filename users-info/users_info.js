@@ -600,7 +600,7 @@ selectElementChart.addEventListener("change", (event) => {
         });
       },
     });
-  } else if (event.target.value === "ISP Chart") {
+  } else if (event.target.value === "ISP") {
     $.ajax({
       type: "POST",
       url: "collect_data.php",

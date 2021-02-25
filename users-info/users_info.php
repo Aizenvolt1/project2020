@@ -205,6 +205,23 @@ p{
                 <select id="selectChartType">
                     <option>Response Time Analysis by Hour</option>
                 </select>
+                <h2>Filters</h2>
+                <input type="checkbox" name="rt-filter" value="Content-Type">Content-Type<br>
+                <select id="ct-filter">
+                    <option>All Content-Types</option>
+                </select>
+                <input type="checkbox" name="rt-filter" value="Day of the Week Chart">Day of the Week<br>
+                <select id="dotw-filter">
+                    <option>All Days</option>
+                </select>
+                <input type="checkbox" name="rt-filter" value="HTTP Method">HTTP Method<br>
+                <select id="http-filter">
+                    <option>All HTTP Methods</option>
+                </select>
+                <input type="checkbox" name="rt-filter" value="ISP">ISP<br>
+                <select id="isp-filter">
+                    <option>All ISPs</option>
+                </select>
                 <canvas id = "rtaChart" width="700" height="400"></canvas>
             </div>
         </div>
