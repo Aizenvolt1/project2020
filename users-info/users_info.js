@@ -6,15 +6,19 @@ const btns = document.querySelectorAll(".nav_btn");
 let select_status;
 let select_content;
 let select_chart;
+let select_filter = [];
 let options_status = [];
 let options_content = [];
 let options_chart = ["Content-Type Chart", "Day of the Week Chart", "HTTP Method Chart", "ISP Chart"];
+let options_filter = [];
 let opt_status;
 let opt_content;
 let opt_chart;
+let opt_filter = [];
 let el_status = [];
 let el_content = [];
 let el_chart = [];
+let el_filter = [[], [], []];
 let hasChild_status = false;
 let hasChild_content = false;
 let hasChild_chart = false;
@@ -546,12 +550,72 @@ function display_check(event) {
   if (event.target.checked) {
     if (event.target.value === "Content-Type") {
       ct_filter.style.display = "block";
+      select_filter[0] = document.getElementById("ct-filter");
+
+      $.ajax({
+        type: "POST",
+        url: "collect_data.php",
+        data: {
+          request: "request_content_type_info",
+          request_type: "content_type",
+        },
+        success: function (res) {
+          options_filter[0] = JSON.parse(res);
+          for (let i = 0; i < options_filter[0].length; i++) {
+            opt_filter[0] = options_filter[0][i];
+            el_filter[0].push(document.createElement("option"));
+            el_filter[0][i].textContent = opt_filter[0];
+            el_filter[0][i].value = opt_filter[0];
+            select_filter[0].appendChild(el_filter[0][i]);
+          }
+        },
+      });
     } else if (event.target.value === "Day of the Week Chart") {
       dotw_filter.style.display = "block";
     } else if (event.target.value === "HTTP Method") {
       http_filter.style.display = "block";
+      select_filter[1] = document.getElementById("http-filter");
+
+      $.ajax({
+        type: "POST",
+        url: "collect_data.php",
+        data: {
+          request: "request_content_type_info",
+          request_type: "content_type",
+        },
+        success: function (res) {
+          options_filter[1] = JSON.parse(res);
+          for (let i = 0; i < options_filter[1].length; i++) {
+            opt_filter[1] = options_filter[1][i];
+            el_filter[1].push(document.createElement("option"));
+            el_filter[1][i].textContent = opt_filter[1];
+            el_filter[1][i].value = opt_filter[1];
+            select_filter[1].appendChild(el_filter[1][i]);
+          }
+        },
+      });
     } else if (event.target.value === "ISP") {
       isp_filter.style.display = "block";
+      select_filter[2] = document.getElementById("isp-filter");
+
+      $.ajax({
+        type: "POST",
+        url: "collect_data.php",
+        data: {
+          request: "request_content_type_info",
+          request_type: "content_type",
+        },
+        success: function (res) {
+          options_filter[2] = JSON.parse(res);
+          for (let i = 0; i < options_filter[2].length; i++) {
+            opt_filter[2] = options_filter[2][i];
+            el_filter[2].push(document.createElement("option"));
+            el_filter[2][i].textContent = opt_filter[2];
+            el_filter[2][i].value = opt_filter[2];
+            select_filter[2].appendChild(el_filter[2][i]);
+          }
+        },
+      });
     }
   } else if (!event.target.checked) {
     if (event.target.value === "Content-Type") {

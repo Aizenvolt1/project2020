@@ -213,6 +213,13 @@ p{
                 <input type="checkbox" name="rt-filter" value="Day of the Week Chart">Day of the Week<br>
                 <select id="dotw-filter">
                     <option>All Days</option>
+                    <option>Monday</option>
+                    <option>Tuesday</option>
+                    <option>Wednesday</option>
+                    <option>Thursday</option>
+                    <option>Friday</option>
+                    <option>Saturday</option>
+                    <option>Sunday</option>
                 </select>
                 <input type="checkbox" name="rt-filter" value="HTTP Method">HTTP Method<br>
                 <select id="http-filter">
