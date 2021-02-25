@@ -532,6 +532,40 @@ function ResponseTimeAnalysis() {
   }
 }
 
+let checkbox_filters = document.querySelectorAll("input[type='checkbox']");
+for (let i = 0; i < checkbox_filters.length; i++) {
+  checkbox_filters[i].addEventListener("click", display_check);
+}
+
+function display_check(event) {
+  let ct_filter = document.getElementById("ct-filter");
+  let dotw_filter = document.getElementById("dotw-filter");
+  let http_filter = document.getElementById("http-filter");
+  let isp_filter = document.getElementById("isp-filter");
+
+  if (event.target.checked) {
+    if (event.target.value === "Content-Type") {
+      ct_filter.style.display = "block";
+    } else if (event.target.value === "Day of the Week Chart") {
+      dotw_filter.style.display = "block";
+    } else if (event.target.value === "HTTP Method") {
+      http_filter.style.display = "block";
+    } else if (event.target.value === "ISP") {
+      isp_filter.style.display = "block";
+    }
+  } else if (!event.target.checked) {
+    if (event.target.value === "Content-Type") {
+      ct_filter.style.display = "none";
+    } else if (event.target.value === "Day of the Week Chart") {
+      dotw_filter.style.display = "none";
+    } else if (event.target.value === "HTTP Method") {
+      http_filter.style.display = "none";
+    } else if (event.target.value === "ISP") {
+      isp_filter.style.display = "none";
+    }
+  }
+}
+
 const selectElementChart = document.querySelector("#selectChartType");
 
 selectElementChart.addEventListener("change", (event) => {
