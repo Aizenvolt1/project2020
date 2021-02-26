@@ -31,6 +31,8 @@ require_once "../config.php";
     <script src = "https://cdn.jsdelivr.net/npm/leaflet-heatmap@1.0.0/leaflet-heatmap.js"></script>
     <script src = "https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script> 
     <script src = " https://cdnjs.cloudflare.com/ajax/libs/google-palette/1.1.0/palette.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/multi-select/0.9.12/js/jquery.multi-select.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/multi-select/0.9.12/css/multi-select.css">
 </head>
 <style>
 
@@ -207,11 +209,11 @@ p{
                 </select>
                 <h2>Filters</h2>
                 <input type="checkbox" name="rt-filter" value="Content-Type">Content-Type<br>
-                <select id="ct-filter">
+                <select multiple="multiple" id="ct-filter">
                     <option>All Content-Types</option>
                 </select>
                 <input type="checkbox" name="rt-filter" value="Day of the Week Chart">Day of the Week<br>
-                <select id="dotw-filter">
+                <select multiple="multiple" id="dotw-filter">
                     <option>All Days</option>
                     <option>Monday</option>
                     <option>Tuesday</option>
@@ -222,13 +224,14 @@ p{
                     <option>Sunday</option>
                 </select>
                 <input type="checkbox" name="rt-filter" value="HTTP Method">HTTP Method<br>
-                <select id="http-filter">
+                <select multiple="multiple" id="http-filter">
                     <option>All HTTP Methods</option>
                 </select>
                 <input type="checkbox" name="rt-filter" value="ISP">ISP<br>
-                <select id="isp-filter">
+                <select multiple="multiple" id="isp-filter">
                     <option>All ISPs</option>
                 </select>
+                <a href='#' id='deselect-all'>deselect all</a>
                 <canvas id = "rtaChart" width="700" height="400"></canvas>
             </div>
         </div>

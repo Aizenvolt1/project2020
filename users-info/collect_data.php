@@ -193,6 +193,30 @@ else if($_POST['request'] == "request_isp_chart")
     $chart_data=array_merge($isps_array,$avg_time);
     echo json_encode($chart_data);
 }
+else if($_POST['request'] == "request_distinct_isps")
+{
+    $distinct_isps = array();
+    $sql = "SELECT DISTINCT(isp) as isp FROM user_files WHERE isp IS NOT NULL";
+    $result = mysqli_query($conn, $sql);
+    if($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            array_push($distinct_isps,$row["isp"]);
+        }
+    }
+    echo json_encode($distinct_isps);
+}
+else if($_POST['request'] == "request_distinct_http_methods")
+{
+    $distinct_http_methods = array();
+    $sql = "SELECT DISTINCT(request_methods) as http_methods FROM file_data WHERE request_methods IS NOT NULL";
+    $result = mysqli_query($conn, $sql);
+    if($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            array_push($distinct_http_methods,$row["http_methods"]);
+        }
+    }
+    echo json_encode($distinct_http_methods);
+}
 if($_POST['request'] == "request_role")
 {
     if($_SESSION["role"] == "admin")
