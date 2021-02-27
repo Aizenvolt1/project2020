@@ -56,9 +56,7 @@ for($i=0;$i<count($mergedData);$i++)
     $args .= "('" . implode("','", $mergedData[$i]) . "')"; 
   }
   else {
-    {
-      $args .= "('" . implode("','", $mergedData[$i]) . "'),"; 
-    }
+    $args .= "('" . implode("','", $mergedData[$i]) . "'),"; 
   }
 }
 

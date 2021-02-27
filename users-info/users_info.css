@@ -33,22 +33,22 @@
   display: none;
 }
 
-#ct-filter {
+#ct-filter-wrapper {
   text-align: left;
   display: none;
 }
 
-#dotw-filter {
+#dotw-filter-wrapper {
   text-align: left;
   display: none;
 }
 
-#http-filter {
+#http-filter-wrapper {
   text-align: left;
   display: none;
 }
 
-#isp-filter {
+#isp-filter-wrapper {
   text-align: left;
   display: none;
 }

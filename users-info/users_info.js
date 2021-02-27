@@ -26,6 +26,11 @@ let color_array = [];
 var ctx = document.getElementById("rtaChart").getContext("2d");
 var rtaChart;
 
+let chosen_ct_filters = [];
+let chosen_dotw_filters = [];
+let chosen_http_filters = [];
+let chosen_isp_filters = [];
+
 palette("tol-sq", 12).map(function (hex) {
   color_array.push("#" + hex);
 });
@@ -542,15 +547,10 @@ for (let i = 0; i < checkbox_filters.length; i++) {
 }
 
 function display_check(event) {
-  let ct_filter = document.getElementById("ct-filter");
-  let dotw_filter = document.getElementById("dotw-filter");
-  let http_filter = document.getElementById("http-filter");
-  let isp_filter = document.getElementById("isp-filter");
-
   if (event.target.checked) {
     let all_selected = [];
     if (event.target.value === "Content-Type") {
-      ct_filter.style.display = "block";
+      document.getElementById("ct-filter-wrapper").style.display = "block";
       select_filter[0] = document.getElementById("ct-filter");
 
       $.ajax({
@@ -577,37 +577,61 @@ function display_check(event) {
                 for (let i = 0; i < options_filter[0].length; i++) {
                   $("#ct-filter").multiSelect("deselect", options_filter[0][i]);
                 }
+                chosen_ct_filters = [];
+                chosen_ct_filters.push(values[0]);
               }
               if (values[0] !== "All Content-Types") {
                 $("#ct-filter").multiSelect("deselect", ["All Content-Types"]);
+                if (chosen_ct_filters[0] === "All Content-Types") {
+                  chosen_ct_filters.shift();
+                }
+                chosen_ct_filters.push(values[0]);
                 all_selected[0] = true;
               }
+              draw_chart();
             },
-            //afterDeselect: function (values) {
-            //alert("Deselect value: " + values);
-            //},
+            afterDeselect: function (values) {
+              for (let i = 0; i < chosen_ct_filters.length; i++) {
+                if (values[0] === chosen_ct_filters[i]) {
+                  chosen_ct_filters.splice(i, 1);
+                }
+              }
+              draw_chart();
+            },
           });
         },
       });
     } else if (event.target.value === "Day of the Week Chart") {
-      dotw_filter.style.display = "block";
+      document.getElementById("dotw-filter-wrapper").style.display = "block";
       $("#dotw-filter").multiSelect({
         afterSelect: function (values) {
           all_selected[1] = false;
           if (values[0] === "All Days") {
             $("#dotw-filter").multiSelect("deselect", ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]);
+            chosen_dotw_filters = [];
+            chosen_dotw_filters.push(values[0]);
           }
           if (values[0] !== "All Days") {
             $("#dotw-filter").multiSelect("deselect", ["All Days"]);
+            if (chosen_dotw_filters[0] === "All Days") {
+              chosen_dotw_filters.shift();
+            }
+            chosen_dotw_filters.push(values[0]);
             all_selected[1] = true;
           }
+          draw_chart();
         },
-        //afterDeselect: function (values) {
-        //alert("Deselect value: " + values);
-        //},
+        afterDeselect: function (values) {
+          for (let i = 0; i < chosen_dotw_filters.length; i++) {
+            if (values[0] === chosen_dotw_filters[i]) {
+              chosen_dotw_filters.splice(i, 1);
+            }
+          }
+          draw_chart();
+        },
       });
     } else if (event.target.value === "HTTP Method") {
-      http_filter.style.display = "block";
+      document.getElementById("http-filter-wrapper").style.display = "block";
       select_filter[1] = document.getElementById("http-filter");
 
       $.ajax({
@@ -633,20 +657,32 @@ function display_check(event) {
                 for (let i = 0; i < options_filter[1].length; i++) {
                   $("#http-filter").multiSelect("deselect", options_filter[1][i]);
                 }
+                chosen_http_filters = [];
+                chosen_http_filters.push(values[0]);
               }
               if (values[0] !== "All HTTP Methods") {
                 $("#http-filter").multiSelect("deselect", ["All HTTP Methods"]);
+                if (chosen_http_filters[0] === "All HTTP Methods") {
+                  chosen_http_filters.shift();
+                }
+                chosen_http_filters.push(values[0]);
                 all_selected[2] = true;
               }
+              draw_chart();
             },
-            //afterDeselect: function (values) {
-            //alert("Deselect value: " + values);
-            //},
+            afterDeselect: function (values) {
+              for (let i = 0; i < chosen_http_filters.length; i++) {
+                if (values[0] === chosen_http_filters[i]) {
+                  chosen_http_filters.splice(i, 1);
+                }
+              }
+              draw_chart();
+            },
           });
         },
       });
     } else if (event.target.value === "ISP") {
-      isp_filter.style.display = "block";
+      document.getElementById("isp-filter-wrapper").style.display = "block";
       select_filter[2] = document.getElementById("isp-filter");
 
       $.ajax({
@@ -672,28 +708,40 @@ function display_check(event) {
                 for (let i = 0; i < options_filter[2].length; i++) {
                   $("#isp-filter").multiSelect("deselect", options_filter[2][i]);
                 }
+                chosen_isp_filters = [];
+                chosen_isp_filters.push(values[0]);
               }
               if (values[0] !== "All ISPs") {
                 $("#isp-filter").multiSelect("deselect", ["All ISPs"]);
+                if (chosen_isp_filters[0] === "All ISPs") {
+                  chosen_isp_filters.shift();
+                }
+                chosen_isp_filters.push(values[0]);
                 all_selected[3] = true;
               }
+              draw_chart();
             },
-            //afterDeselect: function (values) {
-            //alert("Deselect value: " + values);
-            //},
+            afterDeselect: function (values) {
+              for (let i = 0; i < chosen_isp_filters.length; i++) {
+                if (values[0] === chosen_isp_filters[i]) {
+                  chosen_isp_filters.splice(i, 1);
+                }
+              }
+              draw_chart();
+            },
           });
         },
       });
     }
   } else if (!event.target.checked) {
     if (event.target.value === "Content-Type") {
-      ct_filter.style.display = "none";
+      document.getElementById("ct-filter-wrapper").style.display = "none";
     } else if (event.target.value === "Day of the Week Chart") {
-      dotw_filter.style.display = "none";
+      document.getElementById("dotw-filter-wrapper").style.display = "none";
     } else if (event.target.value === "HTTP Method") {
-      http_filter.style.display = "none";
+      document.getElementById("http-filter-wrapper").style.display = "none";
     } else if (event.target.value === "ISP") {
-      isp_filter.style.display = "none";
+      document.getElementById("isp-filter-wrapper").style.display = "none";
     }
   }
 }
@@ -964,4 +1012,21 @@ function getRandomColor() {
     color += letters[Math.floor(Math.random() * 16)];
   }
   return color;
+}
+
+function draw_chart() {
+  $.ajax({
+    type: "POST",
+    url: "collect_data.php",
+    data: {
+      request: "request_filtered_data",
+      chosen_ct_filters: JSON.stringify(chosen_ct_filters),
+      chosen_dotw_filters: JSON.stringify(chosen_dotw_filters),
+      chosen_http_filters: JSON.stringify(chosen_http_filters),
+      chosen_isp_filters: JSON.stringify(chosen_isp_filters),
+    },
+    success: function (res) {
+      console.log(res);
+    },
+  });
 }
