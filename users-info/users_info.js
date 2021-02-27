@@ -589,9 +589,13 @@ function display_check(event) {
                 all_selected[0] = true;
               }
             },
-            //afterDeselect: function (values) {
-            //alert("Deselect value: " + values);
-            //},
+            afterDeselect: function (values) {
+              for (let i = 0; i < chosen_ct_filters.length; i++) {
+                if (values[0] === chosen_ct_filters[i]) {
+                  chosen_ct_filters.splice(i, 1);
+                }
+              }
+            },
           });
         },
       });
@@ -613,11 +617,14 @@ function display_check(event) {
             chosen_dotw_filters.push(values[0]);
             all_selected[1] = true;
           }
-          console.log(chosen_dotw_filters);
         },
-        //afterDeselect: function (values) {
-        //alert("Deselect value: " + values);
-        //},
+        afterDeselect: function (values) {
+          for (let i = 0; i < chosen_dotw_filters.length; i++) {
+            if (values[0] === chosen_dotw_filters[i]) {
+              chosen_dotw_filters.splice(i, 1);
+            }
+          }
+        },
       });
     } else if (event.target.value === "HTTP Method") {
       document.getElementById("http-filter-wrapper").style.display = "block";
@@ -658,9 +665,13 @@ function display_check(event) {
                 all_selected[2] = true;
               }
             },
-            //afterDeselect: function (values) {
-            //alert("Deselect value: " + values);
-            //},
+            afterDeselect: function (values) {
+              for (let i = 0; i < chosen_http_filters.length; i++) {
+                if (values[0] === chosen_http_filters[i]) {
+                  chosen_http_filters.splice(i, 1);
+                }
+              }
+            },
           });
         },
       });
@@ -702,11 +713,14 @@ function display_check(event) {
                 chosen_isp_filters.push(values[0]);
                 all_selected[3] = true;
               }
-              console.log(chosen_isp_filters);
             },
-            //afterDeselect: function (values) {
-            //alert("Deselect value: " + values);
-            //},
+            afterDeselect: function (values) {
+              for (let i = 0; i < chosen_isp_filters.length; i++) {
+                if (values[0] === chosen_isp_filters[i]) {
+                  chosen_isp_filters.splice(i, 1);
+                }
+              }
+            },
           });
         },
       });
