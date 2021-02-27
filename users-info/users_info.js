@@ -542,11 +542,6 @@ for (let i = 0; i < checkbox_filters.length; i++) {
 }
 
 function display_check(event) {
-  let ct_filter = document.getElementById("ct-filter");
-  let dotw_filter = document.getElementById("dotw-filter");
-  let http_filter = document.getElementById("http-filter");
-  let isp_filter = document.getElementById("isp-filter");
-
   let chosen_ct_filters = [];
   let chosen_dotw_filters = [];
   let chosen_http_filters = [];
@@ -555,7 +550,7 @@ function display_check(event) {
   if (event.target.checked) {
     let all_selected = [];
     if (event.target.value === "Content-Type") {
-      ct_filter.style.display = "block";
+      document.getElementById("ct-filter-wrapper").style.display = "block";
       select_filter[0] = document.getElementById("ct-filter");
 
       $.ajax({
@@ -601,7 +596,7 @@ function display_check(event) {
         },
       });
     } else if (event.target.value === "Day of the Week Chart") {
-      dotw_filter.style.display = "block";
+      document.getElementById("dotw-filter-wrapper").style.display = "block";
       $("#dotw-filter").multiSelect({
         afterSelect: function (values) {
           all_selected[1] = false;
@@ -625,7 +620,7 @@ function display_check(event) {
         //},
       });
     } else if (event.target.value === "HTTP Method") {
-      http_filter.style.display = "block";
+      document.getElementById("http-filter-wrapper").style.display = "block";
       select_filter[1] = document.getElementById("http-filter");
 
       $.ajax({
@@ -670,7 +665,7 @@ function display_check(event) {
         },
       });
     } else if (event.target.value === "ISP") {
-      isp_filter.style.display = "block";
+      document.getElementById("isp-filter-wrapper").style.display = "block";
       select_filter[2] = document.getElementById("isp-filter");
 
       $.ajax({
@@ -718,13 +713,13 @@ function display_check(event) {
     }
   } else if (!event.target.checked) {
     if (event.target.value === "Content-Type") {
-      ct_filter.style.display = "none";
+      document.getElementById("ct-filter-wrapper").style.display = "none";
     } else if (event.target.value === "Day of the Week Chart") {
-      dotw_filter.style.display = "none";
+      document.getElementById("dotw-filter-wrapper").style.display = "none";
     } else if (event.target.value === "HTTP Method") {
-      http_filter.style.display = "none";
+      document.getElementById("http-filter-wrapper").style.display = "none";
     } else if (event.target.value === "ISP") {
-      isp_filter.style.display = "none";
+      document.getElementById("isp-filter-wrapper").style.display = "none";
     }
   }
 }
