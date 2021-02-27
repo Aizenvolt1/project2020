@@ -231,7 +231,6 @@ p{
                 <select multiple="multiple" id="isp-filter">
                     <option>All ISPs</option>
                 </select>
-                <a href='#' id='deselect-all'>deselect all</a>
                 <canvas id = "rtaChart" width="700" height="400"></canvas>
             </div>
         </div>
