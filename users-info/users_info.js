@@ -26,6 +26,11 @@ let color_array = [];
 var ctx = document.getElementById("rtaChart").getContext("2d");
 var rtaChart;
 
+let chosen_ct_filters = [];
+let chosen_dotw_filters = [];
+let chosen_http_filters = [];
+let chosen_isp_filters = [];
+
 palette("tol-sq", 12).map(function (hex) {
   color_array.push("#" + hex);
 });
@@ -542,11 +547,6 @@ for (let i = 0; i < checkbox_filters.length; i++) {
 }
 
 function display_check(event) {
-  let chosen_ct_filters = [];
-  let chosen_dotw_filters = [];
-  let chosen_http_filters = [];
-  let chosen_isp_filters = [];
-
   if (event.target.checked) {
     let all_selected = [];
     if (event.target.value === "Content-Type") {
@@ -588,6 +588,7 @@ function display_check(event) {
                 chosen_ct_filters.push(values[0]);
                 all_selected[0] = true;
               }
+              draw_chart();
             },
             afterDeselect: function (values) {
               for (let i = 0; i < chosen_ct_filters.length; i++) {
@@ -595,6 +596,7 @@ function display_check(event) {
                   chosen_ct_filters.splice(i, 1);
                 }
               }
+              draw_chart();
             },
           });
         },
@@ -617,6 +619,7 @@ function display_check(event) {
             chosen_dotw_filters.push(values[0]);
             all_selected[1] = true;
           }
+          draw_chart();
         },
         afterDeselect: function (values) {
           for (let i = 0; i < chosen_dotw_filters.length; i++) {
@@ -624,6 +627,7 @@ function display_check(event) {
               chosen_dotw_filters.splice(i, 1);
             }
           }
+          draw_chart();
         },
       });
     } else if (event.target.value === "HTTP Method") {
@@ -664,6 +668,7 @@ function display_check(event) {
                 chosen_http_filters.push(values[0]);
                 all_selected[2] = true;
               }
+              draw_chart();
             },
             afterDeselect: function (values) {
               for (let i = 0; i < chosen_http_filters.length; i++) {
@@ -671,6 +676,7 @@ function display_check(event) {
                   chosen_http_filters.splice(i, 1);
                 }
               }
+              draw_chart();
             },
           });
         },
@@ -713,6 +719,7 @@ function display_check(event) {
                 chosen_isp_filters.push(values[0]);
                 all_selected[3] = true;
               }
+              draw_chart();
             },
             afterDeselect: function (values) {
               for (let i = 0; i < chosen_isp_filters.length; i++) {
@@ -720,6 +727,7 @@ function display_check(event) {
                   chosen_isp_filters.splice(i, 1);
                 }
               }
+              draw_chart();
             },
           });
         },
@@ -1004,4 +1012,21 @@ function getRandomColor() {
     color += letters[Math.floor(Math.random() * 16)];
   }
   return color;
+}
+
+function draw_chart() {
+  $.ajax({
+    type: "POST",
+    url: "collect_data.php",
+    data: {
+      request: "request_filtered_data",
+      chosen_ct_filters: JSON.stringify(chosen_ct_filters),
+      chosen_dotw_filters: JSON.stringify(chosen_dotw_filters),
+      chosen_http_filters: JSON.stringify(chosen_http_filters),
+      chosen_isp_filters: JSON.stringify(chosen_isp_filters),
+    },
+    success: function (res) {
+      console.log(res);
+    },
+  });
 }
