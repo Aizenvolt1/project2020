@@ -547,6 +547,11 @@ function display_check(event) {
   let http_filter = document.getElementById("http-filter");
   let isp_filter = document.getElementById("isp-filter");
 
+  let chosen_ct_filters = [];
+  let chosen_dotw_filters = [];
+  let chosen_http_filters = [];
+  let chosen_isp_filters = [];
+
   if (event.target.checked) {
     let all_selected = [];
     if (event.target.value === "Content-Type") {
@@ -577,9 +582,15 @@ function display_check(event) {
                 for (let i = 0; i < options_filter[0].length; i++) {
                   $("#ct-filter").multiSelect("deselect", options_filter[0][i]);
                 }
+                chosen_ct_filters = [];
+                chosen_ct_filters.push(values[0]);
               }
               if (values[0] !== "All Content-Types") {
                 $("#ct-filter").multiSelect("deselect", ["All Content-Types"]);
+                if (chosen_ct_filters[0] === "All Content-Types") {
+                  chosen_ct_filters.shift();
+                }
+                chosen_ct_filters.push(values[0]);
                 all_selected[0] = true;
               }
             },
@@ -596,11 +607,18 @@ function display_check(event) {
           all_selected[1] = false;
           if (values[0] === "All Days") {
             $("#dotw-filter").multiSelect("deselect", ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]);
+            chosen_dotw_filters = [];
+            chosen_dotw_filters.push(values[0]);
           }
           if (values[0] !== "All Days") {
             $("#dotw-filter").multiSelect("deselect", ["All Days"]);
+            if (chosen_dotw_filters[0] === "All Days") {
+              chosen_dotw_filters.shift();
+            }
+            chosen_dotw_filters.push(values[0]);
             all_selected[1] = true;
           }
+          console.log(chosen_dotw_filters);
         },
         //afterDeselect: function (values) {
         //alert("Deselect value: " + values);
@@ -633,9 +651,15 @@ function display_check(event) {
                 for (let i = 0; i < options_filter[1].length; i++) {
                   $("#http-filter").multiSelect("deselect", options_filter[1][i]);
                 }
+                chosen_http_filters = [];
+                chosen_http_filters.push(values[0]);
               }
               if (values[0] !== "All HTTP Methods") {
                 $("#http-filter").multiSelect("deselect", ["All HTTP Methods"]);
+                if (chosen_http_filters[0] === "All HTTP Methods") {
+                  chosen_http_filters.shift();
+                }
+                chosen_http_filters.push(values[0]);
                 all_selected[2] = true;
               }
             },
@@ -672,11 +696,18 @@ function display_check(event) {
                 for (let i = 0; i < options_filter[2].length; i++) {
                   $("#isp-filter").multiSelect("deselect", options_filter[2][i]);
                 }
+                chosen_isp_filters = [];
+                chosen_isp_filters.push(values[0]);
               }
               if (values[0] !== "All ISPs") {
                 $("#isp-filter").multiSelect("deselect", ["All ISPs"]);
+                if (chosen_isp_filters[0] === "All ISPs") {
+                  chosen_isp_filters.shift();
+                }
+                chosen_isp_filters.push(values[0]);
                 all_selected[3] = true;
               }
+              console.log(chosen_isp_filters);
             },
             //afterDeselect: function (values) {
             //alert("Deselect value: " + values);
