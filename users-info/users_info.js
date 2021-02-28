@@ -465,79 +465,6 @@ function ResponseTimeAnalysis() {
     sm.style.display = "none";
 
     select_chart = document.getElementById("selectChartType");
-
-    $.ajax({
-      type: "POST",
-      url: "collect_data.php",
-      data: {
-        request: "request_time_analysis",
-      },
-      success: function (res) {
-        for (let i = 0; i < options_chart.length; i++) {
-          opt_chart = options_chart[i];
-          el_chart[i] = document.createElement("option");
-          el_chart[i].textContent = opt_chart;
-          el_chart[i].value = opt_chart;
-          select_chart.appendChild(el_chart[i]);
-        }
-        hasChild_chart = true;
-        if (rtaChart) {
-          rtaChart.destroy();
-        }
-        rtaChart = new Chart(ctx, {
-          type: "bar",
-          data: {
-            labels: [
-              "0:00",
-              "1:00",
-              "2:00",
-              "3:00",
-              "4:00",
-              "5:00",
-              "6:00",
-              "7:00",
-              "8:00",
-              "9:00",
-              "10:00",
-              "11:00",
-              "12:00",
-              "13:00",
-              "14:00",
-              "15:00",
-              "16:00",
-              "17:00",
-              "18:00",
-              "19:00",
-              "20:00",
-              "21:00",
-              "22:00",
-              "23:00",
-            ],
-            datasets: [
-              {
-                label: "Response Time Analysis",
-                data: JSON.parse(res),
-                backgroundColor: color_array,
-                borderColor: color_array,
-                borderWidth: 2,
-                hoverBorderColor: "#b5b5b5",
-              },
-            ],
-          },
-          options: {
-            scales: {
-              yAxes: [
-                {
-                  ticks: {
-                    beginAtZero: true,
-                  },
-                },
-              ],
-            },
-          },
-        });
-      },
-    });
   }
 }
 
@@ -746,7 +673,7 @@ function display_check(event) {
   }
 }
 
-const selectElementChart = document.querySelector("#selectChartType");
+/*const selectElementChart = document.querySelector("#selectChartType");
 
 selectElementChart.addEventListener("change", (event) => {
   if (event.target.value === "Response Time Analysis by Hour") {
@@ -916,8 +843,10 @@ selectElementChart.addEventListener("change", (event) => {
         });
       },
     });
+    
   }
 });
+*/
 
 //This function runs when Show Map is selected from Side Menu
 function showMap() {
@@ -1027,6 +956,67 @@ function draw_chart() {
     },
     success: function (res) {
       console.log(res);
+      if (rtaChart) {
+        rtaChart.destroy();
+      }
+      rtaChart = new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: [
+            "0:00",
+            "1:00",
+            "2:00",
+            "3:00",
+            "4:00",
+            "5:00",
+            "6:00",
+            "7:00",
+            "8:00",
+            "9:00",
+            "10:00",
+            "11:00",
+            "12:00",
+            "13:00",
+            "14:00",
+            "15:00",
+            "16:00",
+            "17:00",
+            "18:00",
+            "19:00",
+            "20:00",
+            "21:00",
+            "22:00",
+            "23:00",
+          ],
+          datasets: [
+            {
+              label: "Response Time Analysis",
+              data: JSON.parse(res),
+              backgroundColor: color_array,
+              borderColor: color_array,
+              borderWidth: 2,
+              hoverBorderColor: "#b5b5b5",
+            },
+          ],
+        },
+        options: {
+          scales: {
+            yAxes: [
+              {
+                ticks: {
+                  beginAtZero: true,
+                },
+              },
+            ],
+            xAxes: [
+              {
+                barPercentage: 0.7,
+                categoryPercentage: 0.55,
+              },
+            ],
+          },
+        },
+      });
     },
   });
 }

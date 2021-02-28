@@ -119,7 +119,7 @@ else if($_POST['request'] == "request_content_type_info")
 }
 else if($_POST['request'] == "request_time_analysis")
 {
-    $first_date_array = array();
+    /*$first_date_array = array();
     $second_date_array = array();
     $first_date;
     $second_date;
@@ -142,11 +142,11 @@ else if($_POST['request'] == "request_time_analysis")
             }
         }
     }
-    echo json_encode($avg_time);
+    echo json_encode($avg_time);*/
 }
 else if($_POST['request'] == "request_isp_chart")
 {
-    $chart_data = array();
+    /*$chart_data = array();
     $isps_array = array();
     $first_date_array = array();
     $second_date_array = array();
@@ -192,7 +192,7 @@ else if($_POST['request'] == "request_isp_chart")
     }
     array_push($isps_array,"//");
     $chart_data=array_merge($isps_array,$avg_time);
-    echo json_encode($chart_data);
+    echo json_encode($chart_data);*/
 }
 else if($_POST['request'] == "request_distinct_isps")
 {
@@ -220,6 +220,7 @@ else if($_POST['request'] == "request_distinct_http_methods")
 }
 else if($_POST['request'] == "request_filtered_data")
 {
+    $avg_time = array();
     $chosen_ct_filters = json_decode($_POST['chosen_ct_filters'],true);
     $chosen_dotw_filters = json_decode($_POST['chosen_dotw_filters'],true);
     $chosen_http_filters = json_decode($_POST['chosen_http_filters'],true);
@@ -342,7 +343,7 @@ else if($_POST['request'] == "request_filtered_data")
         }
     }
 
-    /*for($i = 0; $i < 24; $i++)
+    for($i = 0; $i < 24; $i++)
     {   
         $first_date = date("$i:00:00");
         $second_date = date("$i:59:59");
@@ -350,31 +351,22 @@ else if($_POST['request'] == "request_filtered_data")
         array_push($second_date_array,$second_date);
     }
 
-    for($i = 0; $i < count($isps_array); $i++)
+
+    for($j = 0; $j < 24; $j++)
     {
-        for($j = 0; $j < 24; $j++)
-        {
-            $sql="SELECT AVG(file_data.timings_wait) as avg_time FROM file_data 
-            INNER JOIN user_files ON file_data.file_number=user_files.file_number 
-            WHERE cast(file_data.started_date_times as time) 
-            BETWEEN '$first_date_array[$j]' AND '$second_date_array[$j]' AND user_files.isp='$isps_array[$i]'";
-            $result = mysqli_query($conn, $sql);
-            if($result->num_rows > 0) {
-                while($row = $result->fetch_assoc()) {
-                    array_push($avg_time,$row["avg_time"]);
-                }
+        $sql="SELECT AVG(file_data.timings_wait) as avg_time FROM file_data 
+        INNER JOIN user_files ON file_data.file_number=user_files.file_number 
+        WHERE cast(file_data.started_date_times as time) 
+        BETWEEN '$first_date_array[$j]' AND '$second_date_array[$j]' AND $ct_args 
+        AND $dotw_args AND $http_args AND $isp_args";
+        $result = mysqli_query($conn, $sql);
+        if($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+                array_push($avg_time,$row["avg_time"]);
             }
         }
-        if($i<count($isps_array)-1)
-        {
-            array_push($avg_time,"+");
-        }
-    }*/
-    $e_str="!SELECT AVG(file_data.timings_wait) as avg_time FROM file_data 
-            INNER JOIN user_files ON file_data.file_number=user_files.file_number 
-            WHERE cast(file_data.started_date_times as time) 
-            BETWEEN 'time1' AND 'time2' AND $ct_args AND $dotw_args AND $http_args AND $isp_args ALSO $day";
-    echo $e_str;
+    }
+    echo json_encode($avg_time);
 }
 if($_POST['request'] == "request_role")
 {
