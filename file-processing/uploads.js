@@ -473,6 +473,7 @@ function passtoArray(files, name_of_element, array_of_element) {
                 array_of_element.push(null);
               }
             }
+            //fileContents.log.entries[j].request.url.match(/(?<=\/\/)(.*?)(?=\/|$)/g);
             resolve();
             break;
           case "response_cache_control":

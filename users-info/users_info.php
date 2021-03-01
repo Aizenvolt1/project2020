@@ -237,6 +237,8 @@ p{
                     </select>
                 </div>
                 <canvas id = "rtaChart" width="700" height="400"></canvas>
+            </div id = "HTTP Header Analysis">
+            <div>
             </div>
         </div>
     </div>

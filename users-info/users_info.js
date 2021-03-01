@@ -955,7 +955,6 @@ function draw_chart() {
       chosen_isp_filters: JSON.stringify(chosen_isp_filters),
     },
     success: function (res) {
-      console.log(res);
       if (rtaChart) {
         rtaChart.destroy();
       }
@@ -990,7 +989,7 @@ function draw_chart() {
           ],
           datasets: [
             {
-              label: "Response Time Analysis",
+              label: "Response Time",
               data: JSON.parse(res),
               backgroundColor: color_array,
               borderColor: color_array,
