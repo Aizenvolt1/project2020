@@ -204,9 +204,6 @@ p{
                 </table>
             </div>
             <div id = "ResponseTimeAnalysis">
-                <select id="selectChartType">
-                    <option>Response Time Analysis by Hour</option>
-                </select>
                 <h2>Filters</h2>
                 <input type="checkbox" name="rt-filter" value="Content-Type">Content-Type<br>
                 <div id="ct-filter-wrapper">
@@ -240,6 +237,8 @@ p{
                     </select>
                 </div>
                 <canvas id = "rtaChart" width="700" height="400"></canvas>
+            </div id = "HTTP Header Analysis">
+            <div>
             </div>
         </div>
     </div>

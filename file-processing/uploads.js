@@ -182,6 +182,8 @@ function passtoArray(files, name_of_element, array_of_element) {
                   break;
                 }
               }
+              /*If the loop reaches this if statement it means that the specific header doesnt exist
+              and in that case we pass the null value to the array. */
               if (k === fileContents.log.entries[j].request.headers.length - 1) {
                 array_of_element.push(null);
               }
@@ -465,6 +467,20 @@ function passtoArray(files, name_of_element, array_of_element) {
                   array_of_element.push(fileContents.log.entries[j].response.headers[k].value);
                   break;
                 } else {
+                  if (fileContents.log.entries[j].response.headers[k].value == "") {
+                    if (
+                      fileContents.log.entries[j].request.url.match(/^.+?[^\/:](?=[?\/]|$)/g)[0].length + 1 ===
+                        fileContents.log.entries[j].request.url.length ||
+                      fileContents.log.entries[j].request.url.slice(-4) === ".jsp" ||
+                      fileContents.log.entries[j].request.url.slice(-4) === ".asp" ||
+                      fileContents.log.entries[j].request.url.slice(-4) === ".php" ||
+                      fileContents.log.entries[j].request.url.slice(-4) === ".htm" ||
+                      fileContents.log.entries[j].request.url.slice(-5) === ".html"
+                    ) {
+                      array_of_element.push("text/html");
+                      break;
+                    }
+                  }
                   array_of_element.push(null);
                   break;
                 }
@@ -473,6 +489,7 @@ function passtoArray(files, name_of_element, array_of_element) {
                 array_of_element.push(null);
               }
             }
+            //fileContents.log.entries[j].request.url.match(/(?<=\/\/)(.*?)(?=\/|$)/g);
             resolve();
             break;
           case "response_cache_control":
