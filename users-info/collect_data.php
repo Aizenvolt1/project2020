@@ -368,6 +368,87 @@ else if($_POST['request'] == "request_filtered_data")
     }
     echo json_encode($avg_time);
 }
+else if($_POST['request'] == "request_histogram_data")
+{
+    $max_ages = array();
+
+    $chosen_ttl_ct_filters = json_decode($_POST['chosen_ttl_ct_filters'],true);
+    $chosen_ha_isp_filters = json_decode($_POST['chosen_ha_isp_filters'],true);
+
+    if(empty($chosen_ttl_ct_filters) || $chosen_ttl_ct_filters[0]=="All Content-Types")
+    {
+            $ttl_ct_args = "file_data.response_content_types IS NOT NULL"; 
+    }
+    else if($chosen_ttl_ct_filters[0]!="All Content-Types" && count($chosen_ttl_ct_filters)==1)
+    {
+        $ttl_ct_args = "file_data.response_content_types = '$chosen_ttl_ct_filters[0]'";
+    }
+    else if($chosen_ttl_ct_filters[0]!="All Content-Types" && count($chosen_ttl_ct_filters)>1)
+    {
+        for($i=0;$i<count($chosen_ttl_ct_filters);$i++)
+        {
+            if($i==0)
+            {
+                $ttl_ct_args = "(file_data.response_content_types = '$chosen_ttl_ct_filters[$i]' OR "; 
+            }
+            if($i>0 && $i<count($chosen_ttl_ct_filters)-1)
+            {
+                $ttl_ct_args .= "file_data.response_content_types = '$chosen_ttl_ct_filters[$i]' OR "; 
+            }
+            else if($i==count($chosen_ttl_ct_filters)-1)
+            {
+                $ttl_ct_args .= "file_data.response_content_types = '$chosen_ttl_ct_filters[$i]')"; 
+            }
+        }
+    }
+
+    if(empty($chosen_ha_isp_filters) || $chosen_ha_isp_filters[0]=="All ISPs")
+    {
+            $ha_isp_args = "user_files.isp IS NOT NULL"; 
+    }
+    else if($chosen_ha_isp_filters[0]!="All ISPs" && count($chosen_ha_isp_filters)==1)
+    {
+        $ha_isp_args = "user_files.isp = '$chosen_ha_isp_filters[0]'";
+    }
+    else if($chosen_ha_isp_filters[0]!="All ISPs" && count($chosen_ha_isp_filters)>1)
+    {
+        for($i=0;$i<count($chosen_ha_isp_filters);$i++)
+        {
+            if($i==0)
+            {
+                $ha_isp_args = "(user_files.isp = '$chosen_ha_isp_filters[$i]' OR "; 
+            }
+            if($i>0 && $i<count($chosen_ha_isp_filters)-1)
+            {
+                $ha_isp_args .= "user_files.isp = '$chosen_ha_isp_filters[$i]' OR "; 
+            }
+            else if($i==count($chosen_ha_isp_filters)-1)
+            {
+                $ha_isp_args .= "user_files.isp = '$chosen_ha_isp_filters[$i]')"; 
+            }
+        }
+    }
+
+    $sql="SELECT IF(file_data.response_cache_controls IS NOT NULL,file_data.response_cache_controls, 
+    IF(file_data.response_expires IS NOT NULL AND file_data.response_last_modified IS NOT NULL,
+    file_data.response_expires-file_data.response_last_modified,NULL))
+    as max_ages FROM file_data INNER JOIN user_files ON file_data.file_number=user_files.file_number 
+    WHERE $ttl_ct_args AND $ha_isp_args";
+    $result = mysqli_query($conn, $sql);
+    if($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            if(preg_match("/max-age=(\d*)/", $row["max_ages"]))
+            {
+                preg_match("/max-age=(\d*)/", $row["max_ages"],$matches);
+                array_push($max_ages,$matches[1]);
+            }
+            else {
+                array_push($max_ages,$row["max_ages"]);
+            }
+        }
+    }
+    echo json_encode($max_ages);
+}
 if($_POST['request'] == "request_role")
 {
     if($_SESSION["role"] == "admin")

@@ -5,31 +5,32 @@ const room = document.querySelector(".side_nav");
 const btns = document.querySelectorAll(".nav_btn");
 let select_status;
 let select_content;
-let select_chart;
 let select_filter = [];
 let options_status = [];
 let options_content = [];
-let options_chart = ["Content-Type Chart", "Day of the Week Chart", "HTTP Method Chart", "ISP Chart"];
 let options_filter = [];
 let opt_status;
 let opt_content;
-let opt_chart;
 let opt_filter = [];
 let el_status = [];
 let el_content = [];
-let el_chart = [];
-let el_filter = [[], [], []];
+let el_filter = [[], [], [], [], []];
 let hasChild_status = false;
 let hasChild_content = false;
-let hasChild_chart = false;
 let color_array = [];
+
 var ctx = document.getElementById("rtaChart").getContext("2d");
 var rtaChart;
+
+var hac = document.getElementById("haChart").getContext("2d");
+var haChart;
 
 let chosen_ct_filters = [];
 let chosen_dotw_filters = [];
 let chosen_http_filters = [];
 let chosen_isp_filters = [];
+let chosen_ttl_ct_filters = [];
+let chosen_ha_isp_filters = [];
 
 palette("tol-sq", 12).map(function (hex) {
   color_array.push("#" + hex);
@@ -79,12 +80,6 @@ function NumberOfUsers() {
       }
       hasChild_content = false;
     }
-    if (hasChild_chart === true) {
-      for (let i = 0; i < options_chart.length; i++) {
-        select_chart.removeChild(el_chart[i]);
-      }
-      hasChild_chart = false;
-    }
     let nou = document.getElementById("NumberOfUsers");
     let rms = document.getElementById("RequestMethodStatistics");
     let rss = document.getElementById("ResponseStatusStatistics");
@@ -92,6 +87,7 @@ function NumberOfUsers() {
     let isp = document.getElementById("ISPs");
     let aoc = document.getElementById("AverageAgeOfContent");
     let rta = document.getElementById("ResponseTimeAnalysis");
+    let hha = document.getElementById("HeaderAnalysis");
     let sm = document.getElementById("map");
     nou.style.display = "block";
     rms.style.display = "none";
@@ -100,6 +96,7 @@ function NumberOfUsers() {
     isp.style.display = "none";
     aoc.style.display = "none";
     rta.style.display = "none";
+    hha.style.display = "none";
     sm.style.display = "none";
     $.ajax({
       type: "POST",
@@ -129,12 +126,6 @@ function RequestMethodStatistics() {
       }
       hasChild_content = false;
     }
-    if (hasChild_chart === true) {
-      for (let i = 0; i < options_chart.length; i++) {
-        select_chart.removeChild(el_chart[i]);
-      }
-      hasChild_chart = false;
-    }
     let nou = document.getElementById("NumberOfUsers");
     let rms = document.getElementById("RequestMethodStatistics");
     let rss = document.getElementById("ResponseStatusStatistics");
@@ -142,6 +133,7 @@ function RequestMethodStatistics() {
     let isp = document.getElementById("ISPs");
     let aoc = document.getElementById("AverageAgeOfContent");
     let rta = document.getElementById("ResponseTimeAnalysis");
+    let hha = document.getElementById("HeaderAnalysis");
     let sm = document.getElementById("map");
     nou.style.display = "none";
     rms.style.display = "block";
@@ -150,6 +142,7 @@ function RequestMethodStatistics() {
     isp.style.display = "none";
     aoc.style.display = "none";
     rta.style.display = "none";
+    hha.style.display = "none";
     sm.style.display = "none";
 
     $.ajax({
@@ -182,12 +175,6 @@ function ResponseStatusStatistics() {
       }
       hasChild_content = false;
     }
-    if (hasChild_chart === true) {
-      for (let i = 0; i < options_chart.length; i++) {
-        select_chart.removeChild(el_chart[i]);
-      }
-      hasChild_chart = false;
-    }
     document.getElementById("occur").innerHTML = "-";
     let nou = document.getElementById("NumberOfUsers");
     let rms = document.getElementById("RequestMethodStatistics");
@@ -196,6 +183,7 @@ function ResponseStatusStatistics() {
     let isp = document.getElementById("ISPs");
     let aoc = document.getElementById("AverageAgeOfContent");
     let rta = document.getElementById("ResponseTimeAnalysis");
+    let hha = document.getElementById("HeaderAnalysis");
     let sm = document.getElementById("map");
     nou.style.display = "none";
     rms.style.display = "none";
@@ -204,6 +192,7 @@ function ResponseStatusStatistics() {
     isp.style.display = "none";
     aoc.style.display = "none";
     rta.style.display = "none";
+    hha.style.display = "none";
     sm.style.display = "none";
 
     select_status = document.getElementById("selectStatus");
@@ -267,12 +256,6 @@ function UniqueDomains() {
       }
       hasChild_content = false;
     }
-    if (hasChild_chart === true) {
-      for (let i = 0; i < options_chart.length; i++) {
-        select_chart.removeChild(el_chart[i]);
-      }
-      hasChild_chart = false;
-    }
     let nou = document.getElementById("NumberOfUsers");
     let rms = document.getElementById("RequestMethodStatistics");
     let rss = document.getElementById("ResponseStatusStatistics");
@@ -280,6 +263,7 @@ function UniqueDomains() {
     let isp = document.getElementById("ISPs");
     let aoc = document.getElementById("AverageAgeOfContent");
     let rta = document.getElementById("ResponseTimeAnalysis");
+    let hha = document.getElementById("HeaderAnalysis");
     let sm = document.getElementById("map");
     nou.style.display = "none";
     rms.style.display = "none";
@@ -288,6 +272,7 @@ function UniqueDomains() {
     isp.style.display = "none";
     aoc.style.display = "none";
     rta.style.display = "none";
+    hha.style.display = "none";
     sm.style.display = "none";
 
     $.ajax({
@@ -318,12 +303,6 @@ function ISPs() {
       }
       hasChild_content = false;
     }
-    if (hasChild_chart === true) {
-      for (let i = 0; i < options_chart.length; i++) {
-        select_chart.removeChild(el_chart[i]);
-      }
-      hasChild_chart = false;
-    }
     let nou = document.getElementById("NumberOfUsers");
     let rms = document.getElementById("RequestMethodStatistics");
     let rss = document.getElementById("ResponseStatusStatistics");
@@ -331,6 +310,7 @@ function ISPs() {
     let isp = document.getElementById("ISPs");
     let aoc = document.getElementById("AverageAgeOfContent");
     let rta = document.getElementById("ResponseTimeAnalysis");
+    let hha = document.getElementById("HeaderAnalysis");
     let sm = document.getElementById("map");
     nou.style.display = "none";
     rms.style.display = "none";
@@ -339,6 +319,7 @@ function ISPs() {
     isp.style.display = "block";
     aoc.style.display = "none";
     rta.style.display = "none";
+    hha.style.display = "none";
     sm.style.display = "none";
 
     $.ajax({
@@ -363,12 +344,6 @@ function AverageAgeOfContent() {
       }
       hasChild_status = false;
     }
-    if (hasChild_chart === true) {
-      for (let i = 0; i < options_chart.length; i++) {
-        select_chart.removeChild(el_chart[i]);
-      }
-      hasChild_chart = false;
-    }
     document.getElementById("aaoc").innerHTML = "-";
     let nou = document.getElementById("NumberOfUsers");
     let rms = document.getElementById("RequestMethodStatistics");
@@ -377,6 +352,7 @@ function AverageAgeOfContent() {
     let isp = document.getElementById("ISPs");
     let aoc = document.getElementById("AverageAgeOfContent");
     let rta = document.getElementById("ResponseTimeAnalysis");
+    let hha = document.getElementById("HeaderAnalysis");
     let sm = document.getElementById("map");
     nou.style.display = "none";
     rms.style.display = "none";
@@ -385,6 +361,7 @@ function AverageAgeOfContent() {
     isp.style.display = "none";
     aoc.style.display = "block";
     rta.style.display = "none";
+    hha.style.display = "none";
     sm.style.display = "none";
 
     select_content = document.getElementById("selectContentType");
@@ -454,6 +431,7 @@ function ResponseTimeAnalysis() {
     let isp = document.getElementById("ISPs");
     let aoc = document.getElementById("AverageAgeOfContent");
     let rta = document.getElementById("ResponseTimeAnalysis");
+    let hha = document.getElementById("HeaderAnalysis");
     let sm = document.getElementById("map");
     nou.style.display = "none";
     rms.style.display = "none";
@@ -462,9 +440,8 @@ function ResponseTimeAnalysis() {
     isp.style.display = "none";
     aoc.style.display = "none";
     rta.style.display = "block";
+    hha.style.display = "none";
     sm.style.display = "none";
-
-    select_chart = document.getElementById("selectChartType");
   }
 }
 
@@ -475,7 +452,6 @@ for (let i = 0; i < checkbox_filters.length; i++) {
 
 function display_check(event) {
   if (event.target.checked) {
-    let all_selected = [];
     if (event.target.value === "Content-Type") {
       document.getElementById("ct-filter-wrapper").style.display = "block";
       select_filter[0] = document.getElementById("ct-filter");
@@ -499,7 +475,6 @@ function display_check(event) {
           }
           $("#ct-filter").multiSelect({
             afterSelect: function (values) {
-              all_selected[0] = false;
               if (values[0] === "All Content-Types") {
                 for (let i = 0; i < options_filter[0].length; i++) {
                   $("#ct-filter").multiSelect("deselect", options_filter[0][i]);
@@ -513,9 +488,8 @@ function display_check(event) {
                   chosen_ct_filters.shift();
                 }
                 chosen_ct_filters.push(values[0]);
-                all_selected[0] = true;
               }
-              draw_chart();
+              draw_chart("response_time_analysis");
             },
             afterDeselect: function (values) {
               for (let i = 0; i < chosen_ct_filters.length; i++) {
@@ -523,7 +497,7 @@ function display_check(event) {
                   chosen_ct_filters.splice(i, 1);
                 }
               }
-              draw_chart();
+              draw_chart("response_time_analysis");
             },
           });
         },
@@ -532,7 +506,6 @@ function display_check(event) {
       document.getElementById("dotw-filter-wrapper").style.display = "block";
       $("#dotw-filter").multiSelect({
         afterSelect: function (values) {
-          all_selected[1] = false;
           if (values[0] === "All Days") {
             $("#dotw-filter").multiSelect("deselect", ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]);
             chosen_dotw_filters = [];
@@ -544,9 +517,8 @@ function display_check(event) {
               chosen_dotw_filters.shift();
             }
             chosen_dotw_filters.push(values[0]);
-            all_selected[1] = true;
           }
-          draw_chart();
+          draw_chart("response_time_analysis");
         },
         afterDeselect: function (values) {
           for (let i = 0; i < chosen_dotw_filters.length; i++) {
@@ -554,7 +526,7 @@ function display_check(event) {
               chosen_dotw_filters.splice(i, 1);
             }
           }
-          draw_chart();
+          draw_chart("response_time_analysis");
         },
       });
     } else if (event.target.value === "HTTP Method") {
@@ -579,7 +551,6 @@ function display_check(event) {
           }
           $("#http-filter").multiSelect({
             afterSelect: function (values) {
-              all_selected[2] = false;
               if (values[0] === "All HTTP Methods") {
                 for (let i = 0; i < options_filter[1].length; i++) {
                   $("#http-filter").multiSelect("deselect", options_filter[1][i]);
@@ -593,9 +564,8 @@ function display_check(event) {
                   chosen_http_filters.shift();
                 }
                 chosen_http_filters.push(values[0]);
-                all_selected[2] = true;
               }
-              draw_chart();
+              draw_chart("response_time_analysis");
             },
             afterDeselect: function (values) {
               for (let i = 0; i < chosen_http_filters.length; i++) {
@@ -603,7 +573,7 @@ function display_check(event) {
                   chosen_http_filters.splice(i, 1);
                 }
               }
-              draw_chart();
+              draw_chart("response_time_analysis");
             },
           });
         },
@@ -630,7 +600,6 @@ function display_check(event) {
           }
           $("#isp-filter").multiSelect({
             afterSelect: function (values) {
-              all_selected[3] = false;
               if (values[0] === "All ISPs") {
                 for (let i = 0; i < options_filter[2].length; i++) {
                   $("#isp-filter").multiSelect("deselect", options_filter[2][i]);
@@ -644,9 +613,8 @@ function display_check(event) {
                   chosen_isp_filters.shift();
                 }
                 chosen_isp_filters.push(values[0]);
-                all_selected[3] = true;
               }
-              draw_chart();
+              draw_chart("response_time_analysis");
             },
             afterDeselect: function (values) {
               for (let i = 0; i < chosen_isp_filters.length; i++) {
@@ -654,7 +622,106 @@ function display_check(event) {
                   chosen_isp_filters.splice(i, 1);
                 }
               }
-              draw_chart();
+              draw_chart("response_time_analysis");
+            },
+          });
+        },
+      });
+    } else if (event.target.value === "TTL Content-Type") {
+      document.getElementById("ttl-ct-filter-wrapper").style.display = "block";
+      select_filter[3] = document.getElementById("ttl-ct-filter");
+
+      $.ajax({
+        type: "POST",
+        url: "collect_data.php",
+        data: {
+          request: "request_content_type_info",
+          request_type: "content_type",
+        },
+        success: function (res) {
+          options_filter[3] = [];
+          options_filter[3] = JSON.parse(res);
+          for (let i = 0; i < options_filter[3].length; i++) {
+            opt_filter[3] = options_filter[3][i];
+            el_filter[3].push(document.createElement("option"));
+            el_filter[3][i].textContent = opt_filter[3];
+            el_filter[3][i].value = opt_filter[3];
+            select_filter[3].appendChild(el_filter[3][i]);
+          }
+          $("#ttl-ct-filter").multiSelect({
+            afterSelect: function (values) {
+              if (values[0] === "All Content-Types") {
+                for (let i = 0; i < options_filter[3].length; i++) {
+                  $("#ttl-ct-filter").multiSelect("deselect", options_filter[3][i]);
+                }
+                chosen_ttl_ct_filters = [];
+                chosen_ttl_ct_filters.push(values[0]);
+              }
+              if (values[0] !== "All Content-Types") {
+                $("#ttl-ct-filter").multiSelect("deselect", ["All Content-Types"]);
+                if (chosen_ttl_ct_filters[0] === "All Content-Types") {
+                  chosen_ttl_ct_filters.shift();
+                }
+                chosen_ttl_ct_filters.push(values[0]);
+              }
+              draw_chart("header_analysis_histogram");
+            },
+            afterDeselect: function (values) {
+              for (let i = 0; i < chosen_ttl_ct_filters.length; i++) {
+                if (values[0] === chosen_ttl_ct_filters[i]) {
+                  chosen_ttl_ct_filters.splice(i, 1);
+                }
+              }
+              draw_chart("header_analysis_histogram");
+            },
+          });
+        },
+      });
+    } else if (event.target.value === "HA ISP") {
+      document.getElementById("ha-isp-filter-wrapper").style.display = "block";
+      select_filter[4] = document.getElementById("ha-isp-filter");
+
+      $.ajax({
+        type: "POST",
+        url: "collect_data.php",
+        data: {
+          request: "request_distinct_isps",
+        },
+        success: function (res) {
+          options_filter[4] = [];
+          options_filter[4] = JSON.parse(res);
+          for (let i = 0; i < options_filter[4].length; i++) {
+            opt_filter[4] = options_filter[4][i];
+            el_filter[4].push(document.createElement("option"));
+            el_filter[4][i].textContent = opt_filter[4];
+            el_filter[4][i].value = opt_filter[4];
+            select_filter[4].appendChild(el_filter[4][i]);
+          }
+          $("#ha-isp-filter").multiSelect({
+            afterSelect: function (values) {
+              if (values[0] === "All ISPs") {
+                for (let i = 0; i < options_filter[4].length; i++) {
+                  $("#ha-isp-filter").multiSelect("deselect", options_filter[4][i]);
+                }
+                chosen_ha_isp_filters = [];
+                chosen_ha_isp_filters.push(values[0]);
+              }
+              if (values[0] !== "All ISPs") {
+                $("#ha-isp-filter").multiSelect("deselect", ["All ISPs"]);
+                if (chosen_ha_isp_filters[0] === "All ISPs") {
+                  chosen_ha_isp_filters.shift();
+                }
+                chosen_ha_isp_filters.push(values[0]);
+              }
+              draw_chart("header_analysis_histogram");
+            },
+            afterDeselect: function (values) {
+              for (let i = 0; i < chosen_ha_isp_filters.length; i++) {
+                if (values[0] === chosen_ha_isp_filters[i]) {
+                  chosen_ha_isp_filters.splice(i, 1);
+                }
+              }
+              draw_chart("header_analysis_histogram");
             },
           });
         },
@@ -669,6 +736,10 @@ function display_check(event) {
       document.getElementById("http-filter-wrapper").style.display = "none";
     } else if (event.target.value === "ISP") {
       document.getElementById("isp-filter-wrapper").style.display = "none";
+    } else if (event.target.value === "TTL Content-Type") {
+      document.getElementById("ttl-ct-filter-wrapper").style.display = "none";
+    } else if (event.target.value === "HA ISP") {
+      document.getElementById("ha-isp-filter-wrapper").style.display = "none";
     }
   }
 }
@@ -848,6 +919,60 @@ selectElementChart.addEventListener("change", (event) => {
 });
 */
 
+function HeaderAnalysis() {
+  if (document.getElementById("HeaderAnalysis").style.display !== "block") {
+    if (hasChild_status === true) {
+      for (let i = 0; i < options_status.length; i++) {
+        select_status.removeChild(el_status[i]);
+      }
+      hasChild_status = false;
+    }
+    if (hasChild_content === true) {
+      for (let i = 0; i < options_content.length; i++) {
+        select_content.removeChild(el_content[i]);
+      }
+      hasChild_content = false;
+    }
+    let nou = document.getElementById("NumberOfUsers");
+    let rms = document.getElementById("RequestMethodStatistics");
+    let rss = document.getElementById("ResponseStatusStatistics");
+    let ud = document.getElementById("UniqueDomains");
+    let isp = document.getElementById("ISPs");
+    let aoc = document.getElementById("AverageAgeOfContent");
+    let rta = document.getElementById("ResponseTimeAnalysis");
+    let hha = document.getElementById("HeaderAnalysis");
+    let sm = document.getElementById("map");
+    nou.style.display = "none";
+    rms.style.display = "none";
+    rss.style.display = "none";
+    ud.style.display = "none";
+    isp.style.display = "none";
+    aoc.style.display = "none";
+    rta.style.display = "none";
+    hha.style.display = "block";
+    sm.style.display = "none";
+
+    $.ajax({
+      type: "POST",
+      url: "collect_data.php",
+      data: {
+        request: "request_method_statistics",
+      },
+      success: function (res) {
+        const [nop, nog, noh, nopu, nod, noc, noo, notr] = res.split("+");
+        document.getElementById("nop").innerHTML = nop;
+        document.getElementById("nog").innerHTML = nog;
+        document.getElementById("noh").innerHTML = noh;
+        document.getElementById("nopu").innerHTML = nopu;
+        document.getElementById("nod").innerHTML = nod;
+        document.getElementById("noc").innerHTML = noc;
+        document.getElementById("noo").innerHTML = noo;
+        document.getElementById("notr").innerHTML = notr;
+      },
+    });
+  }
+}
+
 //This function runs when Show Map is selected from Side Menu
 function showMap() {
   if (document.getElementById("showMap").style.display !== "block") {
@@ -863,12 +988,6 @@ function showMap() {
       }
       hasChild_content = false;
     }
-    if (hasChild_chart === true) {
-      for (let i = 0; i < options_chart.length; i++) {
-        select_chart.removeChild(el_chart[i]);
-      }
-      hasChild_chart = false;
-    }
     let nou = document.getElementById("NumberOfUsers");
     let rms = document.getElementById("RequestMethodStatistics");
     let rss = document.getElementById("ResponseStatusStatistics");
@@ -876,6 +995,7 @@ function showMap() {
     let isp = document.getElementById("ISPs");
     let aoc = document.getElementById("AverageAgeOfContent");
     let rta = document.getElementById("ResponseTimeAnalysis");
+    let hha = document.getElementById("HeaderAnalysis");
     let sm = document.getElementById("map");
     nou.style.display = "none";
     rms.style.display = "none";
@@ -884,6 +1004,7 @@ function showMap() {
     isp.style.display = "none";
     aoc.style.display = "none";
     rta.style.display = "none";
+    hha.style.display = "none";
     sm.style.display = "block";
     sm.style.visibility = "visible";
   }
@@ -943,79 +1064,130 @@ function getRandomColor() {
   return color;
 }
 
-function draw_chart() {
-  $.ajax({
-    type: "POST",
-    url: "collect_data.php",
-    data: {
-      request: "request_filtered_data",
-      chosen_ct_filters: JSON.stringify(chosen_ct_filters),
-      chosen_dotw_filters: JSON.stringify(chosen_dotw_filters),
-      chosen_http_filters: JSON.stringify(chosen_http_filters),
-      chosen_isp_filters: JSON.stringify(chosen_isp_filters),
-    },
-    success: function (res) {
-      if (rtaChart) {
-        rtaChart.destroy();
-      }
-      rtaChart = new Chart(ctx, {
-        type: "bar",
-        data: {
-          labels: [
-            "0:00",
-            "1:00",
-            "2:00",
-            "3:00",
-            "4:00",
-            "5:00",
-            "6:00",
-            "7:00",
-            "8:00",
-            "9:00",
-            "10:00",
-            "11:00",
-            "12:00",
-            "13:00",
-            "14:00",
-            "15:00",
-            "16:00",
-            "17:00",
-            "18:00",
-            "19:00",
-            "20:00",
-            "21:00",
-            "22:00",
-            "23:00",
-          ],
-          datasets: [
-            {
-              label: "Response Time",
-              data: JSON.parse(res),
-              backgroundColor: color_array,
-              borderColor: color_array,
-              borderWidth: 2,
-              hoverBorderColor: "#b5b5b5",
-            },
-          ],
-        },
-        options: {
-          scales: {
-            yAxes: [
-              {
-                ticks: {
-                  beginAtZero: true,
-                },
-              },
+function draw_chart(chart_type) {
+  if (chart_type === "response_time_analysis") {
+    $.ajax({
+      type: "POST",
+      url: "collect_data.php",
+      data: {
+        request: "request_filtered_data",
+        chosen_ct_filters: JSON.stringify(chosen_ct_filters),
+        chosen_dotw_filters: JSON.stringify(chosen_dotw_filters),
+        chosen_http_filters: JSON.stringify(chosen_http_filters),
+        chosen_isp_filters: JSON.stringify(chosen_isp_filters),
+      },
+      success: function (res) {
+        if (rtaChart) {
+          rtaChart.destroy();
+        }
+        rtaChart = new Chart(ctx, {
+          type: "bar",
+          data: {
+            labels: [
+              "0:00",
+              "1:00",
+              "2:00",
+              "3:00",
+              "4:00",
+              "5:00",
+              "6:00",
+              "7:00",
+              "8:00",
+              "9:00",
+              "10:00",
+              "11:00",
+              "12:00",
+              "13:00",
+              "14:00",
+              "15:00",
+              "16:00",
+              "17:00",
+              "18:00",
+              "19:00",
+              "20:00",
+              "21:00",
+              "22:00",
+              "23:00",
             ],
-            xAxes: [
+            datasets: [
               {
-                barPercentage: 0.7,
-                categoryPercentage: 0.55,
+                label: "Response Time",
+                data: JSON.parse(res),
+                backgroundColor: color_array,
+                borderColor: color_array,
+                borderWidth: 2,
+                hoverBorderColor: "#b5b5b5",
               },
             ],
           },
-        },
-      });
-    },
-  });
+          options: {
+            scales: {
+              yAxes: [
+                {
+                  ticks: {
+                    beginAtZero: true,
+                  },
+                },
+              ],
+              xAxes: [
+                {
+                  barPercentage: 0.7,
+                  categoryPercentage: 0.55,
+                },
+              ],
+            },
+          },
+        });
+      },
+    });
+  } else if (chart_type === "header_analysis_histogram") {
+    $.ajax({
+      type: "POST",
+      url: "collect_data.php",
+      data: {
+        request: "request_histogram_data",
+        chosen_ttl_ct_filters: JSON.stringify(chosen_ttl_ct_filters),
+        chosen_ha_isp_filters: JSON.stringify(chosen_ha_isp_filters),
+      },
+      success: function (res) {
+        console.log(res);
+        /*if (haChart) {
+          haChart.destroy();
+        }
+        haChart = new Chart(ctx, {
+          type: "bar",
+          data: {
+            labels: ["21:00", "22:00", "23:00"],
+            datasets: [
+              {
+                label: "max-age range",
+                data: JSON.parse(res),
+                backgroundColor: color_array,
+                borderColor: color_array,
+                borderWidth: 2,
+                hoverBorderColor: "#b5b5b5",
+              },
+            ],
+          },
+          options: {
+            scales: {
+              yAxes: [
+                {
+                  ticks: {
+                    beginAtZero: true,
+                  },
+                },
+              ],
+              xAxes: [
+                {
+                  barPercentage: 0.7,
+                  categoryPercentage: 0.55,
+                },
+              ],
+            },
+          },
+        });*/
+      },
+    });
+  }
 }

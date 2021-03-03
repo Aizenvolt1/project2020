@@ -33,6 +33,11 @@
   display: none;
 }
 
+#HeaderAnalysis {
+  text-align: left;
+  display: none;
+}
+
 #ct-filter-wrapper {
   text-align: left;
   display: none;
@@ -49,6 +54,16 @@
 }
 
 #isp-filter-wrapper {
+  text-align: left;
+  display: none;
+}
+
+#ttl-ct-filter-wrapper {
+  text-align: left;
+  display: none;
+}
+
+#ha-isp-filter-wrapper {
   text-align: left;
   display: none;
 }
