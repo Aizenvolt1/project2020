@@ -489,7 +489,6 @@ for (let i = 0; i < checkbox_filters.length; i++) {
 
 function display_check(event) {
   if (event.target.checked) {
-    let all_selected = [];
     if (event.target.value === "Content-Type") {
       document.getElementById("ct-filter-wrapper").style.display = "block";
       select_filter[0] = document.getElementById("ct-filter");
@@ -513,7 +512,6 @@ function display_check(event) {
           }
           $("#ct-filter").multiSelect({
             afterSelect: function (values) {
-              all_selected[0] = false;
               if (values[0] === "All Content-Types") {
                 for (let i = 0; i < options_filter[0].length; i++) {
                   $("#ct-filter").multiSelect("deselect", options_filter[0][i]);
@@ -527,7 +525,6 @@ function display_check(event) {
                   chosen_ct_filters.shift();
                 }
                 chosen_ct_filters.push(values[0]);
-                all_selected[0] = true;
               }
               draw_chart();
             },
@@ -546,7 +543,6 @@ function display_check(event) {
       document.getElementById("dotw-filter-wrapper").style.display = "block";
       $("#dotw-filter").multiSelect({
         afterSelect: function (values) {
-          all_selected[1] = false;
           if (values[0] === "All Days") {
             $("#dotw-filter").multiSelect("deselect", ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]);
             chosen_dotw_filters = [];
@@ -558,7 +554,6 @@ function display_check(event) {
               chosen_dotw_filters.shift();
             }
             chosen_dotw_filters.push(values[0]);
-            all_selected[1] = true;
           }
           draw_chart();
         },
@@ -593,7 +588,6 @@ function display_check(event) {
           }
           $("#http-filter").multiSelect({
             afterSelect: function (values) {
-              all_selected[2] = false;
               if (values[0] === "All HTTP Methods") {
                 for (let i = 0; i < options_filter[1].length; i++) {
                   $("#http-filter").multiSelect("deselect", options_filter[1][i]);
@@ -607,7 +601,6 @@ function display_check(event) {
                   chosen_http_filters.shift();
                 }
                 chosen_http_filters.push(values[0]);
-                all_selected[2] = true;
               }
               draw_chart();
             },
@@ -644,7 +637,6 @@ function display_check(event) {
           }
           $("#isp-filter").multiSelect({
             afterSelect: function (values) {
-              all_selected[3] = false;
               if (values[0] === "All ISPs") {
                 for (let i = 0; i < options_filter[2].length; i++) {
                   $("#isp-filter").multiSelect("deselect", options_filter[2][i]);
@@ -658,7 +650,6 @@ function display_check(event) {
                   chosen_isp_filters.shift();
                 }
                 chosen_isp_filters.push(values[0]);
-                all_selected[3] = true;
               }
               draw_chart();
             },
