@@ -5,32 +5,32 @@ const room = document.querySelector(".side_nav");
 const btns = document.querySelectorAll(".nav_btn");
 let select_status;
 let select_content;
-let select_chart;
 let select_filter = [];
 let options_status = [];
 let options_content = [];
-let options_chart = ["Content-Type Chart", "Day of the Week Chart", "HTTP Method Chart", "ISP Chart"];
 let options_filter = [];
 let opt_status;
 let opt_content;
-let opt_chart;
 let opt_filter = [];
 let el_status = [];
 let el_content = [];
-let el_chart = [];
-let el_filter = [[], [], [], []];
+let el_filter = [[], [], [], [], []];
 let hasChild_status = false;
 let hasChild_content = false;
-let hasChild_chart = false;
 let color_array = [];
+
 var ctx = document.getElementById("rtaChart").getContext("2d");
 var rtaChart;
+
+var hac = document.getElementById("haChart").getContext("2d");
+var haChart;
 
 let chosen_ct_filters = [];
 let chosen_dotw_filters = [];
 let chosen_http_filters = [];
 let chosen_isp_filters = [];
 let chosen_ttl_ct_filters = [];
+let chosen_ha_isp_filters = [];
 
 palette("tol-sq", 12).map(function (hex) {
   color_array.push("#" + hex);
@@ -80,12 +80,6 @@ function NumberOfUsers() {
       }
       hasChild_content = false;
     }
-    if (hasChild_chart === true) {
-      for (let i = 0; i < options_chart.length; i++) {
-        select_chart.removeChild(el_chart[i]);
-      }
-      hasChild_chart = false;
-    }
     let nou = document.getElementById("NumberOfUsers");
     let rms = document.getElementById("RequestMethodStatistics");
     let rss = document.getElementById("ResponseStatusStatistics");
@@ -131,12 +125,6 @@ function RequestMethodStatistics() {
         select_content.removeChild(el_content[i]);
       }
       hasChild_content = false;
-    }
-    if (hasChild_chart === true) {
-      for (let i = 0; i < options_chart.length; i++) {
-        select_chart.removeChild(el_chart[i]);
-      }
-      hasChild_chart = false;
     }
     let nou = document.getElementById("NumberOfUsers");
     let rms = document.getElementById("RequestMethodStatistics");
@@ -186,12 +174,6 @@ function ResponseStatusStatistics() {
         select_content.removeChild(el_content[i]);
       }
       hasChild_content = false;
-    }
-    if (hasChild_chart === true) {
-      for (let i = 0; i < options_chart.length; i++) {
-        select_chart.removeChild(el_chart[i]);
-      }
-      hasChild_chart = false;
     }
     document.getElementById("occur").innerHTML = "-";
     let nou = document.getElementById("NumberOfUsers");
@@ -274,12 +256,6 @@ function UniqueDomains() {
       }
       hasChild_content = false;
     }
-    if (hasChild_chart === true) {
-      for (let i = 0; i < options_chart.length; i++) {
-        select_chart.removeChild(el_chart[i]);
-      }
-      hasChild_chart = false;
-    }
     let nou = document.getElementById("NumberOfUsers");
     let rms = document.getElementById("RequestMethodStatistics");
     let rss = document.getElementById("ResponseStatusStatistics");
@@ -327,12 +303,6 @@ function ISPs() {
       }
       hasChild_content = false;
     }
-    if (hasChild_chart === true) {
-      for (let i = 0; i < options_chart.length; i++) {
-        select_chart.removeChild(el_chart[i]);
-      }
-      hasChild_chart = false;
-    }
     let nou = document.getElementById("NumberOfUsers");
     let rms = document.getElementById("RequestMethodStatistics");
     let rss = document.getElementById("ResponseStatusStatistics");
@@ -373,12 +343,6 @@ function AverageAgeOfContent() {
         select_status.removeChild(el_status[i]);
       }
       hasChild_status = false;
-    }
-    if (hasChild_chart === true) {
-      for (let i = 0; i < options_chart.length; i++) {
-        select_chart.removeChild(el_chart[i]);
-      }
-      hasChild_chart = false;
     }
     document.getElementById("aaoc").innerHTML = "-";
     let nou = document.getElementById("NumberOfUsers");
@@ -478,8 +442,6 @@ function ResponseTimeAnalysis() {
     rta.style.display = "block";
     hha.style.display = "none";
     sm.style.display = "none";
-
-    select_chart = document.getElementById("selectChartType");
   }
 }
 
@@ -715,6 +677,55 @@ function display_check(event) {
           });
         },
       });
+    } else if (event.target.value === "HA ISP") {
+      document.getElementById("ha-isp-filter-wrapper").style.display = "block";
+      select_filter[4] = document.getElementById("ha-isp-filter");
+
+      $.ajax({
+        type: "POST",
+        url: "collect_data.php",
+        data: {
+          request: "request_distinct_isps",
+        },
+        success: function (res) {
+          options_filter[4] = [];
+          options_filter[4] = JSON.parse(res);
+          for (let i = 0; i < options_filter[4].length; i++) {
+            opt_filter[4] = options_filter[4][i];
+            el_filter[4].push(document.createElement("option"));
+            el_filter[4][i].textContent = opt_filter[4];
+            el_filter[4][i].value = opt_filter[4];
+            select_filter[4].appendChild(el_filter[4][i]);
+          }
+          $("#ha-isp-filter").multiSelect({
+            afterSelect: function (values) {
+              if (values[0] === "All ISPs") {
+                for (let i = 0; i < options_filter[4].length; i++) {
+                  $("#ha-isp-filter").multiSelect("deselect", options_filter[4][i]);
+                }
+                chosen_ha_isp_filters = [];
+                chosen_ha_isp_filters.push(values[0]);
+              }
+              if (values[0] !== "All ISPs") {
+                $("#ha-isp-filter").multiSelect("deselect", ["All ISPs"]);
+                if (chosen_ha_isp_filters[0] === "All ISPs") {
+                  chosen_ha_isp_filters.shift();
+                }
+                chosen_ha_isp_filters.push(values[0]);
+              }
+              draw_chart("header_analysis_histogram");
+            },
+            afterDeselect: function (values) {
+              for (let i = 0; i < chosen_ha_isp_filters.length; i++) {
+                if (values[0] === chosen_ha_isp_filters[i]) {
+                  chosen_ha_isp_filters.splice(i, 1);
+                }
+              }
+              draw_chart("header_analysis_histogram");
+            },
+          });
+        },
+      });
     }
   } else if (!event.target.checked) {
     if (event.target.value === "Content-Type") {
@@ -727,6 +738,8 @@ function display_check(event) {
       document.getElementById("isp-filter-wrapper").style.display = "none";
     } else if (event.target.value === "TTL Content-Type") {
       document.getElementById("ttl-ct-filter-wrapper").style.display = "none";
+    } else if (event.target.value === "HA ISP") {
+      document.getElementById("ha-isp-filter-wrapper").style.display = "none";
     }
   }
 }
@@ -920,12 +933,6 @@ function HeaderAnalysis() {
       }
       hasChild_content = false;
     }
-    if (hasChild_chart === true) {
-      for (let i = 0; i < options_chart.length; i++) {
-        select_chart.removeChild(el_chart[i]);
-      }
-      hasChild_chart = false;
-    }
     let nou = document.getElementById("NumberOfUsers");
     let rms = document.getElementById("RequestMethodStatistics");
     let rss = document.getElementById("ResponseStatusStatistics");
@@ -980,12 +987,6 @@ function showMap() {
         select_content.removeChild(el_content[i]);
       }
       hasChild_content = false;
-    }
-    if (hasChild_chart === true) {
-      for (let i = 0; i < options_chart.length; i++) {
-        select_chart.removeChild(el_chart[i]);
-      }
-      hasChild_chart = false;
     }
     let nou = document.getElementById("NumberOfUsers");
     let rms = document.getElementById("RequestMethodStatistics");
@@ -1145,16 +1146,18 @@ function draw_chart(chart_type) {
       url: "collect_data.php",
       data: {
         request: "request_histogram_data",
-        chosen_isp_filters: JSON.stringify(chosen_ttl_ct_filters),
+        chosen_ttl_ct_filters: JSON.stringify(chosen_ttl_ct_filters),
+        chosen_ha_isp_filters: JSON.stringify(chosen_ha_isp_filters),
       },
       success: function (res) {
-        if (rtaChart) {
-          rtaChart.destroy();
+        console.log(res);
+        /*if (haChart) {
+          haChart.destroy();
         }
-        rtaChart = new Chart(ctx, {
+        haChart = new Chart(ctx, {
           type: "bar",
           data: {
-            labels: [],
+            labels: ["21:00", "22:00", "23:00"],
             datasets: [
               {
                 label: "max-age range",
@@ -1183,7 +1186,7 @@ function draw_chart(chart_type) {
               ],
             },
           },
-        });
+        });*/
       },
     });
   }

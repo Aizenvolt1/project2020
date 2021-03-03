@@ -246,6 +246,13 @@ p{
                         <option>All Content-Types</option>
                     </select>
                 </div>
+                <input type="checkbox" name="rt-filter" value="HA ISP">ISP<br>
+                <div id="ha-isp-filter-wrapper">
+                    <select multiple="multiple" id="ha-isp-filter">
+                        <option>All ISPs</option>
+                    </select>
+                </div>
+                <canvas id = "haChart" width="700" height="400"></canvas>
             </div>
         </div>
     </div>

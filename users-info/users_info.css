@@ -63,6 +63,11 @@
   display: none;
 }
 
+#ha-isp-filter-wrapper {
+  text-align: left;
+  display: none;
+}
+
 #map {
   visibility: hidden;
 }
