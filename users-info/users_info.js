@@ -18,7 +18,7 @@ let opt_filter = [];
 let el_status = [];
 let el_content = [];
 let el_chart = [];
-let el_filter = [[], [], []];
+let el_filter = [[], [], [], []];
 let hasChild_status = false;
 let hasChild_content = false;
 let hasChild_chart = false;
@@ -30,6 +30,7 @@ let chosen_ct_filters = [];
 let chosen_dotw_filters = [];
 let chosen_http_filters = [];
 let chosen_isp_filters = [];
+let chosen_ttl_ct_filters = [];
 
 palette("tol-sq", 12).map(function (hex) {
   color_array.push("#" + hex);
@@ -526,7 +527,7 @@ function display_check(event) {
                 }
                 chosen_ct_filters.push(values[0]);
               }
-              draw_chart();
+              draw_chart("response_time_analysis");
             },
             afterDeselect: function (values) {
               for (let i = 0; i < chosen_ct_filters.length; i++) {
@@ -534,7 +535,7 @@ function display_check(event) {
                   chosen_ct_filters.splice(i, 1);
                 }
               }
-              draw_chart();
+              draw_chart("response_time_analysis");
             },
           });
         },
@@ -555,7 +556,7 @@ function display_check(event) {
             }
             chosen_dotw_filters.push(values[0]);
           }
-          draw_chart();
+          draw_chart("response_time_analysis");
         },
         afterDeselect: function (values) {
           for (let i = 0; i < chosen_dotw_filters.length; i++) {
@@ -563,7 +564,7 @@ function display_check(event) {
               chosen_dotw_filters.splice(i, 1);
             }
           }
-          draw_chart();
+          draw_chart("response_time_analysis");
         },
       });
     } else if (event.target.value === "HTTP Method") {
@@ -602,7 +603,7 @@ function display_check(event) {
                 }
                 chosen_http_filters.push(values[0]);
               }
-              draw_chart();
+              draw_chart("response_time_analysis");
             },
             afterDeselect: function (values) {
               for (let i = 0; i < chosen_http_filters.length; i++) {
@@ -610,7 +611,7 @@ function display_check(event) {
                   chosen_http_filters.splice(i, 1);
                 }
               }
-              draw_chart();
+              draw_chart("response_time_analysis");
             },
           });
         },
@@ -651,7 +652,7 @@ function display_check(event) {
                 }
                 chosen_isp_filters.push(values[0]);
               }
-              draw_chart();
+              draw_chart("response_time_analysis");
             },
             afterDeselect: function (values) {
               for (let i = 0; i < chosen_isp_filters.length; i++) {
@@ -659,7 +660,57 @@ function display_check(event) {
                   chosen_isp_filters.splice(i, 1);
                 }
               }
-              draw_chart();
+              draw_chart("response_time_analysis");
+            },
+          });
+        },
+      });
+    } else if (event.target.value === "TTL Content-Type") {
+      document.getElementById("ttl-ct-filter-wrapper").style.display = "block";
+      select_filter[3] = document.getElementById("ttl-ct-filter");
+
+      $.ajax({
+        type: "POST",
+        url: "collect_data.php",
+        data: {
+          request: "request_content_type_info",
+          request_type: "content_type",
+        },
+        success: function (res) {
+          options_filter[3] = [];
+          options_filter[3] = JSON.parse(res);
+          for (let i = 0; i < options_filter[3].length; i++) {
+            opt_filter[3] = options_filter[3][i];
+            el_filter[3].push(document.createElement("option"));
+            el_filter[3][i].textContent = opt_filter[3];
+            el_filter[3][i].value = opt_filter[3];
+            select_filter[3].appendChild(el_filter[3][i]);
+          }
+          $("#ttl-ct-filter").multiSelect({
+            afterSelect: function (values) {
+              if (values[0] === "All Content-Types") {
+                for (let i = 0; i < options_filter[3].length; i++) {
+                  $("#ttl-ct-filter").multiSelect("deselect", options_filter[3][i]);
+                }
+                chosen_ttl_ct_filters = [];
+                chosen_ttl_ct_filters.push(values[0]);
+              }
+              if (values[0] !== "All Content-Types") {
+                $("#ttl-ct-filter").multiSelect("deselect", ["All Content-Types"]);
+                if (chosen_ttl_ct_filters[0] === "All Content-Types") {
+                  chosen_ttl_ct_filters.shift();
+                }
+                chosen_ttl_ct_filters.push(values[0]);
+              }
+              draw_chart("header_analysis_histogram");
+            },
+            afterDeselect: function (values) {
+              for (let i = 0; i < chosen_ttl_ct_filters.length; i++) {
+                if (values[0] === chosen_ttl_ct_filters[i]) {
+                  chosen_ttl_ct_filters.splice(i, 1);
+                }
+              }
+              draw_chart("header_analysis_histogram");
             },
           });
         },
@@ -674,6 +725,8 @@ function display_check(event) {
       document.getElementById("http-filter-wrapper").style.display = "none";
     } else if (event.target.value === "ISP") {
       document.getElementById("isp-filter-wrapper").style.display = "none";
+    } else if (event.target.value === "TTL Content-Type") {
+      document.getElementById("ttl-ct-filter-wrapper").style.display = "none";
     }
   }
 }
@@ -1010,79 +1063,128 @@ function getRandomColor() {
   return color;
 }
 
-function draw_chart() {
-  $.ajax({
-    type: "POST",
-    url: "collect_data.php",
-    data: {
-      request: "request_filtered_data",
-      chosen_ct_filters: JSON.stringify(chosen_ct_filters),
-      chosen_dotw_filters: JSON.stringify(chosen_dotw_filters),
-      chosen_http_filters: JSON.stringify(chosen_http_filters),
-      chosen_isp_filters: JSON.stringify(chosen_isp_filters),
-    },
-    success: function (res) {
-      if (rtaChart) {
-        rtaChart.destroy();
-      }
-      rtaChart = new Chart(ctx, {
-        type: "bar",
-        data: {
-          labels: [
-            "0:00",
-            "1:00",
-            "2:00",
-            "3:00",
-            "4:00",
-            "5:00",
-            "6:00",
-            "7:00",
-            "8:00",
-            "9:00",
-            "10:00",
-            "11:00",
-            "12:00",
-            "13:00",
-            "14:00",
-            "15:00",
-            "16:00",
-            "17:00",
-            "18:00",
-            "19:00",
-            "20:00",
-            "21:00",
-            "22:00",
-            "23:00",
-          ],
-          datasets: [
-            {
-              label: "Response Time",
-              data: JSON.parse(res),
-              backgroundColor: color_array,
-              borderColor: color_array,
-              borderWidth: 2,
-              hoverBorderColor: "#b5b5b5",
-            },
-          ],
-        },
-        options: {
-          scales: {
-            yAxes: [
-              {
-                ticks: {
-                  beginAtZero: true,
-                },
-              },
+function draw_chart(chart_type) {
+  if (chart_type === "response_time_analysis") {
+    $.ajax({
+      type: "POST",
+      url: "collect_data.php",
+      data: {
+        request: "request_filtered_data",
+        chosen_ct_filters: JSON.stringify(chosen_ct_filters),
+        chosen_dotw_filters: JSON.stringify(chosen_dotw_filters),
+        chosen_http_filters: JSON.stringify(chosen_http_filters),
+        chosen_isp_filters: JSON.stringify(chosen_isp_filters),
+      },
+      success: function (res) {
+        if (rtaChart) {
+          rtaChart.destroy();
+        }
+        rtaChart = new Chart(ctx, {
+          type: "bar",
+          data: {
+            labels: [
+              "0:00",
+              "1:00",
+              "2:00",
+              "3:00",
+              "4:00",
+              "5:00",
+              "6:00",
+              "7:00",
+              "8:00",
+              "9:00",
+              "10:00",
+              "11:00",
+              "12:00",
+              "13:00",
+              "14:00",
+              "15:00",
+              "16:00",
+              "17:00",
+              "18:00",
+              "19:00",
+              "20:00",
+              "21:00",
+              "22:00",
+              "23:00",
             ],
-            xAxes: [
+            datasets: [
               {
-                barPercentage: 0.7,
-                categoryPercentage: 0.55,
+                label: "Response Time",
+                data: JSON.parse(res),
+                backgroundColor: color_array,
+                borderColor: color_array,
+                borderWidth: 2,
+                hoverBorderColor: "#b5b5b5",
               },
             ],
           },
-        },
-      });
-    },
-  });
+          options: {
+            scales: {
+              yAxes: [
+                {
+                  ticks: {
+                    beginAtZero: true,
+                  },
+                },
+              ],
+              xAxes: [
+                {
+                  barPercentage: 0.7,
+                  categoryPercentage: 0.55,
+                },
+              ],
+            },
+          },
+        });
+      },
+    });
+  } else if (chart_type === "header_analysis_histogram") {
+    $.ajax({
+      type: "POST",
+      url: "collect_data.php",
+      data: {
+        request: "request_histogram_data",
+        chosen_isp_filters: JSON.stringify(chosen_ttl_ct_filters),
+      },
+      success: function (res) {
+        if (rtaChart) {
+          rtaChart.destroy();
+        }
+        rtaChart = new Chart(ctx, {
+          type: "bar",
+          data: {
+            labels: [],
+            datasets: [
+              {
+                label: "max-age range",
+                data: JSON.parse(res),
+                backgroundColor: color_array,
+                borderColor: color_array,
+                borderWidth: 2,
+                hoverBorderColor: "#b5b5b5",
+              },
+            ],
+          },
+          options: {
+            scales: {
+              yAxes: [
+                {
+                  ticks: {
+                    beginAtZero: true,
+                  },
+                },
+              ],
+              xAxes: [
+                {
+                  barPercentage: 0.7,
+                  categoryPercentage: 0.55,
+                },
+              ],
+            },
+          },
+        });
+      },
+    });
+  }
 }

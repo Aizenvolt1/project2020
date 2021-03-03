@@ -240,6 +240,12 @@ p{
                 <canvas id = "rtaChart" width="700" height="400"></canvas>
             </div>
             <div id = "HeaderAnalysis">
+                <input type="checkbox" name="rt-filter" value="TTL Content-Type">Content-Type<br>
+                <div id="ttl-ct-filter-wrapper">
+                    <select multiple="multiple" id="ttl-ct-filter">
+                        <option>All Content-Types</option>
+                    </select>
+                </div>
             </div>
         </div>
     </div>

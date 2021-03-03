@@ -368,6 +368,10 @@ else if($_POST['request'] == "request_filtered_data")
     }
     echo json_encode($avg_time);
 }
+else if($_POST['request'] == "request_histogram_data")
+{
+
+}
 if($_POST['request'] == "request_role")
 {
     if($_SESSION["role"] == "admin")

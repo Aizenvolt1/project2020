@@ -58,6 +58,11 @@
   display: none;
 }
 
+#ttl-ct-filter-wrapper {
+  text-align: left;
+  display: none;
+}
+
 #map {
   visibility: hidden;
 }
