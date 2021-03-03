@@ -68,6 +68,7 @@ p{
                 <button class="nav_btn" id="isp" onclick="ISPs()">ISPs</button>
                 <button class="nav_btn" id="aa" onclick="AverageAgeOfContent()">Average Age of Content-Types</button>
                 <button class="nav_btn" id="rta" onclick="ResponseTimeAnalysis()">Response Time Analysis</button>
+                <button class="nav_btn" id="hha" onclick="HeaderAnalysis()">HTTP Header Analysis</button>
                 <button class="nav_btn" id="sm" onclick="showMap()">Show Map</button>
             </div>
         <div class="flex-container">
@@ -237,8 +238,8 @@ p{
                     </select>
                 </div>
                 <canvas id = "rtaChart" width="700" height="400"></canvas>
-            </div id = "HTTP Header Analysis">
-            <div>
+            </div>
+            <div id = "HeaderAnalysis">
             </div>
         </div>
     </div>

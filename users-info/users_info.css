@@ -33,6 +33,11 @@
   display: none;
 }
 
+#HeaderAnalysis {
+  text-align: left;
+  display: none;
+}
+
 #ct-filter-wrapper {
   text-align: left;
   display: none;
