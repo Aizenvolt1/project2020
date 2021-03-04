@@ -429,8 +429,9 @@ else if($_POST['request'] == "request_histogram_data")
         }
     }
 
-    $sql="SELECT IF(file_data.response_cache_controls IS NOT NULL,file_data.response_cache_controls, 
-    IF(file_data.response_expires IS NOT NULL AND file_data.response_last_modified IS NOT NULL,
+    $sql="SELECT IF(file_data.response_cache_controls IS NOT NULL AND file_data.response_cache_controls LIKE '%max-age=%'
+    ,file_data.response_cache_controls, IF(file_data.response_expires IS NOT NULL 
+    AND file_data.response_last_modified IS NOT NULL,
     file_data.response_expires-file_data.response_last_modified,NULL))
     as max_ages FROM file_data INNER JOIN user_files ON file_data.file_number=user_files.file_number 
     WHERE $ttl_ct_args AND $ha_isp_args";
