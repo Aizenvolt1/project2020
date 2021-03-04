@@ -1150,7 +1150,59 @@ function draw_chart(chart_type) {
         chosen_ha_isp_filters: JSON.stringify(chosen_ha_isp_filters),
       },
       success: function (res) {
-        console.log(res);
+        let temp_max_ages = [];
+        let max_ages = [];
+        let lowest_max_age;
+        let highest_max_age;
+        let count = -1;
+        let result = [];
+        let delta;
+        let ranges_counter = [];
+        temp_max_ages = JSON.parse(res);
+        for (let i = 0; i < temp_max_ages.length; i++) {
+          if (temp_max_ages[i] !== null && parseFloat(temp_max_ages[i]) > 0) {
+            count++;
+            max_ages.push(parseFloat(temp_max_ages[i]));
+            if (count === 0) {
+              lowest_max_age = max_ages[count];
+              highest_max_age = max_ages[count];
+            } else if (count > 0) {
+              if (max_ages[count] > highest_max_age) {
+                highest_max_age = max_ages[count];
+              } else if (max_ages[count] < lowest_max_age) {
+                lowest_max_age = max_ages[count];
+              }
+            }
+          }
+        }
+        console.log(max_ages);
+        delta = (highest_max_age - lowest_max_age) / 10;
+        while (lowest_max_age < highest_max_age) {
+          result.push(lowest_max_age);
+          lowest_max_age += delta;
+        }
+        result.push(highest_max_age);
+        if (result[result.length - 1] - result[result.length - 2] < delta) {
+          result.splice(result.length - 2, 1);
+        }
+        for (let i = 0; i < 10; i++) {
+          ranges_counter[i] = 0;
+        }
+        for (let i = 0; i < max_ages.length; i++) {
+          for (let j = 0; j < result.length; j++) {
+            if (j < result.length - 1) {
+              if (max_ages[i] >= result[j] && max_ages[i] <= result[j + 1]) {
+                ranges_counter[j]++;
+                break;
+              }
+            }
+          }
+        }
+        //console.log(result);
+        //console.log(ranges_counter);
+        //console.log(highest_max_age);
+        //console.log(temp_max_ages);
+        //console.log(max_ages);
         /*if (haChart) {
           haChart.destroy();
         }
