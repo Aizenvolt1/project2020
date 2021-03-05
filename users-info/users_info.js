@@ -1160,7 +1160,7 @@ function draw_chart(chart_type) {
         let ranges_counter = [];
         temp_max_ages = JSON.parse(res);
         for (let i = 0; i < temp_max_ages.length; i++) {
-          if (temp_max_ages[i] !== null && parseFloat(temp_max_ages[i]) > 0) {
+          if (temp_max_ages[i] !== null && parseFloat(temp_max_ages[i]) >= 0) {
             count++;
             max_ages.push(parseFloat(temp_max_ages[i]));
             if (count === 0) {
@@ -1175,15 +1175,17 @@ function draw_chart(chart_type) {
             }
           }
         }
-        console.log(max_ages);
+        if (lowest_max_age === highest_max_age) {
+          lowest_max_age = 0;
+        }
         delta = (highest_max_age - lowest_max_age) / 10;
         while (lowest_max_age < highest_max_age) {
           result.push(lowest_max_age);
           lowest_max_age += delta;
         }
         result.push(highest_max_age);
-        if (result[result.length - 1] - result[result.length - 2] < delta) {
-          result.splice(result.length - 2, 1);
+        if (result[1] - result[0] < delta) {
+          result.splice(0, 1);
         }
         for (let i = 0; i < 10; i++) {
           ranges_counter[i] = 0;
@@ -1198,22 +1200,17 @@ function draw_chart(chart_type) {
             }
           }
         }
-        //console.log(result);
-        //console.log(ranges_counter);
-        //console.log(highest_max_age);
-        //console.log(temp_max_ages);
-        //console.log(max_ages);
-        /*if (haChart) {
+        if (haChart) {
           haChart.destroy();
         }
-        haChart = new Chart(ctx, {
+        haChart = new Chart(hac, {
           type: "bar",
           data: {
-            labels: ["21:00", "22:00", "23:00"],
+            labels: result,
             datasets: [
               {
-                label: "max-age range",
-                data: JSON.parse(res),
+                label: "number of max-ages",
+                data: ranges_counter,
                 backgroundColor: color_array,
                 borderColor: color_array,
                 borderWidth: 2,
@@ -1232,13 +1229,23 @@ function draw_chart(chart_type) {
               ],
               xAxes: [
                 {
-                  barPercentage: 0.7,
-                  categoryPercentage: 0.55,
+                  display: false,
+                  barPercentage: 1.3,
+                  ticks: {
+                    max: result[result.length - 2],
+                  },
+                },
+                {
+                  display: true,
+                  ticks: {
+                    autoSkip: false,
+                    max: result[result.length - 1],
+                  },
                 },
               ],
             },
           },
-        });*/
+        });
       },
     });
   }

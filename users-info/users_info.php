@@ -253,6 +253,74 @@ p{
                     </select>
                 </div>
                 <canvas id = "haChart" width="700" height="400"></canvas>
+                <input type="checkbox" name="rt-filter" value="MSMF Content-Type">Content-Type<br>
+                <div id="msmf-ct-filter-wrapper">
+                    <select multiple="multiple" id="msmf-ct-filter">
+                        <option>All Content-Types</option>
+                    </select>
+                </div>
+                <input type="checkbox" name="rt-filter" value="MSMF ISP">ISP<br>
+                <div id="msmf-isp-filter-wrapper">
+                    <select multiple="multiple" id="msmf-isp-filter">
+                        <option>All ISPs</option>
+                    </select>
+                </div>
+                <table id="content-table">
+                    <thead>
+                        <tr> 
+                            <th>Directive</th>
+                            <th>Percentage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>max-stale</td>
+                            <td id="msd"></td>
+                        </tr>
+                        <tr>
+                            <td>min-fresh</td>
+                            <td id="mfd"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <input type="checkbox" name="rt-filter" value="CD Content-Type">Content-Type<br>
+                <div id="cd-ct-filter-wrapper">
+                    <select multiple="multiple" id="cd-ct-filter">
+                        <option>All Content-Types</option>
+                    </select>
+                </div>
+                <input type="checkbox" name="rt-filter" value="CD ISP">ISP<br>
+                <div id="cd-isp-filter-wrapper">
+                    <select multiple="multiple" id="cd-isp-filter">
+                        <option>All ISPs</option>
+                    </select>
+                </div>
+                <table id="content-table">
+                    <thead>
+                        <tr> 
+                            <th>Cacheability Directive</th>
+                            <th>Percentage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>public</td>
+                            <td id="pud"></td>
+                        </tr>
+                        <tr>
+                            <td>private</td>
+                            <td id="prd"></td>
+                        </tr>
+                        <tr>
+                            <td>no-cache</td>
+                            <td id="ncd"></td>
+                        </tr>
+                        <tr>
+                            <td>no-store</td>
+                            <td id="nsd"></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
