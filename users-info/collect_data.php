@@ -450,6 +450,224 @@ else if($_POST['request'] == "request_histogram_data")
     }
     echo json_encode($max_ages);
 }
+else if($_POST['request'] == "request_msmf_data")
+{
+    $msmf_data = array();
+    $max_stale_number;
+    $min_fresh_number;
+    $msmf_number_of_responses;
+    $chosen_msmf_ct_filters = json_decode($_POST['chosen_msmf_ct_filters'],true);
+    $chosen_msmf_isp_filters = json_decode($_POST['chosen_msmf_isp_filters'],true);
+
+    if(empty($chosen_msmf_ct_filters) || $chosen_msmf_ct_filters[0]=="All Content-Types")
+    {
+            $msmf_ct_args = "file_data.response_content_types IS NOT NULL"; 
+    }
+    else if($chosen_msmf_ct_filters[0]!="All Content-Types" && count($chosen_msmf_ct_filters)==1)
+    {
+        $msmf_ct_args = "file_data.response_content_types = '$chosen_msmf_ct_filters[0]'";
+    }
+    else if($chosen_msmf_ct_filters[0]!="All Content-Types" && count($chosen_msmf_ct_filters)>1)
+    {
+        for($i=0;$i<count($chosen_msmf_ct_filters);$i++)
+        {
+            if($i==0)
+            {
+                $msmf_ct_args = "(file_data.response_content_types = '$chosen_msmf_ct_filters[$i]' OR "; 
+            }
+            if($i>0 && $i<count($chosen_msmf_ct_filters)-1)
+            {
+                $msmf_ct_args .= "file_data.response_content_types = '$chosen_msmf_ct_filters[$i]' OR "; 
+            }
+            else if($i==count($chosen_msmf_ct_filters)-1)
+            {
+                $msmf_ct_args .= "file_data.response_content_types = '$chosen_msmf_ct_filters[$i]')"; 
+            }
+        }
+    }
+
+    if(empty($chosen_msmf_isp_filters) || $chosen_msmf_isp_filters[0]=="All ISPs")
+    {
+            $msmf_isp_args = "user_files.isp IS NOT NULL"; 
+    }
+    else if($chosen_msmf_isp_filters[0]!="All ISPs" && count($chosen_msmf_isp_filters)==1)
+    {
+        $msmf_isp_args = "user_files.isp = '$chosen_msmf_isp_filters[0]'";
+    }
+    else if($chosen_msmf_isp_filters[0]!="All ISPs" && count($chosen_msmf_isp_filters)>1)
+    {
+        for($i=0;$i<count($chosen_msmf_isp_filters);$i++)
+        {
+            if($i==0)
+            {
+                $msmf_isp_args = "(user_files.isp = '$chosen_msmf_isp_filters[$i]' OR "; 
+            }
+            if($i>0 && $i<count($chosen_msmf_isp_filters)-1)
+            {
+                $msmf_isp_args .= "user_files.isp = '$chosen_msmf_isp_filters[$i]' OR "; 
+            }
+            else if($i==count($chosen_msmf_isp_filters)-1)
+            {
+                $msmf_isp_args .= "user_files.isp = '$chosen_msmf_isp_filters[$i]')"; 
+            }
+        }
+    }
+
+    $sql="SELECT COUNT(file_data.response_cache_controls) AS max_stale_number FROM file_data INNER JOIN user_files ON file_data.file_number=user_files.file_number 
+    WHERE $msmf_ct_args AND $msmf_isp_args AND file_data.response_cache_controls LIKE '%max-stale%'";
+    $result = mysqli_query($conn, $sql);
+    if($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            $max_stale_number=$row["max_stale_number"];
+        }
+    }
+
+    $sql="SELECT COUNT(file_data.response_cache_controls) AS min_fresh_number FROM file_data INNER JOIN user_files ON file_data.file_number=user_files.file_number 
+    WHERE $msmf_ct_args AND $msmf_isp_args AND file_data.response_cache_controls LIKE '%min_fresh%'";
+    $result = mysqli_query($conn, $sql);
+    if($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            $min_fresh_number = $row["min_fresh_number"];
+        }
+    }
+
+    $sql="SELECT COUNT(file_data.response_cache_controls) AS msmf_number_of_responses FROM file_data INNER JOIN user_files ON file_data.file_number=user_files.file_number 
+    WHERE $msmf_ct_args AND $msmf_isp_args";
+    $result = mysqli_query($conn, $sql);
+    if($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            $msmf_number_of_responses = $row["msmf_number_of_responses"];
+        }
+    }
+
+    $msmf_data[0] = ($max_stale_number/$msmf_number_of_responses)*100;
+    $msmf_data[0] = number_format((float)$msmf_data[0],2,'.','');
+    $msmf_data[1] = ($min_fresh_number/$msmf_number_of_responses)*100;
+    $msmf_data[1] = number_format((float)$msmf_data[1],2,'.','');
+
+    echo json_encode($msmf_data);
+}
+else if($_POST['request'] == "request_cd_data")
+{
+    $cd_data = array();
+    $public_number;
+    $private_number;
+    $no_cache_number;
+    $no_store_number;
+    $cd_number_of_responses;
+    $chosen_cd_ct_filters = json_decode($_POST['chosen_cd_ct_filters'],true);
+    $chosen_cd_isp_filters = json_decode($_POST['chosen_cd_isp_filters'],true);
+
+    if(empty($chosen_cd_ct_filters) || $chosen_cd_ct_filters[0]=="All Content-Types")
+    {
+            $cd_ct_args = "file_data.response_content_types IS NOT NULL"; 
+    }
+    else if($chosen_cd_ct_filters[0]!="All Content-Types" && count($chosen_cd_ct_filters)==1)
+    {
+        $cd_ct_args = "file_data.response_content_types = '$chosen_cd_ct_filters[0]'";
+    }
+    else if($chosen_cd_ct_filters[0]!="All Content-Types" && count($chosen_cd_ct_filters)>1)
+    {
+        for($i=0;$i<count($chosen_cd_ct_filters);$i++)
+        {
+            if($i==0)
+            {
+                $cd_ct_args = "(file_data.response_content_types = '$chosen_cd_ct_filters[$i]' OR "; 
+            }
+            if($i>0 && $i<count($chosen_cd_ct_filters)-1)
+            {
+                $cd_ct_args .= "file_data.response_content_types = '$chosen_cd_ct_filters[$i]' OR "; 
+            }
+            else if($i==count($chosen_cd_ct_filters)-1)
+            {
+                $cd_ct_args .= "file_data.response_content_types = '$chosen_cd_ct_filters[$i]')"; 
+            }
+        }
+    }
+
+    if(empty($chosen_cd_isp_filters) || $chosen_cd_isp_filters[0]=="All ISPs")
+    {
+            $cd_isp_args = "user_files.isp IS NOT NULL"; 
+    }
+    else if($chosen_cd_isp_filters[0]!="All ISPs" && count($chosen_cd_isp_filters)==1)
+    {
+        $cd_isp_args = "user_files.isp = '$chosen_cd_isp_filters[0]'";
+    }
+    else if($chosen_cd_isp_filters[0]!="All ISPs" && count($chosen_cd_isp_filters)>1)
+    {
+        for($i=0;$i<count($chosen_cd_isp_filters);$i++)
+        {
+            if($i==0)
+            {
+                $cd_isp_args = "(user_files.isp = '$chosen_cd_isp_filters[$i]' OR "; 
+            }
+            if($i>0 && $i<count($chosen_cd_isp_filters)-1)
+            {
+                $cd_isp_args .= "user_files.isp = '$chosen_cd_isp_filters[$i]' OR "; 
+            }
+            else if($i==count($chosen_cd_isp_filters)-1)
+            {
+                $cd_isp_args .= "user_files.isp = '$chosen_cd_isp_filters[$i]')"; 
+            }
+        }
+    }
+
+    $sql="SELECT COUNT(file_data.response_cache_controls) AS public_number FROM file_data INNER JOIN user_files ON file_data.file_number=user_files.file_number 
+    WHERE $cd_ct_args AND $cd_isp_args AND file_data.response_cache_controls LIKE '%public%'";
+    $result = mysqli_query($conn, $sql);
+    if($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            $public_number=$row["public_number"];
+        }
+    }
+
+    $sql="SELECT COUNT(file_data.response_cache_controls) AS private_number FROM file_data INNER JOIN user_files ON file_data.file_number=user_files.file_number 
+    WHERE $cd_ct_args AND $cd_isp_args AND file_data.response_cache_controls LIKE '%private%'";
+    $result = mysqli_query($conn, $sql);
+    if($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            $private_number = $row["private_number"];
+        }
+    }
+
+    $sql="SELECT COUNT(file_data.response_cache_controls) AS no_cache_number FROM file_data INNER JOIN user_files ON file_data.file_number=user_files.file_number 
+    WHERE $cd_ct_args AND $cd_isp_args AND file_data.response_cache_controls LIKE '%no-cache%'";
+    $result = mysqli_query($conn, $sql);
+    if($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            $no_cache_number=$row["no_cache_number"];
+        }
+    }
+
+    $sql="SELECT COUNT(file_data.response_cache_controls) AS no_store_number FROM file_data INNER JOIN user_files ON file_data.file_number=user_files.file_number 
+    WHERE $cd_ct_args AND $cd_isp_args AND file_data.response_cache_controls LIKE '%no-store%'";
+    $result = mysqli_query($conn, $sql);
+    if($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            $no_store_number = $row["no_store_number"];
+        }
+    }
+
+    $sql="SELECT COUNT(file_data.response_cache_controls) AS cd_number_of_responses FROM file_data INNER JOIN user_files ON file_data.file_number=user_files.file_number 
+    WHERE $cd_ct_args AND $cd_isp_args";
+    $result = mysqli_query($conn, $sql);
+    if($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            $cd_number_of_responses = $row["cd_number_of_responses"];
+        }
+    }
+
+    $cd_data[0] = ($public_number/$cd_number_of_responses)*100;
+    $cd_data[0] = number_format((float)$cd_data[0],2,'.','');
+    $cd_data[1] = ($private_number/$cd_number_of_responses)*100;
+    $cd_data[1] = number_format((float)$cd_data[1],2,'.','');
+    $cd_data[2] = ($no_cache_number/$cd_number_of_responses)*100;
+    $cd_data[2] = number_format((float)$cd_data[2],2,'.','');
+    $cd_data[3] = ($no_store_number/$cd_number_of_responses)*100;
+    $cd_data[3] = number_format((float)$cd_data[3],2,'.','');
+
+    echo json_encode($cd_data);
+}
 if($_POST['request'] == "request_role")
 {
     if($_SESSION["role"] == "admin")
