@@ -14,7 +14,7 @@ let opt_content;
 let opt_filter = [];
 let el_status = [];
 let el_content = [];
-let el_filter = [[], [], [], [], []];
+let el_filter = [[], [], [], [], [], [], [], [], []];
 let hasChild_status = false;
 let hasChild_content = false;
 let color_array = [];
@@ -31,6 +31,10 @@ let chosen_http_filters = [];
 let chosen_isp_filters = [];
 let chosen_ttl_ct_filters = [];
 let chosen_ha_isp_filters = [];
+let chosen_msmf_ct_filters = [];
+let chosen_msmf_isp_filters = [];
+let chosen_cd_ct_filters = [];
+let chosen_cd_isp_filters = [];
 
 palette("tol-sq", 12).map(function (hex) {
   color_array.push("#" + hex);
@@ -726,6 +730,204 @@ function display_check(event) {
           });
         },
       });
+    } else if (event.target.value === "MSMF Content-Type") {
+      document.getElementById("msmf-ct-filter-wrapper").style.display = "block";
+      select_filter[5] = document.getElementById("msmf-ct-filter");
+
+      $.ajax({
+        type: "POST",
+        url: "collect_data.php",
+        data: {
+          request: "request_content_type_info",
+          request_type: "content_type",
+        },
+        success: function (res) {
+          options_filter[5] = [];
+          options_filter[5] = JSON.parse(res);
+          for (let i = 0; i < options_filter[5].length; i++) {
+            opt_filter[5] = options_filter[5][i];
+            el_filter[5].push(document.createElement("option"));
+            el_filter[5][i].textContent = opt_filter[5];
+            el_filter[5][i].value = opt_filter[5];
+            select_filter[5].appendChild(el_filter[5][i]);
+          }
+          $("#msmf-ct-filter").multiSelect({
+            afterSelect: function (values) {
+              if (values[0] === "All Content-Types") {
+                for (let i = 0; i < options_filter[5].length; i++) {
+                  $("#msmf-ct-filter").multiSelect("deselect", options_filter[5][i]);
+                }
+                chosen_msmf_ct_filters = [];
+                chosen_msmf_ct_filters.push(values[0]);
+              }
+              if (values[0] !== "All Content-Types") {
+                $("#msmf-ct-filter").multiSelect("deselect", ["All Content-Types"]);
+                if (chosen_msmf_ct_filters[0] === "All Content-Types") {
+                  chosen_msmf_ct_filters.shift();
+                }
+                chosen_msmf_ct_filters.push(values[0]);
+              }
+              fill_table("msmf");
+            },
+            afterDeselect: function (values) {
+              for (let i = 0; i < chosen_msmf_ct_filters.length; i++) {
+                if (values[0] === chosen_msmf_ct_filters[i]) {
+                  chosen_msmf_ct_filters.splice(i, 1);
+                }
+              }
+              fill_table("msmf");
+            },
+          });
+        },
+      });
+    } else if (event.target.value === "MSMF ISP") {
+      document.getElementById("msmf-isp-filter-wrapper").style.display = "block";
+      select_filter[6] = document.getElementById("msmf-isp-filter");
+
+      $.ajax({
+        type: "POST",
+        url: "collect_data.php",
+        data: {
+          request: "request_distinct_isps",
+        },
+        success: function (res) {
+          options_filter[6] = [];
+          options_filter[6] = JSON.parse(res);
+          for (let i = 0; i < options_filter[6].length; i++) {
+            opt_filter[6] = options_filter[6][i];
+            el_filter[6].push(document.createElement("option"));
+            el_filter[6][i].textContent = opt_filter[6];
+            el_filter[6][i].value = opt_filter[6];
+            select_filter[6].appendChild(el_filter[6][i]);
+          }
+          $("#msmf-isp-filter").multiSelect({
+            afterSelect: function (values) {
+              if (values[0] === "All ISPs") {
+                for (let i = 0; i < options_filter[6].length; i++) {
+                  $("#msmf-isp-filter").multiSelect("deselect", options_filter[6][i]);
+                }
+                chosen_msmf_isp_filters = [];
+                chosen_msmf_isp_filters.push(values[0]);
+              }
+              if (values[0] !== "All ISPs") {
+                $("#msmf-isp-filter").multiSelect("deselect", ["All ISPs"]);
+                if (chosen_msmf_isp_filters[0] === "All ISPs") {
+                  chosen_msmf_isp_filters.shift();
+                }
+                chosen_msmf_isp_filters.push(values[0]);
+              }
+              fill_table("msmf");
+            },
+            afterDeselect: function (values) {
+              for (let i = 0; i < chosen_msmf_isp_filters.length; i++) {
+                if (values[0] === chosen_msmf_isp_filters[i]) {
+                  chosen_msmf_isp_filters.splice(i, 1);
+                }
+              }
+              fill_table("msmf");
+            },
+          });
+        },
+      });
+    } else if (event.target.value === "CD Content-Type") {
+      document.getElementById("cd-ct-filter-wrapper").style.display = "block";
+      select_filter[7] = document.getElementById("cd-ct-filter");
+
+      $.ajax({
+        type: "POST",
+        url: "collect_data.php",
+        data: {
+          request: "request_content_type_info",
+          request_type: "content_type",
+        },
+        success: function (res) {
+          options_filter[7] = [];
+          options_filter[7] = JSON.parse(res);
+          for (let i = 0; i < options_filter[7].length; i++) {
+            opt_filter[7] = options_filter[7][i];
+            el_filter[7].push(document.createElement("option"));
+            el_filter[7][i].textContent = opt_filter[7];
+            el_filter[7][i].value = opt_filter[7];
+            select_filter[7].appendChild(el_filter[7][i]);
+          }
+          $("#cd-ct-filter").multiSelect({
+            afterSelect: function (values) {
+              if (values[0] === "All Content-Types") {
+                for (let i = 0; i < options_filter[7].length; i++) {
+                  $("#cd-ct-filter").multiSelect("deselect", options_filter[7][i]);
+                }
+                chosen_cd_ct_filters = [];
+                chosen_cd_ct_filters.push(values[0]);
+              }
+              if (values[0] !== "All Content-Types") {
+                $("#cd-ct-filter").multiSelect("deselect", ["All Content-Types"]);
+                if (chosen_cd_ct_filters[0] === "All Content-Types") {
+                  chosen_cd_ct_filters.shift();
+                }
+                chosen_cd_ct_filters.push(values[0]);
+              }
+              fill_table("cd");
+            },
+            afterDeselect: function (values) {
+              for (let i = 0; i < chosen_cd_ct_filters.length; i++) {
+                if (values[0] === chosen_cd_ct_filters[i]) {
+                  chosen_cd_ct_filters.splice(i, 1);
+                }
+              }
+              fill_table("cd");
+            },
+          });
+        },
+      });
+    } else if (event.target.value === "CD ISP") {
+      document.getElementById("cd-isp-filter-wrapper").style.display = "block";
+      select_filter[8] = document.getElementById("cd-isp-filter");
+
+      $.ajax({
+        type: "POST",
+        url: "collect_data.php",
+        data: {
+          request: "request_distinct_isps",
+        },
+        success: function (res) {
+          options_filter[8] = [];
+          options_filter[8] = JSON.parse(res);
+          for (let i = 0; i < options_filter[8].length; i++) {
+            opt_filter[8] = options_filter[8][i];
+            el_filter[8].push(document.createElement("option"));
+            el_filter[8][i].textContent = opt_filter[8];
+            el_filter[8][i].value = opt_filter[8];
+            select_filter[8].appendChild(el_filter[8][i]);
+          }
+          $("#cd-isp-filter").multiSelect({
+            afterSelect: function (values) {
+              if (values[0] === "All ISPs") {
+                for (let i = 0; i < options_filter[8].length; i++) {
+                  $("#cd-isp-filter").multiSelect("deselect", options_filter[8][i]);
+                }
+                chosen_cd_isp_filters = [];
+                chosen_cd_isp_filters.push(values[0]);
+              }
+              if (values[0] !== "All ISPs") {
+                $("#cd-isp-filter").multiSelect("deselect", ["All ISPs"]);
+                if (chosen_cd_isp_filters[0] === "All ISPs") {
+                  chosen_cd_isp_filters.shift();
+                }
+                chosen_cd_isp_filters.push(values[0]);
+              }
+              fill_table("cd");
+            },
+            afterDeselect: function (values) {
+              for (let i = 0; i < chosen_cd_isp_filters.length; i++) {
+                if (values[0] === chosen_cd_isp_filters[i]) {
+                  chosen_cd_isp_filters.splice(i, 1);
+                }
+              }
+              fill_table("cd");
+            },
+          });
+        },
+      });
     }
   } else if (!event.target.checked) {
     if (event.target.value === "Content-Type") {
@@ -740,6 +942,14 @@ function display_check(event) {
       document.getElementById("ttl-ct-filter-wrapper").style.display = "none";
     } else if (event.target.value === "HA ISP") {
       document.getElementById("ha-isp-filter-wrapper").style.display = "none";
+    } else if (event.target.value === "MSMF Content-Type") {
+      document.getElementById("msmf-ct-filter-wrapper").style.display = "none";
+    } else if (event.target.value === "MSMF ISP") {
+      document.getElementById("msmf-isp-filter-wrapper").style.display = "none";
+    } else if (event.target.value === "CD Content-Type") {
+      document.getElementById("cd-ct-filter-wrapper").style.display = "none";
+    } else if (event.target.value === "CD ISP") {
+      document.getElementById("cd-isp-filter-wrapper").style.display = "none";
     }
   }
 }
@@ -1246,6 +1456,40 @@ function draw_chart(chart_type) {
             },
           },
         });
+      },
+    });
+  }
+}
+
+function fill_table(table_type) {
+  if (table_type === "msmf") {
+    $.ajax({
+      type: "POST",
+      url: "collect_data.php",
+      data: {
+        request: "request_msmf_data",
+        chosen_msmf_ct_filters: JSON.stringify(chosen_msmf_ct_filters),
+        chosen_msmf_isp_filters: JSON.stringify(chosen_msmf_isp_filters),
+      },
+      success: function (res) {
+        document.getElementById("msd").innerHTML = JSON.parse(res)[0] + "%";
+        document.getElementById("mfd").innerHTML = JSON.parse(res)[1] + "%";
+      },
+    });
+  } else if (table_type === "cd") {
+    $.ajax({
+      type: "POST",
+      url: "collect_data.php",
+      data: {
+        request: "request_cd_data",
+        chosen_cd_ct_filters: JSON.stringify(chosen_cd_ct_filters),
+        chosen_cd_isp_filters: JSON.stringify(chosen_cd_isp_filters),
+      },
+      success: function (res) {
+        document.getElementById("pud").innerHTML = JSON.parse(res)[0] + "%";
+        document.getElementById("prd").innerHTML = JSON.parse(res)[1] + "%";
+        document.getElementById("ncd").innerHTML = JSON.parse(res)[2] + "%";
+        document.getElementById("nsd").innerHTML = JSON.parse(res)[3] + "%";
       },
     });
   }
