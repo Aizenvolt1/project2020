@@ -540,10 +540,17 @@ else if($_POST['request'] == "request_msmf_data")
         }
     }
 
-    $msmf_data[0] = ($max_stale_number/$msmf_number_of_responses)*100;
-    $msmf_data[0] = number_format((float)$msmf_data[0],2,'.','');
-    $msmf_data[1] = ($min_fresh_number/$msmf_number_of_responses)*100;
-    $msmf_data[1] = number_format((float)$msmf_data[1],2,'.','');
+    if($msmf_number_of_responses>0)
+    {
+        $msmf_data[0] = ($max_stale_number/$msmf_number_of_responses)*100;
+        $msmf_data[0] = number_format((float)$msmf_data[0],2,'.','') . "%";
+        $msmf_data[1] = ($min_fresh_number/$msmf_number_of_responses)*100;
+        $msmf_data[1] = number_format((float)$msmf_data[1],2,'.','') . "%";
+    }
+    else {
+        $msmf_data[0] = "-";
+        $msmf_data[1] = "-";
+    }
 
     echo json_encode($msmf_data);
 }
@@ -657,14 +664,23 @@ else if($_POST['request'] == "request_cd_data")
         }
     }
 
+    if($cd_number_of_responses>0)
+    {
     $cd_data[0] = ($public_number/$cd_number_of_responses)*100;
-    $cd_data[0] = number_format((float)$cd_data[0],2,'.','');
+    $cd_data[0] = number_format((float)$cd_data[0],2,'.','') . "%";
     $cd_data[1] = ($private_number/$cd_number_of_responses)*100;
-    $cd_data[1] = number_format((float)$cd_data[1],2,'.','');
+    $cd_data[1] = number_format((float)$cd_data[1],2,'.','') . "%";
     $cd_data[2] = ($no_cache_number/$cd_number_of_responses)*100;
-    $cd_data[2] = number_format((float)$cd_data[2],2,'.','');
+    $cd_data[2] = number_format((float)$cd_data[2],2,'.','') . "%";
     $cd_data[3] = ($no_store_number/$cd_number_of_responses)*100;
-    $cd_data[3] = number_format((float)$cd_data[3],2,'.','');
+    $cd_data[3] = number_format((float)$cd_data[3],2,'.','') . "%";
+    }
+    else {
+        $cd_data[0] = "-";
+        $cd_data[1] = "-";
+        $cd_data[2] = "-";
+        $cd_data[3] = "-";
+    }
 
     echo json_encode($cd_data);
 }
