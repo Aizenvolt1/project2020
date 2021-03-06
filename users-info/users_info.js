@@ -1490,7 +1490,6 @@ function fill_table(table_type) {
         document.getElementById("prd").innerHTML = JSON.parse(res)[1];
         document.getElementById("ncd").innerHTML = JSON.parse(res)[2];
         document.getElementById("nsd").innerHTML = JSON.parse(res)[3];
-        console.log(res);
       },
     });
   }
