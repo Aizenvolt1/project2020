@@ -1472,8 +1472,8 @@ function fill_table(table_type) {
         chosen_msmf_isp_filters: JSON.stringify(chosen_msmf_isp_filters),
       },
       success: function (res) {
-        document.getElementById("msd").innerHTML = JSON.parse(res)[0] + "%";
-        document.getElementById("mfd").innerHTML = JSON.parse(res)[1] + "%";
+        document.getElementById("msd").innerHTML = JSON.parse(res)[0];
+        document.getElementById("mfd").innerHTML = JSON.parse(res)[1];
       },
     });
   } else if (table_type === "cd") {
@@ -1486,10 +1486,11 @@ function fill_table(table_type) {
         chosen_cd_isp_filters: JSON.stringify(chosen_cd_isp_filters),
       },
       success: function (res) {
-        document.getElementById("pud").innerHTML = JSON.parse(res)[0] + "%";
-        document.getElementById("prd").innerHTML = JSON.parse(res)[1] + "%";
-        document.getElementById("ncd").innerHTML = JSON.parse(res)[2] + "%";
-        document.getElementById("nsd").innerHTML = JSON.parse(res)[3] + "%";
+        document.getElementById("pud").innerHTML = JSON.parse(res)[0];
+        document.getElementById("prd").innerHTML = JSON.parse(res)[1];
+        document.getElementById("ncd").innerHTML = JSON.parse(res)[2];
+        document.getElementById("nsd").innerHTML = JSON.parse(res)[3];
+        console.log(res);
       },
     });
   }
