@@ -60,6 +60,7 @@ else
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="http://cdn.jsdelivr.net/g/filesaver.js"></script>
         <script src="./file-processing/uploads.js"></script>
+        <script src=https://cdnjs.cloudflare.com/ajax/libs/psl/1.8.0/psl.min.js></script>
         <button class="open-button" onclick="openForm()" type="button" id="sbmBtn" disabled>Submit Files</button>
         <script>
             document.getElementById("upldBtn").addEventListener("click", enableButton);
