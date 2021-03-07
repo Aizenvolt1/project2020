@@ -38,7 +38,7 @@ for($i=0;$i<count($startedDateTimes);$i++)
 $mergedData = array();
 for($i=0;$i<count($startedDateTimes);$i++)
 {
-$mergedData[$i]=array($file_number[$i], $startedDateTimes[$i],$timings_wait[$i], $serverIPAddresses[$i],$request_method[$i],$request_url[$i][0],$request_content_type[$i], 
+$mergedData[$i]=array($file_number[$i], $startedDateTimes[$i],$timings_wait[$i], $serverIPAddresses[$i],$request_method[$i],$request_url[$i],$request_content_type[$i], 
 $request_cache_control[$i],$request_pragma[$i],$request_expires[$i],$request_age[$i],
 $request_last_modified[$i],$request_host[$i],$response_status[$i]
 ,$response_statusText[$i],$response_content_type[$i],

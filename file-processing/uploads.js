@@ -165,6 +165,7 @@ function passtoArray(files, name_of_element, array_of_element) {
               array_of_element.push(null);
             } else {
               array_of_element.push(fileContents.log.entries[j].request.url.match(/(?<=\/\/)(.*?)(?=\/|$)/g));
+              array_of_element[j] = psl.parse(String(array_of_element[j])).domain;
             }
             if (typeof array_of_element[j] === "undefined") {
               array_of_element[j] = null;
@@ -489,7 +490,6 @@ function passtoArray(files, name_of_element, array_of_element) {
                 array_of_element.push(null);
               }
             }
-            //fileContents.log.entries[j].request.url.match(/(?<=\/\/)(.*?)(?=\/|$)/g);
             resolve();
             break;
           case "response_cache_control":
@@ -854,6 +854,7 @@ function Remove_File_Properties(files) {
               fileContents.log.entries[i].request[x] == null;
             } else {
               fileContents.log.entries[i].request[x] = fileContents.log.entries[i].request[x].match(/(?<=\/\/)(.*?)(?=\/|$)/g);
+              fileContents.log.entries[i].request[x] = psl.parse(String(fileContents.log.entries[i].request[x])).domain;
             }
             if (typeof fileContents.log.entries[i].request[x] === "undefined") {
               fileContents.log.entries[i].request[x] == null;
