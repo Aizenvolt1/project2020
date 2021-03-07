@@ -1033,7 +1033,7 @@ function datatoPHP() {
           },
           success: function (res) {
             if (i === file.length - 1) {
-              //location.reload();
+              location.reload();
             }
           },
         });
