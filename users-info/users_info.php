@@ -26,13 +26,11 @@ require_once "../config.php";
     <link rel="stylesheet" type="text/css" href="./users_info.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel = "stylesheet" href = "http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css"/>
-    <script src = "http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
-    <script src = "https://cdn.jsdelivr.net/npm/heatmapjs@2.0.2/heatmap.js"></script>
-    <script src = "https://cdn.jsdelivr.net/npm/leaflet-heatmap@1.0.0/leaflet-heatmap.js"></script>
     <script src = "https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script> 
     <script src = " https://cdnjs.cloudflare.com/ajax/libs/google-palette/1.1.0/palette.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/multi-select/0.9.12/js/jquery.multi-select.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/multi-select/0.9.12/css/multi-select.css">
+    <script src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js"></script>
+    <script src="https://elfalem.github.io/Leaflet.curve/src/leaflet.curve.js"></script>
 </head>
 <style>
 
@@ -206,13 +204,14 @@ p{
             </div>
             <div id = "ResponseTimeAnalysis">
                 <h2>Filters</h2>
-                <input type="checkbox" name="rt-filter" value="Content-Type">Content-Type<br>
+                <ul class="ulrta1">
+                <li class="rta1"><input type="checkbox" name="rt-filter" value="Content-Type">Content-Type<br>
                 <div id="ct-filter-wrapper">
                     <select multiple="multiple" id="ct-filter">
                         <option>All Content-Types</option>
                     </select>
-                </div>
-                <input type="checkbox" name="rt-filter" value="Day of the Week Chart">Day of the Week<br>
+                </div></li>
+                <li class="rta1"><input type="checkbox" name="rt-filter" value="Day of the Week Chart">Day of the Week<br>
                 <div id="dotw-filter-wrapper">
                     <select multiple="multiple" id="dotw-filter">
                         <option>All Days</option>
@@ -224,20 +223,23 @@ p{
                         <option>Saturday</option>
                         <option>Sunday</option>
                     </select>
-                </div>
-                <input type="checkbox" name="rt-filter" value="HTTP Method">HTTP Method<br>
+                </div></li>
+                </ul>
+                <ul class="ulrta2">
+                <li class="rta2"><input type="checkbox" name="rt-filter" value="HTTP Method">HTTP Method<br>
                 <div id="http-filter-wrapper">
                     <select multiple="multiple" id="http-filter">
                         <option>All HTTP Methods</option>
                     </select>
-                </div>
-                <input type="checkbox" name="rt-filter" value="ISP">ISP<br>
+                </div></li>
+                <li class="rta2"><input type="checkbox" name="rt-filter" value="ISP">ISP<br>
                 <div id="isp-filter-wrapper">
                     <select multiple="multiple" id="isp-filter">
                         <option>All ISPs</option>
                     </select>
-                </div>
+                </div></li>
                 <canvas id = "rtaChart" width="700" height="400"></canvas>
+                </ul>
             </div>
             <div id = "HeaderAnalysis">
                 <input type="checkbox" name="rt-filter" value="TTL Content-Type">Content-Type<br>
