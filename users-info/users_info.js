@@ -1185,7 +1185,7 @@ function HeaderAnalysis() {
 
 //This function runs when Show Map is selected from Side Menu
 function showMap() {
-  if (document.getElementById("showMap").style.display !== "block") {
+  if (document.getElementById("map").style.display !== "block") {
     if (hasChild_status === true) {
       for (let i = 0; i < options_status.length; i++) {
         select_status.removeChild(el_status[i]);
@@ -1222,9 +1222,9 @@ function showMap() {
 
 // Creating map options
 async function make_map() {
-  await set_coordinates();
+  //await set_coordinates();
   // Creating a map object
-  var map = new L.map("map", { center: [coordinates[0], coordinates[1]], zoom: 10 });
+  /*var map = new L.map("map", { center: [coordinates[0], coordinates[1]], zoom: 10 });
 
   // Creating a Layer object
   var layer = new L.TileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png");
@@ -1253,7 +1253,42 @@ async function make_map() {
   };
   let heatmapLayer = new HeatmapOverlay(cfg);
   map.addLayer(heatmapLayer);
-  heatmapLayer.setData(testData);
+  heatmapLayer.setData(testData);*/
+  var map = L.map("map").setView([51.505, -10], 1);
+
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  }).addTo(map);
+
+  var latlngs = [];
+
+  var latlng1 = [23.634501, -102.552783],
+    latlng2 = [17.987557, -92.929147];
+
+  var offsetX = latlng2[1] - latlng1[1],
+    offsetY = latlng2[0] - latlng1[0];
+
+  var r = Math.sqrt(Math.pow(offsetX, 2) + Math.pow(offsetY, 2)),
+    theta = Math.atan2(offsetY, offsetX);
+
+  var thetaOffset = 3.14 / 10;
+
+  var r2 = r / 2 / Math.cos(thetaOffset),
+    theta2 = theta + thetaOffset;
+
+  var midpointX = r2 * Math.cos(theta2) + latlng1[1],
+    midpointY = r2 * Math.sin(theta2) + latlng1[0];
+
+  var midpointLatLng = [midpointY, midpointX];
+
+  latlngs.push(latlng1, midpointLatLng, latlng2);
+
+  var pathOptions = {
+    color: "red",
+    weight: 3,
+  };
+
+  var curvedPath = L.curve(["M", latlng1, "Q", midpointLatLng, latlng2], pathOptions).addTo(map);
 }
 
 make_map();
