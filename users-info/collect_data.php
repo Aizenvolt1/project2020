@@ -117,83 +117,6 @@ else if($_POST['request'] == "request_content_type_info")
         }
     }
 }
-else if($_POST['request'] == "request_time_analysis")
-{
-    /*$first_date_array = array();
-    $second_date_array = array();
-    $first_date;
-    $second_date;
-    $avg_time = array();
-    for($i = 0; $i < 24; $i++)
-    {   
-        $first_date = date("$i:00:00");
-        $second_date = date("$i:59:59");
-        array_push($first_date_array,$first_date);
-        array_push($second_date_array,$second_date);
-    }
-    for($i = 0; $i < 24; $i++)
-    {
-        $sql="SELECT AVG(timings_wait) as avg_time FROM file_data WHERE cast(started_date_times as time) 
-        BETWEEN '$first_date_array[$i]' AND '$second_date_array[$i]'";
-        $result = mysqli_query($conn, $sql);
-        if($result->num_rows > 0) {
-            while($row = $result->fetch_assoc()) {
-                array_push($avg_time,$row["avg_time"]);
-            }
-        }
-    }
-    echo json_encode($avg_time);*/
-}
-else if($_POST['request'] == "request_isp_chart")
-{
-    /*$chart_data = array();
-    $isps_array = array();
-    $first_date_array = array();
-    $second_date_array = array();
-    $first_date;
-    $second_date;
-    $avg_time = array();
-
-    $sql = "SELECT DISTINCT(isp) as isp FROM user_files WHERE isp IS NOT NULL";
-    $result = mysqli_query($conn, $sql);
-    if($result->num_rows > 0) {
-        while($row = $result->fetch_assoc()) {
-            array_push($isps_array,$row["isp"]);
-        }
-    }
-
-    for($i = 0; $i < 24; $i++)
-    {   
-        $first_date = date("$i:00:00");
-        $second_date = date("$i:59:59");
-        array_push($first_date_array,$first_date);
-        array_push($second_date_array,$second_date);
-    }
-
-    for($i = 0; $i < count($isps_array); $i++)
-    {
-        for($j = 0; $j < 24; $j++)
-        {
-            $sql="SELECT AVG(file_data.timings_wait) as avg_time FROM file_data 
-            INNER JOIN user_files ON file_data.file_number=user_files.file_number 
-            WHERE cast(file_data.started_date_times as time) 
-            BETWEEN '$first_date_array[$j]' AND '$second_date_array[$j]' AND user_files.isp='$isps_array[$i]'";
-            $result = mysqli_query($conn, $sql);
-            if($result->num_rows > 0) {
-                while($row = $result->fetch_assoc()) {
-                    array_push($avg_time,$row["avg_time"]);
-                }
-            }
-        }
-        if($i<count($isps_array)-1)
-        {
-            array_push($avg_time,"+");
-        }
-    }
-    array_push($isps_array,"//");
-    $chart_data=array_merge($isps_array,$avg_time);
-    echo json_encode($chart_data);*/
-}
 else if($_POST['request'] == "request_distinct_isps")
 {
     $distinct_isps = array();
@@ -683,6 +606,29 @@ else if($_POST['request'] == "request_cd_data")
     }
 
     echo json_encode($cd_data);
+}
+else if($_POST['request'] == "request_server_ips")
+{
+    $locations = array();
+    $sql="SELECT file_data.server_latitude AS server_latitude, file_data.server_longitude AS server_longitude, 
+    user_files.city_latitude AS user_location_latitude, user_files.city_longitude AS user_location_longitude, 
+    COUNT(*) AS number_of_appearances FROM file_data INNER JOIN user_files 
+    ON file_data.file_number=user_files.file_number WHERE file_data.server_latitude IS NOT NULL 
+    AND file_data.server_longitude IS NOT NULL AND user_files.city_latitude IS NOT NULL 
+    AND user_files.city_longitude IS NOT NULL AND user_files.user_id!=1 
+    GROUP BY file_data.server_latitude,file_data.server_longitude,user_files.city_latitude,
+    user_files.city_longitude";
+
+    $result = mysqli_query($conn, $sql);
+    if($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            $tmp = array($row["user_location_latitude"], $row["user_location_longitude"],
+            $row["server_latitude"],$row["server_longitude"],$row["number_of_appearances"]
+        );
+            array_push($locations,$tmp);
+        }
+    }
+    echo json_encode($locations);
 }
 if($_POST['request'] == "request_role")
 {

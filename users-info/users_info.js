@@ -52,20 +52,26 @@ room.addEventListener("click", (e) => {
 });
 
 //Setting starting map coordinates
-let coordinates = [2];
 function set_coordinates() {
   return new Promise((resolve, reject) => {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
-      if (this.readyState == 4 && this.status == 200) {
-        const [latitude, longitude] = this.responseText.split("+");
-        coordinates[0] = parseFloat(latitude);
-        coordinates[1] = parseFloat(longitude);
-        resolve();
-      }
-    };
-    xhttp.open("POST", "map.php?q=", true);
-    xhttp.send();
+    $.ajax({
+      type: "POST",
+      url: "collect_data.php",
+      data: {
+        request: "request_server_ips",
+      },
+      success: function (res) {
+        let data_from_server = JSON.parse(res);
+        for (let i = 0; i < data_from_server.length; i++) {
+          data_from_server[i][0] = parseFloat(data_from_server[i][0]);
+          data_from_server[i][1] = parseFloat(data_from_server[i][1]);
+          data_from_server[i][2] = parseFloat(data_from_server[i][2]);
+          data_from_server[i][3] = parseFloat(data_from_server[i][3]);
+          data_from_server[i][4] = parseInt(data_from_server[i][4]);
+        }
+        resolve(data_from_server);
+      },
+    });
   });
 }
 
@@ -1047,73 +1053,64 @@ function showMap() {
 
 // Creating map options
 async function make_map() {
-  //await set_coordinates();
-  // Creating a map object
-  /*var map = new L.map("map", { center: [coordinates[0], coordinates[1]], zoom: 10 });
+  let map_data = await set_coordinates();
+  let max_count;
+  for (let i = 0; i < map_data.length; i++) {
+    if (i === 0) {
+      max_count = map_data[i][4];
+    } else if (i > 0 && map_data[i][4] > max_count) {
+      max_count = map_data[i][4];
+    }
+  }
+  function normalize(enteredValue, minEntry, maxEntry, normalizedMin, normalizedMax) {
+    var mx = (enteredValue - minEntry) / (maxEntry - minEntry);
+    var preshiftNormalized = mx * (normalizedMax - normalizedMin);
+    var shiftedNormalized = preshiftNormalized + normalizedMin;
 
-  // Creating a Layer object
-  var layer = new L.TileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png");
+    return shiftedNormalized;
+  }
 
-  // Adding layer to the map
-  map.addLayer(layer);
+  var red_icon = new L.Icon({
+    iconUrl: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png",
+    shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png",
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41],
+  });
 
-  let testData = {
-    max: 8,
-    data: [
-      { lat: 38.246242, lng: 21.735085, count: 3 },
-      { lat: 38.323343, lng: 21.865082, count: 2 },
-      { lat: 38.34381, lng: 21.57074, count: 8 },
-      { lat: 38.108628, lng: 21.502075, count: 7 },
-      { lat: 38.123034, lng: 21.917725, count: 4 },
-    ],
-  };
-  let cfg = {
-    radius: 40,
-    maxOpacity: 0.8,
-    scaleRadius: false,
-    useLocalExtrema: false,
-    latField: "lat",
-    lngField: "lng",
-    valueField: "count",
-  };
-  let heatmapLayer = new HeatmapOverlay(cfg);
-  map.addLayer(heatmapLayer);
-  heatmapLayer.setData(testData);*/
   var map = L.map("map").setView([51.505, -10], 1);
 
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   }).addTo(map);
+  var curvedPath = [];
+  var marker = [];
+  for (let i = 0; i < map_data.length; i++) {
+    marker[i] = L.marker([map_data[i][0], map_data[i][1]], { icon: red_icon, title: hello }).addTo(map);
+    marker[i + 1] = L.marker([map_data[i][2], map_data[i][3]]).addTo(map);
+    var offsetX = map_data[i][3] - map_data[i][1],
+      offsetY = map_data[i][2] - map_data[i][0];
 
-  var latlngs = [];
+    var r = Math.sqrt(Math.pow(offsetX, 2) + Math.pow(offsetY, 2)),
+      theta = Math.atan2(offsetY, offsetX);
 
-  var latlng1 = [23.634501, -102.552783],
-    latlng2 = [17.987557, -92.929147];
+    var thetaOffset = 3.14 / 10;
 
-  var offsetX = latlng2[1] - latlng1[1],
-    offsetY = latlng2[0] - latlng1[0];
+    var r2 = r / 2 / Math.cos(thetaOffset),
+      theta2 = theta + thetaOffset;
 
-  var r = Math.sqrt(Math.pow(offsetX, 2) + Math.pow(offsetY, 2)),
-    theta = Math.atan2(offsetY, offsetX);
+    var midpointX = r2 * Math.cos(theta2) + map_data[i][1],
+      midpointY = r2 * Math.sin(theta2) + map_data[i][0];
 
-  var thetaOffset = 3.14 / 10;
+    var midpointLatLng = [midpointY, midpointX];
+    var pathOptions = {
+      color: "#023047",
+      weight: normalize(map_data[i][4], 1, max_count, 1, 7),
+    };
 
-  var r2 = r / 2 / Math.cos(thetaOffset),
-    theta2 = theta + thetaOffset;
-
-  var midpointX = r2 * Math.cos(theta2) + latlng1[1],
-    midpointY = r2 * Math.sin(theta2) + latlng1[0];
-
-  var midpointLatLng = [midpointY, midpointX];
-
-  latlngs.push(latlng1, midpointLatLng, latlng2);
-
-  var pathOptions = {
-    color: "red",
-    weight: 3,
-  };
-
-  var curvedPath = L.curve(["M", latlng1, "Q", midpointLatLng, latlng2], pathOptions).addTo(map);
+    curvedPath[i] = L.curve(["M", [map_data[i][0], map_data[i][1]], "Q", midpointLatLng, [map_data[i][2], map_data[i][3]]], pathOptions).addTo(map);
+  }
 }
 
 make_map();
