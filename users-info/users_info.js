@@ -1087,7 +1087,7 @@ async function make_map() {
   var curvedPath = [];
   var marker = [];
   for (let i = 0; i < map_data.length; i++) {
-    marker[i] = L.marker([map_data[i][0], map_data[i][1]], { icon: red_icon, title: hello }).addTo(map);
+    marker[i] = L.marker([map_data[i][0], map_data[i][1]], { icon: red_icon }).addTo(map);
     marker[i + 1] = L.marker([map_data[i][2], map_data[i][3]]).addTo(map);
     var offsetX = map_data[i][3] - map_data[i][1],
       offsetY = map_data[i][2] - map_data[i][0];
