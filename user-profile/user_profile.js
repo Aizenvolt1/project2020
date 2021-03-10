@@ -11,13 +11,13 @@ room.addEventListener("click", (e) => {
   });
 });
 
-function set_coordinates(data_from_server) {
+function set_coordinates() {
   return new Promise((resolve, reject) => {
     $.ajax({
       type: "POST",
       url: "map.php",
       success: function (res) {
-        data_from_server = JSON.parse(res);
+        let data_from_server = JSON.parse(res);
         for (let i = 0; i < data_from_server.length; i++) {
           data_from_server[i].lat = parseFloat(data_from_server[i].lat);
           data_from_server[i].lng = parseFloat(data_from_server[i].lng);
@@ -128,9 +128,8 @@ function password_check() {
 // Creating map options
 async function make_map() {
   let coordinates = [2];
-  let data_from_server;
   let max_count;
-  let map_data = await set_coordinates(data_from_server);
+  let map_data = await set_coordinates();
   for (let i = 0; i < map_data.length; i++) {
     if (i === 0) {
       max_count = map_data[i].count;
