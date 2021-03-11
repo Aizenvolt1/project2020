@@ -37,6 +37,7 @@ else if($_POST['request'] == "request_method_statistics")
         }
     }
 }
+//This is for Response Status Statistics data.
 else if($_POST['request'] == "request_number_of_response_statuses")
 {
     if($_POST['request_type'] == "element")
@@ -64,6 +65,7 @@ else if($_POST['request'] == "request_number_of_response_statuses")
         }
     }
 }
+//This is for Unique Domains data.
 else if($_POST['request'] == "request_number_of_unique_domains")
 {
     $sql="SELECT COUNT(DISTINCT request_urls) AS unique_urls FROM file_data";
@@ -74,6 +76,7 @@ else if($_POST['request'] == "request_number_of_unique_domains")
         }
     }
 }
+//This is for Unique ISPs data.
 else if($_POST['request'] == "request_number_of_unique_isps")
 {
     $sql="SELECT COUNT(DISTINCT isp) AS unique_isp FROM user_files";
@@ -84,6 +87,7 @@ else if($_POST['request'] == "request_number_of_unique_isps")
         }
     }
 }
+//This is for Average Age of Content-Types data.
 else if($_POST['request'] == "request_content_type_info")
 {
     if($_POST['request_type'] == "content_type")
@@ -117,6 +121,7 @@ else if($_POST['request'] == "request_content_type_info")
         }
     }
 }
+//This is to get the names of the user's ISPs.
 else if($_POST['request'] == "request_distinct_isps")
 {
     $distinct_isps = array();
@@ -129,6 +134,7 @@ else if($_POST['request'] == "request_distinct_isps")
     }
     echo json_encode($distinct_isps);
 }
+//This is to get the distinct request_methods.
 else if($_POST['request'] == "request_distinct_http_methods")
 {
     $distinct_http_methods = array();
@@ -141,6 +147,7 @@ else if($_POST['request'] == "request_distinct_http_methods")
     }
     echo json_encode($distinct_http_methods);
 }
+//This is to get the filtered data for Response Time Analysis.
 else if($_POST['request'] == "request_filtered_data")
 {
     $avg_time = array();
@@ -291,6 +298,7 @@ else if($_POST['request'] == "request_filtered_data")
     }
     echo json_encode($avg_time);
 }
+//This is for HTTP Header Analysis and more specificly its for the histogram data.
 else if($_POST['request'] == "request_histogram_data")
 {
     $max_ages = array();
@@ -373,6 +381,7 @@ else if($_POST['request'] == "request_histogram_data")
     }
     echo json_encode($max_ages);
 }
+//This is for the max-stal, min-fresh data.
 else if($_POST['request'] == "request_msmf_data")
 {
     $msmf_data = array();
@@ -477,6 +486,7 @@ else if($_POST['request'] == "request_msmf_data")
 
     echo json_encode($msmf_data);
 }
+//This is for the Cacheability Directive table data.
 else if($_POST['request'] == "request_cd_data")
 {
     $cd_data = array();
@@ -607,6 +617,7 @@ else if($_POST['request'] == "request_cd_data")
 
     echo json_encode($cd_data);
 }
+//This is for the administrator map.
 else if($_POST['request'] == "request_server_ips")
 {
     $locations = array();
@@ -630,6 +641,7 @@ else if($_POST['request'] == "request_server_ips")
     }
     echo json_encode($locations);
 }
+//This is to block content if the person that logged in has a user role.
 if($_POST['request'] == "request_role")
 {
     if($_SESSION["role"] == "admin")

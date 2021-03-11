@@ -1,7 +1,6 @@
 <?php
 session_start();
 require_once "../config.php";
-$url=null;
 
 $startedDateTimes = json_decode($_POST['startedDateTimes'],true);
 $timings_wait = json_decode($_POST['timings_wait'],true);
@@ -45,6 +44,7 @@ $request_last_modified[$i],$request_host[$i],$response_status[$i]
 $response_cache_control[$i],$response_pragma[$i], $response_expires[$i], $response_age[$i]
 , $response_last_modified[$i],$response_host[$i],$server_latitude[$i],$server_longitude[$i]);
 }
+//This loop is used to add all the data from the arrays into a single variable and then use it in the sql command.
 for($i=0;$i<count($mergedData);$i++)
 {
   if($i==0)

@@ -1,6 +1,6 @@
 "use strict";
 
-//Dilono tous pinakes pou that balo ta dedomena ton har sti sunexeia
+//Declaring arrays that will containt har file data.
 let startedDateTimes = [];
 let timings_wait = [];
 let serverIPAddresses = [];
@@ -33,7 +33,7 @@ let isp = [];
 let file = [];
 let fileList;
 let input_type = 0;
-//This is for when the user clicks Upload File
+//This is for when the user clicks Upload File.
 const fileInput = document.getElementById("input");
 const button = document.querySelector("button");
 button.onclick = () => {
@@ -68,7 +68,7 @@ dropArea.addEventListener("dragover", (event) => {
   event.dataTransfer.dropEffect = "copy";
 });
 
-//I idia diadikasia pou ekana sto fileInput.onchange
+//Same process like fileIput.onchange but for files that were dropped in the specified area.
 dropArea.addEventListener("drop", (event) => {
   input_type = 2;
   event.stopPropagation();
@@ -84,6 +84,7 @@ dropArea.addEventListener("drop", (event) => {
   proccessed_dropped_file();
 });
 
+//This function is used to pass a specified data type from the har file to a specificied array.
 function passtoArray(files, name_of_element, array_of_element) {
   return new Promise((resolve, reject) => {
     let fileReader = new FileReader();
@@ -802,7 +803,7 @@ function passtoArray(files, name_of_element, array_of_element) {
   });
 }
 
-//H parakato sunartisi afairei ta dedomena pou de xreiazontai apo ta arxeia pou anebazei o xristis.
+//This function is used to prepare the processed file if the user chooses to download it locally.
 function Remove_File_Properties(files) {
   return new Promise((resolve, reject) => {
     let fileReader = new FileReader();
@@ -938,20 +939,12 @@ function Remove_File_Properties(files) {
       }
       dow_files.push(fileContents);
       filenames.push(files.name);
-      fetch("https://ipapi.co/json/")
-        .then(function (response) {
-          return response.json();
-        })
-        .then(function (data) {
-          city_latitude.push(data.latitude);
-          city_longitude.push(data.longitude);
-          isp.push(data.org);
-        });
       resolve();
     };
   });
 }
 
+//This function is used to download all the processed files.
 function downloadLoop() {
   for (let k = 0; k < filenames.length; k++) {
     downloadFile(k);
@@ -968,10 +961,20 @@ function downloadFile(i) {
 }
 
 function datatoPHP() {
+  //This is used to get the users city location and isp.
+  fetch("https://ipapi.co/json/")
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      city_latitude.push(data.latitude);
+      city_longitude.push(data.longitude);
+      isp.push(data.org);
+    });
   if (input_type === 1) {
     async function proccessing_data() {
-      //Kalo ti sunartisi pou dimiourgisa h opoia pairnei san eisodo to pinaka me ola ta files, to onoma ton dedomenon pou
-      //theloume na parei apo to har file kai telos ton pinaka pou tha balei auta ta dedomena
+      //This loop runs as many times as the files that were uploaded and in each cycle the data from a har
+      //file is extracted and put into specified arrays depending on the data type.
       for (let i = 0; i < file.length; i++) {
         await passtoArray(file[i], "startedDateTime", startedDateTimes);
         await passtoArray(file[i], "serverIPAddress", serverIPAddresses);
@@ -1065,6 +1068,7 @@ function datatoPHP() {
     proccessing_data();
   } else if (input_type === 2) {
     async function proccessing_drop_data() {
+      //Same process as before but for dragged and dropped data.
       for (let i = 0; i < fileList.length; i++) {
         await passtoArray(fileList[i], "startedDateTime", startedDateTimes);
         await passtoArray(fileList[i], "serverIPAddress", serverIPAddresses);
@@ -1160,6 +1164,7 @@ function datatoPHP() {
   }
 }
 
+//This functions is used to get the server locations for each serverIPAddress
 function get_server_locations(pos) {
   return new Promise((resolve, reject) => {
     if (serverIPAddresses[pos] != null) {
