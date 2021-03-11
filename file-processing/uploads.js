@@ -939,15 +939,6 @@ function Remove_File_Properties(files) {
       }
       dow_files.push(fileContents);
       filenames.push(files.name);
-      fetch("https://ipapi.co/json/")
-        .then(function (response) {
-          return response.json();
-        })
-        .then(function (data) {
-          city_latitude.push(data.latitude);
-          city_longitude.push(data.longitude);
-          isp.push(data.org);
-        });
       resolve();
     };
   });
@@ -970,6 +961,16 @@ function downloadFile(i) {
 }
 
 function datatoPHP() {
+  //This is used to get the users city location and isp.
+  fetch("https://ipapi.co/json/")
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      city_latitude.push(data.latitude);
+      city_longitude.push(data.longitude);
+      isp.push(data.org);
+    });
   if (input_type === 1) {
     async function proccessing_data() {
       //This loop runs as many times as the files that were uploaded and in each cycle the data from a har
