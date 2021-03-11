@@ -1,7 +1,6 @@
 <?php
 session_start();
 require_once "../config.php";
-$url=null;
 
 $startedDateTimes = json_decode($_POST['startedDateTimes'],true);
 $timings_wait = json_decode($_POST['timings_wait'],true);
