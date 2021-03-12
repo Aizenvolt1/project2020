@@ -159,25 +159,28 @@ select::-webkit-scrollbar {
   overflow-y: auto;
 }
 
-.ulrta1,
-.ulrta2 {
+.ulrta {
   list-style-type: none;
   margin: 0;
   padding: 0;
+  float: left;
   display: inline;
+}
+
+.rta1 {
   float: left;
 }
 
-.rta1,
 .rta2 {
   float: left;
+  margin-left: 50px;
 }
 
 .ms-container {
   background: url("../images/switch.png") no-repeat;
-  background-size: 20px;
-  background-position: 50% 50%;
-  height: 200px;
+  background-size: 16px;
+  background-position: 52.8% 50%;
+  height: 202px;
 }
 
 .ms-container:after {
@@ -219,6 +222,8 @@ select::-webkit-scrollbar {
   padding: 0;
   overflow-y: auto;
   background-color: gold;
+  width: 183.15px;
+  height: 202px;
 }
 
 .ms-container .ms-list.ms-focus {
@@ -271,4 +276,9 @@ select::-webkit-scrollbar {
   background-color: #eee;
   color: #aaa;
   cursor: text;
+}
+
+#ResponseTimeAnalysis {
+  text-align: left;
+  margin-left: 5%;
 }
