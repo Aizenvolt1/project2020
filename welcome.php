@@ -88,8 +88,9 @@ else
         </div>
         </div>
         <div id="loader">Loading...</div>
+        <div id="uploading"></div>
+        <div id="overlay"></div>
         <script>
-
         $.ajax({
             type: "POST",
             url: "./users-info/collect_data.php",

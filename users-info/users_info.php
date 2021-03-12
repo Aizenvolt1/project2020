@@ -208,42 +208,45 @@ p{
             </div>
             <div id = "ResponseTimeAnalysis">
                 <h2>Filters</h2>
-                <ul class="ulrta1">
-                <li class="rta1"><input type="checkbox" name="rt-filter" value="Content-Type">Content-Type<br>
-                <div id="ct-filter-wrapper">
-                    <select multiple="multiple" id="ct-filter">
-                        <option>All Content-Types</option>
-                    </select>
-                </div></li>
-                <li class="rta1"><input type="checkbox" name="rt-filter" value="Day of the Week Chart">Day of the Week<br>
-                <div id="dotw-filter-wrapper">
-                    <select multiple="multiple" id="dotw-filter">
-                        <option>All Days</option>
-                        <option>Monday</option>
-                        <option>Tuesday</option>
-                        <option>Wednesday</option>
-                        <option>Thursday</option>
-                        <option>Friday</option>
-                        <option>Saturday</option>
-                        <option>Sunday</option>
-                    </select>
-                </div></li>
-                </ul>
-                <ul class="ulrta2">
-                <li class="rta2"><input type="checkbox" name="rt-filter" value="HTTP Method">HTTP Method<br>
-                <div id="http-filter-wrapper">
-                    <select multiple="multiple" id="http-filter">
-                        <option>All HTTP Methods</option>
-                    </select>
-                </div></li>
-                <li class="rta2"><input type="checkbox" name="rt-filter" value="ISP">ISP<br>
-                <div id="isp-filter-wrapper">
-                    <select multiple="multiple" id="isp-filter">
-                        <option>All ISPs</option>
-                    </select>
-                </div></li>
-                <canvas id = "rtaChart" width="700" height="400"></canvas>
-                </ul>
+                    <ul class="ulrta">
+                        <li class="rta1">
+                            <input type="checkbox" name="rt-filter" value="Content-Type">Content-Type<br>
+                                <div id="ct-filter-wrapper">
+                                    <select multiple="multiple" id="ct-filter">
+                                        <option>All Content-Types</option>
+                                    </select>
+                                </div>
+                                <br>
+                            <input type="checkbox" name="rt-filter" value="Day of the Week Chart">Day of the Week<br>
+                                <div id="dotw-filter-wrapper">
+                                    <select multiple="multiple" id="dotw-filter">
+                                        <option>All Days</option>
+                                        <option>Monday</option>
+                                        <option>Tuesday</option>
+                                        <option>Wednesday</option>
+                                        <option>Thursday</option>
+                                        <option>Friday</option>
+                                        <option>Saturday</option>
+                                        <option>Sunday</option>
+                                    </select>
+                                </div>
+                        </li>
+                        <li class="rta2"><input type="checkbox" name="rt-filter" value="HTTP Method">HTTP Method<br>
+                            <div id="http-filter-wrapper">
+                                <select multiple="multiple" id="http-filter">
+                                    <option>All HTTP Methods</option>
+                                </select>
+                            </div>
+                            <br>
+                            <input type="checkbox" name="rt-filter" value="ISP">ISP<br>
+                                <div id="isp-filter-wrapper">
+                                    <select multiple="multiple" id="isp-filter">
+                                        <option>All ISPs</option>
+                                    </select>
+                                </div>
+                        </li>
+                        <canvas id = "rtaChart" width="700" height="400"></canvas>
+                    </ul>
             </div>
             <div id = "HeaderAnalysis">
                 <input type="checkbox" name="rt-filter" value="TTL Content-Type">Content-Type<br>
