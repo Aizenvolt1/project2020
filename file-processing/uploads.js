@@ -1041,7 +1041,6 @@ function datatoPHP() {
           if (i === file.length - 1) {
             if (input_type[1] === 1) {
               proccessing_drop_data();
-              //location.reload();
             } else if (input_type[1] === 0) {
               location.reload();
             }
@@ -1137,7 +1136,6 @@ function datatoPHP() {
         },
         success: function (res) {
           if (i === fileList.length - 1) {
-            console.log("hello");
             location.reload();
           }
         },
