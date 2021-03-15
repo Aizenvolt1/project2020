@@ -161,9 +161,13 @@ else if($_POST['request'] == "request_filtered_data")
     $first_date;
     $second_date;
 
-    if(empty($chosen_ct_filters) || $chosen_ct_filters[0]=="All Content-Types")
+    if(empty($chosen_ct_filters))
     {
-            $ct_args = "file_data.response_content_types IS NOT NULL"; 
+        $ct_args = "1=1"; 
+    }
+    else if($chosen_ct_filters[0]=="All Content-Types")
+    {
+        $ct_args = "file_data.response_content_types IS NOT NULL"; 
     }
     else if($chosen_ct_filters[0]!="All Content-Types" && count($chosen_ct_filters)==1)
     {
@@ -188,9 +192,13 @@ else if($_POST['request'] == "request_filtered_data")
         }
     }
 
-    if(empty($chosen_dotw_filters) || $chosen_dotw_filters[0]=="All Days")
+    if(empty($chosen_dotw_filters))
     {
-            $dotw_args = "WEEKDAY(file_data.started_date_times) IS NOT NULL"; 
+        $dotw_args = "1=1"; 
+    }
+    else if($chosen_dotw_filters[0]=="All Days")
+    {
+        $dotw_args = "WEEKDAY(file_data.started_date_times) IS NOT NULL"; 
     }
     else if($chosen_dotw_filters[0]!="All Days" && count($chosen_dotw_filters)==1)
     {
@@ -219,9 +227,13 @@ else if($_POST['request'] == "request_filtered_data")
         }
     }
 
-    if(empty($chosen_http_filters) || $chosen_http_filters[0]=="All HTTP Methods")
+    if(empty($chosen_http_filters))
     {
-            $http_args = "file_data.request_methods IS NOT NULL"; 
+        $http_args = "1=1";
+    }
+    else if($chosen_http_filters[0]=="All HTTP Methods")
+    {
+        $http_args = "file_data.request_methods IS NOT NULL"; 
     }
     else if($chosen_http_filters[0]!="All HTTP Methods" && count($chosen_http_filters)==1)
     {
@@ -246,9 +258,13 @@ else if($_POST['request'] == "request_filtered_data")
         }
     }
 
-    if(empty($chosen_isp_filters) || $chosen_isp_filters[0]=="All ISPs")
+    if(empty($chosen_isp_filters))
     {
-            $isp_args = "user_files.isp IS NOT NULL"; 
+        $isp_args = "1=1"; 
+    }
+    else if($chosen_isp_filters[0]=="All ISPs")
+    {
+        $isp_args = "user_files.isp IS NOT NULL"; 
     }
     else if($chosen_isp_filters[0]!="All ISPs" && count($chosen_isp_filters)==1)
     {
@@ -306,9 +322,13 @@ else if($_POST['request'] == "request_histogram_data")
     $chosen_ttl_ct_filters = json_decode($_POST['chosen_ttl_ct_filters'],true);
     $chosen_ha_isp_filters = json_decode($_POST['chosen_ha_isp_filters'],true);
 
-    if(empty($chosen_ttl_ct_filters) || $chosen_ttl_ct_filters[0]=="All Content-Types")
+    if(empty($chosen_ttl_ct_filters))
     {
-            $ttl_ct_args = "file_data.response_content_types IS NOT NULL"; 
+        $ttl_ct_args = "1=1";
+    }
+    else if($chosen_ttl_ct_filters[0]=="All Content-Types")
+    {
+        $ttl_ct_args = "file_data.response_content_types IS NOT NULL"; 
     }
     else if($chosen_ttl_ct_filters[0]!="All Content-Types" && count($chosen_ttl_ct_filters)==1)
     {
@@ -333,9 +353,13 @@ else if($_POST['request'] == "request_histogram_data")
         }
     }
 
-    if(empty($chosen_ha_isp_filters) || $chosen_ha_isp_filters[0]=="All ISPs")
+    if(empty($chosen_ha_isp_filters))
     {
-            $ha_isp_args = "user_files.isp IS NOT NULL"; 
+        $ha_isp_args = "1=1"; 
+    }
+    else if($chosen_ha_isp_filters[0]=="All ISPs")
+    {
+        $ha_isp_args = "user_files.isp IS NOT NULL"; 
     }
     else if($chosen_ha_isp_filters[0]!="All ISPs" && count($chosen_ha_isp_filters)==1)
     {
@@ -391,9 +415,13 @@ else if($_POST['request'] == "request_msmf_data")
     $chosen_msmf_ct_filters = json_decode($_POST['chosen_msmf_ct_filters'],true);
     $chosen_msmf_isp_filters = json_decode($_POST['chosen_msmf_isp_filters'],true);
 
-    if(empty($chosen_msmf_ct_filters) || $chosen_msmf_ct_filters[0]=="All Content-Types")
+    if(empty($chosen_msmf_ct_filters))
     {
-            $msmf_ct_args = "file_data.response_content_types IS NOT NULL"; 
+        $msmf_ct_args = "1=1";
+    }
+    else if($chosen_msmf_ct_filters[0]=="All Content-Types")
+    {
+        $msmf_ct_args = "file_data.response_content_types IS NOT NULL"; 
     }
     else if($chosen_msmf_ct_filters[0]!="All Content-Types" && count($chosen_msmf_ct_filters)==1)
     {
@@ -418,9 +446,13 @@ else if($_POST['request'] == "request_msmf_data")
         }
     }
 
-    if(empty($chosen_msmf_isp_filters) || $chosen_msmf_isp_filters[0]=="All ISPs")
+    if(empty($chosen_msmf_isp_filters))
     {
-            $msmf_isp_args = "user_files.isp IS NOT NULL"; 
+        $msmf_isp_args = "1=1"; 
+    }
+    else if($chosen_msmf_isp_filters[0]=="All ISPs")
+    {
+        $msmf_isp_args = "user_files.isp IS NOT NULL"; 
     }
     else if($chosen_msmf_isp_filters[0]!="All ISPs" && count($chosen_msmf_isp_filters)==1)
     {
@@ -498,9 +530,13 @@ else if($_POST['request'] == "request_cd_data")
     $chosen_cd_ct_filters = json_decode($_POST['chosen_cd_ct_filters'],true);
     $chosen_cd_isp_filters = json_decode($_POST['chosen_cd_isp_filters'],true);
 
-    if(empty($chosen_cd_ct_filters) || $chosen_cd_ct_filters[0]=="All Content-Types")
+    if(empty($chosen_cd_ct_filters))
     {
-            $cd_ct_args = "file_data.response_content_types IS NOT NULL"; 
+        $cd_ct_args = "1=1";
+    }
+    else if($chosen_cd_ct_filters[0]=="All Content-Types")
+    {
+        $cd_ct_args = "file_data.response_content_types IS NOT NULL"; 
     }
     else if($chosen_cd_ct_filters[0]!="All Content-Types" && count($chosen_cd_ct_filters)==1)
     {
@@ -525,9 +561,13 @@ else if($_POST['request'] == "request_cd_data")
         }
     }
 
-    if(empty($chosen_cd_isp_filters) || $chosen_cd_isp_filters[0]=="All ISPs")
+    if(empty($chosen_cd_isp_filters))
     {
-            $cd_isp_args = "user_files.isp IS NOT NULL"; 
+        $cd_isp_args = "1=1";
+    }
+    else if($chosen_cd_isp_filters[0]=="All ISPs")
+    {
+        $cd_isp_args = "user_files.isp IS NOT NULL"; 
     }
     else if($chosen_cd_isp_filters[0]!="All ISPs" && count($chosen_cd_isp_filters)==1)
     {
