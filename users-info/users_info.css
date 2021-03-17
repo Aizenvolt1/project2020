@@ -213,7 +213,7 @@ select::-webkit-scrollbar {
   -ms-transition: border linear 0.2s, box-shadow linear 0.2s;
   -o-transition: border linear 0.2s, box-shadow linear 0.2s;
   transition: border linear 0.2s, box-shadow linear 0.2s;
-  border: 1px solid #ccc;
+  border: 1px solid #6d6c6c;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
@@ -221,9 +221,11 @@ select::-webkit-scrollbar {
   height: 200px;
   padding: 0;
   overflow-y: auto;
-  background-color: gold;
+  background-color: #051830;
   width: 183.15px;
   height: 202px;
+  scrollbar-width: thin; /* "auto" or "thin" */
+  scrollbar-color: #646464 #333; /* scroll thumb and track */
 }
 
 .ms-container .ms-list.ms-focus {
@@ -259,14 +261,14 @@ select::-webkit-scrollbar {
 .ms-container .ms-selection li.ms-elem-selection {
   border-bottom: 1px #eee solid;
   padding: 2px 10px;
-  color: #555;
+  color: #c00;
   font-size: 14px;
 }
 
 .ms-container .ms-selectable li.ms-hover,
 .ms-container .ms-selection li.ms-hover {
   cursor: pointer;
-  color: #fff;
+  color: #000;
   text-decoration: none;
   background-color: #08c;
 }
@@ -281,4 +283,22 @@ select::-webkit-scrollbar {
 #ResponseTimeAnalysis {
   text-align: left;
   margin-left: 5%;
+}
+
+body::-webkit-scrollbar {
+  width: 12px; /* width of the entire scrollbar */
+}
+
+body::-webkit-scrollbar-track {
+  background: #333; /* color of the tracking area */
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #646464; /* color of the scroll thumb */
+  border-radius: 20px; /* roundness of the scroll thumb */
+  border: 3px solid #333; /* creates padding around scroll thumb */
+}
+
+#rtaChart {
+  padding-top: 10%;
 }
