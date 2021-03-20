@@ -29,13 +29,15 @@
 }
 
 #ResponseTimeAnalysis {
-  text-align: left;
   display: none;
+  text-align: left;
+  margin-left: 5%;
 }
 
 #HeaderAnalysis {
   text-align: left;
   display: none;
+  margin-left: 5%;
 }
 
 #ct-filter-wrapper {
@@ -90,6 +92,12 @@
 
 #map {
   visibility: hidden;
+}
+
+#content-table {
+  margin-top: 3%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .nav_btn {
@@ -278,11 +286,6 @@ select::-webkit-scrollbar {
   background-color: #eee;
   color: #aaa;
   cursor: text;
-}
-
-#ResponseTimeAnalysis {
-  text-align: left;
-  margin-left: 5%;
 }
 
 body::-webkit-scrollbar {

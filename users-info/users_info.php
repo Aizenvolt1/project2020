@@ -249,31 +249,49 @@ p{
                     </ul>
             </div>
             <div id = "HeaderAnalysis">
-                <input type="checkbox" name="rt-filter" value="TTL Content-Type">Content-Type<br>
-                <div id="ttl-ct-filter-wrapper">
-                    <select multiple="multiple" id="ttl-ct-filter">
-                        <option>All Content-Types</option>
-                    </select>
-                </div>
-                <input type="checkbox" name="rt-filter" value="HA ISP">ISP<br>
-                <div id="ha-isp-filter-wrapper">
-                    <select multiple="multiple" id="ha-isp-filter">
-                        <option>All ISPs</option>
-                    </select>
-                </div>
-                <canvas id = "haChart" width="700" height="400"></canvas>
-                <input type="checkbox" name="rt-filter" value="MSMF Content-Type">Content-Type<br>
-                <div id="msmf-ct-filter-wrapper">
-                    <select multiple="multiple" id="msmf-ct-filter">
-                        <option>All Content-Types</option>
-                    </select>
-                </div>
-                <input type="checkbox" name="rt-filter" value="MSMF ISP">ISP<br>
-                <div id="msmf-isp-filter-wrapper">
-                    <select multiple="multiple" id="msmf-isp-filter">
-                        <option>All ISPs</option>
-                    </select>
-                </div>
+                <ul class="ulrta">
+                    <li class="rta1">
+                        <input type="checkbox" name="rt-filter" value="TTL Content-Type">Content-Type<br>
+                            <div id="ttl-ct-filter-wrapper">
+                                <div style="margin-top:8%"></div>
+                                <select multiple="multiple" id="ttl-ct-filter">
+                                    <option>All Content-Types</option>
+                                </select>
+                            </div>
+                    </li>
+                    <li class="rta2">
+                        <input type="checkbox" name="rt-filter" value="HA ISP">ISP<br>
+                            <div id="ha-isp-filter-wrapper">
+                                <div style="margin-top:8%"></div>
+                                <select multiple="multiple" id="ha-isp-filter">
+                                    <option>All ISPs</option>
+                                </select>
+                            </div>
+                    </li>
+                    <canvas id = "haChart" width="700" height="400" style="margin-top:30%"></canvas>
+                    <div style="margin-top:8%"></div>
+                </ul>
+                <ul class="ulrta">
+                    <li class="rta1">
+                        <input type="checkbox" name="rt-filter" value="MSMF Content-Type">Content-Type<br>
+                            <div id="msmf-ct-filter-wrapper">
+                                <div style="margin-top:8%"></div>
+                                <select multiple="multiple" id="msmf-ct-filter">
+                                    <option>All Content-Types</option>
+                                </select>
+                            </div>
+                    </li>
+                    <li class="rta2">
+                        <input type="checkbox" name="rt-filter" value="MSMF ISP">ISP<br>
+                            <div id="msmf-isp-filter-wrapper">
+                                <div style="margin-top:8%"></div>
+                                <select multiple="multiple" id="msmf-isp-filter">
+                                    <option>All ISPs</option>
+                                </select>
+                            </div>
+                    </li>
+                </ul>
+                <br style="clear:both">
                 <table id="content-table">
                     <thead>
                         <tr> 
@@ -292,18 +310,28 @@ p{
                         </tr>
                     </tbody>
                 </table>
-                <input type="checkbox" name="rt-filter" value="CD Content-Type">Content-Type<br>
-                <div id="cd-ct-filter-wrapper">
-                    <select multiple="multiple" id="cd-ct-filter">
-                        <option>All Content-Types</option>
-                    </select>
-                </div>
-                <input type="checkbox" name="rt-filter" value="CD ISP">ISP<br>
-                <div id="cd-isp-filter-wrapper">
-                    <select multiple="multiple" id="cd-isp-filter">
-                        <option>All ISPs</option>
-                    </select>
-                </div>
+                <div style="margin-top:8%"></div>
+                <ul class="ulrta">
+                    <li class="rta1">
+                        <input type="checkbox" name="rt-filter" value="CD Content-Type">Content-Type<br>
+                            <div id="cd-ct-filter-wrapper">
+                                <div style="margin-top:8%"></div>
+                                <select multiple="multiple" id="cd-ct-filter">
+                                    <option>All Content-Types</option>
+                                </select>
+                            </div>
+                    </li>
+                    <li class="rta2">
+                        <input type="checkbox" name="rt-filter" value="CD ISP">ISP<br>
+                            <div id="cd-isp-filter-wrapper">
+                                <div style="margin-top:8%"></div>
+                                <select multiple="multiple" id="cd-isp-filter">
+                                    <option>All ISPs</option>
+                                </select>
+                            </div>
+                    </li>
+                </ul>
+                <br style="clear:both">
                 <table id="content-table">
                     <thead>
                         <tr> 
