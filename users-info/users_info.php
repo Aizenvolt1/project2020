@@ -71,7 +71,7 @@ p{
                 <button class="nav_btn" id="aa" onclick="AverageAgeOfContent()">Average Age of Content-Types</button>
                 <button class="nav_btn" id="rta" onclick="ResponseTimeAnalysis()">Response Time Analysis</button>
                 <button class="nav_btn" id="hha" onclick="HeaderAnalysis()">HTTP Header Analysis</button>
-                <button class="nav_btn" id="sm" onclick="showMap()">Show Map</button>
+                <button class="nav_btn" id="sm" onclick="showMap()">HTTP Request Locations of Users</button>
             </div>
         <div class="flex-container">
             <div id = "map" style = "width: 850px; height: 470px"></div>

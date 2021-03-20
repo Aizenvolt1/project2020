@@ -56,7 +56,7 @@ p{
                 <button class="nav_btn" id="ru" onclick="showResetUsername()">Reset Username</button>
                 <button class="nav_btn" id="rp" onclick="showResetPassword()">Reset Password</button>
                 <button class="nav_btn" id="ss" onclick="showStatistics()">Show Statistics</button>
-                <button class="nav_btn" id="sm" onclick="showMap()">Show Map</button>
+                <button class="nav_btn" id="sm" onclick="showMap()">Your HTTP Request Locations</button>
             </div>
         <div class="flex-container">
             <div id = "map" style = "width: 850px; height: 470px"></div>

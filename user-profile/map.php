@@ -13,7 +13,7 @@ FROM file_data INNER JOIN user_files ON file_data.file_number=user_files.file_nu
 WHERE file_data.server_latitude IS NOT NULL 
 AND file_data.server_longitude IS NOT NULL 
 AND response_content_types LIKE '%text/html%' 
-AND user_files.user_id= $_SESSION[id]
+AND user_files.user_id = $_SESSION[id]
 GROUP BY file_data.server_latitude,file_data.server_longitude";
 
 $result = mysqli_query($conn, $sql);
