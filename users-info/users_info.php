@@ -249,6 +249,7 @@ p{
                     </ul>
             </div>
             <div id = "HeaderAnalysis">
+                <h2>Filters</h2>
                 <ul class="ulrta">
                     <li class="rta1">
                         <input type="checkbox" name="rt-filter" value="TTL Content-Type">Content-Type<br>
@@ -271,6 +272,7 @@ p{
                     <canvas id = "haChart" width="700" height="400" style="margin-top:30%"></canvas>
                     <div style="margin-top:8%"></div>
                 </ul>
+                <h2>Filters</h2>
                 <ul class="ulrta">
                     <li class="rta1">
                         <input type="checkbox" name="rt-filter" value="MSMF Content-Type">Content-Type<br>
@@ -311,6 +313,7 @@ p{
                     </tbody>
                 </table>
                 <div style="margin-top:8%"></div>
+                <h2>Filters</h2>
                 <ul class="ulrta">
                     <li class="rta1">
                         <input type="checkbox" name="rt-filter" value="CD Content-Type">Content-Type<br>
