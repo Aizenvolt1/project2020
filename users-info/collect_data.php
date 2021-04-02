@@ -487,7 +487,7 @@ else if($_POST['request'] == "request_msmf_data")
     }
 
     $sql="SELECT COUNT(file_data.response_cache_controls) AS min_fresh_number FROM file_data INNER JOIN user_files ON file_data.file_number=user_files.file_number 
-    WHERE $msmf_ct_args AND $msmf_isp_args AND file_data.response_cache_controls LIKE '%min_fresh%'";
+    WHERE $msmf_ct_args AND $msmf_isp_args AND file_data.response_cache_controls LIKE '%min-fresh%'";
     $result = mysqli_query($conn, $sql);
     if($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
