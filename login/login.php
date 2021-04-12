@@ -57,7 +57,7 @@ require_once "../config.php";
                 <label class="label-color" style="opacity:0.9;">Password</label>
                 <input type="password" name="password" class="form-control" style="opacity:0.9;">
                 <div class="small-margin" style="opacity:0.9;"> </div>
-                <span id="pass-help"></span>
+                <span id="pass-help" style="opacity:1;"></span>
             </li>
             <li style="opacity:0.9;">
                 <br>
