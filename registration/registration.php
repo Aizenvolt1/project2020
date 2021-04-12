@@ -37,7 +37,7 @@ require_once "../config.php";
 <body class="preload" id="logBody">
     <div class="small-space"></div>
     <form id="reg-form" name="registration-form" class="reg">
-        <div id="login-red-box" style="opacity:0.9;"></div>
+        <div id="login-red-box-reg" style="opacity:0.9;"></div>
         <ul class="flex-login">
             <li style="opacity:0.9;">
                 <h2 style="opacity:0.9;">Register</h2>
