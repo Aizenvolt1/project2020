@@ -314,9 +314,17 @@ hr.solid {
   overflow-y: auto;
 }
 
-#login-red-box {
+#login-red-box-sign {
   width: 4%;
   height: 100%;
+  background-color: #c00;
+  position: absolute;
+  border-radius: 5px 0px 0px 5px;
+}
+
+#login-red-box-reg {
+  width: 4%;
+  height: 105%;
   background-color: #c00;
   position: absolute;
   border-radius: 5px 0px 0px 5px;
