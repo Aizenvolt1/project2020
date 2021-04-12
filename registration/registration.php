@@ -68,7 +68,7 @@ require_once "../config.php";
             <li>
                 <label class="label-color" style="opacity:0.9;">Repeat Password</label>
                 <div class="small-margin" style="opacity:0.9;"> </div>
-                <input type="password" class="form-control" name="password_confirm" style="opacity:0.2;">
+                <input type="password" class="form-control" name="password_confirm" style="opacity:0.9;">
                 <div class="small-margin" style="opacity:0.9;"> </div>
                 <span id="passc-help"></span>
             </li>
