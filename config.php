@@ -2,12 +2,10 @@
 <?php
 
     if ( $_SERVER['REQUEST_METHOD']=='GET' && realpath(__FILE__) == realpath( $_SERVER['SCRIPT_FILENAME'] ) ) {
-        /* 
-           The header to send
-        */
+        /*The header to send*/
         header( 'HTTP/1.0 403 Forbidden', TRUE, 403 );
 
-        /*Here we choose the page to redirect users */
+        /*Here we choose the page to redirect users*/
         die( header( 'location: welcome.php' ) );
 
     }
