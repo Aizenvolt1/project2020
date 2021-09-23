@@ -1179,7 +1179,7 @@ function datatoPHP() {
 function get_server_locations(pos) {
   return new Promise((resolve, reject) => {
     if (serverIPAddresses[pos] != null) {
-      fetch("https://get.geojs.io/v1/ip/geo/" + serverIPAddresses[pos] + ".json")
+      fetch("https://get.geojs.io/v1/ip/geo/" + serverIPAddresses[pos].slice(1, -1) + ".json")
         .then(function (response) {
           return response.json();
         })
