@@ -102,8 +102,8 @@ p{
             <table id="content-table">
             <thead>
             <tr> 
-                <th>Ημερομηνία Τελευταίου Upload</th>
-                <th>Πλήθος Εγγραφών</th>
+                <th>Last Upload Date</th>
+                <th>Number of Entries</th>
                 </tr>
             </thead>
             <tbody>
